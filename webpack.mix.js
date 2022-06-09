@@ -26,6 +26,7 @@ mix.vuetify();
 mix.js("resources/js/vue.js", "public/js")
     .vue()
     .js("resources/js/app.js", "public/js")
+    // .sass("resources/sass/app.sass", "public/css")
     .postCss("resources/css/app.css", "public/css", [
         require("tailwindcss"),
         require("autoprefixer"),

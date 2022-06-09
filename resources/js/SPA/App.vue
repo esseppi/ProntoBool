@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Drawer />
+    <Drawer :user="user" v-if="user" />
     <HeaderApp />
     <v-main>
       <v-container fluid>
@@ -16,9 +16,19 @@ import Drawer from "./components/Drawer.vue";
 
 export default {
   name: "App",
+  data() {
+    return {
+      user: null,
+    };
+  },
   components: {
     HeaderApp,
     Drawer,
+  },
+  mounted() {
+    axios.get("/api/user").then((res) => {
+      this.user = res.data;
+    });
   },
 };
 </script>

@@ -3,18 +3,7 @@
     <v-toolbar-title>ProntoPro</v-toolbar-title>
     <v-spacer></v-spacer>
     <div v-if="user">
-      {{ user.name }} <br />
       <button @click.prevent="logout">Logout</button>
-    </div>
-    <div v-else>
-      <v-btn-toggle v-model="toggle_exclusive" mandatory>
-        <v-btn to="/signIn">
-          <v-icon>mdi-login</v-icon>
-        </v-btn>
-        <v-btn to="/newAccount">
-          <v-icon>mdi-person-plus</v-icon>
-        </v-btn>
-      </v-btn-toggle>
     </div>
   </v-app-bar>
 </template>
@@ -25,8 +14,8 @@ export default {
   name: "HeaderApp",
   data() {
     return {
+      user: "null",
       toggle_exclusive: 1,
-      user: null,
       group: null,
     };
   },
@@ -37,8 +26,8 @@ export default {
   },
   methods: {
     logout() {
-      axios.post("/api/logout").then(() => {
-        return view("/welcome");
+      axios.post("api/logout").then(() => {
+        this.$router.push({ name: "Welcome" });
       });
     },
   },
