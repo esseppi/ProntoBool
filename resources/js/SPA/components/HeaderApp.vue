@@ -14,10 +14,13 @@ export default {
   name: "HeaderApp",
   data() {
     return {
-      user: "null",
+      user: null,
       toggle_exclusive: 1,
       group: null,
     };
+  },
+  props: {
+    user: Object,
   },
   mounted() {
     axios.get("/api/user").then((res) => {
@@ -26,8 +29,11 @@ export default {
   },
   methods: {
     logout() {
-      axios.post("api/logout").then(() => {
-        this.$router.push({ name: "Welcome" });
+      axios.get("/sanctum/csrf-cookie").then((response) => {
+        // Login...
+        axios.post("api/logout").then(() => {
+          this.$router.push({ name: "Welcome" });
+        });
       });
     },
   },
