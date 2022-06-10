@@ -24,6 +24,7 @@ class ProfileSeeder extends Seeder
                 'user_id' => $i,
                 'curriculum' => $faker->url(),
                 'pic' => $faker->url(),
+                'address' => $faker->address(),
                 'phone' => $faker->phoneNumber(),
             ]);
         }

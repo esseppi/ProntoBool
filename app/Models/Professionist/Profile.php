@@ -9,7 +9,7 @@ class Profile extends Model
 {
     use HasFactory;
     protected $primaryKey = 'profile_id';
-    protected $fillable = ['curriculum', 'pic', 'phone', 'profession_id'];
+    protected $fillable = ['curriculum', 'pic', 'phone', 'profession_id', 'address'];
 
     public function professions()
     {

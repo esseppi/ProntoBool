@@ -1,20 +1,9 @@
-<template>
-  <v-app-bar elevation="0" color="#D7E4F3" light app>
-    <v-toolbar-title>ProntoPro</v-toolbar-title>
-    <v-spacer></v-spacer>
-    <div v-if="user">
-      <button @click.prevent="logout">Logout</button>
-    </div>
-    <div v-else>
-      <button>Sei un professionista?</button>
-    </div>
-  </v-app-bar>
-</template>
+<template></template>
 
 
 <script>
 export default {
-  name: "HeaderApp",
+  name: "HeroApp",
   data() {
     return {
       toggle_exclusive: 1,

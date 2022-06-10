@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Profesionist\Profile;
+use App\Models\Professionist\Profile;
 use App\Http\Requests\StoreProfileRequest;
 use App\Http\Requests\UpdateProfileRequest;
 
@@ -36,7 +36,9 @@ class ProfileController extends Controller
      */
     public function store(StoreProfileRequest $request)
     {
-        //
+        $data = $request->all() + ['user_id' => auth()->id()];
+
+        return redirect()->route('profile.index');
     }
 
     /**

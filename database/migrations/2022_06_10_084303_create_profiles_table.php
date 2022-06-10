@@ -19,6 +19,7 @@ class CreateProfilesTable extends Migration
             $table->string('curriculum', 255)->nullable();
             $table->string('pic', 255)->nullable();
             $table->string('phone', 20)->nullable();
+            $table->string('address', 255)->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')

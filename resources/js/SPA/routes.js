@@ -1,6 +1,5 @@
-// import Home from "./pages/Home.vue";
+import Home from "./pages/Home.vue";
 import Settings from "./pages/Settings.vue";
-import Benvenuto from "./pages/Benvenuto.vue";
 import MyDashboard from "./pages/MyDashboard.vue";
 // import Login from "./pages/auth/Login.vue";
 // import Register from "./pages/auth/Register.vue";
@@ -24,11 +23,6 @@ export default {
             path: "/mydashboard",
             name: "MyDashboard",
             component: MyDashboard,
-        },
-        {
-            path: "/benvenuto",
-            name: "benvenuto",
-            component: Benvenuto,
         },
     ],
 };
