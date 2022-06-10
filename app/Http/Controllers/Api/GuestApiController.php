@@ -13,13 +13,14 @@ class GuestApiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $data = Profile::whereRaw('1 = 1');
-
         return response()->json([
-            'status'    => 'success',
-            'balance'  => $data,
+            'status'    => true,
+            'response'  => [
+                'data' => $data->get(),
+            ]
         ]);
     }
 
