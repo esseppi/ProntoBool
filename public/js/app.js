@@ -16,7 +16,7 @@ __webpack_require__.r(__webpack_exports__);
 var flushPending = false;
 var flushing = false;
 var queue = [];
-function scheduler(callback) {
+function scheduler(callback) { 
   queueJob(callback);
 }
 function queueJob(job) {
