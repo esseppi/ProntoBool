@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Professionist\Profile;
-use App\Http\Requests\StoreProfileRequest;
-use App\Http\Requests\UpdateProfileRequest;
+use Illuminate\Http\Request;
 
-class ProfileController extends Controller
+class GuestApiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,12 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return Profile::all();
+        $data = Profile::whereRaw('1 = 1');
+
+        return response()->json([
+            'status'    => 'success',
+            'balance'  => $data,
+        ]);
     }
 
     /**
@@ -31,13 +36,12 @@ class ProfileController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreProfileRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProfileRequest $request)
+    public function store(Request $request)
     {
-        $data = $request->all() + ['user_id' => auth()->id()];
-        return redirect()->route('profile.show');
+        //
     }
 
     /**
@@ -65,11 +69,11 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateProfileRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProfileRequest $request, Profile $profile)
+    public function update(Request $request, Profile $profile)
     {
         //
     }
