@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <Drawer :user="user" v-if="user" />
-    <HeaderApp :user="user" />
+    <HeaderApp />
     <v-main>
       <v-container fluid>
         <router-view></router-view>
