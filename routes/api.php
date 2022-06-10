@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -13,21 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // VUEJS AXIOS API CALLS
-// Route::get('/profiles', [GuestApiController::class, 'index']);
-
-Route::get('/profiles', 'Api\GuestApiController@index');
+Route::get('/profiles', 'App\Http\Controllers\Api\GuestApiController@index');
 
 
-// Route::post('register', 'RegisterController@register');
-Route::get('login', [AuthenticatedSessionController::class, 'create'])
-    ->name('login');
-Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
-    ->name('logout');
-
-
-
-
- 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

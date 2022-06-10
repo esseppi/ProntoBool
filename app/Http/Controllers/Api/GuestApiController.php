@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Professionist\Profile;
-use Illuminate\Http\Request;
 
 class GuestApiController extends Controller
 {
@@ -15,11 +15,13 @@ class GuestApiController extends Controller
      */
     public function index()
     {
-        $data = Profile::whereRaw('1 = 1');
+        $data = Profile::whereRaw('1 = 1')->get();
 
         return response()->json([
             'status'    => 'success',
-            'balance'  => $data,
+            'response'  => [
+                'data' => $data
+            ]
         ]);
     }
 

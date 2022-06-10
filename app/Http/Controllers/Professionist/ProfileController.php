@@ -15,8 +15,14 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return Profile::all();
+        $data = Profile::whereRaw('1 = 1');
+
+        return response()->json([
+            'status'    => 'success',
+            'balance'  => $data,
+        ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
