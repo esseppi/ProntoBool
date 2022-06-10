@@ -10,11 +10,11 @@ export default {
     linkActiveClass: "font-semibold",
 
     routes: [
-        // {
-        //     path: "/home",
-        //     name: "home",
-        //     component: Home,
-        // },
+        {
+            path: "/home",
+            name: "home",
+            component: Home,
+        },
         {
             path: "/settings",
             name: "settings",
