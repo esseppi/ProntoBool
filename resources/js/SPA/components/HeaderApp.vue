@@ -6,7 +6,7 @@
       <button @click.prevent="logout">Logout</button>
     </div>
     <div v-else>
-      <button>Sei un professionista?</button>
+      <button @click.prevent="login">Sei un professionista?</button>
     </div>
   </v-app-bar>
 </template>
@@ -31,9 +31,12 @@ export default {
   },
   methods: {
     logout() {
-      axios.post("api/logout").then(() => {
+      axios.post("auth/logout").then(() => {
         this.$router.push({ name: "Welcome" });
       });
+    },
+    login() {
+      window.location = "/login";
     },
   },
   created() {},

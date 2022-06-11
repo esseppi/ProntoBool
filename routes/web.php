@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Professionist\Profile\ProfileController;
+use App\Http\Controllers\Professionist\Profession\ProfessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +19,9 @@ Route::middleware('auth')
     ->name('professionist.')
     ->prefix('professionist')
     ->group(function () {
-        Route::get('myProfile/edit', 'App\Http\Controllers\Professionist\Profile\ProfileController@edit');
-        Route::resource('myProfile', ProfileController::class);
+        Route::get('profile/edit', 'App\Http\Controllers\Professionist\Profile\ProfileController@edit');
+        Route::resource('professions', ProfessionController::class);
+        Route::resource('profile', ProfileController::class);
     });
 
 
