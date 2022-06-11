@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Professionist;
 
+use Illuminate\Routing\Controller;
 use App\Models\Professionist\Profile;
+use App\Models\Professionist\Profession;
 use App\Http\Requests\StoreProfileRequest;
 use App\Http\Requests\UpdateProfileRequest;
 
@@ -15,8 +17,14 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return Profile::all();
+        $data = Profile::whereRaw('1 = 1');
+
+        return response()->json([
+            'status'    => 'success',
+            'balance'  => $data,
+        ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -25,7 +33,10 @@ class ProfileController extends Controller
      */
     public function create()
     {
-        //
+        $professions = Profession::whereRaw('1=1');
+        return view('professionist.profile.create', [
+            'professions'    => $professions,
+        ]);
     }
 
     /**

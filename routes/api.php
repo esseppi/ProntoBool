@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,9 @@ Route::get('profiles', 'App\Http\Controllers\Api\GuestApiController@index');
 //     ->name('login');
 // Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
 //     ->name('logout');
+Route::get('/profiles', 'App\Http\Controllers\Api\GuestApiController@index');
+
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
