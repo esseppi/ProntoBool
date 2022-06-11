@@ -20,7 +20,6 @@ class UserSeeder extends Seeder
             'name' => 'Saso',
             'email' => 'esseppi@tutanota.com',
             'email_verified_at' => now(),
-            'address' => 'Via Gluck',
             'password' => Hash::make('Ciaociao00'), // password
             'remember_token' => Str::random(10),
         ]);
@@ -28,7 +27,6 @@ class UserSeeder extends Seeder
             'name' => 'Luigi',
             'email' => 'asd@asd.asd',
             'email_verified_at' => now(),
-            'address' => 'Corso Savona 160, Asti 14100',
             'password' => Hash::make('asdasdasd'), // password
             'remember_token' => Str::random(10),
         ]);
@@ -36,7 +34,6 @@ class UserSeeder extends Seeder
             'name' => 'Anthony',
             'email' => 'ciao@ciao.it',
             'email_verified_at' => now(),
-            'address' => 'Via Gluck',
             'password' => Hash::make('Ciaociao00'), // password
             'remember_token' => Str::random(10),
         ]);
@@ -44,7 +41,6 @@ class UserSeeder extends Seeder
             'name' => 'Cristian',
             'email' => 'ciao2@ciao.it',
             'email_verified_at' => now(),
-            'address'  => 'Via Gluck',
             'password' => Hash::make('Ciaociao00'), // password
             'remember_token' => Str::random(10),
         ]);

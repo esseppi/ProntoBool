@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <Drawer :user="user" v-if="user" />
-    <HeaderApp />
+    <HeaderApp :bool="bool" />
     <v-main>
       <v-container fluid>
         <router-view></router-view>
@@ -19,6 +19,7 @@ export default {
   data() {
     return {
       user: null,
+      bool: null,
     };
   },
   components: {
@@ -28,6 +29,11 @@ export default {
   mounted() {
     axios.get("/api/user").then((res) => {
       this.user = res.data;
+      if (this.user) {
+        this.bool = true;
+      } else {
+        this.bool = false;
+      }
     });
   },
 };
