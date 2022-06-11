@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Professionist\Profession;
 
+use App\Http\Controllers\Controller;
 use App\Models\Professionist\Profession;
 use App\Http\Requests\StoreProfessionRequest;
 use App\Http\Requests\UpdateProfessionRequest;
@@ -15,7 +16,10 @@ class ProfessionController extends Controller
      */
     public function index()
     {
-        //
+        $data = Profession::all();
+        return view('professionist.professions.index', [
+            'professions'         => $data,
+        ]);
     }
 
     /**
