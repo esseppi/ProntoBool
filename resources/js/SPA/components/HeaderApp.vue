@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar color="#D7E4F3" app>
+  <v-app-bar elevation="0" color="#D7E4F3" light app>
     <v-toolbar-title>ProntoPro</v-toolbar-title>
     <v-spacer></v-spacer>
     <div v-if="user">
