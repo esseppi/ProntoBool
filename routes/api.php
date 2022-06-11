@@ -16,8 +16,6 @@ use Illuminate\Support\Facades\Route;
 // VUEJS AXIOS API CALLS
 // Route::get('/profiles', [GuestApiController::class, 'index']);
 
-Route::get('profiles', 'App\Http\Controllers\Api\GuestApiController@index');
-
 
 // Route::post('register', 'RegisterController@register');
 // Route::get('login', [AuthenticatedSessionController::class, 'create'])
