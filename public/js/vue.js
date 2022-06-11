@@ -21930,7 +21930,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "v-app-bar",
-    { attrs: { elevation: "0", color: "#D7E4F3", light: "", app: "" } },
+    { attrs: { color: "#D7E4F3", app: "" } },
     [
       _c("v-toolbar-title", [_vm._v("ProntoPro")]),
       _vm._v(" "),
