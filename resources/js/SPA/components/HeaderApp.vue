@@ -2,7 +2,7 @@
   <v-app-bar elevation="0" color="#D7E4F3" light app>
     <v-toolbar-title>ProntoPro</v-toolbar-title>
     <v-spacer></v-spacer>
-    <div v-if="user">
+    <div v-if="bool">
       <button @click.prevent="logout">Logout</button>
     </div>
     <div v-else>
@@ -22,7 +22,7 @@ export default {
     };
   },
   props: {
-    user: Object,
+    bool: Boolean,
   },
   mounted() {
     axios.get("/api/user").then((res) => {

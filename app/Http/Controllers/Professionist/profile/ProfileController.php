@@ -1,12 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Professionist;
+namespace App\Http\Controllers\Professionist\Profile;
 
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Professionist\Profile;
 use App\Models\Professionist\Profession;
 use App\Http\Requests\StoreProfileRequest;
 use App\Http\Requests\UpdateProfileRequest;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -31,10 +34,11 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Profile $profile)
     {
-        $professions = Profession::whereRaw('1=1');
+        $professions = Profession::whereRaw('1 = 1');
         return view('professionist.profile.create', [
+            'profile'        => $profile,
             'professions'    => $professions,
         ]);
     }
@@ -45,10 +49,15 @@ class ProfileController extends Controller
      * @param  \App\Http\Requests\StoreProfileRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProfileRequest $request)
+    public function store(Request $request, User $user)
     {
-        $data = $request->all() + ['user_id' => auth()->id()];
-        return redirect()->route('profile.show');
+        $formData = $request->all() + [
+            'user_id' => Auth::user()->id
+        ];
+
+        $newProfile = Profile::create($formData);
+        // $newProfile->tags()->attach($formData['profession']);
+        return view('professionist.profile.create');
     }
 
     /**
@@ -68,21 +77,40 @@ class ProfileController extends Controller
      * @param  \App\Models\Profile  $profile
      * @return \Illuminate\Http\Response
      */
+
+
     public function edit(Profile $profile)
     {
-        //
+        $professions = Profession::whereRaw('1 = 1');
+        return view('professionist.profile.edit', [
+            'profile'        => $profile,
+            'professions'    => $professions,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
-     *
+     *edit
      * @param  \App\Http\Requests\UpdateProfileRequest  $request
      * @param  \App\Models\Profile  $profile
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateProfileRequest $request, Profile $profile)
     {
-        //
+        // if (Auth::user()->id !== $profile->user_id) abort(403);
+
+        $formData = $request->all() + [
+            'user_id' => Auth::user()->id
+        ];
+        $newProfile = Profile::create($formData);
+        $newProfile->tags()->attach($formData['profession']);
+        return redirect()->route('professionist.profile.show', $profile->id);
+
+        $profession = Profession::all();
+        return view('professionist.profile.edit', [
+            'profession'          => $profession,
+            'profile'             => $profile,
+        ]);
     }
 
     /**
@@ -93,6 +121,15 @@ class ProfileController extends Controller
      */
     public function destroy(Profile $profile)
     {
-        //
+        if (Auth::user()->id !== $profile->user_id) abort(403);
+
+        // $professions->tags()->detach();
+        // $professions->tags()->sync([]);
+        $profile->delete();
+
+        if (url()->previous() === route('profession.profile.edit', $profile->id)) {
+            return redirect()->route('profession.profile.create')/*->with('status', "Post $post->title deleted")*/;
+        }
+        return redirect(url()->previous())/*->with('status', "Post $post->title deleted")*/;
     }
 }

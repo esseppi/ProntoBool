@@ -14,15 +14,15 @@ export default {
             name: "home",
             component: Home,
         },
-        {
-            path: "/settings",
-            name: "settings",
-            component: Settings,
-        },
-        {
-            path: "/mydashboard",
-            name: "MyDashboard",
-            component: MyDashboard,
-        },
+        // {
+        //     path: "/settings",
+        //     name: "settings",
+        //     component: Settings,
+        // },
+        // {
+        //     path: "/mydashboard",
+        //     name: "MyDashboard",
+        //     component: MyDashboard,
+        // },
     ],
 };
