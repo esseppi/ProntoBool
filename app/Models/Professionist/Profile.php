@@ -24,4 +24,13 @@ class Profile extends Model
     {
         return $this->hasMany(Lead::class);
     }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+    public function services()
+    {
+        return $this->hasMany(Service::class);
+    }
 }
