@@ -15,12 +15,18 @@ class CreateLeadsTable extends Migration
     {
         Schema::create('leads', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('profile_id');
             $table->string('name');
             $table->string('email');
             $table->string('message');
             $table->timestamps();
+            
+            $table->foreign('profile_id')->references('id')->on('profiles');
+
         });
     }
+
+
 
     /**
      * Reverse the migrations.

@@ -20,6 +20,7 @@ class LeadSeeder extends Seeder
                 'name' => $faker->name,
                 'email' => $faker->email,
                 'message' => $faker->text,
+                'profile_id' => 5,
             ]);
         }
     }

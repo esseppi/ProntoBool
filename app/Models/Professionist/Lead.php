@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models\Professionist;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,5 +12,11 @@ class Lead extends Model
         'name',
         'email',
         'message',
+        'profile_id',
     ];
+
+    public function profile()
+    {
+        return $this->belongsTo(Profile::class);
+    }
 }
