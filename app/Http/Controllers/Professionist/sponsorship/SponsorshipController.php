@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSponsorshipRequest;
 use App\Http\Requests\UpdateSponsorshipRequest;
-use App\Models\Sponsorship;
+use App\Models\Professionist\Sponsorship;
 
 class SponsorshipController extends Controller
 {

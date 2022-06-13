@@ -14,8 +14,12 @@ class CreateSponsorshipsTable extends Migration
     public function up()
     {
         Schema::create('sponsorships', function (Blueprint $table) {
-            $table->id();
+            $table->unsignedBigInteger('profile_id');
+            $table->date('startDate');
+            $table->date('endDate');
+            $table->string('bundle');
             $table->timestamps();
+            $table->foreign('profile_id')->references('id')->on('profiles');
         });
     }
 
