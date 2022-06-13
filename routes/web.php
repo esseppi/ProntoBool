@@ -22,7 +22,7 @@ Route::middleware('auth')
     ->group(function () {
         Route::get('profile/edit', 'App\Http\Controllers\Professionist\Profile\ProfileController@edit');
         Route::get('profile/show', 'App\Http\Controllers\Professionist\Profile\ProfileController@show');
-        
+
         Route::resource('lead', LeadController::class);
         Route::resource('professions', ProfessionController::class);
         Route::resource('profile', ProfileController::class);
