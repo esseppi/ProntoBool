@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreLeadRequest;
 use App\Http\Requests\UpdateLeadRequest;
 use App\Models\Lead;
+use App\Mail\NewMessageMail;
+use Illuminate\Support\Facades\Mail;
 
 class LeadController extends Controller
 {
@@ -34,7 +36,7 @@ class LeadController extends Controller
      * @param  \App\Http\Requests\StoreLeadRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreLeadRequest $request)
+    public function store(Request $request)
     {
         $data = $request->all();
 
@@ -45,7 +47,26 @@ class LeadController extends Controller
             'message' => 'required',
         ]);
 
-        
+        if($validation->fails()) {
+            return response()->json([
+                'success' => false,
+                'error' => $validation->errors(),
+            ]);
+        } else {
+            $lead = Lead::create($data);
+
+            //Credenziali Mailtrap.io
+            //mail: luigibardellagerbi@mail.com
+            //pwd: team5boolean
+
+
+            Mail::to($lead->email)->send(new NewMessageMail());
+
+            return response()->json([
+                'success' => true,
+                'lead' => $lead,
+            ]);
+        };
     }
 
     /**
