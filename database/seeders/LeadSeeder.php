@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
+use Faker\Generator as Faker;
 use Illuminate\Database\Seeder;
 use App\Models\Professionist\Lead;
-use Faker\Generator as Faker;
 
 class LeadSeeder extends Seeder
 {
@@ -13,7 +13,7 @@ class LeadSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Faker $faker)
     {
         for ($i = 0; $i < 5; $i++) {
             Lead::create([
