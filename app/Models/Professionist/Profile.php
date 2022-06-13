@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Profile extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'user_id';
-    protected $fillable = ['curriculum', 'pic', 'phone', 'profession_id', 'address', 'user_id'];
+    protected $fillable = ['curriculum', 'pic', 'phone', 'description', 'profession_id', 'address', 'user_id', 'id'];
 
     public function professions()
     {

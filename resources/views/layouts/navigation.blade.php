@@ -15,12 +15,19 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('professionist.profile.create')" :active="request()->routeIs('professionist.profile.create')">
-                        {{ __('Make a Profile') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('professionist.profile.edit', Auth::user()->id)" :active="request()->routeIs('professionist.profile.edit')">
-                        {{ __('Edit Profile') }}
-                    </x-nav-link>
+                    @if (!Auth::user()->hasProfile)
+                        <x-nav-link :href="route('professionist.profile.create')" :active="request()->routeIs('professionist.profile.create')">
+                            {{ __('Make a Profile') }}
+                        </x-nav-link>
+                    @else
+                        <x-nav-link :href="route('professionist.profile.edit', Auth::user()->id)" :active="request()->routeIs('professionist.profile.edit')">
+                            {{ __('Edit Profile') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('professionist.profile.show', Auth::user()->id)" :active="request()->routeIs('professionist.profile.show')">
+                            {{ __('Show Profile') }}
+                        </x-nav-link>
+                    @endif
+
                     <x-nav-link :href="route('professionist.professions.index')" :active="request()->routeIs('professionist.profession.index')">
                         {{ __('Available professions') }}
                     </x-nav-link>

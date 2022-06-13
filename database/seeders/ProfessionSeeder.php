@@ -15,13 +15,11 @@ class ProfessionSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 15; $i++) {
             Profession::create([
                 'name' => $faker->jobTitle(),
             ]);
         }
-
-
         //dalla migrate   $table->string('name', 255)->nullable();
     }
 }

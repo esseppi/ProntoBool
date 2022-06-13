@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         User::factory(10)->create();
         $this->call(ProfileSeeder::class);
+        $this->call(ProfessionProfileSeeder::class);
 
         // \App\Models\Professionist\Profile::factory($profNumb)->create();
     }
