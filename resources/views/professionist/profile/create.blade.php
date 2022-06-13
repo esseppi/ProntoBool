@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="py-12">
         <div class="container m-auto">
-            <form action="{{ route('professionist.profile.store') }}" method="post">
+            <form action="{{ route('professionist.profile.store') }}" method="post"  enctype="multipart/form-data">
                 @csrf
                 <div>
                     <div class="md:grid md:grid-cols-3 md:gap-6">
@@ -15,7 +15,6 @@
                             </div>
                         </div>
                         <div class="mt-5 md:mt-0 md:col-span-2">
-                            <form action="#" method="POST">
                                 <div class="shadow sm:rounded-md sm:overflow-hidden">
                                     {{-- FOTO --}}
                                     <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
@@ -30,8 +29,7 @@
                                                             d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
                                                     </svg>
                                                 </span>
-                                                <button type="button"
-                                                    class="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Change</button>
+                                                <input name="profilepic" type="file" class="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                             </div>
                                         </div>
                                         {{-- WEBSITE --}}
@@ -125,7 +123,7 @@
                                                         <label for="curriculum"
                                                             class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                                                             <span>Upload a file</span>
-                                                            <input id="curriculum" name="curriculum" type="file"
+                                                            <input id="curriculum" name="curriculum"  type="file"
                                                                 class="sr-only">
                                                         </label>
                                                         <p class="pl-1">or drag and drop</p>
@@ -142,7 +140,6 @@
                                             class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Save</button>
                                     </div>
                                 </div>
-                            </form>
                         </div>
                     </div>
                 </div>

@@ -10,6 +10,7 @@ use App\Models\Professionist\Profession;
 use App\Http\Requests\StoreProfileRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -56,6 +57,9 @@ class ProfileController extends Controller
             'id' => Auth::user()->id,
             'user_id' => Auth::user()->id,
         ];
+        $cv_url = Storage::put('cv', $formData['curriculum']);
+        $formData['curriculum'] = $cv_url;
+
         // CREA PROFILO E AGGIORNA USER hasProfile
         Profile::create($formData);
         User::find(Auth::user()->id)->update(['hasProfile' => true]);
