@@ -1,4 +1,3 @@
-import "./bootstrap";
 window.Vue = require("vue").default;
 import App from "./SPA/App.vue";
 import Vuetify from "../plugins/vuetify";
