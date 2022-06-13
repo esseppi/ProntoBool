@@ -114,7 +114,9 @@ class LeadController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Lead $lead)
-    {
-        //
+    {   
+        //se vogliamo dare la funzione di cancellare i messagi magari con un bottone nel index
+        //$lead->delete();
+        //return view('professionist.lead.index');
     }
 }

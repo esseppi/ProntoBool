@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Professionist\Profile\ProfileController;
 use App\Http\Controllers\Professionist\Profession\ProfessionController;
-use App\Http\Controllers\Professionist\Profession\LeadController;
+use App\Http\Controllers\Professionist\LeadController;
 
 /*
 |--------------------------------------------------------------------------
