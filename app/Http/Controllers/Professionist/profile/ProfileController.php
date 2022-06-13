@@ -59,7 +59,7 @@ class ProfileController extends Controller
         $pic_url = Storage::put('pic', $formData['profilepic']);
         $formData['curriculum'] = $cv_url;
         $formData['pic'] = $pic_url;
-        dd($cv_url);
+        // dd($cv_url);
         // CREA PROFILO E AGGIORNA USER hasProfile
         Profile::create($formData);
         User::find(Auth::user()->id)->update(['hasProfile' => true]);

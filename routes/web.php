@@ -15,6 +15,11 @@ use App\Http\Controllers\Professionist\LeadController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
 // REGISTERED USER SECTION
 Route::middleware('auth')
     ->name('professionist.')
@@ -29,8 +34,10 @@ Route::middleware('auth')
     });
 
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+Route::get('/newMessage', function () {
+    return view('newMessage');
 });
 
 Route::get('/dashboard', function () {
