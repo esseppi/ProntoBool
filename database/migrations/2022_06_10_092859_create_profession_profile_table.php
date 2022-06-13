@@ -16,9 +16,9 @@ class CreateProfessionProfileTable extends Migration
         Schema::create('profession_profile', function (Blueprint $table) {
             $table->unsignedBigInteger('profile_id');
             $table->foreign('profile_id')->references('id')->on('profiles');
+
             $table->unsignedBigInteger('profession_id');
             $table->foreign('profession_id')->references('id')->on('professions');
-
 
             $table->primary(['profile_id', 'profession_id']);
             $table->timestamps();

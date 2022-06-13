@@ -10,7 +10,7 @@ class Profession extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'profession_id';
+    // protected $primaryKey = 'name';
     protected $fillable = ['name'];
 
     // static public function create()

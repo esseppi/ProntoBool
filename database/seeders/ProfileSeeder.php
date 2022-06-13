@@ -17,16 +17,18 @@ class ProfileSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-
         $profNumb = User::whereRaw('1 = 1')->count();
-        for ($i = 1; $i < $profNumb; $i++) {
+        for ($i = 5; $i < $profNumb; $i++) {
             Profile::create([
+                'id' => $i,
+                'pic' => $faker->url(),
                 'user_id' => $i,
                 'curriculum' => $faker->url(),
-                'pic' => $faker->url(),
+                'description' => $faker->text(),
                 'address' => $faker->address(),
                 'phone' => $faker->phoneNumber(),
             ]);
+            User::find($i)->update(['hasProfile' => true]);
         }
     }
 }

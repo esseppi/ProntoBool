@@ -1,7 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Professionist\Profession;
 
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Professionist\Profile;
 use App\Models\Professionist\Profession;
 use App\Http\Requests\StoreProfessionRequest;
 use App\Http\Requests\UpdateProfessionRequest;
@@ -15,7 +19,10 @@ class ProfessionController extends Controller
      */
     public function index()
     {
-        //
+        $data = Profession::orderBy('name', 'asc')->get();
+        return view('professionist.professions.index', [
+            'professions'         => $data,
+        ]);
     }
 
     /**
