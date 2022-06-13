@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Professionist;
 
 use App\Mail\NewMessageMail;
 use Illuminate\Http\Request;
 use App\Models\Professionist\Lead;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\StoreLeadRequest;
 use App\Http\Requests\UpdateLeadRequest;
@@ -19,7 +20,8 @@ class LeadController extends Controller
      */
     public function index()
     {
-        //
+        $data = Lead::paginate(10);
+        return view('professionist.lead.index', compact('data'));
     }
 
     /**
@@ -62,7 +64,7 @@ class LeadController extends Controller
             //pwd: team5boolean
 
 
-            Mail::to($lead->email)->send(new NewMessageMail());
+            Mail::to($lead->email)->send(new NewMessageMail(compact('data')));
 
             return response()->json([
                 'success' => true,

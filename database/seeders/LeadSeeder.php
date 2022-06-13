@@ -21,7 +21,6 @@ class LeadSeeder extends Seeder
                 'name' => $faker->name(),
                 'email' => $faker->email(),
                 'message' => $faker->text(),
-                //corretto errorProfileon numero a caso da corregere con valori corretti
                 'profile_id' => Profile::inRandomOrder()->first()->id,
             ]);
         }
