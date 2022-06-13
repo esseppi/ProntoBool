@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NewMessageMail;
+use Illuminate\Http\Request;
+use App\Models\Professionist\Lead;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\StoreLeadRequest;
 use App\Http\Requests\UpdateLeadRequest;
-use App\Models\Lead;
-use App\Mail\NewMessageMail;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class LeadController extends Controller
 {
@@ -47,7 +49,7 @@ class LeadController extends Controller
             'message' => 'required',
         ]);
 
-        if($validation->fails()) {
+        if ($validation->fails()) {
             return response()->json([
                 'success' => false,
                 'error' => $validation->errors(),

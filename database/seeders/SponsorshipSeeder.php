@@ -34,7 +34,7 @@ class SponsorshipSeeder extends Seeder
                 'profile_id' =>  $profile_id->id,
                 'startDate' => $startDate,
                 'bundle' => $bundle,
-                'endDate' => date_add(now(), date_interval_create_from_date_string("144 hour")),
+                'endDate' => date_add(now(), date_interval_create_from_date_string("40 days")),
             ]);
         }
     }
