@@ -14,8 +14,14 @@ class Profile extends Model
     {
         return $this->belongsToMany(Profession::class);
     }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function leads()
+    {
+        return $this->hasMany(Lead::class);
     }
 }
