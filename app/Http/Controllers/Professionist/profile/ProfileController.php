@@ -7,8 +7,6 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Professionist\Profile;
 use App\Models\Professionist\Profession;
-use App\Http\Requests\StoreProfileRequest;
-use App\Http\Requests\UpdateProfileRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 
@@ -58,8 +56,10 @@ class ProfileController extends Controller
             'user_id' => Auth::user()->id,
         ];
         $cv_url = Storage::put('cv', $formData['curriculum']);
+        $pic_url = Storage::put('pic', $formData['profilepic']);
         $formData['curriculum'] = $cv_url;
-
+        $formData['pic'] = $pic_url;
+        dd($cv_url);
         // CREA PROFILO E AGGIORNA USER hasProfile
         Profile::create($formData);
         User::find(Auth::user()->id)->update(['hasProfile' => true]);
