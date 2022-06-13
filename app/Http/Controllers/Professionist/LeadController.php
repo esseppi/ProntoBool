@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Professionist;
 use App\Mail\NewMessageMail;
 use Illuminate\Http\Request;
 use App\Models\Professionist\Lead;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\StoreLeadRequest;
@@ -31,7 +32,12 @@ class LeadController extends Controller
      */
     public function create()
     {
-        //
+        $users = DB::table('users')
+            ->join('profiles', 'users.id', '=', 'profiles.user_id')
+            ->get();
+        return view('professionist.lead.newMessage', [
+            'profiles'      => $users
+        ]);
     }
 
     /**
@@ -43,34 +49,34 @@ class LeadController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        dd($data);
 
-        //validazione dei campi
-        $validation = Validator::make($data, [
-            'name' => 'required',
-            'email' => 'required|email',
-            'message' => 'required',
-        ]);
+        // //validazione dei campi
+        // $validation = Validator::make($data, [
+        //     'name' => 'required',
+        //     'email' => 'required|email',
+        //     'message' => 'required',
+        // ]);
 
-        if ($validation->fails()) {
-            return response()->json([
-                'success' => false,
-                'error' => $validation->errors(),
-            ]);
-        } else {
-            $lead = Lead::create($data);
+        // if ($validation->fails()) {
+        //     return response()->json([
+        //         'success' => false,
+        //         'error' => $validation->errors(),
+        //     ]);
+        // } else {
+        //     $lead = Lead::create($data);
+        //     //Credenziali Mailtrap.io
+        //     //mail: luigibardellagerbi@mail.com
+        //     //pwd: team5boolean
 
-            //Credenziali Mailtrap.io
-            //mail: luigibardellagerbi@mail.com
-            //pwd: team5boolean
 
+        //     Mail::to($lead->email)->send(new NewMessageMail(compact('data')));
 
-            Mail::to($lead->email)->send(new NewMessageMail(compact('data')));
-
-            return response()->json([
-                'success' => true,
-                'lead' => $lead,
-            ]);
-        };
+        //     return response()->json([
+        //         'success' => true,
+        //         'lead' => $lead,
+        //     ]);
+        // };
     }
 
     /**
@@ -114,9 +120,7 @@ class LeadController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Lead $lead)
-    {   
-        //se vogliamo dare la funzione di cancellare i messagi magari con un bottone nel index
-        //$lead->delete();
-        //return view('professionist.lead.index');
+    {
+        //
     }
 }
