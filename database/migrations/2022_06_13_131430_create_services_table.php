@@ -15,6 +15,14 @@ class CreateServicesTable extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('profile_id');
+            $table->string('description');
+            $table->string('price');
+            $table->string('description');
+            $table->string('professionId');
+            $table->timestamps();
+
+            $table->foreign('profile_id')->references('id')->on('profiles');
             $table->timestamps();
         });
     }

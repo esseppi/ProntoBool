@@ -16,25 +16,25 @@ class SponsorshipSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 3; $i++) {
             $startDate = now();
             $bundle = rand(1, 3);
             $profile_id = Profile::inRandomOrder()->first();
             if ($bundle == 1) {
-                $addTime = "24 hour";
+                $addTime = "24 hours";
                 # code...
             } else if ($bundle == 2) {
-                $addTime = "72 hour";
+                $addTime = "72 hours";
                 # code...
             } else if ($bundle == 3) {
-                $addTime = "144 hour";
+                $addTime = "144 hours";
                 # code...
             }
             Sponsorship::create([
                 'profile_id' =>  $profile_id->id,
                 'startDate' => $startDate,
                 'bundle' => $bundle,
-                'endDate' => date_add(now(), date_interval_create_from_date_string("40 days")),
+                'endDate' => date_add(now(), date_interval_create_from_date_string($addTime)),
             ]);
         }
     }
