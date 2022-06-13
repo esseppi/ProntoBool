@@ -15,11 +15,11 @@ class CreateSponsorshipsTable extends Migration
     {
         Schema::create('sponsorships', function (Blueprint $table) {
             $table->unsignedBigInteger('profile_id');
-            $table->date('startDate');
-            $table->date('endDate');
+            $table->dateTime('startDate');
+            $table->dateTime('endDate');
             $table->string('bundle');
-            $table->timestamps();
             $table->foreign('profile_id')->references('id')->on('profiles');
+            $table->timestamps();
         });
     }
 
