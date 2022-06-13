@@ -18,7 +18,7 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
         $data = Profile::whereRaw('1 = 1');
 
         return response()->json([

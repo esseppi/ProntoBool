@@ -14,10 +14,10 @@
                 <div>
                     <ul>lista funzioni richieste da collegare
                         <li>
-                            pagina info
+                            pagina info ----> <a href="{{'professionist.profile.index'}}"> profilo  </a>
                         </li>
                         <li>
-                            index messagi
+                            index messagi ----> <a href="{{route('professionist.lead.index')}}">via al index</a>
                         </li>
                         <li>
                             recenzioni
