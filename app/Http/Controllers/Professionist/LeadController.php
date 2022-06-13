@@ -36,7 +36,16 @@ class LeadController extends Controller
      */
     public function store(StoreLeadRequest $request)
     {
-        //
+        $data = $request->all();
+
+        //validazione dei campi
+        $validation = Validator::make($data, [
+            'name' => 'required',
+            'email' => 'required|email',
+            'message' => 'required',
+        ]);
+
+        
     }
 
     /**
