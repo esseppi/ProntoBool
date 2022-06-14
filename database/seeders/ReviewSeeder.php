@@ -16,13 +16,13 @@ class ReviewSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        for($i = 0; $i < 4; $i++) {
+        for ($i = 0; $i < 4; $i++) {
             Review::create([
-                'name' => $faker->name(),
                 'profile_id' => Profile::inRandomOrder()->first()->id,
+                'name' => $faker->name(),
                 'email' => $faker->email(),
                 'message' => $faker->text(),
-                'rating' => $faker->numberBetween(1, 5),
+                'vote' => $faker->numberBetween(1, 5),
             ]);
         }
     }

@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Professionist\Profile;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Professionist\Lead;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Professionist\Profile;
-use App\Models\Professionist\Profession;
-use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Professionist\Profession;
 
 class ProfileController extends Controller
 {
@@ -35,7 +37,12 @@ class ProfileController extends Controller
      */
     public function create(Profile $profile)
     {
-        if (Auth::user()->hasProfile) abort(403);
+        $auth = Auth::user()->id;
+        $checkIfHasProfile = DB::table('users')
+            ->crossJoin('profiles', 'users.id', '=', 'profiles.user_id')
+            ->where('users.id', $auth)
+            ->exists();
+        if ($checkIfHasProfile) abort(403);
         $data = Profession::whereRaw('1=1')->get();
         return view('professionist.profile.create', [
             'profile'        => $profile,
@@ -62,7 +69,6 @@ class ProfileController extends Controller
         // dd($cv_url);
         // CREA PROFILO E AGGIORNA USER hasProfile
         Profile::create($formData);
-        User::find(Auth::user()->id)->update(['hasProfile' => true]);
         // VERIFICA SE LA PROFESSIONE INSERITA ESISTE GIA'
         $profession = $formData['profession'];
         // $checkIfProfessionExists = Profession::where('name', $profession)->exists();
@@ -105,6 +111,7 @@ class ProfileController extends Controller
         $professions = Profession::whereRaw('1 = 1')->get();
         return view('professionist.profile.edit', [
             'profile'      => Auth::user(),
+            //dice che stiamo ripetendo l'ogetto provare senza la riga qui sotto
             'profile'        => $profile,
             'professions'    => $professions,
         ]);
@@ -140,10 +147,12 @@ class ProfileController extends Controller
     public function destroy(Profile $profile)
     {
         if (Auth::user()->id !== $profile->user_id) abort(403);
-
+        $allMyMsg = Lead::where('profile_id', Auth::user()->id)->get();
+        foreach ($allMyMsg as $msg) {
+            $msg->delete();
+        }
         $profile->professions()->detach();
         $profile->delete();
-        User::find($profile->id)->update(['hasProfile' => false]);
 
         return view('dashboard')/*->with('status', "Profile $profile->title deleted")*/;
     }

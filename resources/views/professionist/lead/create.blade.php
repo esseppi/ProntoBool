@@ -1,7 +1,6 @@
 <x-app-layout>
     <div class="flex py-3 justify-center">
         <form method="POST" action="{{ route('professionist.lead.store') }}" class="w-full max-w-lg">
-
             @csrf
             <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -66,7 +65,7 @@
                         <option selected>Open this select menu</option>
                         {{-- @dd($profiles) --}}
                         @foreach ($profiles as $item)
-                            <option value="{{ $item->mail }}">{{ $item->name }}</option>
+                            <option value="{{ $item->id }}">{{ $item->name }}</option>
                         @endforeach
                     </select>
                 </div>

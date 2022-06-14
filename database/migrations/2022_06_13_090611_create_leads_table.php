@@ -19,11 +19,10 @@ class CreateLeadsTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('message');
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->timestamps();
-            
-            $table->foreign('profile_id')->references('id')->on('profiles');
 
+            $table->foreign('profile_id')->references('id')->on('profiles');
         });
     }
 

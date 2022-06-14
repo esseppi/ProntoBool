@@ -15,7 +15,7 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    @if (!Auth::user()->hasProfile)
+                    @if (!$check)
                         <x-nav-link :href="route('professionist.profile.create')" :active="request()->routeIs('professionist.profile.create')">
                             {{ __('Make a Profile') }}
                         </x-nav-link>
@@ -30,6 +30,9 @@
 
                     <x-nav-link :href="route('professionist.professions.index')" :active="request()->routeIs('professionist.profession.index')">
                         {{ __('Available professions') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('professionist.lead.create', Auth::user()->id)" :active="request()->routeIs('professionist.lead.create')">
+                        {{ __('New Message') }}
                     </x-nav-link>
                     <x-nav-link :href="route('professionist.lead.index', Auth::user()->id)" :active="request()->routeIs('professionist.lead.index')">
                         {{ __('Your Message') }}

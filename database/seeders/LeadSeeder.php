@@ -16,11 +16,12 @@ class LeadSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             Lead::create([
                 'name' => $faker->name(),
                 'email' => $faker->email(),
                 'message' => $faker->text(),
+                'phone' => $faker->phoneNumber(),
                 'profile_id' => Profile::inRandomOrder()->first()->id,
             ]);
         }

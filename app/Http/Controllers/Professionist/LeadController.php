@@ -25,7 +25,7 @@ class LeadController extends Controller
     {
         $findMsgProfile = Profile::find(Auth::user()->id)->id;
 
-        $data = Lead::where('profile_id', $findMsgProfile)->paginate(10);
+        $data = Lead::where('profile_id', $findMsgProfile)->orderBy('updated_at', 'desc')->paginate(10);
         return view('professionist.lead.index', compact('data'));
     }
 
@@ -39,7 +39,7 @@ class LeadController extends Controller
         $data = DB::table('users')
             ->join('profiles', 'users.id', '=', 'profiles.user_id')
             ->get();
-        return view('newMessage', [
+        return view('professionist.lead.create', [
             'profiles'      => $data
         ]);
     }
@@ -81,10 +81,7 @@ class LeadController extends Controller
             Mail::to($email_prof)->send(new NewMessageMail($lead));
             // Mail::to($lead->email)->send(new NewMessageMail($lead));
 
-            return response()->json([
-                'success' => true,
-                'lead' => $lead,
-            ]);
+            return redirect()->route('professionist.lead.index', Auth::user()->id);
         };
     }
 
@@ -108,7 +105,7 @@ class LeadController extends Controller
      */
     public function edit(Lead $lead)
     {
-        //
+        //return 
     }
 
     /**

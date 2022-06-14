@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ProfessionProfileSeeder::class);
         $this->call(LeadSeeder::class);
         $this->call(SponsorshipSeeder::class);
-        // \App\Models\Professionist\Profile::factory($profNumb)->create();
+        $this->call(ProfileSponsorshipSeeder::class);
         $this->call(ReviewSeeder::class);
         $this->call(ServiceSeeder::class);
     }
