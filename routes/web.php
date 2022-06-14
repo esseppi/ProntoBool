@@ -1,9 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
+use App\Models\Professionist\Profile;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Professionist\LeadController;
 use App\Http\Controllers\Professionist\Profile\ProfileController;
 use App\Http\Controllers\Professionist\Profession\ProfessionController;
-use App\Http\Controllers\Professionist\LeadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +30,7 @@ Route::middleware('auth')
         Route::get('profile/edit', 'App\Http\Controllers\Professionist\Profile\ProfileController@edit');
         Route::get('profile/show', 'App\Http\Controllers\Professionist\Profile\ProfileController@show');
 
+        Route::post('lead', 'App\Http\Controllers\Professionist\ProfileController@store');
         Route::resource('lead', LeadController::class);
         Route::resource('professions', ProfessionController::class);
         Route::resource('profile', ProfileController::class);
@@ -37,8 +40,17 @@ Route::middleware('auth')
 
 
 Route::get('/newMessage', function () {
-    return view('newMessage');
+    $profiles = Profile::all();
+    $users = DB::table('users')
+        ->join('profiles', 'users.id', '=', 'profiles.user_id')
+        ->get();
+    return view('newMessage', [
+        'profiles'      => $users,
+
+    ]);
 });
+// Route::post('professionist/lead/store', 'App\Http\Controllers\Professionist\Lead@store')->name('createMessage');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
