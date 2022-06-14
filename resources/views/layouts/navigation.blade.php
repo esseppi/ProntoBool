@@ -31,7 +31,7 @@
                     <x-nav-link :href="route('professionist.professions.index')" :active="request()->routeIs('professionist.profession.index')">
                         {{ __('Available professions') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('professionist.lead.index')" :active="request()->routeIs('professionist.lead.index')">
+                    <x-nav-link :href="route('professionist.lead.index', Auth::user()->id)" :active="request()->routeIs('professionist.lead.index')">
                         {{ __('Your Message') }}
                     </x-nav-link>
 

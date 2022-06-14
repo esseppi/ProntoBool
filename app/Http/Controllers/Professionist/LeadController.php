@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Professionist\Lead;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use App\Models\Professionist\Profile;
 use App\Http\Requests\StoreLeadRequest;
 use App\Http\Requests\UpdateLeadRequest;
 use Illuminate\Support\Facades\Validator;
@@ -21,7 +23,9 @@ class LeadController extends Controller
      */
     public function index()
     {
-        $data = Lead::paginate(10);
+        $findMsgProfile = Profile::find(Auth::user()->id)->id;
+
+        $data = Lead::where('profile_id', $findMsgProfile)->paginate(10);
         return view('professionist.lead.index', compact('data'));
     }
 
@@ -92,6 +96,7 @@ class LeadController extends Controller
      */
     public function show(Lead $lead)
     {
+        return view('professionist.lead.show', compact('lead'));
         //
     }
 
@@ -126,6 +131,7 @@ class LeadController extends Controller
      */
     public function destroy(Lead $lead)
     {
-        //
+        $lead->delete();
+        return redirect()->route('professionist.lead.index');
     }
 }
