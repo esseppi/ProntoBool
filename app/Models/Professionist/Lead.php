@@ -12,6 +12,7 @@ class Lead extends Model
         'name',
         'email',
         'message',
+        'phone',
         'profile_id',
     ];
 

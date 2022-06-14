@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Sponsorship extends Model
 {
     use HasFactory;
-    protected $fillable = ['startDate', 'endDate', 'bundle', 'profile_id'];
+    protected $fillable = [ 'bundle', 'duration', 'profile_id'];
 }
