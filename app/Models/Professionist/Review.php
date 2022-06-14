@@ -14,7 +14,7 @@ class Review extends Model
         'name',
         'email',
         'message',
-        'rating',
+        'vote',
         'profile_id',
     ];
 

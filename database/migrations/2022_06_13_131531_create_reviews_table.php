@@ -19,7 +19,7 @@ class CreateReviewsTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('message');
-            $table->float('rating');
+            $table->float('vote');
             $table->timestamps();
 
             $table->foreign('profile_id')->references('id')->on('profiles');
