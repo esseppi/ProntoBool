@@ -32,11 +32,11 @@ class LeadController extends Controller
      */
     public function create()
     {
-        $users = DB::table('users')
+        $data = DB::table('users')
             ->join('profiles', 'users.id', '=', 'profiles.user_id')
             ->get();
         return view('newMessage', [
-            'profiles'      => $users
+            'profiles'      => $data
         ]);
     }
 
@@ -54,6 +54,7 @@ class LeadController extends Controller
         $validation = Validator::make($data, [
             'name' => 'required',
             'email' => 'required|email',
+            'profile_id' => 'required',
             'message' => 'required',
         ]);
 
@@ -68,9 +69,13 @@ class LeadController extends Controller
             //mail: luigibardellagerbi@mail.com
             //pwd: team5boolean
 
+            $email_prof = DB::table('users')
+                ->where('users.id', $data['profile_id'])
+                ->join('profiles', 'users.id', '=', 'profiles.user_id')
+                ->get('email');
 
-            Mail::to('luigibardellagerbi@mail.com')->send(new NewMessageMail($lead));
-            Mail::to($lead->email)->send(new NewMessageMail($lead));
+            Mail::to($email_prof)->send(new NewMessageMail($lead));
+            // Mail::to($lead->email)->send(new NewMessageMail($lead));
 
             return response()->json([
                 'success' => true,

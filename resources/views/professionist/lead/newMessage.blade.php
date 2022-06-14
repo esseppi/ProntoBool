@@ -66,7 +66,7 @@
                         <option selected>Open this select menu</option>
                         {{-- @dd($profiles) --}}
                         @foreach ($profiles as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            <option value="{{ $item->mail }}">{{ $item->name }}</option>
                         @endforeach
                     </select>
                 </div>
