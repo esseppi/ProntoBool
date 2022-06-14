@@ -18,7 +18,7 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $data = Profile::whereRaw('1 = 1');
 
         return response()->json([
@@ -65,10 +65,10 @@ class ProfileController extends Controller
         User::find(Auth::user()->id)->update(['hasProfile' => true]);
         // VERIFICA SE LA PROFESSIONE INSERITA ESISTE GIA'
         $profession = $formData['profession'];
-        $checkIfProfessionExists = Profession::where('name', $profession)->exists();
-        if (!$checkIfProfessionExists) {
-            $newProfession = Profession::create(['name' => $profession]);
-        }
+        // $checkIfProfessionExists = Profession::where('name', $profession)->exists();
+        // if (!$checkIfProfessionExists) {
+        //     $newProfession = Profession::create(['name' => $profession]);
+        // }
         // SE NON ESISTE LA PROFESSIONE VIENE CREATA
         $newProfession = Profession::where('name', $profession)->get('id');
         // ATTACCA LA PROFESSIONE AL PROFILO

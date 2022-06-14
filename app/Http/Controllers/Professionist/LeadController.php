@@ -35,7 +35,7 @@ class LeadController extends Controller
         $users = DB::table('users')
             ->join('profiles', 'users.id', '=', 'profiles.user_id')
             ->get();
-        return view('professionist.lead.newMessage', [
+        return view('newMessage', [
             'profiles'      => $users
         ]);
     }
@@ -49,34 +49,34 @@ class LeadController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        dd($data);
 
-        // //validazione dei campi
-        // $validation = Validator::make($data, [
-        //     'name' => 'required',
-        //     'email' => 'required|email',
-        //     'message' => 'required',
-        // ]);
+        //validazione dei campi
+        $validation = Validator::make($data, [
+            'name' => 'required',
+            'email' => 'required|email',
+            'message' => 'required',
+        ]);
 
-        // if ($validation->fails()) {
-        //     return response()->json([
-        //         'success' => false,
-        //         'error' => $validation->errors(),
-        //     ]);
-        // } else {
-        //     $lead = Lead::create($data);
-        //     //Credenziali Mailtrap.io
-        //     //mail: luigibardellagerbi@mail.com
-        //     //pwd: team5boolean
+        if ($validation->fails()) {
+            return response()->json([
+                'success' => false,
+                'error' => $validation->errors(),
+            ]);
+        } else {
+            $lead = Lead::create($data);
+            //Credenziali Mailtrap.io
+            //mail: luigibardellagerbi@mail.com
+            //pwd: team5boolean
 
 
-        //     Mail::to($lead->email)->send(new NewMessageMail(compact('data')));
+            Mail::to('luigibardellagerbi@mail.com')->send(new NewMessageMail($lead));
+            Mail::to($lead->email)->send(new NewMessageMail($lead));
 
-        //     return response()->json([
-        //         'success' => true,
-        //         'lead' => $lead,
-        //     ]);
-        // };
+            return response()->json([
+                'success' => true,
+                'lead' => $lead,
+            ]);
+        };
     }
 
     /**
