@@ -18,7 +18,7 @@ class CreateServicesTable extends Migration
             $table->foreignId('profile_id');
             $table->text('desc');
             $table->float('price');
-            $table->unsignedBigInteger('profession_id');
+            $table->unsignedBigInteger('profession_id')->nullable();
             $table->timestamps();
 
             $table->foreign('profile_id')->references('id')->on('profiles');

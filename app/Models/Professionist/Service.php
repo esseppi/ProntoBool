@@ -14,7 +14,7 @@ class Service extends Model
         'profile_id',
         'desc',
         'price',
-        'profession_id'
+        'profession_id',
     ];
 
     public function profile()

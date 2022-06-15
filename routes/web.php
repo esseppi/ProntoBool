@@ -4,8 +4,12 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Professionist\Profile;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Professionist\LeadController;
+use App\Http\Controllers\Professionist\Review\ReviewController;
+use App\Http\Controllers\Professionist\Service\ServiceController;
 use App\Http\Controllers\Professionist\Profile\ProfileController;
 use App\Http\Controllers\Professionist\Profession\ProfessionController;
+use App\Http\Controllers\Professionist\Sponsorship\SponsorshipController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -32,8 +36,11 @@ Route::middleware('auth')
 
         Route::post('lead', 'App\Http\Controllers\Professionist\ProfileController@store');
         Route::resource('lead', LeadController::class);
-        Route::resource('professions', ProfessionController::class);
+        Route::resource('profession', ProfessionController::class);
+        Route::resource('service', ServiceController::class);
+        Route::resource('review', ReviewController::class);
         Route::resource('profile', ProfileController::class);
+        Route::resource('sponsorship', SponsorshipController::class);
     });
 
 

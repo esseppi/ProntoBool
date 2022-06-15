@@ -18,7 +18,6 @@ class Kernel extends ConsoleKernel
     {
         $schedule->call(function () {
 
-            // ->where(date_format(now(), "%Y%m%d%H%i%s"), ">=", 'endDate')
             DB::table('profile_sponsorship')->where("isActive", 1)->whereDate('endDate', "<=", date_format(now(), "Y-m-d H:i:s"))->update(['isActive' => 0]);
         })->everyMinute();
     }

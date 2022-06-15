@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Professionist\Sponsorship;
 
-use App\Http\Requests\StoreSponsorshipRequest;
-use App\Http\Requests\UpdateSponsorshipRequest;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Professionist\Profile;
 use App\Models\Professionist\Sponsorship;
+use App\Http\Requests\UpdateSponsorshipRequest;
 
 class SponsorshipController extends Controller
 {
@@ -24,18 +27,23 @@ class SponsorshipController extends Controller
      */
     public function create()
     {
-        //
+        $bundles = Sponsorship::all();
+        return view('professionist.sponsorship.create', compact("bundles"));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreSponsorshipRequest  $request
+     * @param  \App\Http\Requests\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreSponsorshipRequest $request)
+    public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $duration = Sponsorship::find($data['bundle_id'])->duration;
+        $endDate = date_add(now(), date_interval_create_from_date_string($duration));
+        Profile::find(Auth::user()->id)->sponsorships()->attach($data['bundle_id'], ['startDate' => now(), 'endDate' => $endDate, 'isActive' => 1]);
+        return view('dashboard');
     }
 
     /**
@@ -63,11 +71,11 @@ class SponsorshipController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateSponsorshipRequest  $request
+     * @param  \App\Http\Requests\Request  $request
      * @param  \App\Models\Sponsorship  $sponsorship
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateSponsorshipRequest $request, Sponsorship $sponsorship)
+    public function update(Request $request, Sponsorship $sponsorship)
     {
         //
     }

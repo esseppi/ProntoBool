@@ -1,10 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Professionist\Service;
 
-use App\Models\Service;
-use App\Http\Requests\StoreServiceRequest;
-use App\Http\Requests\UpdateServiceRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Professionist\Profile;
+use App\Models\Professionist\Service;
+use App\Models\Professionist\Profession;
+use App\Models\Professionist\Review;
 
 class ServiceController extends Controller
 {
@@ -15,7 +20,7 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
+        //su profie
     }
 
     /**
@@ -23,9 +28,18 @@ class ServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Profile $profile)
     {
-        //
+        $profession = Profession::all();
+        $checkProfile = Profile::find(Auth::user()->id);
+        if (is_null($checkProfile)) {
+            abort(403);
+        };
+
+        return view('professionist.service.create', [
+            'profile'        => $profile,
+            'professions'    => $profession,
+        ]);
     }
 
     /**
@@ -34,9 +48,11 @@ class ServiceController extends Controller
      * @param  \App\Http\Requests\StoreServiceRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreServiceRequest $request)
+    public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $service = Service::create($data + ['profile_id' => Auth::user()->id]);
+        return view('dashboard');
     }
 
     /**
@@ -47,7 +63,8 @@ class ServiceController extends Controller
      */
     public function show(Service $service)
     {
-        //
+        $service_id = $service->id;
+        return view('professionist.service.show', compact('service_id'));
     }
 
     /**
@@ -68,7 +85,7 @@ class ServiceController extends Controller
      * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateServiceRequest $request, Service $service)
+    public function update(Request $request, Service $service)
     {
         //
     }

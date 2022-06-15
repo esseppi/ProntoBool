@@ -28,11 +28,17 @@
                         </x-nav-link>
                     @endif
 
-                    <x-nav-link :href="route('professionist.professions.index')" :active="request()->routeIs('professionist.profession.index')">
+                    <x-nav-link :href="route('professionist.profession.index')" :active="request()->routeIs('professionist.profession.index')">
                         {{ __('Available professions') }}
                     </x-nav-link>
                     <x-nav-link :href="route('professionist.lead.create', Auth::user()->id)" :active="request()->routeIs('professionist.lead.create')">
                         {{ __('New Message') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('professionist.service.create')" :active="request()->routeIs('professionist.service.create')">
+                        {{ __('New Service') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('professionist.review.create')" :active="request()->routeIs('professionist.review.create')">
+                        {{ __('New Review') }}
                     </x-nav-link>
                     <x-nav-link :href="route('professionist.lead.index', Auth::user()->id)" :active="request()->routeIs('professionist.lead.index')">
                         {{ __('Your Message') }}

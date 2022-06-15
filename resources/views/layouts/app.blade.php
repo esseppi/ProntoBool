@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     <!-- Scripts -->
+    <!--front office o back office??? -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 

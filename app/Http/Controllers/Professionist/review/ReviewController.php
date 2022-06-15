@@ -1,10 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Professionist\Review;
 
-use App\Models\Review;
-use App\Http\Requests\StoreReviewRequest;
-use App\Http\Requests\UpdateReviewRequest;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Models\Professionist\Review;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class ReviewController extends Controller
 {
@@ -15,7 +19,6 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -25,18 +28,39 @@ class ReviewController extends Controller
      */
     public function create()
     {
-        //
+        $data = DB::table('users')
+            ->join('profiles', 'profiles.user_id', '=', 'users.id')
+            ->get();
+        return view('professionist.Review.create', compact('data'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreReviewRequest  $request
+     * @param  Illuminate\Http\Request; $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreReviewRequest $request)
+    public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        //validazione dei campi
+        /* $validation = Validator::make($data, [
+            'name' => 'required',
+            'email' => 'required|email',
+            'profile_id' => 'required',
+            'message' => 'required',
+        ]);
+        if ($validation->fails()) {
+            return response()->json([
+                'success' => false,
+                'error' => $validation->errors(),
+            ]);
+        } else {
+            */
+        $lead = Review::create($data);
+        return redirect()->route('dashboard', Auth::user()->id);
+        //};
     }
 
     /**
@@ -68,7 +92,7 @@ class ReviewController extends Controller
      * @param  \App\Models\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateReviewRequest $request, Review $review)
+    public function update(Request $request, Review $review)
     {
         //
     }

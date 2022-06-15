@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\Professionist\Lead;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Models\Professionist\Review;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Professionist\Profile;
+use App\Models\Professionist\Service;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Professionist\Profession;
 
@@ -42,6 +44,7 @@ class ProfileController extends Controller
             ->crossJoin('profiles', 'users.id', '=', 'profiles.user_id')
             ->where('users.id', $auth)
             ->exists();
+
         if ($checkIfHasProfile) abort(403);
         $data = Profession::whereRaw('1=1')->get();
         return view('professionist.profile.create', [
@@ -66,8 +69,7 @@ class ProfileController extends Controller
         $pic_url = Storage::put('pic', $formData['profilepic']);
         $formData['curriculum'] = $cv_url;
         $formData['pic'] = $pic_url;
-        // dd($cv_url);
-        // CREA PROFILO E AGGIORNA USER hasProfile
+        // CREA PROFILO
         Profile::create($formData);
         // VERIFICA SE LA PROFESSIONE INSERITA ESISTE GIA'
         $profession = $formData['profession'];
@@ -91,11 +93,16 @@ class ProfileController extends Controller
      */
     public function show(Profile $profile)
     {
+        $reviews = Review::where('profile_id', Auth::user()->id)->get();
+        $services = Service::where('profile_id', Auth::user()->id)->get();
         $jobs = $profile->find(Auth::user()->id)->professions;
-        $sponsorships = $profile->find(6)->sponsorships;
+        $sponsorships = $profile->find(Auth::user()->id)->sponsorships;
+
         return view('professionist.profile.show', [
             'jobs'      => $jobs,
-            'sponsorships' => $sponsorships
+            'sponsorships' => $sponsorships,
+            'reviews' => $reviews,
+            'services' => $services
         ]);
     }
 

@@ -2227,16 +2227,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     logout: function logout() {
-      var _this2 = this;
-
       axios.post("http://127.0.0.1:8000/api/logout").then(function () {
-        _this2.$router.push({
-          name: "login"
-        });
+        window.location = "/loginSpa";
       });
     },
     login: function login() {
-      window.location = "/login"; // this.$router.push({ name: "login" });
+      this.$router.push({
+        name: "login"
+      });
     }
   },
   created: function created() {}
