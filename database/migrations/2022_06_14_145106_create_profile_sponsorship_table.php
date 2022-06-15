@@ -15,16 +15,16 @@ class CreateProfileSponsorshipTable extends Migration
     {
         Schema::create('profile_sponsorship', function (Blueprint $table) {
 
+            $table->id();
             $table->dateTime('startDate')->nullable();
             $table->dateTime('endDate')->nullable();
             $table->unsignedBigInteger('sponsorship_id');
             $table->unsignedBigInteger('profile_id');
+            $table->boolean('isActive');
             $table->timestamps();
 
             $table->foreign('profile_id')->references('id')->on('profiles');
             $table->foreign('sponsorship_id')->references('id')->on('sponsorships');
-
-            $table->primary(['profile_id', 'sponsorship_id']);
         });
     }
 

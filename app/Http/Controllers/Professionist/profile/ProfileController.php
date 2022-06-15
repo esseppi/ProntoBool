@@ -91,10 +91,11 @@ class ProfileController extends Controller
      */
     public function show(Profile $profile)
     {
-        $infojob = $profile->find(Auth::user()->id)->professions;
-        // dd($infojob);
+        $jobs = $profile->find(Auth::user()->id)->professions;
+        $sponsorships = $profile->find(6)->sponsorships;
         return view('professionist.profile.show', [
-            'infos'      => $infojob
+            'jobs'      => $jobs,
+            'sponsorships' => $sponsorships
         ]);
     }
 

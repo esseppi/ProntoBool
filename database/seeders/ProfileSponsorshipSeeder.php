@@ -15,7 +15,11 @@ class ProfileSponsorshipSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 0; $i < 3; $i++) {
+        $data = date_create('2022-06-08 10:36:02');
+        $data = date_format($data, "Y-m-d");
+        Profile::find(5)->sponsorships()->attach(1, ['startDate' => $data, 'endDate' => $data, 'isActive' => 1]);
+
+        for ($i = 0; $i < 20; $i++) {
             $startDate = now();
             $bundle = rand(1, 3);
             $sponsorshipChoose = Sponsorship::find($bundle);
@@ -25,7 +29,7 @@ class ProfileSponsorshipSeeder extends Seeder
 
             $profile_id = Profile::inRandomOrder()->first()->id;
 
-            Profile::find($profile_id)->sponsorships()->attach($sponsorshipChoose['id'], ['startDate' => $startDate, 'endDate' => $endDate]);
+            Profile::find($profile_id)->sponsorships()->attach($sponsorshipChoose['id'], ['startDate' => $startDate, 'endDate' => $endDate, 'isActive' => 1]);
         }
     }
 }

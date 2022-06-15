@@ -15,7 +15,6 @@ class SponsorshipController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
