@@ -3,10 +3,11 @@
 use Illuminate\Support\Facades\DB;
 use App\Models\Professionist\Profile;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BraintreeController;
 use App\Http\Controllers\Professionist\LeadController;
 use App\Http\Controllers\Professionist\Review\ReviewController;
-use App\Http\Controllers\Professionist\Service\ServiceController;
 use App\Http\Controllers\Professionist\Profile\ProfileController;
+use App\Http\Controllers\Professionist\Service\ServiceController;
 use App\Http\Controllers\Professionist\Profession\ProfessionController;
 use App\Http\Controllers\Professionist\Sponsorship\SponsorshipController;
 
@@ -25,6 +26,8 @@ use App\Http\Controllers\Professionist\Sponsorship\SponsorshipController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::any('/payment', [BraintreeController::class, 'token'])->name('token')->middleware('auth');
 
 // REGISTERED USER SECTION
 Route::middleware('auth')

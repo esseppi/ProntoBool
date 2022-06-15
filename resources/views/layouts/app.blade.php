@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    {{-- Payment server --}}
+    <script src="https://js.braintreegateway.com/web/dropin/1.24.0/js/dropin.min.js"></script>
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -15,7 +17,6 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     <!-- Scripts -->
-    <!--front office o back office??? -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 
