@@ -1,8 +1,9 @@
 <x-app-layout>
     <div class="py-12">
         <div class="container m-auto">
-            <form action="{{ route('professionist.sponsorship.store') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('pay') }}" method="post" enctype="multipart/form-data">
                 @csrf
+                <input name="token" value="fake-valid-nonce" type="text">
                 <div class="mt-5 md:mt-0 md:col-span-2">
                     <div class="shadow sm:rounded-md sm:overflow-hidden">
                         {{-- SELECT PROFESSION --}}
@@ -12,7 +13,7 @@
                             </label>
                             <div class="flex">
                                 <div class="mb-3 xl:w-96">
-                                    <select id="newProfession" name="bundle_id"
+                                    <select id="newProfession" name="product"
                                         class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                         aria-label="Default select example">
                                         <option selected>Seleziona un bundle

@@ -7,8 +7,10 @@ use Braintree\Gateway;
 use Illuminate\Http\Request;
 use App\Models\Models\Product;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Orders\OrderRequest;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Professionist\Profile;
 use App\Models\Professionist\Sponsorship;
+use App\Http\Requests\Orders\OrderRequest;
 
 class OrderController extends Controller
 {
@@ -27,10 +29,10 @@ class OrderController extends Controller
     public function makePayment(OrderRequest $request, Gateway $gateway)
     {
 
-        $product = Sponsorship::find(1);
+        $product = Sponsorship::find($request->product);
 
         $result = $gateway->transaction()->sale([
-            'amount' => '10.00',
+            'amount' => $product->price,
             'paymentMethodNonce' => $request->token,
             'options' => [
                 'submitForSettlement' => true
@@ -41,7 +43,11 @@ class OrderController extends Controller
             $data = [
                 'success' => true,
                 'message' => "Transazione eseguita con Successo!"
+
+
             ];
+            $endDate = date_add(now(), date_interval_create_from_date_string($product->duration));
+            Profile::find(Auth::user()->id)->sponsorships()->attach($product->id, ['startDate' => now(), 'endDate' => $endDate, 'isActive' => 1]);
             return response()->json($data, 200);
         } else {
             $data = [
