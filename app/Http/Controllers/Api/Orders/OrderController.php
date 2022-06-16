@@ -24,13 +24,13 @@ class OrderController extends Controller
         return response()->json($data, 200);
     }
 
-    public function makePayment(Request $request, Gateway $gateway)
+    public function makePayment(OrderRequest $request, Gateway $gateway)
     {
 
-        $product = Sponsorship::find($request->product);
+        $product = Sponsorship::find(1);
 
         $result = $gateway->transaction()->sale([
-            'amount' => '22.00',
+            'amount' => '10.00',
             'paymentMethodNonce' => $request->token,
             'options' => [
                 'submitForSettlement' => true
