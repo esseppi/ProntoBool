@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Orders\OrderController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
@@ -17,6 +18,9 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 // VUEJS AXIOS API CALLS
 Route::get('/profiles', 'App\Http\Controllers\Api\GuestApiController@index');
 
+// Route::get('products', [ProductController::class, 'index']);
+Route::get('orders/generate', [OrderController::class, 'generate']);
+Route::get('orders/make/payment', [OrderController::class, 'makePayment']);
 
 Route::post('login', [AuthenticatedSessionController::class, 'store']);
 Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth:web');
