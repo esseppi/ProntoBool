@@ -26,13 +26,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
 // REGISTERED USER SECTION
 Route::middleware('auth')
     ->name('professionist.')
     ->prefix('professionist')
     ->group(function () {
+        Route::get('profile/delete/{id}', 'App\Http\Controllers\Professionist\Profile\ProfileController@deleteJob')->name('deleteJob');
+        Route::post('profile/deleteService/{id}', 'App\Http\Controllers\Professionist\Profile\ProfileController@deleteService')->name('deleteService');
         Route::get('profile/edit', 'App\Http\Controllers\Professionist\Profile\ProfileController@edit');
         Route::get('profile/show', 'App\Http\Controllers\Professionist\Profile\ProfileController@show');
+
 
         Route::post('lead', 'App\Http\Controllers\Professionist\ProfileController@store');
         Route::resource('lead', LeadController::class);

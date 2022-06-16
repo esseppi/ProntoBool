@@ -5,16 +5,12 @@
                 <li class="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg bg-blue-600 text-white">
                     I tuoi lavori nel database
                 </li>
-                @foreach ($jobs as $info)
+                @foreach ($jobs as $item)
                     <li class="px-6 py-2 border-b border-gray-200 w-full">
-                        {{ $info->name }}
+                        {{ $item->name }}
                         <div class="flex justify-between">
-                            <a href="" class="bg-blue-500 hover:bg-blue-700 btn text-white font-bold py-2 px-4 rounded">
-                                Info
-                            </a>
-                            <form action="" method="post">
+                            <form action="{{ route('professionist.deleteJob', $item->id) }}" method="get">
                                 @csrf
-                                @method('DELETE')
                                 <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                                     Delete
                                 </button>
@@ -40,6 +36,12 @@
                 @foreach ($services as $item)
                     <li class="px-6 py-2 border-b border-gray-200 w-full">
                         {{ $item->desc }} / {{ $item->price }}
+                        <form action="{{ route('professionist.deleteService', $item->id) }}" method="post">
+                            @csrf
+                            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                Delete
+                            </button>
+                        </form>
                     </li>
                 @endforeach
             </ul>

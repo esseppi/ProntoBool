@@ -16,6 +16,19 @@ use App\Models\Professionist\Profession;
 
 class ProfileController extends Controller
 {
+    public function deleteJob($id)
+    {
+        $profile = Profile::find(Auth::user()->id);
+        $profile->professions()->detach($id);
+        $profile->update();
+        return view('dashboard');
+    }
+    public function deleteService($id)
+    {
+        $service = Service::find($id);
+        $service->delete();
+        return view('dashboard');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -99,6 +112,7 @@ class ProfileController extends Controller
         $sponsorships = $profile->find(Auth::user()->id)->sponsorships;
 
         return view('professionist.profile.show', [
+            'myId' => Auth::user()->id,
             'jobs'      => $jobs,
             'sponsorships' => $sponsorships,
             'reviews' => $reviews,
