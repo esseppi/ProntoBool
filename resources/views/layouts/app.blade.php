@@ -7,6 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     {{-- Payment server --}}
     <script src="https://js.braintreegateway.com/web/dropin/1.24.0/js/dropin.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
