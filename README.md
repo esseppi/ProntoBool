@@ -1,64 +1,113 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# pronto bool
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**------ambiente-----**
+- framework
+    1. laravel 8
 
-## About Laravel
+- linguaggi 
+    1. php 8.0.2
+    1. JS
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- package.json 
+    1. vue-route 3.5.4
+    1. vuetify 2.6.6
+    1. vuetify-loader 1.7.3
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**--DEV mode--**
+<code> composer require barryvdh/laravel-debugbar --dev </code>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**--laravel--**
+<code>composer require laravel/ui:^2.4</code>
+<code>php artisan ui vue --auth</code>
 
-## Learning Laravel
+**--terminal code--**
+<code>composer update </code>
+<code>composer install </code>
+<code>npm install</code>
+<code>composer dump-autoload</code>
+<code>php artisan key:generate</code>
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+**-----DB----**
+    **users**
+        - id
+        - name
+        - email
+        - password
+    **lead**
+        - name
+        - email
+        - message
+        - phone 
+        - profile_id (fk)
+    **profesion**
+        - name (type of profesion)
+    **profile**
+        - curriculum
+        - pic
+        - phone
+        - description
+        - profession_id(FK)
+        - address
+        - user_id(FK)
+        - id
+        - profile_id(FK)
+        - sponsorship_id (FK)
+    **-review-**
+    - profile_id (FK)
+    - name
+    - email
+    - message
+    - vote
+    - profile_id (FK)
+**service**
+    - profile_id (FK)
+    - desc
+    - price
+    - profession_id (FK)
+**sponsorships**
+    - name
+    - price
+    - duration
+    - profile_id' (FK)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+//da qui è quello di henri da cui prendo spunto
 
-## Laravel Sponsors
+separare js per il front office e per il back office in webpack.mix.js: mix.js('resources/js/admin.js', 'public/js')
+.js('resources/js/front.js', 'public/js')
+.sass('resources/sass/app.scss', 'public/css');
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+nelle view andare ad usare i file js e css corretti:
 
-### Premium Partners
+<script src="{{ asset('js/admin.js') }}" defer></script>
+oppure
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+<script src="{{ asset('js/front.js') }}" defer></script>
+e gli stili
 
-## Contributing
+require('./bootstrap');
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+window.Vue = require('vue'); window.Axios = require('axios');
 
-## Code of Conduct
+import App from './views/App.vue';
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+const app = new Vue({ el: '#app', render: h => h(App), });
 
-## Security Vulnerabilities
+se serve il router:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+npm install vue-router@3
 
-## License
+fare una cartella Pages dove mettere i componenti specifici delle pagine
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+aggiornare il file front.js: import VueRouter from 'vue-router'; // import di tutte le pagine
+
+Vue.use(VueRouter);
+
+const router = new VueRouter({ mode: 'history', routes: [ { path: '/', name: 'home', component: PageHome, }, // ... { path: '/blog/:slug', name: 'postShow', component: PostShow, props: true, }, { path: '*', name: 'page404', component: Page404, }, ], });
+
+const app = new Vue({ el: '#app', render: h => h(App), router, });
+
+a questo punto usare:
+
+https://v2.vuejs.org/v2/guide/
+https://router.vuejs.org/
+https://laravel.com/docs/7.x/

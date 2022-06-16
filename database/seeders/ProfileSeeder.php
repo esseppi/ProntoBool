@@ -28,7 +28,6 @@ class ProfileSeeder extends Seeder
                 'address' => $faker->address(),
                 'phone' => $faker->phoneNumber(),
             ]);
-            User::find($i)->update(['hasProfile' => true]);
         }
     }
 }

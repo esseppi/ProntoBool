@@ -2,18 +2,34 @@
 
 namespace App\Http\Controllers\Professionist\Profile;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Professionist\Lead;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
+use App\Models\Professionist\Review;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Professionist\Profile;
-use App\Models\Professionist\Profession;
-use App\Http\Requests\StoreProfileRequest;
-use App\Http\Requests\UpdateProfileRequest;
-use App\Models\User;
+use App\Models\Professionist\Service;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Professionist\Profession;
+use App\Models\Professionist\Sponsorship;
 
 class ProfileController extends Controller
 {
+    public function deleteJob($id)
+    {
+        $profile = Profile::find(Auth::user()->id);
+        $profile->professions()->detach($id);
+        $profile->update();
+        return view('dashboard');
+    }
+    public function deleteService($id)
+    {
+        $service = Service::find($id);
+        $service->delete();
+        return view('dashboard');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -37,7 +53,13 @@ class ProfileController extends Controller
      */
     public function create(Profile $profile)
     {
-        if (Auth::user()->hasProfile) abort(403);
+        $auth = Auth::user()->id;
+        $checkIfHasProfile = DB::table('users')
+            ->crossJoin('profiles', 'users.id', '=', 'profiles.user_id')
+            ->where('users.id', $auth)
+            ->exists();
+
+        if ($checkIfHasProfile) abort(403);
         $data = Profession::whereRaw('1=1')->get();
         return view('professionist.profile.create', [
             'profile'        => $profile,
@@ -57,24 +79,53 @@ class ProfileController extends Controller
             'id' => Auth::user()->id,
             'user_id' => Auth::user()->id,
         ];
-        $cv_url = Storage::put('cv', $formData['curriculum']);
-        $formData['curriculum'] = $cv_url;
 
-        // CREA PROFILO E AGGIORNA USER hasProfile
-        Profile::create($formData);
-        User::find(Auth::user()->id)->update(['hasProfile' => true]);
+
+        $cv_url = Storage::put('cv', $formData['curriculum']);
+        $pic_url = Storage::put('pic', $formData['profilepic']);
+        $formData['curriculum'] = $cv_url;
+        $formData['pic'] = $pic_url;
+
+
+        // CREA PROFILO
         // VERIFICA SE LA PROFESSIONE INSERITA ESISTE GIA'
-        $profession = $formData['profession'];
-        $checkIfProfessionExists = Profession::where('name', $profession)->exists();
-        if (!$checkIfProfessionExists) {
-            $newProfession = Profession::create(['name' => $profession]);
-        }
-        // SE NON ESISTE LA PROFESSIONE VIENE CREATA
-        $newProfession = Profession::where('name', $profession)->get('id');
+        $profession = $formData['professions'];
+        // dd($profession);
+
+        // $newProfession = Profession::find($profession)->id;
         // ATTACCA LA PROFESSIONE AL PROFILO
+
+
+        Profile::create($formData);
+
         $profile = Profile::find(Auth::user()->id);
-        $profile->professions()->attach($newProfession->pluck('id')->all());
+        $profile->professions()->attach($profession);
+
         return view('dashboard');
+
+
+        // formData = $request->all() + [
+        //     'id' => Auth::user()->id,
+        //     'user_id' => Auth::user()->id,
+        // ];
+        // $cv_url = Storage::put('cv', $formData['curriculum']);
+        // $pic_url = Storage::put('pic', $formData['profilepic']);
+        // $formData['curriculum'] = $cv_url;
+        // $formData['pic'] = $pic_url;
+        // // CREA PROFILO
+        // Profile::create($formData);
+        // // VERIFICA SE LA PROFESSIONE INSERITA ESISTE GIA'
+        // $profession = $formData['profession'];
+        // // $checkIfProfessionExists = Profession::where('name', $profession)->exists();
+        // // if (!$checkIfProfessionExists) {
+        // //     $newProfession = Profession::create(['name' => $profession]);
+        // // }
+        // // SE NON ESISTE LA PROFESSIONE VIENE CREATA
+        // $newProfession = Profession::where('name', $profession)->get('id');
+        // // ATTACCA LA PROFESSIONE AL PROFILO
+        // $profile = Profile::find(Auth::user()->id);
+        // $profile->professions()->attach($newProfession->pluck('id')->all());
+        // return view('dashboard');
     }
 
     /**
@@ -85,10 +136,17 @@ class ProfileController extends Controller
      */
     public function show(Profile $profile)
     {
-        $infojob = $profile->find(Auth::user()->id)->professions;
-        // dd($infojob);
+        $reviews = Review::where('profile_id', Auth::user()->id)->get();
+        $services = Service::where('profile_id', Auth::user()->id)->get();
+        $jobs = $profile->find(Auth::user()->id)->professions;
+        $sponsorships = $profile->find(Auth::user()->id)->sponsorships;
+
         return view('professionist.profile.show', [
-            'infos'      => $infojob
+            'myId' => Auth::user()->id,
+            'jobs'      => $jobs,
+            'sponsorships' => $sponsorships,
+            'reviews' => $reviews,
+            'services' => $services
         ]);
     }
 
@@ -105,6 +163,7 @@ class ProfileController extends Controller
         $professions = Profession::whereRaw('1 = 1')->get();
         return view('professionist.profile.edit', [
             'profile'      => Auth::user(),
+            //dice che stiamo ripetendo l'ogetto provare senza la riga qui sotto
             'profile'        => $profile,
             'professions'    => $professions,
         ]);
@@ -121,9 +180,10 @@ class ProfileController extends Controller
     {
         // if (Auth::user()->id !== $profile->user_id) abort(403);
 
+
         $formData = $request->all();
+        $professionId = $formData['professions'];
         $profile->update($formData);
-        $professionId = Profession::where('name', $formData['profession'])->get('id');
         if ($professionId) {
             $profile->professions()->sync($professionId);
         }
@@ -140,10 +200,19 @@ class ProfileController extends Controller
     public function destroy(Profile $profile)
     {
         if (Auth::user()->id !== $profile->user_id) abort(403);
+        $allMyMsg = Lead::where('profile_id', Auth::user()->id)->get();
+        foreach ($allMyMsg as $msg) {
+            $msg->delete();
+        }
 
+        $deleteReview = Review::where('profile_id', Auth::user()->id);
+        $deleteReview->delete();
+        $deleteService = Service::where('profile_id', Auth::user()->id);
+        $deleteService->delete();
+
+        $profile->sponsorships()->detach();
         $profile->professions()->detach();
         $profile->delete();
-        User::find($profile->id)->update(['hasProfile' => false]);
 
         return view('dashboard')/*->with('status', "Profile $profile->title deleted")*/;
     }

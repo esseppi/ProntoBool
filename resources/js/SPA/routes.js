@@ -1,8 +1,8 @@
 import Home from "./pages/Home.vue";
 import Settings from "./pages/Settings.vue";
 import MyDashboard from "./pages/MyDashboard.vue";
-// import Login from "./pages/auth/Login.vue";
-// import Register from "./pages/auth/Register.vue";
+import Login from "./pages/auth/Login.vue";
+import Register from "./pages/auth/Register.vue";
 
 export default {
     mode: "history",
@@ -13,6 +13,16 @@ export default {
             path: "/home",
             name: "home",
             component: Home,
+        },
+        {
+            path: "/registerSpa",
+            name: "register",
+            component: Register,
+        },
+        {
+            path: "/loginSpa",
+            name: "login",
+            component: Login,
         },
         // {
         //     path: "/settings",

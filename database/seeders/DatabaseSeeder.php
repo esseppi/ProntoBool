@@ -20,7 +20,10 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
         $this->call(ProfileSeeder::class);
         $this->call(ProfessionProfileSeeder::class);
-
-        // \App\Models\Professionist\Profile::factory($profNumb)->create();
+        $this->call(LeadSeeder::class);
+        $this->call(SponsorshipSeeder::class);
+        $this->call(ProfileSponsorshipSeeder::class);
+        $this->call(ReviewSeeder::class);
+        $this->call(ServiceSeeder::class);
     }
 }

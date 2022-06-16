@@ -31,12 +31,12 @@ export default {
   },
   methods: {
     logout() {
-      axios.post("auth/logout").then(() => {
-        this.$router.push({ name: "Welcome" });
+      axios.post("http://127.0.0.1:8000/api/logout").then(() => {
+        window.location = "/loginSpa";
       });
     },
     login() {
-      window.location = "/login";
+      this.$router.push({ name: "login" });
     },
   },
   created() {},
