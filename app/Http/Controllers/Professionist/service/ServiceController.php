@@ -30,6 +30,9 @@ class ServiceController extends Controller
      */
     public function create(Profile $profile)
     {
+        $dio = Profile::find(Auth::user()->id)->professions;
+        // dd($dio);
+
         $profession = Profession::all();
         $checkProfile = Profile::find(Auth::user()->id);
         if (is_null($checkProfile)) {
@@ -38,7 +41,7 @@ class ServiceController extends Controller
 
         return view('professionist.service.create', [
             'profile'        => $profile,
-            'professions'    => $profession,
+            'professions'    => $dio,
         ]);
     }
 

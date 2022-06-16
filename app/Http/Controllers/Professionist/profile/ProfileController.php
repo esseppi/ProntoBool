@@ -13,6 +13,7 @@ use App\Models\Professionist\Profile;
 use App\Models\Professionist\Service;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Professionist\Profession;
+use App\Models\Professionist\Sponsorship;
 
 class ProfileController extends Controller
 {
@@ -78,24 +79,53 @@ class ProfileController extends Controller
             'id' => Auth::user()->id,
             'user_id' => Auth::user()->id,
         ];
+
+
         $cv_url = Storage::put('cv', $formData['curriculum']);
         $pic_url = Storage::put('pic', $formData['profilepic']);
         $formData['curriculum'] = $cv_url;
         $formData['pic'] = $pic_url;
+
+
         // CREA PROFILO
-        Profile::create($formData);
         // VERIFICA SE LA PROFESSIONE INSERITA ESISTE GIA'
-        $profession = $formData['profession'];
-        // $checkIfProfessionExists = Profession::where('name', $profession)->exists();
-        // if (!$checkIfProfessionExists) {
-        //     $newProfession = Profession::create(['name' => $profession]);
-        // }
-        // SE NON ESISTE LA PROFESSIONE VIENE CREATA
-        $newProfession = Profession::where('name', $profession)->get('id');
+        $profession = $formData['professions'];
+        // dd($profession);
+
+        // $newProfession = Profession::find($profession)->id;
         // ATTACCA LA PROFESSIONE AL PROFILO
+
+
+        Profile::create($formData);
+
         $profile = Profile::find(Auth::user()->id);
-        $profile->professions()->attach($newProfession->pluck('id')->all());
+        $profile->professions()->attach($profession);
+
         return view('dashboard');
+
+
+        // formData = $request->all() + [
+        //     'id' => Auth::user()->id,
+        //     'user_id' => Auth::user()->id,
+        // ];
+        // $cv_url = Storage::put('cv', $formData['curriculum']);
+        // $pic_url = Storage::put('pic', $formData['profilepic']);
+        // $formData['curriculum'] = $cv_url;
+        // $formData['pic'] = $pic_url;
+        // // CREA PROFILO
+        // Profile::create($formData);
+        // // VERIFICA SE LA PROFESSIONE INSERITA ESISTE GIA'
+        // $profession = $formData['profession'];
+        // // $checkIfProfessionExists = Profession::where('name', $profession)->exists();
+        // // if (!$checkIfProfessionExists) {
+        // //     $newProfession = Profession::create(['name' => $profession]);
+        // // }
+        // // SE NON ESISTE LA PROFESSIONE VIENE CREATA
+        // $newProfession = Profession::where('name', $profession)->get('id');
+        // // ATTACCA LA PROFESSIONE AL PROFILO
+        // $profile = Profile::find(Auth::user()->id);
+        // $profile->professions()->attach($newProfession->pluck('id')->all());
+        // return view('dashboard');
     }
 
     /**
@@ -150,9 +180,10 @@ class ProfileController extends Controller
     {
         // if (Auth::user()->id !== $profile->user_id) abort(403);
 
+
         $formData = $request->all();
+        $professionId = $formData['professions'];
         $profile->update($formData);
-        $professionId = Profession::where('name', $formData['profession'])->get('id');
         if ($professionId) {
             $profile->professions()->sync($professionId);
         }
@@ -173,6 +204,13 @@ class ProfileController extends Controller
         foreach ($allMyMsg as $msg) {
             $msg->delete();
         }
+
+        $deleteReview = Review::where('profile_id', Auth::user()->id);
+        $deleteReview->delete();
+        $deleteService = Service::where('profile_id', Auth::user()->id);
+        $deleteService->delete();
+
+        $profile->sponsorships()->detach();
         $profile->professions()->detach();
         $profile->delete();
 

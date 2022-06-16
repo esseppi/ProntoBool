@@ -69,38 +69,41 @@
                                     <div>
                                         {{-- SELECT PROFESSION --}}
                                         <div>
-                                            <label for="description" class="block text-sm font-medium text-gray-700">
+                                            <fieldset>
+                                                <legend> Seleziona una professione tra quelle esistenti o creane una
+                                                    nuova</legend>
+                                                @foreach ($professions as $profession)
+                                                    <input type="checkbox" name="professions[]"
+                                                        id="profession-{{ $profession->id }}"
+                                                        value="{{ $profession->id }}"
+                                                        @if (in_array($profession->id, old('professions[]', []))) checked @endif>
+                                                    <label
+                                                        for="profession-{{ $profession->id }}">{{ $profession->name }}</label>
+                                                @endforeach
+                                            </fieldset>
+                                            {{-- <label for="description" class="block text-sm font-medium text-gray-700">
                                                 Seleziona una professione tra quelle esistenti o creane una nuova
                                             </label>
                                             <div class="flex">
                                                 <div class="mb-3 xl:w-96">
-                                                    <select id="newProfession"
+                                                    <select id="newProfession" name="profession"
                                                         class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                                         aria-label="Default select example">
                                                         <option selected>Seleziona una
                                                             professione</option>
                                                         @foreach ($professions as $profession)
-                                                            <option value="{{ $profession->name }}">
+                                                            <option value="{{ $profession->id }}">
                                                                 {{ $profession->name }}</option>
                                                         @endforeach
                                                         <option value="">Nessuna di queste</option>
                                                     </select>
                                                 </div>
-                                            </div>
-
-                                            <p class="mt-2 text-sm text-gray-500">Seleziona una professione, o se
+                                            </div> --}}
+                                            {{-- <p class="mt-2 text-sm text-gray-500">Seleziona una professione, o se
                                                 non
-                                                presente tra quelle nella lista, creane una tu!</p>
+                                                presente tra quelle nella lista, creane una tu!</p> --}}
                                         </div>
-                                        {{-- CREATE PROFESSION --}}
-                                        <label for="profession" class="block text-sm font-medium text-gray-700">
-                                            Crea professione
-                                        </label>
-                                        <div class="mt-1">
-                                            <input id="finalProfession" name="profession" type="text" disabled
-                                                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
-                                                placeholder="Crea una professione">
-                                        </div>
+
 
                                     </div>
 
