@@ -37,7 +37,7 @@
                 <v-dialog transition="dialog-bottom-transition" max-width="600">
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn
-                      :to="`/checkout/${bundle.id}`"
+                      :to="`/checkout2/${bundle.id}`"
                       v-bind="attrs"
                       v-on="on"
                       absolute

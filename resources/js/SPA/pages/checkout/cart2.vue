@@ -1,7 +1,9 @@
 <template>
   <div class="flex flex-col mx-auto max-w-lg p-10 justify-middle">
+    <div class="text-2xl">
+      Stai acquistando il prodotto con id: {{ $route.params.id }}
+    </div>
     {{ form }}
-    <div class="text-2xl"></div>
     <v-braintree
       v-if="!loadingPayment"
       ref="paymentRef"
@@ -50,8 +52,16 @@
 
 <script>
 export default {
+  async asyncData({ app }) {
+    tokenApi = response.token;
+
+    return {
+      loadingPayment: false,
+    };
+  },
   data() {
     return {
+      loaded: false,
       tokenApi: "",
       disableBuyButton: true,
       loadingPayment: true,
@@ -61,14 +71,17 @@ export default {
       },
     };
   },
-  beforeCreate() {
-    axios.get("api/orders/generate").then((res) => {
-      console.log(res.data.token);
-      this.tokenApi = res.data.token;
-      this.loadingPayment = false;
-    });
+  props: {
+    // add @ts-ignore if using TypeScript
+    ...RouterLink.props,
+    id: Number,
   },
   mounted() {
+    axios.get("api/orders/generate").then((res) => {
+      this.tokenApi = res.data.token;
+      this.loaded = true;
+      console.log(res.data.token);
+    });
     this.form.product = this.$route.params.id;
   },
   methods: {

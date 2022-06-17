@@ -33,9 +33,16 @@ export default {
             component: Login,
         },
         {
-            path: "/checkout",
+            path: "/checkout/:id",
             name: "cart",
             component: Cart,
+            props: { id: String },
+        },
+        {
+            path: "/checkout2/:id",
+            name: "cart2",
+            component: Cart,
+            props: { id: Number },
         },
         {
             path: "/ThankYou",

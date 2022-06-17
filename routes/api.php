@@ -21,8 +21,9 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 // VUEJS AXIOS API CALLS TECHNICAL
 Route::get('/sponsorship', [SponsorshipController::class, 'index']);
 Route::get('/profiles', [GuestApiController::class, 'index']);
+
 Route::get('orders/generate', [OrderController::class, 'generate']);
-Route::post('orders/make/payment', [OrderController::class, 'makePayment'])->name('pay');
+Route::post('orders/makepayment', [OrderController::class, 'makePayment'])->name('pay');
 Route::post('login', [AuthenticatedSessionController::class, 'store']);
 Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth:web');
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
