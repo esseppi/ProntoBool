@@ -15,12 +15,7 @@
     <v-divider></v-divider>
 
     <v-list dense>
-      <v-list-item
-        v-for="item in items"
-        :key="item.title"
-        :to="{ name: item.name }"
-        link
-      >
+      <v-list-item v-for="item in items" :key="item.title" :to="item.name" link>
         <v-list-item-icon>
           <v-icon>{{ item.icon }}</v-icon>
         </v-list-item-icon>
@@ -33,6 +28,7 @@
   </v-navigation-drawer>
 </template>
 
+
 <script>
 export default {
   name: "Drawer",
@@ -41,14 +37,14 @@ export default {
       drawer: true,
       items: [
         {
-          title: "MyDashboard",
-          name: "MyDashboard",
-          icon: "mdi-view-dashboard-variant",
+          title: "Dashboard",
+          name: "dashboard",
+          icon: "mdi-account",
         },
         {
-          title: "Settings",
-          name: "settings",
-          icon: "mdi-account-cog",
+          title: "Sponsorships",
+          name: "bundles",
+          icon: "mdi-magnet-on",
         },
       ],
       mini: true,

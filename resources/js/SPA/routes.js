@@ -1,4 +1,7 @@
 import Home from "./pages/Home.vue";
+import Cart from "./pages/checkout/cart.vue";
+import Thankyou from "./pages/checkout/thankyou.vue";
+import Bundles from "./pages/Bundles";
 import Settings from "./pages/Settings.vue";
 import MyDashboard from "./pages/MyDashboard.vue";
 import Login from "./pages/auth/Login.vue";
@@ -15,6 +18,11 @@ export default {
             component: Home,
         },
         {
+            path: "/bundles",
+            name: "bundles",
+            component: Bundles,
+        },
+        {
             path: "/registerSpa",
             name: "register",
             component: Register,
@@ -23,6 +31,16 @@ export default {
             path: "/loginSpa",
             name: "login",
             component: Login,
+        },
+        {
+            path: "/cart",
+            name: "cart",
+            component: Cart,
+        },
+        {
+            path: "/ThankYou",
+            name: "thankyou",
+            component: Thankyou,
         },
         // {
         //     path: "/settings",
