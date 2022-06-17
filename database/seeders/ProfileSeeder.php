@@ -27,6 +27,7 @@ class ProfileSeeder extends Seeder
                 'description' => $faker->text(),
                 'address' => $faker->address(),
                 'phone' => $faker->phoneNumber(),
+                'views' => $faker->numberBetween(0, 1000),
             ]);
         }
     }
