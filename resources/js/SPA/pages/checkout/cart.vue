@@ -2,14 +2,13 @@
   <div class="flex flex-col mx-auto max-w-lg p-10 justify-middle">
     {{ form }}
     <div class="text-2xl"></div>
-    <v-braintree
+    <Payment
       v-if="!loadingPayment"
       ref="paymentRef"
-      :authorization="tokenApi"
       @loading="handleLoading"
       @onSuccess="paymentOnSuccess"
       @onError="paymentOnError"
-    ></v-braintree>
+    ></Payment>
 
     <button
       v-if="!disableBuyButton"
@@ -49,6 +48,7 @@
 </template>
 
 <script>
+import Payment from "../../components/Payment.vue";
 export default {
   data() {
     return {
@@ -88,9 +88,8 @@ export default {
     async buy() {
       this.disableBuyButton = true;
       this.loadingPayment = true;
-
       try {
-        await this.$axios.$post("/api/orders/make/payment", { ...this.form });
+        await this.axios.$post("/api/orders/makepayment", { ...this.form });
         // const message = response.message
         // alert(message)
         this.$router.push({ path: "/checkout/thankyou" });
@@ -100,6 +99,7 @@ export default {
       }
     },
   },
+  components: { Payment },
 };
 </script>
 

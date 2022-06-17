@@ -1,17 +1,15 @@
 <template>
   <div class="flex flex-col mx-auto max-w-lg p-10 justify-middle">
-    <div class="text-2xl">
-      Stai acquistando il prodotto con id: {{ $route.params.id }}
-    </div>
     {{ form }}
-    <v-braintree
+    <div class="text-2xl"></div>
+    <Payment
       v-if="!loadingPayment"
       ref="paymentRef"
       :authorization="tokenApi"
       @loading="handleLoading"
       @onSuccess="paymentOnSuccess"
       @onError="paymentOnError"
-    ></v-braintree>
+    ></Payment>
 
     <button
       v-if="!disableBuyButton"
@@ -51,17 +49,10 @@
 </template>
 
 <script>
+import Payment from "../../components/Payment.vue";
 export default {
-  async asyncData({ app }) {
-    tokenApi = response.token;
-
-    return {
-      loadingPayment: false,
-    };
-  },
   data() {
     return {
-      loaded: false,
       tokenApi: "",
       disableBuyButton: true,
       loadingPayment: true,
@@ -71,17 +62,14 @@ export default {
       },
     };
   },
-  props: {
-    // add @ts-ignore if using TypeScript
-    ...RouterLink.props,
-    id: Number,
+  beforeCreate() {
+    axios.get("api/orders/generate").then((res) => {
+      console.log(res.data.token);
+      this.tokenApi = res.data.token;
+      this.loadingPayment = false;
+    });
   },
   mounted() {
-    axios.get("api/orders/generate").then((res) => {
-      this.tokenApi = res.data.token;
-      this.loaded = true;
-      console.log(res.data.token);
-    });
     this.form.product = this.$route.params.id;
   },
   methods: {
@@ -101,7 +89,6 @@ export default {
     async buy() {
       this.disableBuyButton = true;
       this.loadingPayment = true;
-
       try {
         await this.$axios.$post("/api/orders/make/payment", { ...this.form });
         // const message = response.message
@@ -113,6 +100,7 @@ export default {
       }
     },
   },
+  components: { Payment },
 };
 </script>
 
