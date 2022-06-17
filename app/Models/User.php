@@ -21,7 +21,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'hasProfile'
+        'braintree_id',
+        'braintree_nonce'
+
+
     ];
 
     /**

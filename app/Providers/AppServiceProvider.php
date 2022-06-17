@@ -34,10 +34,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(Gateway::class, function ($app) {
             return new Gateway(
                 [
-                    'environment' => 'sandbox',
-                    'merchantId' => 'xfj6ygs7jfxxb9b3',
-                    'publicKey' => '34vkghzfsks2y93h',
-                    'privateKey' => '1b16438e7eb59a64708723ea1cc6768b'
+                    'environment' => env('BRAINTREE_ENVIRONMENT'),
+                    'merchantId' => env("BRAINTREE_MERCHANT_ID"),
+                    'publicKey' => env("BRAINTREE_PUBLIC_KEY"),
+                    'privateKey' => env("BRAINTREE_PRIVATE_KEY")
                 ]
 
             );
