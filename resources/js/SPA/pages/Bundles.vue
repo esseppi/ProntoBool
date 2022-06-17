@@ -1,6 +1,12 @@
 <template>
   <v-row align="center" justify="center">
-    <v-col v-for="bundle in bundles" :key="bundle.id" cols="12" md="4">
+    <v-col
+      v-for="bundle in bundles"
+      :key="bundle.id"
+      cols="12"
+      md="4"
+      align-self="center"
+    >
       <v-hover v-slot="{ hover }">
         <v-card class="mx-auto" color="grey lighten-4" max-width="600">
           <v-img
@@ -31,6 +37,7 @@
                 <v-dialog transition="dialog-bottom-transition" max-width="600">
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn
+                      :to="`/checkout/${bundle.id}`"
                       v-bind="attrs"
                       v-on="on"
                       absolute
@@ -78,14 +85,7 @@ export default {
   name: "Bundles",
   data() {
     return {
-      bundles: [
-        {
-          id: 1,
-          price: 10,
-          name: "Gold",
-          duration: "144 Hours",
-        },
-      ],
+      bundles: [],
     };
   },
   mounted() {

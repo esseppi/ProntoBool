@@ -33,7 +33,7 @@ export default {
             component: Login,
         },
         {
-            path: "/cart",
+            path: "/checkout",
             name: "cart",
             component: Cart,
         },

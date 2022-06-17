@@ -2367,16 +2367,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Bundles",
   data: function data() {
     return {
-      bundles: [{
-        id: 1,
-        price: 10,
-        name: "Gold",
-        duration: "144 Hours"
-      }]
+      bundles: []
     };
   },
   mounted: function mounted() {
@@ -2763,7 +2765,7 @@ __webpack_require__.r(__webpack_exports__);
     name: "login",
     component: _pages_auth_Login_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
   }, {
-    path: "/cart",
+    path: "/checkout",
     name: "cart",
     component: _pages_checkout_cart_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   }, {
@@ -23349,7 +23351,10 @@ var render = function () {
     _vm._l(_vm.bundles, function (bundle) {
       return _c(
         "v-col",
-        { key: bundle.id, attrs: { cols: "12", md: "4" } },
+        {
+          key: bundle.id,
+          attrs: { cols: "12", md: "4", "align-self": "center" },
+        },
         [
           _c("v-hover", {
             scopedSlots: _vm._u(
@@ -23438,6 +23443,9 @@ var render = function () {
                                                           staticClass:
                                                             "white--text",
                                                           attrs: {
+                                                            to:
+                                                              "/checkout/" +
+                                                              bundle.id,
                                                             absolute: "",
                                                             color: "orange",
                                                             fab: "",
