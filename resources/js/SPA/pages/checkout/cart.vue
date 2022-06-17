@@ -27,7 +27,7 @@
     >
       Procedi con l'acquisto 🎉
     </button>
-    <button
+    <!-- <button
       v-else
       class="
         w-full
@@ -43,7 +43,7 @@
       "
     >
       {{ loadingPayment ? "Loading..." : "Procedi con l'acquisto 🎉" }}
-    </button>
+    </button> -->
   </div>
 </template>
 

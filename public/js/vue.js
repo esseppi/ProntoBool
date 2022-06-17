@@ -2208,8 +2208,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "HeaderApp",
   data: function data() {
@@ -2817,8 +2815,7 @@ __webpack_require__.r(__webpack_exports__);
   }, {
     path: "/checkout/:id",
     name: "cart",
-    component: _pages_checkout_cart_vue__WEBPACK_IMPORTED_MODULE_1__["default"] // props: { id: String },
-
+    component: _pages_checkout_cart_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   }, {
     path: "/ThankYou",
     name: "thankyou",
@@ -48032,7 +48029,7 @@ var render = function () {
       },
     },
     [
-      _c("v-app-bar-nav-icon"),
+      !_vm.bool ? _c("v-app-bar-nav-icon") : _vm._e(),
       _vm._v(" "),
       _c("v-toolbar-title", [_vm._v("Title")]),
       _vm._v(" "),
@@ -48046,20 +48043,18 @@ var render = function () {
       ),
       _vm._v(" "),
       _vm.bool
-        ? _c("div", [
-            _c(
-              "button",
-              {
-                on: {
-                  click: function ($event) {
-                    $event.preventDefault()
-                    return _vm.logout.apply(null, arguments)
-                  },
+        ? _c(
+            "button",
+            {
+              on: {
+                click: function ($event) {
+                  $event.preventDefault()
+                  return _vm.logout.apply(null, arguments)
                 },
               },
-              [_vm._v("Logout")]
-            ),
-          ])
+            },
+            [_vm._v("Logout")]
+          )
         : _c("div", [
             _c(
               "button",
@@ -48742,24 +48737,7 @@ var render = function () {
             },
             [_vm._v("\n    Procedi con l'acquisto 🎉\n  ")]
           )
-        : _c(
-            "button",
-            {
-              staticClass:
-                "\n      w-full\n      text-center\n      px-4\n      py-3\n      bg-green-300\n      rounded-md\n      shadow-md\n      text-white\n      font-semibold\n      cursor-not-allowed\n    ",
-            },
-            [
-              _vm._v(
-                "\n    " +
-                  _vm._s(
-                    _vm.loadingPayment
-                      ? "Loading..."
-                      : "Procedi con l'acquisto 🎉"
-                  ) +
-                  "\n  "
-              ),
-            ]
-          ),
+        : _vm._e(),
     ],
     1
   )

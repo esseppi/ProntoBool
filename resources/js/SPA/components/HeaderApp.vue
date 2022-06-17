@@ -1,6 +1,6 @@
 <template>
   <v-app-bar light dense color="#D7E4F3" height="56px" app>
-    <v-app-bar-nav-icon></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon v-if="!bool"></v-app-bar-nav-icon>
 
     <v-toolbar-title>Title</v-toolbar-title>
 
@@ -10,9 +10,7 @@
       <v-icon>mdi-magnify</v-icon>
     </v-btn>
 
-    <div v-if="bool">
-      <button @click.prevent="logout">Logout</button>
-    </div>
+    <button v-if="bool" @click.prevent="logout">Logout</button>
     <div v-else>
       <button @click.prevent="login">Sei un professionista?</button>
     </div>
