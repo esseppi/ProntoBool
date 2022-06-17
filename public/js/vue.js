@@ -2713,13 +2713,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this2.loadingPayment = true;
                 _context.prev = 2;
                 _context.next = 5;
-                return _this2.axios.$post("/api/orders/makepayment", _objectSpread({}, _this2.form));
+                return axios.post("/api/orders/makepayment", _objectSpread({}, _this2.form));
 
               case 5:
                 // const message = response.message
                 // alert(message)
                 _this2.$router.push({
-                  path: "/checkout/thankyou"
+                  path: "/bundles"
                 });
 
                 _context.next = 12;

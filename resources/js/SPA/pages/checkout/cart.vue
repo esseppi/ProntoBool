@@ -89,10 +89,10 @@ export default {
       this.disableBuyButton = true;
       this.loadingPayment = true;
       try {
-        await this.axios.$post("/api/orders/makepayment", { ...this.form });
+        await axios.post("/api/orders/makepayment", { ...this.form });
         // const message = response.message
         // alert(message)
-        this.$router.push({ path: "/checkout/thankyou" });
+        this.$router.push({ path: "/bundles" });
       } catch (error) {
         this.disableBuyButton = false;
         this.loadingPayment = false;
