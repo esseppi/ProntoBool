@@ -1,7 +1,15 @@
 <template>
-  <v-app-bar elevation="0" color="#D7E4F3" light app>
-    <v-toolbar-title>ProntoPro</v-toolbar-title>
+  <v-app-bar light dense color="#D7E4F3" height="56px" app>
+    <v-app-bar-nav-icon></v-app-bar-nav-icon>
+
+    <v-toolbar-title>Title</v-toolbar-title>
+
     <v-spacer></v-spacer>
+
+    <v-btn icon>
+      <v-icon>mdi-magnify</v-icon>
+    </v-btn>
+
     <div v-if="bool">
       <button @click.prevent="logout">Logout</button>
     </div>
@@ -10,7 +18,6 @@
     </div>
   </v-app-bar>
 </template>
-
 
 <script>
 export default {
@@ -31,7 +38,7 @@ export default {
   },
   methods: {
     logout() {
-      axios.post("http://127.0.0.1:8000/api/logout").then(() => {
+      axios.post("/api/logout").then(() => {
         window.location = "/loginSpa";
       });
     },
