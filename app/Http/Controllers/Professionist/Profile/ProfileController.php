@@ -75,6 +75,14 @@ class ProfileController extends Controller
      */
     public function store(Request $request, Profession $profession)
     {   // CREAZIONE NUOVO PROFILO
+
+        $validate = $request->validate([
+            'company-website' => 'url|max:250',
+            'profilepic' => 'image',//da inserire la grandezza massima quando deciso come inserirla nello stile
+            'description' => 'min:20',
+            'curriculum' => 'image'
+        ]);
+
         $formData = $request->all() + [
             'id' => Auth::user()->id,
             'user_id' => Auth::user()->id,
@@ -180,6 +188,12 @@ class ProfileController extends Controller
     {
         // if (Auth::user()->id !== $profile->user_id) abort(403);
 
+        $validate = $request->validate([
+            'company-website' => 'url|max:250',
+            'profilepic' => 'image',//da inserire la grandezza massima quando deciso come inserirla nello stile
+            'description' => 'min:20',
+            'curriculum' => 'image'
+        ]);
 
         $formData = $request->all();
         $professionId = $formData['professions'];

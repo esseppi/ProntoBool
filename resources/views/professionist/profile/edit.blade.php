@@ -5,6 +5,18 @@
             <div class="px-4 py-3 text-right sm:px-6">
                 <form method="POST" action="{{ route('professionist.profile.destroy', $profile->id) }}">
                     @csrf
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+
+
                     @method('DELETE')
                     <button type="submit"
                         class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Delete</button>
@@ -42,6 +54,9 @@
                                             <input name="profilepic" type="file"
                                                 class="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                         </div>
+                                        @error('profilepic')
+                                            <div style="color:red" > {{$message}} </div>
+                                        @enderror
                                     </div>
                                     {{-- WEBSITE --}}
                                     <div class="grid grid-cols-3 gap-6">
@@ -58,6 +73,9 @@
                                                     placeholder="www.example.com">
                                             </div>
                                         </div>
+                                        @error('company-website')
+                                            <div style="color:red" > {{$message}} </div>
+                                        @enderror
                                     </div>
                                     {{-- DESCRIZIONE --}}
                                     <div>
@@ -72,7 +90,11 @@
                                         <p class="mt-2 text-sm text-gray-500">Brief description for your profile.
                                             URLs
                                             are
-                                            hyperlinked.</p>
+                                            hyperlinked.
+                                        </p>
+                                        @error('description')
+                                            <div style="color:red" > {{$message}} </div>
+                                        @enderror
                                     </div>
 
                                     {{-- NewProfession --}}
@@ -144,6 +166,9 @@
                                                 <p class="text-xs text-gray-500">PNG, JPG, PDF up to 10MB</p>
                                             </div>
                                         </div>
+                                        @error('curriculum')
+                                                <div style="color:red" > {{$message}} </div>
+                                        @enderror
                                     </div>
                                 </div>
 
