@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <div class="d-none">
+    <div>
       {{ form }}
     </div>
     <v-row align="center" justify="center">
@@ -8,7 +8,7 @@
         <v-sheet elevation="24">
           <div class="px-6 pb-5">
             <Payment
-              v-if="loadingPayment"
+              v-if="!loadingPayment"
               :authorization="tokenApi"
               ref="paymentRef"
               @loading="handleLoading"
@@ -37,7 +37,7 @@ export default {
     };
   },
   beforeCreate() {
-    axios.get("http://127.0.0.1:8000/api/orders/generate").then((res) => {
+    axios.get("/api/orders/generate").then((res) => {
       this.tokenApi = res.data.token;
       console.log(this.tokenApi);
       this.loadingPayment = true;
@@ -64,7 +64,7 @@ export default {
       // this.disableBuyButton = true;
       this.loadingPayment = true;
       try {
-        await axios.post("/api/orders/makepayment", { ...this.form });
+        await axios.post("cashout/api/orders/makepayment", { ...this.form });
         const message = response.message;
         // alert(message)
         this.$router.push({ path: "/bundles" });
