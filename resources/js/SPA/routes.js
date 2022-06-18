@@ -36,7 +36,7 @@ export default {
             path: "/checkout/:id",
             name: "cart",
             component: Cart,
-            props: { id: String },
+            // props: { id: String },
         },
         {
             path: "/checkout2/:id",

@@ -1,6 +1,8 @@
 <template>
-  <div class="flex flex-col mx-auto max-w-lg p-10 justify-middle">
-    {{ form }}
+  <v-container>
+    <div class="d-none">
+      {{ form }}
+    </div>
     <div class="text-2xl"></div>
     <v-braintree
       v-if="!loadingPayment"
@@ -9,43 +11,21 @@
       @loading="handleLoading"
       @onSuccess="paymentOnSuccess"
       @onError="paymentOnError"
-    ></v-braintree>
-
-    <button
-      v-if="!disableBuyButton"
-      class="
-        w-full
-        text-center
-        px-4
-        py-3
-        bg-green-500
-        rounded-md
-        shadow-md
-        text-white
-        font-semibold
-      "
-      @click.prevent="beforeBuy"
     >
-      Procedi con l'acquisto 🎉
-    </button>
-    <button
-      v-else
-      class="
-        w-full
-        text-center
-        px-4
-        py-3
-        bg-green-300
-        rounded-md
-        shadow-md
-        text-white
-        font-semibold
-        cursor-not-allowed
-      "
-    >
-      {{ loadingPayment ? "Loading..." : "Procedi con l'acquisto 🎉" }}
-    </button>
-  </div>
+      <template #button="slotProps">
+        <v-row justify="center" class="py-3">
+          <v-btn
+            color="success"
+            dark
+            large
+            ref="paymentBtnRef"
+            @click="slotProps.submit"
+            >BUY
+          </v-btn>
+        </v-row>
+      </template>
+    </v-braintree>
+  </v-container>
 </template>
 
 <script>
@@ -62,7 +42,7 @@ export default {
     };
   },
   beforeCreate() {
-    axios.get("api/orders/generate").then((res) => {
+    axios.get("http://127.0.0.1:8000/api/orders/generate").then((res) => {
       console.log(res.data.token);
       this.tokenApi = res.data.token;
       this.loadingPayment = false;
@@ -90,10 +70,12 @@ export default {
       this.loadingPayment = true;
 
       try {
-        await this.$axios.$post("/api/orders/make/payment", { ...this.form });
+        axios.post("api/orders/makepayment", {
+          ...this.form,
+        });
         // const message = response.message
         // alert(message)
-        this.$router.push({ path: "/checkout/thankyou" });
+        this.$router.push({ path: "/" });
       } catch (error) {
         this.disableBuyButton = false;
         this.loadingPayment = false;

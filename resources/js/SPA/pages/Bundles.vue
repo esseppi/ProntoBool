@@ -37,7 +37,6 @@
                 <v-dialog transition="dialog-bottom-transition" max-width="600">
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn
-                      :to="`/checkout2/${bundle.id}`"
                       v-bind="attrs"
                       v-on="on"
                       absolute
@@ -60,7 +59,12 @@
                         <div class="text-h2 pa-12">Hello world!</div>
                       </v-card-text>
                       <v-card-actions class="justify-end">
-                        <v-btn text @click="dialog.value = false">Close</v-btn>
+                        <v-btn
+                          :to="`/checkout/${bundle.id}`"
+                          text
+                          @click="dialog.value = false"
+                          >Completa l'acquisto</v-btn
+                        >
                       </v-card-actions>
                     </v-card>
                   </template>
