@@ -189,10 +189,11 @@ class ProfileController extends Controller
         // if (Auth::user()->id !== $profile->user_id) abort(403);
 
         $validate = $request->validate([
-            'company-website' => 'url|max:250',
-            'profilepic' => 'image',//da inserire la grandezza massima quando deciso come inserirla nello stile
-            'description' => 'min:20',
-            'curriculum' => 'image'
+            'company-website' => 'url|max:250|active_url',
+            'profilepic' => 'image',//TODO:da inserire la grandezza massima quando deciso come inserirla nello stile
+            'description' => 'min:20|max:500',
+            'curriculum' => 'image',
+        //    ' professions'=> 'accepted_if:anotherfield,value,true' ----- non funziona
         ]);
 
         $formData = $request->all();

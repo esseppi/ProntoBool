@@ -44,11 +44,19 @@
                                 type="password"
                                 name="password_confirmation" required />
             </div>
+            <div class='mt-4' >
+                <x-label for="terms-of-service" :value="__('terms of service')" />
+                <x-input id="terms-of-service"  
+                                type="checkbox"
+                                name="terms-of-service"  required /> 
+                <a href="#">termini e servizi</a> <!--TODO: creare pagina termini e servizi -->
+            </div>
 
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
                     {{ __('Already registered?') }}
                 </a>
+
 
                 <x-button class="ml-4">
                     {{ __('Register') }}
