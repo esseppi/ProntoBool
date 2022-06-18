@@ -2,7 +2,7 @@
   <v-app>
     <Drawer :user="user" v-if="user" />
     <HeaderApp :bool="bool" />
-    <v-main>
+    <v-main class="align-center justify-center d-flex">
       <v-container fluid>
         <router-view></router-view>
       </v-container>

@@ -2311,11 +2311,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: {// authorization: {
-    //   required: true,
-    //   type: String,
-    // },
+  props: {
+    authorization: {
+      required: true,
+      type: String
+    }
   },
   data: function data() {
     return {
@@ -2634,39 +2644,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       tokenApi: "",
-      disableBuyButton: true,
-      loadingPayment: true,
       form: {
         token: "",
         product: ""
@@ -2678,8 +2660,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     axios.get("api/orders/generate").then(function (res) {
       console.log(res.data.token);
-      _this.tokenApi = res.data.token;
-      _this.loadingPayment = false;
+      _this.tokenApi = res.data.token; // this.loadingPayment = false;
     });
   },
   mounted: function mounted() {
@@ -2720,16 +2701,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   path: "/bundles"
                 });
 
-                _context.next = 12;
+                _context.next = 10;
                 break;
 
               case 8:
                 _context.prev = 8;
                 _context.t0 = _context["catch"](2);
-                _this2.disableBuyButton = false;
-                _this2.loadingPayment = false;
 
-              case 12:
+              case 10:
               case "end":
                 return _context.stop();
             }
@@ -47876,6 +47855,7 @@ var render = function () {
       _vm._v(" "),
       _c(
         "v-main",
+        { staticClass: "align-center justify-center d-flex" },
         [_c("v-container", { attrs: { fluid: "" } }, [_c("router-view")], 1)],
         1
       ),
@@ -48162,7 +48142,7 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
+    "v-container",
     [
       _c("v-braintree", {
         attrs: {
@@ -48176,10 +48156,22 @@ var render = function () {
             key: "button",
             fn: function (slotProps) {
               return [
-                _c("v-btn", {
-                  ref: "paymentBtnRef",
-                  on: { click: slotProps.submit },
-                }),
+                _c(
+                  "v-row",
+                  { staticClass: "py-3", attrs: { justify: "center" } },
+                  [
+                    _c(
+                      "v-btn",
+                      {
+                        ref: "paymentBtnRef",
+                        attrs: { color: "success", dark: "", large: "" },
+                        on: { click: slotProps.submit },
+                      },
+                      [_vm._v("BUY\n        ")]
+                    ),
+                  ],
+                  1
+                ),
               ]
             },
           },
@@ -48705,39 +48697,45 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
-    { staticClass: "flex flex-col mx-auto max-w-lg p-10 justify-middle" },
+    "v-container",
     [
-      _vm._v("\n  " + _vm._s(_vm.form) + "\n  "),
-      _c("div", { staticClass: "text-2xl" }),
+      _c("div", { staticClass: "d-none" }, [
+        _vm._v("\n    " + _vm._s(_vm.form) + "\n  "),
+      ]),
       _vm._v(" "),
-      !_vm.loadingPayment
-        ? _c("Payment", {
-            ref: "paymentRef",
-            on: {
-              loading: _vm.handleLoading,
-              onSuccess: _vm.paymentOnSuccess,
-              onError: _vm.paymentOnError,
-            },
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      !_vm.disableBuyButton
-        ? _c(
-            "button",
-            {
-              staticClass:
-                "\n      w-full\n      text-center\n      px-4\n      py-3\n      bg-green-500\n      rounded-md\n      shadow-md\n      text-white\n      font-semibold\n    ",
-              on: {
-                click: function ($event) {
-                  $event.preventDefault()
-                  return _vm.beforeBuy.apply(null, arguments)
-                },
-              },
-            },
-            [_vm._v("\n    Procedi con l'acquisto 🎉\n  ")]
-          )
-        : _vm._e(),
+      _c(
+        "v-row",
+        { attrs: { align: "center", justify: "center" } },
+        [
+          _c(
+            "v-col",
+            { attrs: { cols: "6" } },
+            [
+              _c("v-sheet", { attrs: { elevation: "24" } }, [
+                _c(
+                  "div",
+                  { staticClass: "px-6 pb-5" },
+                  [
+                    !_vm.loadingPayment
+                      ? _c("Payment", {
+                          ref: "paymentRef",
+                          on: {
+                            loading: _vm.handleLoading,
+                            onSuccess: _vm.paymentOnSuccess,
+                            onError: _vm.paymentOnError,
+                          },
+                        })
+                      : _vm._e(),
+                  ],
+                  1
+                ),
+              ]),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
     ],
     1
   )
@@ -64361,6 +64359,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/VBtn.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VContainer.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VRow.js");
 
 
 
@@ -64382,7 +64382,9 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 /* vuetify-loader */
 ;
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["default"]})
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["default"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_5__["default"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["default"]})
 
 
 /* hot reload */
@@ -64689,6 +64691,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cart_vue_vue_type_template_id_4f156aa5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cart.vue?vue&type=template&id=4f156aa5& */ "./resources/js/SPA/pages/checkout/cart.vue?vue&type=template&id=4f156aa5&");
 /* harmony import */ var _cart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./cart.vue?vue&type=script&lang=js& */ "./resources/js/SPA/pages/checkout/cart.vue?vue&type=script&lang=js&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
+/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VCol.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VContainer.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VRow.js");
+/* harmony import */ var vuetify_lib_components_VSheet__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VSheet */ "./node_modules/vuetify/lib/components/VSheet/VSheet.js");
 
 
 
@@ -64706,6 +64714,15 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
   null
   
 )
+
+/* vuetify-loader */
+;
+
+
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_4__["default"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_5__["default"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["default"],VSheet: vuetify_lib_components_VSheet__WEBPACK_IMPORTED_MODULE_7__["default"]})
+
 
 /* hot reload */
 if (false) { var api; }
