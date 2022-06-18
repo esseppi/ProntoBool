@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <div class="d-none">
+    <div>
       {{ form }}
     </div>
     <v-row align="center" justify="center">
@@ -8,7 +8,7 @@
         <v-sheet elevation="24">
           <div class="px-6 pb-5">
             <Payment
-              v-if="loadingPayment"
+              v-if="!loadingPayment"
               :authorization="tokenApi"
               ref="paymentRef"
               @loading="handleLoading"
@@ -24,11 +24,9 @@
 
 <script>
 import Payment from "../../components/Payment.vue";
-
 export default {
   data() {
     return {
-      loadingPayment: false,
       tokenApi: "",
       form: {
         token: "",
@@ -37,10 +35,10 @@ export default {
     };
   },
   beforeCreate() {
-    axios.get("http://127.0.0.1:8000/api/orders/generate").then((res) => {
+    axios.get("`api/orders/generate`").then((res) => {
       this.tokenApi = res.data.token;
       console.log(this.tokenApi);
-      this.loadingPayment = true;
+      this.loadingPayment = false;
     });
   },
   mounted() {
@@ -62,7 +60,7 @@ export default {
     },
     async buy() {
       // this.disableBuyButton = true;
-      this.loadingPayment = true;
+      // this.loadingPayment = true;
       try {
         await axios.post("/api/orders/makepayment", { ...this.form });
         const message = response.message;
@@ -70,7 +68,7 @@ export default {
         this.$router.push({ path: "/bundles" });
       } catch (error) {
         // this.disableBuyButton = false;
-        this.loadingPayment = false;
+        // this.loadingPayment = false;
       }
     },
   },

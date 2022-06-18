@@ -38,12 +38,12 @@ export default {
       items: [
         {
           title: "Dashboard",
-          name: "dashboard",
+          name: "/dashboard",
           icon: "mdi-account",
         },
         {
           title: "Sponsorships",
-          name: "bundles",
+          name: "/bundles",
           icon: "mdi-magnet-on",
         },
       ],

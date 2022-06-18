@@ -2159,11 +2159,11 @@ __webpack_require__.r(__webpack_exports__);
       drawer: true,
       items: [{
         title: "Dashboard",
-        name: "dashboard",
+        name: "/dashboard",
         icon: "mdi-account"
       }, {
         title: "Sponsorships",
-        name: "bundles",
+        name: "/bundles",
         icon: "mdi-magnet-on"
       }],
       mini: true
@@ -2644,10 +2644,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      loadingPayment: false,
       tokenApi: "",
       form: {
         token: "",
@@ -2658,17 +2660,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   beforeCreate: function beforeCreate() {
     var _this = this;
 
-    axios.get("api/orders/generate").then(function (res) {
-      console.log(res.data.token);
-      _this.tokenApi = res.data.token; // this.loadingPayment = false;
+    axios.get("http://127.0.0.1:8000/api/orders/generate").then(function (res) {
+      _this.tokenApi = res.data.token;
+      console.log(_this.tokenApi);
+      _this.loadingPayment = true;
     });
   },
   mounted: function mounted() {
     this.form.product = this.$route.params.id;
   },
   methods: {
-    handleLoading: function handleLoading() {
-      this.disableBuyButton = false;
+    handleLoading: function handleLoading() {// this.disableBuyButton = false;
     },
     paymentOnSuccess: function paymentOnSuccess(nonce) {
       // alert(nonce);
@@ -2684,36 +2686,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var message;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this2.disableBuyButton = true;
+                // this.disableBuyButton = true;
                 _this2.loadingPayment = true;
-                _context.prev = 2;
-                _context.next = 5;
+                _context.prev = 1;
+                _context.next = 4;
                 return axios.post("/api/orders/makepayment", _objectSpread({}, _this2.form));
 
-              case 5:
-                // const message = response.message
-                // alert(message)
+              case 4:
+                message = response.message; // alert(message)
+
                 _this2.$router.push({
                   path: "/bundles"
                 });
 
-                _context.next = 10;
+                _context.next = 11;
                 break;
 
               case 8:
                 _context.prev = 8;
-                _context.t0 = _context["catch"](2);
+                _context.t0 = _context["catch"](1);
+                // this.disableBuyButton = false;
+                _this2.loadingPayment = false;
 
-              case 10:
+              case 11:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[2, 8]]);
+        }, _callee, null, [[1, 8]]);
       }))();
     }
   },
@@ -2866,11 +2871,14 @@ window.Vue = (__webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js
 
 
 
+ // import axios from "axios";
+// axios.defaults.baseURL = "http://127.0.0.1:8000";
 
 Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_5__["default"]);
 Vue.use(vue_braintree__WEBPACK_IMPORTED_MODULE_3__["default"]);
 var app = new Vue({
   router: new vue_router__WEBPACK_IMPORTED_MODULE_5__["default"](_SPA_routes__WEBPACK_IMPORTED_MODULE_4__["default"]),
+  base: "/",
   vuetify: _plugins_vuetify__WEBPACK_IMPORTED_MODULE_2__["default"],
   braintree: vue_braintree__WEBPACK_IMPORTED_MODULE_3__["default"],
   el: "#app",
@@ -48145,11 +48153,7 @@ var render = function () {
     "v-container",
     [
       _c("v-braintree", {
-        attrs: {
-          authorization:
-            "eyJ2ZXJzaW9uIjoyLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiOiJleUowZVhBaU9pSktWMVFpTENKaGJHY2lPaUpGVXpJMU5pSXNJbXRwWkNJNklqSXdNVGd3TkRJMk1UWXRjMkZ1WkdKdmVDSXNJbWx6Y3lJNkltaDBkSEJ6T2k4dllYQnBMbk5oYm1SaWIzZ3VZbkpoYVc1MGNtVmxaMkYwWlhkaGVTNWpiMjBpZlEuZXlKbGVIQWlPakUyTlRVMU5qQTJNREFzSW1wMGFTSTZJakV6WVRJeE9XTXpMVEE1TXpNdE5EQmpZaTA0TXpZd0xXTmhOR0pqTkdSak0ySXdaQ0lzSW5OMVlpSTZJbmhtYWpaNVozTTNhbVo0ZUdJNVlqTWlMQ0pwYzNNaU9pSm9kSFJ3Y3pvdkwyRndhUzV6WVc1a1ltOTRMbUp5WVdsdWRISmxaV2RoZEdWM1lYa3VZMjl0SWl3aWJXVnlZMmhoYm5RaU9uc2ljSFZpYkdsalgybGtJam9pZUdacU5ubG5jemRxWm5oNFlqbGlNeUlzSW5abGNtbG1lVjlqWVhKa1gySjVYMlJsWm1GMWJIUWlPbVpoYkhObGZTd2ljbWxuYUhSeklqcGJJbTFoYm1GblpWOTJZWFZzZENKZExDSnpZMjl3WlNJNld5SkNjbUZwYm5SeVpXVTZWbUYxYkhRaVhTd2liM0IwYVc5dWN5STZlMzE5LmRpd0lucmNpMUpSa1hHZFpkOTJ1MGZ5NzJvT1Fma3htZlR5MFBaeXpjRzJ2OXhpUjVtSHFzcVhOUlQ1OFoteWVpNS0tZG5UaU9JaEl1UGUtSmNJU1FnIiwiY29uZmlnVXJsIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5icmFpbnRyZWVnYXRld2F5LmNvbTo0NDMvbWVyY2hhbnRzL3hmajZ5Z3M3amZ4eGI5YjMvY2xpZW50X2FwaS92MS9jb25maWd1cmF0aW9uIiwiZ3JhcGhRTCI6eyJ1cmwiOiJodHRwczovL3BheW1lbnRzLnNhbmRib3guYnJhaW50cmVlLWFwaS5jb20vZ3JhcGhxbCIsImRhdGUiOiIyMDE4LTA1LTA4IiwiZmVhdHVyZXMiOlsidG9rZW5pemVfY3JlZGl0X2NhcmRzIl19LCJjbGllbnRBcGlVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMveGZqNnlnczdqZnh4YjliMy9jbGllbnRfYXBpIiwiZW52aXJvbm1lbnQiOiJzYW5kYm94IiwibWVyY2hhbnRJZCI6InhmajZ5Z3M3amZ4eGI5YjMiLCJhc3NldHNVcmwiOiJodHRwczovL2Fzc2V0cy5icmFpbnRyZWVnYXRld2F5LmNvbSIsImF1dGhVcmwiOiJodHRwczovL2F1dGgudmVubW8uc2FuZGJveC5icmFpbnRyZWVnYXRld2F5LmNvbSIsInZlbm1vIjoib2ZmIiwiY2hhbGxlbmdlcyI6W10sInRocmVlRFNlY3VyZUVuYWJsZWQiOnRydWUsImFuYWx5dGljcyI6eyJ1cmwiOiJodHRwczovL29yaWdpbi1hbmFseXRpY3Mtc2FuZC5zYW5kYm94LmJyYWludHJlZS1hcGkuY29tL3hmajZ5Z3M3amZ4eGI5YjMifSwicGF5cGFsRW5hYmxlZCI6dHJ1ZSwicGF5cGFsIjp7ImJpbGxpbmdBZ3JlZW1lbnRzRW5hYmxlZCI6dHJ1ZSwiZW52aXJvbm1lbnROb05ldHdvcmsiOnRydWUsInVudmV0dGVkTWVyY2hhbnQiOmZhbHNlLCJhbGxvd0h0dHAiOnRydWUsImRpc3BsYXlOYW1lIjoiUHJvbnRvQm9vbCIsImNsaWVudElkIjpudWxsLCJwcml2YWN5VXJsIjoiaHR0cDovL2V4YW1wbGUuY29tL3BwIiwidXNlckFncmVlbWVudFVybCI6Imh0dHA6Ly9leGFtcGxlLmNvbS90b3MiLCJiYXNlVXJsIjoiaHR0cHM6Ly9hc3NldHMuYnJhaW50cmVlZ2F0ZXdheS5jb20iLCJhc3NldHNVcmwiOiJodHRwczovL2NoZWNrb3V0LnBheXBhbC5jb20iLCJkaXJlY3RCYXNlVXJsIjpudWxsLCJlbnZpcm9ubWVudCI6Im9mZmxpbmUiLCJicmFpbnRyZWVDbGllbnRJZCI6Im1hc3RlcmNsaWVudDMiLCJtZXJjaGFudEFjY291bnRJZCI6InByb250b2Jvb2wiLCJjdXJyZW5jeUlzb0NvZGUiOiJFVVIifX0=",
-          locale: "it_IT",
-        },
+        attrs: { authorization: _vm.authorization, locale: "it_IT" },
         on: { success: _vm.onSuccess, error: _vm.onError, load: _vm.onLoad },
         scopedSlots: _vm._u([
           {
@@ -48716,9 +48720,10 @@ var render = function () {
                   "div",
                   { staticClass: "px-6 pb-5" },
                   [
-                    !_vm.loadingPayment
+                    _vm.loadingPayment
                       ? _c("Payment", {
                           ref: "paymentRef",
+                          attrs: { authorization: _vm.tokenApi },
                           on: {
                             loading: _vm.handleLoading,
                             onSuccess: _vm.paymentOnSuccess,
