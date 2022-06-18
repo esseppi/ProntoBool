@@ -11,9 +11,7 @@ Vue.use(VueRouter);
 Vue.use(Braintree);
 const app = new Vue({
     router: new VueRouter(routes),
-    base: "/",
     vuetify: Vuetify,
-
     braintree: Braintree,
     el: "#app",
     render: (h) => h(App),

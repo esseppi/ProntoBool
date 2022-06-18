@@ -2660,9 +2660,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   beforeCreate: function beforeCreate() {
     var _this = this;
 
-    axios.get("http://127.0.0.1:8000/api/orders/generate").then(function (res) {
+    axios.get("/api/orders/generate").then(function (res) {
       _this.tokenApi = res.data.token;
-      console.log(_this.tokenApi);
       _this.loadingPayment = true;
     });
   },
@@ -2695,30 +2694,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this2.loadingPayment = true;
                 _context.prev = 1;
                 _context.next = 4;
-                return axios.post("/api/orders/makepayment", _objectSpread({}, _this2.form));
+                return axios.post("/api/orders/makepayment", _objectSpread({}, _this2.form)).then(function () {
+                  _this2.$router.push({
+                    path: "/bundles"
+                  });
+                });
 
               case 4:
                 message = response.message; // alert(message)
 
-                _this2.$router.push({
-                  path: "/bundles"
-                });
-
-                _context.next = 11;
+                _context.next = 10;
                 break;
 
-              case 8:
-                _context.prev = 8;
+              case 7:
+                _context.prev = 7;
                 _context.t0 = _context["catch"](1);
                 // this.disableBuyButton = false;
                 _this2.loadingPayment = false;
 
-              case 11:
+              case 10:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 8]]);
+        }, _callee, null, [[1, 7]]);
       }))();
     }
   },
@@ -2864,21 +2863,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _plugins_vuetify__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../plugins/vuetify */ "./resources/plugins/vuetify.js");
 /* harmony import */ var vue_braintree__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-braintree */ "./node_modules/vue-braintree/dist/vue-braintree.esm.js");
 /* harmony import */ var _SPA_routes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./SPA/routes */ "./resources/js/SPA/routes.js");
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
 
 window.Vue = (__webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js")["default"]);
 
 
 
 
- // import axios from "axios";
-// axios.defaults.baseURL = "http://127.0.0.1:8000";
 
-Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_5__["default"]);
+
+(axios__WEBPACK_IMPORTED_MODULE_5___default().defaults.baseURL) = "http://127.0.0.1:8000";
+Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_6__["default"]);
 Vue.use(vue_braintree__WEBPACK_IMPORTED_MODULE_3__["default"]);
 var app = new Vue({
-  router: new vue_router__WEBPACK_IMPORTED_MODULE_5__["default"](_SPA_routes__WEBPACK_IMPORTED_MODULE_4__["default"]),
-  base: "/",
+  router: new vue_router__WEBPACK_IMPORTED_MODULE_6__["default"](_SPA_routes__WEBPACK_IMPORTED_MODULE_4__["default"]),
   vuetify: _plugins_vuetify__WEBPACK_IMPORTED_MODULE_2__["default"],
   braintree: vue_braintree__WEBPACK_IMPORTED_MODULE_3__["default"],
   el: "#app",
@@ -48703,9 +48703,7 @@ var render = function () {
   return _c(
     "v-container",
     [
-      _c("div", { staticClass: "d-none" }, [
-        _vm._v("\n    " + _vm._s(_vm.form) + "\n  "),
-      ]),
+      _c("div", [_vm._v("\n    " + _vm._s(_vm.form) + "\n  ")]),
       _vm._v(" "),
       _c(
         "v-row",
