@@ -33,7 +33,11 @@
                 @click:append="passwordShow = !passwordShow"
                 required
               />
-              <v-switch label="Remember me" color="indigo"></v-switch>
+              <v-switch
+                label="Remember me"
+                color="indigo"
+                v-model="form.remember"
+              ></v-switch>
             </v-card-text>
             <v-card-actions class="justify-center">
               <v-btn
@@ -64,10 +68,9 @@ export default {
     form: {
       email: "",
       password: "",
-      remember: "",
+      remember: false,
     },
     disableBtn: false,
-
     loading: false,
     snackbar: false,
     passwordShow: false,
@@ -83,9 +86,10 @@ export default {
     ],
   }),
   methods: {
+    remember_function() {
+      this.remember = true;
+    },
     submitHandler() {
-      this.$store.commit("setAuth", true);
-
       if (this.$refs.form.validate()) {
         this.loading = true;
         setTimeout(() => {
@@ -99,6 +103,7 @@ export default {
       axios
         .post("/api/login", this.form)
         .then(() => {
+          localStorage.setItem("auth", true);
           window.location = "/home";
         })
         .catch((error) => {

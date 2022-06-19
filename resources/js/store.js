@@ -8,8 +8,7 @@ const store = new Vuex.Store({
     },
     mutations: {
         setAuth(state, res) {
-            state.currentUser = res;
-            console.log(store.state.currentUser);
+            state.currentUser = localStorage.getItem("auth");
         },
     },
 });

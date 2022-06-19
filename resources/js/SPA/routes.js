@@ -65,15 +65,11 @@ const router = new Router({
     ],
 });
 router.beforeEach((to, from, next) => {
-    console.log(store.state.currentUser);
     const requiresAuth = to.matched.some((record) => to.meta.requiresAuth);
     const requiresGuest = to.matched.some((record) => to.meta.requiresGuest);
-    if (requiresAuth && !store.state.currentUser) {
+    if (requiresGuest && localStorage.auth) {
         next("/loginSpa");
-    } else {
-        next();
-    }
-    if (requiresGuest && store.state.currentUser) {
+    } else if (requiresAuth && !localStorage.auth) {
         next("/home");
     } else {
         next();

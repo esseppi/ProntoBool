@@ -22,6 +22,7 @@ export default {
   name: "HeaderApp",
   data() {
     return {
+      home: "/home",
       toggle_exclusive: 1,
       group: null,
     };
@@ -37,11 +38,13 @@ export default {
   methods: {
     logout() {
       axios.post("/api/logout").then(() => {
+        localStorage.removeItem("auth", false);
         window.location = "/auth";
       });
     },
     login() {
-      this.$router.push({ name: "auth" });
+      localStorage.removeItem("auth", false);
+      window.location = "/auth";
     },
   },
   created() {},

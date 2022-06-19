@@ -2216,6 +2216,7 @@ __webpack_require__.r(__webpack_exports__);
   name: "HeaderApp",
   data: function data() {
     return {
+      home: "/home",
       toggle_exclusive: 1,
       group: null
     };
@@ -2233,13 +2234,13 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     logout: function logout() {
       axios.post("/api/logout").then(function () {
+        localStorage.removeItem("auth", false);
         window.location = "/auth";
       });
     },
     login: function login() {
-      this.$router.push({
-        name: "auth"
-      });
+      localStorage.removeItem("auth", false);
+      window.location = "/auth";
     }
   },
   created: function created() {}
@@ -2575,6 +2576,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "App",
@@ -2583,7 +2588,7 @@ __webpack_require__.r(__webpack_exports__);
       form: {
         email: "",
         password: "",
-        remember: ""
+        remember: false
       },
       disableBtn: false,
       loading: false,
@@ -2604,10 +2609,11 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    remember_function: function remember_function() {
+      this.remember = true;
+    },
     submitHandler: function submitHandler() {
       var _this = this;
-
-      this.$store.commit("setAuth", true);
 
       if (this.$refs.form.validate()) {
         this.loading = true;
@@ -2622,6 +2628,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       axios.post("/api/login", this.form).then(function () {
+        localStorage.setItem("auth", true);
         window.location = "/home";
       })["catch"](function (error) {
         _this2.errors = error.response.data.errors;
@@ -3034,7 +3041,6 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_8__["default"]({
   }]
 });
 router.beforeEach(function (to, from, next) {
-  console.log(_store__WEBPACK_IMPORTED_MODULE_0__["default"].state.currentUser);
   var requiresAuth = to.matched.some(function (record) {
     return to.meta.requiresAuth;
   });
@@ -3042,13 +3048,9 @@ router.beforeEach(function (to, from, next) {
     return to.meta.requiresGuest;
   });
 
-  if (requiresAuth && !_store__WEBPACK_IMPORTED_MODULE_0__["default"].state.currentUser) {
+  if (requiresGuest && localStorage.auth) {
     next("/loginSpa");
-  } else {
-    next();
-  }
-
-  if (requiresGuest && _store__WEBPACK_IMPORTED_MODULE_0__["default"].state.currentUser) {
+  } else if (requiresAuth && !localStorage.auth) {
     next("/home");
   } else {
     next();
@@ -3150,8 +3152,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   },
   mutations: {
     setAuth: function setAuth(state, res) {
-      state.currentUser = res;
-      console.log(store.state.currentUser);
+      state.currentUser = localStorage.getItem("auth");
     }
   }
 });
@@ -49040,6 +49041,13 @@ var render = function () {
                           _vm._v(" "),
                           _c("v-switch", {
                             attrs: { label: "Remember me", color: "indigo" },
+                            model: {
+                              value: _vm.form.remember,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.form, "remember", $$v)
+                              },
+                              expression: "form.remember",
+                            },
                           }),
                         ],
                         1
