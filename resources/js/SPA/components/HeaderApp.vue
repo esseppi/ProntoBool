@@ -30,20 +30,15 @@ export default {
   props: {
     bool: Boolean,
   },
-  mounted() {
-    axios.get("/api/user").then((res) => {
-      this.user = res.data;
-    });
-  },
   methods: {
     logout() {
       axios.post("/api/logout").then(() => {
-        localStorage.removeItem("auth", false);
+        localStorage.removeItem("auth");
         window.location = "/auth";
       });
     },
     login() {
-      localStorage.removeItem("auth", false);
+      localStorage.removeItem("auth");
       window.location = "/auth";
     },
   },

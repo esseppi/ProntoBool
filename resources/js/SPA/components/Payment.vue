@@ -1,7 +1,6 @@
 <template>
   <v-container>
     <v-braintree
-      :v-model="brain"
       :authorization="authorization"
       locale="it_IT"
       @success="onSuccess"

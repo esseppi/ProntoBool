@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Drawer :user="user" v-if="user" />
+    <Drawer :user="user" v-if="bool" />
     <HeaderApp :bool="bool" />
     <v-main class="align-center justify-center d-flex">
       <v-container fluid>
@@ -27,14 +27,16 @@ export default {
     Drawer,
   },
   mounted() {
-    axios.get("/api/user").then((res) => {
-      this.user = res.data;
-      if (this.user) {
-        this.bool = true;
-      } else {
-        this.bool = false;
-      }
-    });
+    if (localStorage.getItem("auth")) {
+      axios.get("/api/user").then((res) => {
+        this.user = res.data;
+        if (this.user) {
+          this.bool = true;
+        }
+      });
+    } else {
+      this.bool = false;
+    }
   },
 };
 </script>

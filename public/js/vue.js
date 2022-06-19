@@ -2096,15 +2096,17 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    axios.get("/api/user").then(function (res) {
-      _this.user = res.data;
+    if (localStorage.getItem("auth")) {
+      axios.get("/api/user").then(function (res) {
+        _this.user = res.data;
 
-      if (_this.user) {
-        _this.bool = true;
-      } else {
-        _this.bool = false;
-      }
-    });
+        if (_this.user) {
+          _this.bool = true;
+        }
+      });
+    } else {
+      this.bool = false;
+    }
   }
 });
 
@@ -2224,22 +2226,15 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     bool: Boolean
   },
-  mounted: function mounted() {
-    var _this = this;
-
-    axios.get("/api/user").then(function (res) {
-      _this.user = res.data;
-    });
-  },
   methods: {
     logout: function logout() {
       axios.post("/api/logout").then(function () {
-        localStorage.removeItem("auth", false);
+        localStorage.removeItem("auth");
         window.location = "/auth";
       });
     },
     login: function login() {
-      localStorage.removeItem("auth", false);
+      localStorage.removeItem("auth");
       window.location = "/auth";
     }
   },
@@ -2295,7 +2290,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-//
 //
 //
 //
@@ -2797,6 +2791,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
 //
 //
 //
@@ -48268,7 +48265,7 @@ var render = function () {
   return _c(
     "v-app",
     [
-      _vm.user ? _c("Drawer", { attrs: { user: _vm.user } }) : _vm._e(),
+      _vm.bool ? _c("Drawer", { attrs: { user: _vm.user } }) : _vm._e(),
       _vm._v(" "),
       _c("HeaderApp", { attrs: { bool: _vm.bool } }),
       _vm._v(" "),
@@ -48564,11 +48561,7 @@ var render = function () {
     "v-container",
     [
       _c("v-braintree", {
-        attrs: {
-          "v-model": _vm.brain,
-          authorization: _vm.authorization,
-          locale: "it_IT",
-        },
+        attrs: { authorization: _vm.authorization, locale: "it_IT" },
         on: { success: _vm.onSuccess, error: _vm.onError, load: _vm.onLoad },
         scopedSlots: _vm._u([
           {
@@ -49365,10 +49358,10 @@ var render = function () {
       _c(
         "v-row",
         { attrs: { justify: "space-around" } },
-        _vm._l(_vm.sheets, function (sheet) {
-          return _c(
+        [
+          _c(
             "v-col",
-            { key: sheet, attrs: { cols: "12", md: "4" } },
+            { attrs: { cols: "12", md: "4" } },
             [
               _c(
                 "v-sheet",
@@ -49379,7 +49372,6 @@ var render = function () {
                   _c(
                     "v-sheet",
                     {
-                      key: sheet,
                       attrs: {
                         color: "white",
                         elevation: "24",
@@ -49388,8 +49380,8 @@ var render = function () {
                       },
                     },
                     [
-                      _c("v-btn", { attrs: { to: sheet.link } }, [
-                        _vm._v(_vm._s(sheet.title)),
+                      _c("v-btn", { attrs: { to: _vm.sheets[0].link } }, [
+                        _vm._v(_vm._s(_vm.sheets[0].title)),
                       ]),
                     ],
                     1
@@ -49401,8 +49393,44 @@ var render = function () {
               ),
             ],
             1
-          )
-        }),
+          ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "12", md: "4" } },
+            [
+              _c(
+                "v-sheet",
+                { staticClass: "d-flex justify-center" },
+                [
+                  _c("div"),
+                  _vm._v(" "),
+                  _c(
+                    "v-sheet",
+                    {
+                      attrs: {
+                        color: "white",
+                        elevation: "24",
+                        height: "250",
+                        width: "250",
+                      },
+                    },
+                    [
+                      _c("v-btn", { attrs: { to: _vm.sheets[1].link } }, [
+                        _vm._v(_vm._s(_vm.sheets[1].title)),
+                      ]),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("div"),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
+        ],
         1
       ),
     ],
