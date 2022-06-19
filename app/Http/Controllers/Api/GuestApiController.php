@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Professionist\Profile;
+use Illuminate\Support\Facades\Auth;
 
 class GuestApiController extends Controller
 {
@@ -21,6 +22,14 @@ class GuestApiController extends Controller
             'response'  => [
                 'data' => $data->get(),
             ]
+        ]);
+    }
+    public function authcheck(Request $request)
+    {
+        $data = 'ciao';
+        return response()->json([
+            'status'    => true,
+            'response'  => $data
         ]);
     }
 

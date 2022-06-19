@@ -1,6 +1,7 @@
 <template>
   <v-container>
     <v-braintree
+      :v-model="brain"
       :authorization="authorization"
       locale="it_IT"
       @success="onSuccess"
@@ -15,7 +16,9 @@
             large
             ref="paymentBtnRef"
             @click="slotProps.submit"
-            >BUY
+          >
+            <v-icon v-if="button"> mdi-cart </v-icon>
+            <v-icon v-else> mdi-timer </v-icon>
           </v-btn>
         </v-row>
       </template>
@@ -38,14 +41,17 @@ export default {
   },
   data() {
     return {
+      button: false,
       error: "",
     };
   },
   methods: {
     onLoad() {
+      this.button = true;
       this.$emit("loading");
     },
     onSuccess(payload) {
+      this.button = false;
       const token = payload.nonce;
       this.$emit("onSuccess", token);
       // const nonce = payload.nonce

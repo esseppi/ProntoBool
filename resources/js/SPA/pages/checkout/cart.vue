@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <div>
+    <div class="d-none">
       {{ form }}
     </div>
     <v-row align="center" justify="center">
@@ -11,7 +11,6 @@
               v-if="loadingPayment"
               :authorization="tokenApi"
               ref="paymentRef"
-              @loading="handleLoading"
               @onSuccess="paymentOnSuccess"
               @onError="paymentOnError"
             ></Payment>
@@ -37,7 +36,7 @@ export default {
     };
   },
   beforeCreate() {
-    axios.get("/api/orders/generate").then((res) => {
+    axios.get("api/orders/generate").then((res) => {
       this.tokenApi = res.data.token;
       this.loadingPayment = true;
     });
@@ -46,11 +45,8 @@ export default {
     this.form.product = this.$route.params.id;
   },
   methods: {
-    handleLoading() {
-      // this.disableBuyButton = false;
-    },
     paymentOnSuccess(nonce) {
-      // alert(nonce);
+      alert(nonce);
       this.form.token = nonce;
       this.buy();
     },
@@ -60,18 +56,16 @@ export default {
       this.$refs.paymentRef.$refs.paymentBtnRef.click();
     },
     async buy() {
-      // this.disableBuyButton = true;
       this.loadingPayment = true;
       try {
         await axios
-          .post("/api/orders/makepayment", { ...this.form })
+          .post("api/orders/makepayment", { ...this.form })
           .then(() => {
             this.$router.push({ path: "/bundles" });
           });
         const message = response.message;
         // alert(message)
       } catch (error) {
-        // this.disableBuyButton = false;
         this.loadingPayment = false;
       }
     },

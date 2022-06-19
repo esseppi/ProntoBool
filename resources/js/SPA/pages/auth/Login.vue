@@ -1,5 +1,5 @@
 <template>
-  <div class="backgruond">
+  <div class="background">
     <v-main class="d-flex justify-center align-center">
       <v-col cols="10" lg="4" class="mx-auto">
         <v-card class="pa-4">
@@ -12,7 +12,8 @@
           <v-form @submit.prevent="submitHandler" ref="form">
             <v-card-text>
               <v-text-field
-                v-model="email"
+                :loading="loading"
+                v-model="form.email"
                 :rules="emailRules"
                 type="email"
                 label="Email"
@@ -21,7 +22,8 @@
                 required
               />
               <v-text-field
-                v-model="password"
+                :loading="loading"
+                v-model="form.password"
                 :rules="passwordRules"
                 :type="passwordShow ? 'text' : 'password'"
                 label="Password"
@@ -42,17 +44,23 @@
         </v-card>
       </v-col>
     </v-main>
-    <v-snackbar top color="green" v-model="snackbar">
-      Login success
+    <v-snackbar top color="red" v-model="snackbar">
+      Something went wrong
     </v-snackbar>
   </div>
 </template>
 
 <script>
+import store from "../../../store";
 export default {
   name: "App",
 
   data: () => ({
+    form: {
+      email: "",
+      password: "",
+      remember: "",
+    },
     loading: false,
     snackbar: false,
     passwordShow: false,
@@ -75,7 +83,18 @@ export default {
           this.loading = false;
           this.snackbar = true;
         }, 3000);
+        this.loginUser();
       }
+    },
+    loginUser() {
+      axios
+        .post("/api/login", this.form)
+        .then(() => {
+          (store.currentUser = true), (window.location = "/home");
+        })
+        .catch((error) => {
+          this.errors = error.response.data.errors;
+        });
     },
   },
 };

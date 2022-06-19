@@ -2,7 +2,7 @@
   <v-app-bar light dense color="#D7E4F3" height="56px" app>
     <v-app-bar-nav-icon v-if="!bool"></v-app-bar-nav-icon>
 
-    <v-toolbar-title>Title</v-toolbar-title>
+    <v-toolbar-title>ProntoBool</v-toolbar-title>
 
     <v-spacer></v-spacer>
 
@@ -37,11 +37,11 @@ export default {
   methods: {
     logout() {
       axios.post("/api/logout").then(() => {
-        window.location = "/loginSpa";
+        window.location = "/auth";
       });
     },
     login() {
-      this.$router.push({ name: "login" });
+      this.$router.push({ name: "auth" });
     },
   },
   created() {},
