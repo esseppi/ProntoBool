@@ -1,14 +1,15 @@
+import Vue from "vue";
+import store from "../store";
 import Login from "./pages/auth/Login.vue";
 import Auth from "./pages/auth/auth.vue";
 import Register from "./pages/auth/Register.vue";
 import Home from "./pages/Home.vue";
 import Cart from "./pages/checkout/cart.vue";
 import Bundles from "./pages/Bundles";
-import Vue from "vue";
 import Router from "vue-router";
-import Store from "../store";
 
 Vue.use(Router);
+let check = true;
 
 const router = new Router({
     mode: "history",
@@ -64,15 +65,15 @@ const router = new Router({
     ],
 });
 router.beforeEach((to, from, next) => {
+    console.log(store.state.currentUser);
     const requiresAuth = to.matched.some((record) => to.meta.requiresAuth);
     const requiresGuest = to.matched.some((record) => to.meta.requiresGuest);
-    let checkToken = false;
-    if (requiresAuth && !checkToken) {
+    if (requiresAuth && !store.state.currentUser) {
         next("/loginSpa");
     } else {
         next();
     }
-    if (requiresGuest && checkToken) {
+    if (requiresGuest && store.state.currentUser) {
         next("/home");
     } else {
         next();

@@ -26,7 +26,8 @@ class GuestApiController extends Controller
     }
     public function authcheck(Request $request)
     {
-        $data = 'ciao';
+        $data = Auth::user();
+
         return response()->json([
             'status'    => true,
             'response'  => $data

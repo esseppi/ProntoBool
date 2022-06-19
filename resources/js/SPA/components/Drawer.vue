@@ -42,6 +42,11 @@ export default {
           icon: "mdi-account",
         },
         {
+          title: "Login",
+          name: "/loginSpa",
+          icon: "mdi-lock",
+        },
+        {
           title: "Sponsorships",
           name: "/bundles",
           icon: "mdi-magnet-on",

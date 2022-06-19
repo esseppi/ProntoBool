@@ -36,7 +36,12 @@
               <v-switch label="Remember me" color="indigo"></v-switch>
             </v-card-text>
             <v-card-actions class="justify-center">
-              <v-btn :loading="loading" type="submit" color="indigo">
+              <v-btn
+                :disabled="disableBtn"
+                :loading="loading"
+                type="submit"
+                color="indigo"
+              >
                 <span class="white--text px-8">Login</span>
               </v-btn>
             </v-card-actions>
@@ -61,6 +66,8 @@ export default {
       password: "",
       remember: "",
     },
+    disableBtn: false,
+
     loading: false,
     snackbar: false,
     passwordShow: false,
@@ -77,6 +84,8 @@ export default {
   }),
   methods: {
     submitHandler() {
+      this.$store.commit("setAuth", true);
+
       if (this.$refs.form.validate()) {
         this.loading = true;
         setTimeout(() => {
@@ -90,7 +99,7 @@ export default {
       axios
         .post("/api/login", this.form)
         .then(() => {
-          (store.currentUser = true), (window.location = "/home");
+          window.location = "/home";
         })
         .catch((error) => {
           this.errors = error.response.data.errors;
