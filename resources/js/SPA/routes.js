@@ -1,5 +1,4 @@
 import Vue from "vue";
-import store from "../store";
 import Login from "./pages/auth/Login.vue";
 import Auth from "./pages/auth/auth.vue";
 import Register from "./pages/auth/Register.vue";
