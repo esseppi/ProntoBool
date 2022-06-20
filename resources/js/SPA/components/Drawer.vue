@@ -2,11 +2,11 @@
   <v-navigation-drawer v-model="drawer" :mini-variant.sync="mini" permanent app>
     <v-list-item class="px-2">
       <v-list-item-avatar>
-        <v-img :src="profile.pic"></v-img>
+        <!-- <v-img :src="profile.pic"></v-img> -->
       </v-list-item-avatar>
 
       <v-list-item-title>{{ user.name }}</v-list-item-title>
- 
+
       <v-btn icon @click.stop="mini = !mini">
         <v-icon>mdi-chevron-left</v-icon>
       </v-btn>
@@ -34,6 +34,7 @@ export default {
   name: "Drawer",
   data() {
     return {
+      profile: null,
       drawer: true,
       items: [
         {
@@ -56,12 +57,12 @@ export default {
     };
   },
   props: {
-    profile: Object,
     user: Object,
   },
   created() {
-    console.log(this.profile)
-    console.log(this.user)
+    axios.get("/api/profile/" + this.user.id).then((res) => {
+      this.profile = res.data.response;
+    });
   },
   methods: {},
 };

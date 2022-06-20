@@ -2083,7 +2083,6 @@ __webpack_require__.r(__webpack_exports__);
   name: "App",
   data: function data() {
     return {
-      profile: null,
       user: null,
       bool: null
     };
@@ -2110,16 +2109,7 @@ __webpack_require__.r(__webpack_exports__);
       this.bool = false;
     }
   },
-  mounted: function mounted() {
-    var _this2 = this;
-
-    if (localStorage.getItem("auth")) {
-      axios.get("/api/profile/" + this.user.id).then(function (res) {
-        _this2.profile = res.data.response;
-        console.log(res.data.response);
-      });
-    }
-  }
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -2170,6 +2160,7 @@ __webpack_require__.r(__webpack_exports__);
   name: "Drawer",
   data: function data() {
     return {
+      profile: null,
       drawer: true,
       items: [{
         title: "Dashboard",
@@ -2188,12 +2179,14 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   props: {
-    profile: Object,
     user: Object
   },
   created: function created() {
-    console.log(this.profile);
-    console.log(this.user);
+    var _this = this;
+
+    axios.get("/api/profile/" + this.user.id).then(function (res) {
+      _this.profile = res.data.response;
+    });
   },
   methods: {}
 });
@@ -2274,6 +2267,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _ToolBar_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ToolBar.vue */ "./resources/js/SPA/components/ToolBar.vue");
+//
 //
 //
 //
@@ -27766,7 +27760,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* .backgruond {\r\n  background-image: url(./assets/Order-Banner.jpg) !important;\r\n  height: 300px;\r\n  width: 100%;\r\n  display: block;\r\n  position: absolute;\r\n  top: 0;\r\n  background-size: cover;\r\n} */\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .backgruond {\n  background-image: url(./assets/Order-Banner.jpg) !important;\n  height: 300px;\n  width: 100%;\n  display: block;\n  position: absolute;\n  top: 0;\n  background-size: cover;\n} */\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -27790,7 +27784,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.backgruond {\r\n  background-image: url(./assets/Order-Banner.jpg) !important;\r\n  height: 300px;\r\n  width: 100%;\r\n  display: block;\r\n  position: absolute;\r\n  top: 0;\r\n  background-size: cover;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.backgruond {\n  background-image: url(./assets/Order-Banner.jpg) !important;\n  height: 300px;\n  width: 100%;\n  display: block;\n  position: absolute;\n  top: 0;\n  background-size: cover;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -27814,31 +27808,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.v-card--reveal[data-v-7d0d4428] {\r\n  align-items: center;\r\n  bottom: 0;\r\n  justify-content: center;\r\n  opacity: 0.5;\r\n  position: absolute;\r\n  width: 100%;\n}\r\n", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-16[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-16[0].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-16[0].rules[0].use[3]!./node_modules/vuetify/src/components/VAppBar/VAppBar.sass":
-/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-16[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-16[0].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-16[0].rules[0].use[3]!./node_modules/vuetify/src/components/VAppBar/VAppBar.sass ***!
-  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../laravel-mix/node_modules/css-loader/dist/runtime/api.js */ "./node_modules/laravel-mix/node_modules/css-loader/dist/runtime/api.js");
-/* harmony import */ var _laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".theme--light.v-app-bar.v-toolbar.v-sheet {\n  background-color: #f5f5f5;\n}\n\n.theme--dark.v-app-bar.v-toolbar.v-sheet {\n  background-color: #272727;\n}\n\n.v-sheet.v-app-bar.v-toolbar {\n  border-radius: 0;\n}\n.v-sheet.v-app-bar.v-toolbar:not(.v-sheet--outlined) {\n  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);\n}\n.v-sheet.v-app-bar.v-toolbar.v-sheet--shaped {\n  border-radius: 24px 0;\n}\n\n.v-app-bar:not([data-booted=true]) {\n  transition: none !important;\n}\n\n.v-app-bar.v-app-bar--fixed {\n  position: fixed;\n  top: 0;\n  z-index: 5;\n}\n\n.v-app-bar.v-app-bar.v-app-bar--hide-shadow {\n  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12) !important;\n}\n\n.v-app-bar--fade-img-on-scroll .v-toolbar__image .v-image__image {\n  transition: 0.4s opacity cubic-bezier(0.4, 0, 0.2, 1);\n}\n\n.v-app-bar.v-toolbar--prominent.v-app-bar--shrink-on-scroll .v-toolbar__image {\n  will-change: opacity;\n}\n.v-app-bar.v-toolbar--prominent.v-app-bar--shrink-on-scroll.v-app-bar--collapse-on-scroll .v-toolbar__extension {\n  display: none;\n}\n.v-app-bar.v-toolbar--prominent.v-app-bar--shrink-on-scroll.v-app-bar--is-scrolled .v-toolbar__title {\n  padding-top: 9px;\n}\n.v-app-bar.v-toolbar--prominent.v-app-bar--shrink-on-scroll.v-app-bar--is-scrolled:not(.v-app-bar--bottom) .v-toolbar__title {\n  padding-bottom: 9px;\n}\n\n.v-app-bar.v-app-bar--shrink-on-scroll .v-toolbar__title {\n  font-size: inherit;\n}\n\n.v-app-bar-title__placeholder, .v-app-bar-title__content {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.v-app-bar-title__content {\n  position: absolute;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.v-card--reveal[data-v-7d0d4428] {\n  align-items: center;\n  bottom: 0;\n  justify-content: center;\n  opacity: 0.5;\n  position: absolute;\n  width: 100%;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -27863,6 +27833,30 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, ".theme--light.v-application {\n  background: #FFFFFF;\n  color: rgba(0, 0, 0, 0.87);\n}\n.theme--light.v-application .text--primary {\n  color: rgba(0, 0, 0, 0.87) !important;\n}\n.theme--light.v-application .text--secondary {\n  color: rgba(0, 0, 0, 0.6) !important;\n}\n.theme--light.v-application .text--disabled {\n  color: rgba(0, 0, 0, 0.38) !important;\n}\n\n.theme--dark.v-application {\n  background: #121212;\n  color: #FFFFFF;\n}\n.theme--dark.v-application .text--primary {\n  color: #FFFFFF !important;\n}\n.theme--dark.v-application .text--secondary {\n  color: rgba(255, 255, 255, 0.7) !important;\n}\n.theme--dark.v-application .text--disabled {\n  color: rgba(255, 255, 255, 0.5) !important;\n}\n\n.v-application {\n  display: flex;\n  position: relative;\n}\n.v-application a {\n  cursor: pointer;\n}\n.v-application--is-rtl {\n  direction: rtl;\n}\n.v-application--wrap {\n  flex: 1 1 auto;\n  -webkit-backface-visibility: hidden;\n          backface-visibility: hidden;\n  display: flex;\n  flex-direction: column;\n  min-height: 100vh;\n  max-width: 100%;\n  position: relative;\n}\n\n@-moz-document url-prefix() {\n  @media print {\n    .v-application {\n      display: block;\n    }\n    .v-application--wrap {\n      display: block;\n    }\n  }\n}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-16[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-16[0].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-16[0].rules[0].use[3]!./node_modules/vuetify/src/components/VAppBar/VAppBar.sass":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-16[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-16[0].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-16[0].rules[0].use[3]!./node_modules/vuetify/src/components/VAppBar/VAppBar.sass ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../laravel-mix/node_modules/css-loader/dist/runtime/api.js */ "./node_modules/laravel-mix/node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".theme--light.v-app-bar.v-toolbar.v-sheet {\n  background-color: #f5f5f5;\n}\n\n.theme--dark.v-app-bar.v-toolbar.v-sheet {\n  background-color: #272727;\n}\n\n.v-sheet.v-app-bar.v-toolbar {\n  border-radius: 0;\n}\n.v-sheet.v-app-bar.v-toolbar:not(.v-sheet--outlined) {\n  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);\n}\n.v-sheet.v-app-bar.v-toolbar.v-sheet--shaped {\n  border-radius: 24px 0;\n}\n\n.v-app-bar:not([data-booted=true]) {\n  transition: none !important;\n}\n\n.v-app-bar.v-app-bar--fixed {\n  position: fixed;\n  top: 0;\n  z-index: 5;\n}\n\n.v-app-bar.v-app-bar.v-app-bar--hide-shadow {\n  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12) !important;\n}\n\n.v-app-bar--fade-img-on-scroll .v-toolbar__image .v-image__image {\n  transition: 0.4s opacity cubic-bezier(0.4, 0, 0.2, 1);\n}\n\n.v-app-bar.v-toolbar--prominent.v-app-bar--shrink-on-scroll .v-toolbar__image {\n  will-change: opacity;\n}\n.v-app-bar.v-toolbar--prominent.v-app-bar--shrink-on-scroll.v-app-bar--collapse-on-scroll .v-toolbar__extension {\n  display: none;\n}\n.v-app-bar.v-toolbar--prominent.v-app-bar--shrink-on-scroll.v-app-bar--is-scrolled .v-toolbar__title {\n  padding-top: 9px;\n}\n.v-app-bar.v-toolbar--prominent.v-app-bar--shrink-on-scroll.v-app-bar--is-scrolled:not(.v-app-bar--bottom) .v-toolbar__title {\n  padding-bottom: 9px;\n}\n\n.v-app-bar.v-app-bar--shrink-on-scroll .v-toolbar__title {\n  font-size: inherit;\n}\n\n.v-app-bar-title__placeholder, .v-app-bar-title__content {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.v-app-bar-title__content {\n  position: absolute;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -29167,36 +29161,6 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
-/***/ "./node_modules/vuetify/src/components/VAppBar/VAppBar.sass":
-/*!******************************************************************!*\
-  !*** ./node_modules/vuetify/src/components/VAppBar/VAppBar.sass ***!
-  \******************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
-/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_16_0_rules_0_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_16_0_rules_0_use_2_sass_loader_dist_cjs_js_clonedRuleSet_16_0_rules_0_use_3_VAppBar_sass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-16[0].rules[0].use[1]!../../../../postcss-loader/dist/cjs.js??clonedRuleSet-16[0].rules[0].use[2]!../../../../sass-loader/dist/cjs.js??clonedRuleSet-16[0].rules[0].use[3]!./VAppBar.sass */ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-16[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-16[0].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-16[0].rules[0].use[3]!./node_modules/vuetify/src/components/VAppBar/VAppBar.sass");
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_16_0_rules_0_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_16_0_rules_0_use_2_sass_loader_dist_cjs_js_clonedRuleSet_16_0_rules_0_use_3_VAppBar_sass__WEBPACK_IMPORTED_MODULE_1__["default"], options);
-
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_16_0_rules_0_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_16_0_rules_0_use_2_sass_loader_dist_cjs_js_clonedRuleSet_16_0_rules_0_use_3_VAppBar_sass__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
-
-/***/ }),
-
 /***/ "./node_modules/vuetify/src/components/VApp/VApp.sass":
 /*!************************************************************!*\
   !*** ./node_modules/vuetify/src/components/VApp/VApp.sass ***!
@@ -29224,6 +29188,36 @@ var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMP
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_16_0_rules_0_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_16_0_rules_0_use_2_sass_loader_dist_cjs_js_clonedRuleSet_16_0_rules_0_use_3_VApp_sass__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./node_modules/vuetify/src/components/VAppBar/VAppBar.sass":
+/*!******************************************************************!*\
+  !*** ./node_modules/vuetify/src/components/VAppBar/VAppBar.sass ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_16_0_rules_0_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_16_0_rules_0_use_2_sass_loader_dist_cjs_js_clonedRuleSet_16_0_rules_0_use_3_VAppBar_sass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-16[0].rules[0].use[1]!../../../../postcss-loader/dist/cjs.js??clonedRuleSet-16[0].rules[0].use[2]!../../../../sass-loader/dist/cjs.js??clonedRuleSet-16[0].rules[0].use[3]!./VAppBar.sass */ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-16[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-16[0].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-16[0].rules[0].use[3]!./node_modules/vuetify/src/components/VAppBar/VAppBar.sass");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_16_0_rules_0_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_16_0_rules_0_use_2_sass_loader_dist_cjs_js_clonedRuleSet_16_0_rules_0_use_3_VAppBar_sass__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_16_0_rules_0_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_16_0_rules_0_use_2_sass_loader_dist_cjs_js_clonedRuleSet_16_0_rules_0_use_3_VAppBar_sass__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -31402,9 +31396,7 @@ var render = function () {
   return _c(
     "v-app",
     [
-      _vm.bool
-        ? _c("Drawer", { attrs: { profile: _vm.profile, user: _vm.user } })
-        : _vm._e(),
+      _vm.bool ? _c("Drawer", { attrs: { user: _vm.user } }) : _vm._e(),
       _vm._v(" "),
       _c("HeaderApp", { attrs: { bool: _vm.bool } }),
       _vm._v(" "),
@@ -31461,11 +31453,7 @@ var render = function () {
         "v-list-item",
         { staticClass: "px-2" },
         [
-          _c(
-            "v-list-item-avatar",
-            [_c("v-img", { attrs: { src: _vm.profile.pic } })],
-            1
-          ),
+          _c("v-list-item-avatar"),
           _vm._v(" "),
           _c("v-list-item-title", [_vm._v(_vm._s(_vm.user.name))]),
           _vm._v(" "),
@@ -31653,9 +31641,9 @@ var render = function () {
                     "v-card-title",
                     { staticClass: "black--text text-h2 mt-8" },
                     [
-                      _vm._v(
-                        "\n          Find local dentists who take your insurance\n        "
-                      ),
+                      _vm._v("\n          Find local dentists "),
+                      _c("br"),
+                      _vm._v("\n          who take your insurance\n        "),
                     ]
                   ),
                   _vm._v(" "),
@@ -48151,13 +48139,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/VBtn.js");
 /* harmony import */ var vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VDivider */ "./node_modules/vuetify/lib/components/VDivider/VDivider.js");
 /* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/VIcon.js");
-/* harmony import */ var vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VImg */ "./node_modules/vuetify/lib/components/VImg/VImg.js");
-/* harmony import */ var vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VList */ "./node_modules/vuetify/lib/components/VList/VList.js");
-/* harmony import */ var vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VList */ "./node_modules/vuetify/lib/components/VList/VListItem.js");
-/* harmony import */ var vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VList */ "./node_modules/vuetify/lib/components/VList/VListItemAvatar.js");
-/* harmony import */ var vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VList */ "./node_modules/vuetify/lib/components/VList/index.js");
-/* harmony import */ var vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VList */ "./node_modules/vuetify/lib/components/VList/VListItemIcon.js");
-/* harmony import */ var vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VNavigationDrawer */ "./node_modules/vuetify/lib/components/VNavigationDrawer/VNavigationDrawer.js");
+/* harmony import */ var vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VList */ "./node_modules/vuetify/lib/components/VList/VList.js");
+/* harmony import */ var vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VList */ "./node_modules/vuetify/lib/components/VList/VListItem.js");
+/* harmony import */ var vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VList */ "./node_modules/vuetify/lib/components/VList/VListItemAvatar.js");
+/* harmony import */ var vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VList */ "./node_modules/vuetify/lib/components/VList/index.js");
+/* harmony import */ var vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VList */ "./node_modules/vuetify/lib/components/VList/VListItemIcon.js");
+/* harmony import */ var vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VNavigationDrawer */ "./node_modules/vuetify/lib/components/VNavigationDrawer/VNavigationDrawer.js");
 
 
 
@@ -48188,8 +48175,7 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 
 
 
-
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["default"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_5__["default"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_6__["default"],VImg: vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_7__["default"],VList: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_8__["default"],VListItem: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_9__["default"],VListItemAvatar: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_10__["default"],VListItemContent: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_11__.VListItemContent,VListItemIcon: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_12__["default"],VListItemTitle: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_11__.VListItemTitle,VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_13__["default"]})
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["default"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_5__["default"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_6__["default"],VList: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_7__["default"],VListItem: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_8__["default"],VListItemAvatar: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_9__["default"],VListItemContent: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_10__.VListItemContent,VListItemIcon: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_11__["default"],VListItemTitle: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_10__.VListItemTitle,VNavigationDrawer: vuetify_lib_components_VNavigationDrawer__WEBPACK_IMPORTED_MODULE_12__["default"]})
 
 
 /* hot reload */
@@ -48832,6 +48818,82 @@ module.exports = function installComponents (component, components) {
 
 /***/ }),
 
+/***/ "./node_modules/vuetify/lib/components/VApp/VApp.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/vuetify/lib/components/VApp/VApp.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _src_components_VApp_VApp_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../src/components/VApp/VApp.sass */ "./node_modules/vuetify/src/components/VApp/VApp.sass");
+/* harmony import */ var _mixins_themeable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../mixins/themeable */ "./node_modules/vuetify/lib/mixins/themeable/index.js");
+/* harmony import */ var _util_mixins__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../util/mixins */ "./node_modules/vuetify/lib/util/mixins.js");
+// Styles
+ // Mixins
+
+ // Utilities
+
+
+/* @vue/component */
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_util_mixins__WEBPACK_IMPORTED_MODULE_1__["default"])(_mixins_themeable__WEBPACK_IMPORTED_MODULE_2__["default"]).extend({
+  name: 'v-app',
+  props: {
+    dark: {
+      type: Boolean,
+      default: undefined
+    },
+    id: {
+      type: String,
+      default: 'app'
+    },
+    light: {
+      type: Boolean,
+      default: undefined
+    }
+  },
+  computed: {
+    isDark() {
+      return this.$vuetify.theme.dark;
+    }
+
+  },
+
+  beforeCreate() {
+    if (!this.$vuetify || this.$vuetify === this.$root) {
+      throw new Error('Vuetify is not properly initialized, see https://vuetifyjs.com/getting-started/quick-start#bootstrapping-the-vuetify-object');
+    }
+  },
+
+  render(h) {
+    const wrapper = h('div', {
+      staticClass: 'v-application--wrap'
+    }, this.$slots.default);
+    return h('div', {
+      staticClass: 'v-application',
+      class: {
+        'v-application--is-rtl': this.$vuetify.rtl,
+        'v-application--is-ltr': !this.$vuetify.rtl,
+        ...this.themeClasses
+      },
+      attrs: {
+        'data-app': true
+      },
+      domProps: {
+        id: this.id
+      }
+    }, [wrapper]);
+  }
+
+}));
+//# sourceMappingURL=VApp.js.map
+
+/***/ }),
+
 /***/ "./node_modules/vuetify/lib/components/VAppBar/VAppBar.js":
 /*!****************************************************************!*\
   !*** ./node_modules/vuetify/lib/components/VAppBar/VAppBar.js ***!
@@ -49145,82 +49207,6 @@ __webpack_require__.r(__webpack_exports__);
 
 }));
 //# sourceMappingURL=VAppBarNavIcon.js.map
-
-/***/ }),
-
-/***/ "./node_modules/vuetify/lib/components/VApp/VApp.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/vuetify/lib/components/VApp/VApp.js ***!
-  \**********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _src_components_VApp_VApp_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../src/components/VApp/VApp.sass */ "./node_modules/vuetify/src/components/VApp/VApp.sass");
-/* harmony import */ var _mixins_themeable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../mixins/themeable */ "./node_modules/vuetify/lib/mixins/themeable/index.js");
-/* harmony import */ var _util_mixins__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../util/mixins */ "./node_modules/vuetify/lib/util/mixins.js");
-// Styles
- // Mixins
-
- // Utilities
-
-
-/* @vue/component */
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_util_mixins__WEBPACK_IMPORTED_MODULE_1__["default"])(_mixins_themeable__WEBPACK_IMPORTED_MODULE_2__["default"]).extend({
-  name: 'v-app',
-  props: {
-    dark: {
-      type: Boolean,
-      default: undefined
-    },
-    id: {
-      type: String,
-      default: 'app'
-    },
-    light: {
-      type: Boolean,
-      default: undefined
-    }
-  },
-  computed: {
-    isDark() {
-      return this.$vuetify.theme.dark;
-    }
-
-  },
-
-  beforeCreate() {
-    if (!this.$vuetify || this.$vuetify === this.$root) {
-      throw new Error('Vuetify is not properly initialized, see https://vuetifyjs.com/getting-started/quick-start#bootstrapping-the-vuetify-object');
-    }
-  },
-
-  render(h) {
-    const wrapper = h('div', {
-      staticClass: 'v-application--wrap'
-    }, this.$slots.default);
-    return h('div', {
-      staticClass: 'v-application',
-      class: {
-        'v-application--is-rtl': this.$vuetify.rtl,
-        'v-application--is-ltr': !this.$vuetify.rtl,
-        ...this.themeClasses
-      },
-      attrs: {
-        'data-app': true
-      },
-      domProps: {
-        id: this.id
-      }
-    }, [wrapper]);
-  }
-
-}));
-//# sourceMappingURL=VApp.js.map
 
 /***/ }),
 
@@ -63859,6 +63845,93 @@ function darken(value, amount) {
 
 /***/ }),
 
+/***/ "./node_modules/vuetify/lib/util/color/transformCIELAB.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/vuetify/lib/util/color/transformCIELAB.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "fromXYZ": () => (/* binding */ fromXYZ),
+/* harmony export */   "toXYZ": () => (/* binding */ toXYZ)
+/* harmony export */ });
+const delta = 0.20689655172413793; // 6÷29
+
+const cielabForwardTransform = t => t > delta ** 3 ? Math.cbrt(t) : t / (3 * delta ** 2) + 4 / 29;
+
+const cielabReverseTransform = t => t > delta ? t ** 3 : 3 * delta ** 2 * (t - 4 / 29);
+
+function fromXYZ(xyz) {
+  const transform = cielabForwardTransform;
+  const transformedY = transform(xyz[1]);
+  return [116 * transformedY - 16, 500 * (transform(xyz[0] / 0.95047) - transformedY), 200 * (transformedY - transform(xyz[2] / 1.08883))];
+}
+function toXYZ(lab) {
+  const transform = cielabReverseTransform;
+  const Ln = (lab[0] + 16) / 116;
+  return [transform(Ln + lab[1] / 500) * 0.95047, transform(Ln), transform(Ln - lab[2] / 200) * 1.08883];
+}
+//# sourceMappingURL=transformCIELAB.js.map
+
+/***/ }),
+
+/***/ "./node_modules/vuetify/lib/util/color/transformSRGB.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/vuetify/lib/util/color/transformSRGB.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "fromXYZ": () => (/* binding */ fromXYZ),
+/* harmony export */   "toXYZ": () => (/* binding */ toXYZ)
+/* harmony export */ });
+/* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../util/helpers */ "./node_modules/vuetify/lib/util/helpers.js");
+ // For converting XYZ to sRGB
+
+const srgbForwardMatrix = [[3.2406, -1.5372, -0.4986], [-0.9689, 1.8758, 0.0415], [0.0557, -0.2040, 1.0570]]; // Forward gamma adjust
+
+const srgbForwardTransform = C => C <= 0.0031308 ? C * 12.92 : 1.055 * C ** (1 / 2.4) - 0.055; // For converting sRGB to XYZ
+
+
+const srgbReverseMatrix = [[0.4124, 0.3576, 0.1805], [0.2126, 0.7152, 0.0722], [0.0193, 0.1192, 0.9505]]; // Reverse gamma adjust
+
+const srgbReverseTransform = C => C <= 0.04045 ? C / 12.92 : ((C + 0.055) / 1.055) ** 2.4;
+
+function fromXYZ(xyz) {
+  const rgb = Array(3);
+  const transform = srgbForwardTransform;
+  const matrix = srgbForwardMatrix; // Matrix transform, then gamma adjustment
+
+  for (let i = 0; i < 3; ++i) {
+    rgb[i] = Math.round((0,_util_helpers__WEBPACK_IMPORTED_MODULE_0__.clamp)(transform(matrix[i][0] * xyz[0] + matrix[i][1] * xyz[1] + matrix[i][2] * xyz[2])) * 255);
+  } // Rescale back to [0, 255]
+
+
+  return (rgb[0] << 16) + (rgb[1] << 8) + (rgb[2] << 0);
+}
+function toXYZ(rgb) {
+  const xyz = [0, 0, 0];
+  const transform = srgbReverseTransform;
+  const matrix = srgbReverseMatrix; // Rescale from [0, 255] to [0, 1] then adjust sRGB gamma to linear RGB
+
+  const r = transform((rgb >> 16 & 0xff) / 255);
+  const g = transform((rgb >> 8 & 0xff) / 255);
+  const b = transform((rgb >> 0 & 0xff) / 255); // Matrix color space transform
+
+  for (let i = 0; i < 3; ++i) {
+    xyz[i] = matrix[i][0] * r + matrix[i][1] * g + matrix[i][2] * b;
+  }
+
+  return xyz;
+}
+//# sourceMappingURL=transformSRGB.js.map
+
+/***/ }),
+
 /***/ "./node_modules/vuetify/lib/util/colorUtils.js":
 /*!*****************************************************!*\
   !*** ./node_modules/vuetify/lib/util/colorUtils.js ***!
@@ -64126,93 +64199,6 @@ function contrastRatio(c1, c2) {
   return (Math.max(y1, y2) + 0.05) / (Math.min(y1, y2) + 0.05);
 }
 //# sourceMappingURL=colorUtils.js.map
-
-/***/ }),
-
-/***/ "./node_modules/vuetify/lib/util/color/transformCIELAB.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/vuetify/lib/util/color/transformCIELAB.js ***!
-  \****************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "fromXYZ": () => (/* binding */ fromXYZ),
-/* harmony export */   "toXYZ": () => (/* binding */ toXYZ)
-/* harmony export */ });
-const delta = 0.20689655172413793; // 6÷29
-
-const cielabForwardTransform = t => t > delta ** 3 ? Math.cbrt(t) : t / (3 * delta ** 2) + 4 / 29;
-
-const cielabReverseTransform = t => t > delta ? t ** 3 : 3 * delta ** 2 * (t - 4 / 29);
-
-function fromXYZ(xyz) {
-  const transform = cielabForwardTransform;
-  const transformedY = transform(xyz[1]);
-  return [116 * transformedY - 16, 500 * (transform(xyz[0] / 0.95047) - transformedY), 200 * (transformedY - transform(xyz[2] / 1.08883))];
-}
-function toXYZ(lab) {
-  const transform = cielabReverseTransform;
-  const Ln = (lab[0] + 16) / 116;
-  return [transform(Ln + lab[1] / 500) * 0.95047, transform(Ln), transform(Ln - lab[2] / 200) * 1.08883];
-}
-//# sourceMappingURL=transformCIELAB.js.map
-
-/***/ }),
-
-/***/ "./node_modules/vuetify/lib/util/color/transformSRGB.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/vuetify/lib/util/color/transformSRGB.js ***!
-  \**************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "fromXYZ": () => (/* binding */ fromXYZ),
-/* harmony export */   "toXYZ": () => (/* binding */ toXYZ)
-/* harmony export */ });
-/* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../util/helpers */ "./node_modules/vuetify/lib/util/helpers.js");
- // For converting XYZ to sRGB
-
-const srgbForwardMatrix = [[3.2406, -1.5372, -0.4986], [-0.9689, 1.8758, 0.0415], [0.0557, -0.2040, 1.0570]]; // Forward gamma adjust
-
-const srgbForwardTransform = C => C <= 0.0031308 ? C * 12.92 : 1.055 * C ** (1 / 2.4) - 0.055; // For converting sRGB to XYZ
-
-
-const srgbReverseMatrix = [[0.4124, 0.3576, 0.1805], [0.2126, 0.7152, 0.0722], [0.0193, 0.1192, 0.9505]]; // Reverse gamma adjust
-
-const srgbReverseTransform = C => C <= 0.04045 ? C / 12.92 : ((C + 0.055) / 1.055) ** 2.4;
-
-function fromXYZ(xyz) {
-  const rgb = Array(3);
-  const transform = srgbForwardTransform;
-  const matrix = srgbForwardMatrix; // Matrix transform, then gamma adjustment
-
-  for (let i = 0; i < 3; ++i) {
-    rgb[i] = Math.round((0,_util_helpers__WEBPACK_IMPORTED_MODULE_0__.clamp)(transform(matrix[i][0] * xyz[0] + matrix[i][1] * xyz[1] + matrix[i][2] * xyz[2])) * 255);
-  } // Rescale back to [0, 255]
-
-
-  return (rgb[0] << 16) + (rgb[1] << 8) + (rgb[2] << 0);
-}
-function toXYZ(rgb) {
-  const xyz = [0, 0, 0];
-  const transform = srgbReverseTransform;
-  const matrix = srgbReverseMatrix; // Rescale from [0, 255] to [0, 1] then adjust sRGB gamma to linear RGB
-
-  const r = transform((rgb >> 16 & 0xff) / 255);
-  const g = transform((rgb >> 8 & 0xff) / 255);
-  const b = transform((rgb >> 0 & 0xff) / 255); // Matrix color space transform
-
-  for (let i = 0; i < 3; ++i) {
-    xyz[i] = matrix[i][0] * r + matrix[i][1] * g + matrix[i][2] * b;
-  }
-
-  return xyz;
-}
-//# sourceMappingURL=transformSRGB.js.map
 
 /***/ }),
 
