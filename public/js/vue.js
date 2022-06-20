@@ -2083,10 +2083,9 @@ __webpack_require__.r(__webpack_exports__);
   name: "App",
   data: function data() {
     return {
+      profile: null,
       user: null,
-      bool: null,
-      headerShow: false,
-      profile: null
+      bool: null
     };
   },
   components: {
@@ -2096,7 +2095,7 @@ __webpack_require__.r(__webpack_exports__);
   updated: function updated() {
     if (this.$route.name != "home") this.headerShow = true;
   },
-  mounted: function mounted() {
+  created: function created() {
     var _this = this;
 
     if (localStorage.getItem("auth")) {
@@ -2107,11 +2106,18 @@ __webpack_require__.r(__webpack_exports__);
           _this.bool = true;
         }
       });
-      axios.get("/api/profile/" + user.id).then(function (res) {
-        _this.profile = res.data;
-      });
     } else {
       this.bool = false;
+    }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    if (localStorage.getItem("auth")) {
+      axios.get("/api/profile/" + this.user.id).then(function (res) {
+        _this2.profile = res.data.response;
+        console.log(res.data.response);
+      });
     }
   }
 });
@@ -2182,9 +2188,13 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   props: {
+    profile: Object,
     user: Object
   },
-  created: function created() {},
+  created: function created() {
+    console.log(this.profile);
+    console.log(this.user);
+  },
   methods: {}
 });
 
@@ -31392,7 +31402,9 @@ var render = function () {
   return _c(
     "v-app",
     [
-      _vm.bool ? _c("Drawer", { attrs: { user: _vm.user } }) : _vm._e(),
+      _vm.bool
+        ? _c("Drawer", { attrs: { profile: _vm.profile, user: _vm.user } })
+        : _vm._e(),
       _vm._v(" "),
       _c("HeaderApp", { attrs: { bool: _vm.bool } }),
       _vm._v(" "),
@@ -31451,13 +31463,7 @@ var render = function () {
         [
           _c(
             "v-list-item-avatar",
-            [
-              _c("v-img", {
-                attrs: {
-                  src: "https://randomuser.me/api/portraits/men/85.jpg",
-                },
-              }),
-            ],
+            [_c("v-img", { attrs: { src: _vm.profile.pic } })],
             1
           ),
           _vm._v(" "),

@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Drawer :user="user" v-if="bool" />
+    <Drawer :profile="profile" :user="user" v-if="bool" />
     <HeaderApp :bool="bool" />
     <v-main>
       <router-view></router-view>
@@ -16,10 +16,9 @@ export default {
   name: "App",
   data() {
     return {
+      profile: null,
       user: null,
       bool: null,
-      headerShow: false,
-      profile: null
     };
   },
   components: {
@@ -29,20 +28,27 @@ export default {
   updated() {
     if (this.$route.name != "home") this.headerShow = true;
   },
-  mounted() {
-    if (localStorage.getItem("auth")) {
-      axios.get("/api/user").then((res) => {
+  created(){
+        if (localStorage.getItem("auth")) {
+     axios.get("/api/user").then((res) => {
         this.user = res.data;
-        if (this.user) {
-          this.bool = true;
-        }
-      });
-      axios.get("/api/profile/" + user.id).then((res) => {
-        this.profile = res.data;
-      });
+        if (this.user) {this.bool = true;}
+      })
     } else {
       this.bool = false;
     }
+    
+
+  },
+  mounted() {
+    if (localStorage.getItem("auth")) {
+      axios.get("/api/profile/" + this.user.id).then((res) => {
+      this.profile = res.data.response;
+      console.log(res.data.response)
+      });
+      
+    }
+
   },
 };
 </script>

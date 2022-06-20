@@ -24,6 +24,8 @@ Route::get('/sponsorship', [SponsorshipController::class, 'index']);
 Route::get('/profiles', [GuestApiController::class, 'index']);
 Route::get('/authcheck', [GuestApiController::class, 'authcheck']);
 
+
+
 Route::get('orders/generate', [OrderController::class, 'generate']);
 Route::post('orders/makepayment', [OrderController::class, 'makePayment'])->name('pay');
 Route::post('login', [AuthenticatedSessionController::class, 'store']);
@@ -39,3 +41,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // FRONTENDAPI CALLS
 Route::get('/getBundles', [ProfessionistApiController::class, 'getBundle']);
+Route::get('/profile/{id}', [ProfessionistApiController::class, 'getProfileInfo']);
