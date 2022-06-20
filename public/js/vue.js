@@ -2082,7 +2082,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "App",
   data: function data() {
@@ -2260,6 +2259,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _HeaderApp_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HeaderApp.vue */ "./resources/js/SPA/components/HeaderApp.vue");
 //
 //
 //
@@ -2269,6 +2269,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "HeroApp",
   data: function data() {
@@ -2276,6 +2291,9 @@ __webpack_require__.r(__webpack_exports__);
       model: 0,
       colors: ["primary", "secondary", "yellow darken-2", "red", "orange"]
     };
+  },
+  components: {
+    HeaderApp: _HeaderApp_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
@@ -2381,6 +2399,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Home",
@@ -2404,6 +2427,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../store */ "./resources/js/store.js");
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_store__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
 //
 //
 //
@@ -2610,6 +2637,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "App",
   data: function data() {
@@ -2682,6 +2713,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
 //
 //
 //
@@ -30937,7 +30970,14 @@ var render = function () {
       _vm._v(" "),
       _c(
         "v-main",
-        [_c("v-container", { attrs: { fluid: "" } }, [_c("router-view")], 1)],
+        [
+          _c(
+            "v-container",
+            { attrs: { "full-width": "" } },
+            [_c("router-view")],
+            1
+          ),
+        ],
         1
       ),
     ],
@@ -31160,8 +31200,63 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "v-row",
-    { attrs: { align: "left", color: "#D6E4F4", app: "" } },
-    [_c("v-col", { attrs: { cols: "12" } }, [_c("div")])],
+    { attrs: { align: "left", "no-gutters": "" } },
+    [
+      _c(
+        "v-col",
+        { attrs: { cols: "12" } },
+        [
+          _c(
+            "v-card",
+            { attrs: { color: "#D6E4F4", elevation: "0", app: "" } },
+            [
+              _c(
+                "v-app-bar",
+                { attrs: { flat: "", color: "rgba(0, 0, 0, 0)" } },
+                [_c("HeaderApp")],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-container",
+                [
+                  _c(
+                    "v-card-title",
+                    { staticClass: "black--text text-h2 mt-8" },
+                    [
+                      _vm._v(
+                        "\n          Find local dentists who take your insurance\n        "
+                      ),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-row",
+                    [
+                      _c("v-col", { attrs: { cols: "12", md: "4" } }, [
+                        _vm._v("ciao"),
+                      ]),
+                      _vm._v(" "),
+                      _c("v-col", { attrs: { cols: "12", md: "4" } }, [
+                        _vm._v("ciao"),
+                      ]),
+                      _vm._v(" "),
+                      _c("v-col", { attrs: { cols: "12", md: "4" } }, [
+                        _vm._v("ciao"),
+                      ]),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
+    ],
     1
   )
 }
@@ -31260,7 +31355,15 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("HeroApp")
+  return _c(
+    "div",
+    [
+      _c("HeroApp"),
+      _vm._v(" "),
+      _c("v-main", [_c("v-container", { attrs: { fluid: "" } })], 1),
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -31286,170 +31389,190 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
-    { staticClass: "background" },
+    "v-main",
     [
-      _c(
-        "v-main",
-        { staticClass: "d-flex justify-center align-center" },
-        [
-          _c(
-            "v-col",
-            { staticClass: "mx-auto", attrs: { cols: "10", lg: "4" } },
-            [
-              _c(
-                "v-card",
-                { staticClass: "pa-4" },
-                [
-                  _c(
-                    "div",
-                    { staticClass: "text-center" },
-                    [
-                      _c(
-                        "v-avatar",
-                        { attrs: { size: "100", color: "indigo lighten-4" } },
-                        [
-                          _c(
-                            "v-icon",
-                            { attrs: { size: "40", color: "indigo" } },
-                            [_vm._v("mdi-account")]
-                          ),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("h2", { staticClass: "indigo--text" }, [
-                        _vm._v("Vue login Page"),
-                      ]),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-form",
-                    {
-                      ref: "form",
-                      on: {
-                        submit: function ($event) {
-                          $event.preventDefault()
-                          return _vm.submitHandler.apply(null, arguments)
-                        },
-                      },
-                    },
-                    [
-                      _c(
-                        "v-card-text",
-                        [
-                          _c("v-text-field", {
-                            attrs: {
-                              loading: _vm.loading,
-                              rules: _vm.emailRules,
-                              type: "email",
-                              label: "Email",
-                              placeholder: "Email",
-                              "prepend-inner-icon": "mdi-account",
-                              required: "",
-                            },
-                            model: {
-                              value: _vm.form.email,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.form, "email", $$v)
+      _c("v-container", { attrs: { fluid: "" } }, [
+        _c(
+          "div",
+          { staticClass: "background" },
+          [
+            _c(
+              "v-main",
+              { staticClass: "d-flex justify-center align-center" },
+              [
+                _c(
+                  "v-col",
+                  { staticClass: "mx-auto", attrs: { cols: "10", lg: "4" } },
+                  [
+                    _c(
+                      "v-card",
+                      { staticClass: "pa-4" },
+                      [
+                        _c(
+                          "div",
+                          { staticClass: "text-center" },
+                          [
+                            _c(
+                              "v-avatar",
+                              {
+                                attrs: {
+                                  size: "100",
+                                  color: "indigo lighten-4",
+                                },
                               },
-                              expression: "form.email",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("v-text-field", {
-                            attrs: {
-                              loading: _vm.loading,
-                              rules: _vm.passwordRules,
-                              type: _vm.passwordShow ? "text" : "password",
-                              label: "Password",
-                              placeholder: "Password",
-                              "prepend-inner-icon": "mdi-key",
-                              "append-icon": _vm.passwordShow
-                                ? "mdi-eye"
-                                : "mdi-eye-off",
-                              required: "",
-                            },
+                              [
+                                _c(
+                                  "v-icon",
+                                  { attrs: { size: "40", color: "indigo" } },
+                                  [_vm._v("mdi-account")]
+                                ),
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("h2", { staticClass: "indigo--text" }, [
+                              _vm._v("Vue login Page"),
+                            ]),
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-form",
+                          {
+                            ref: "form",
                             on: {
-                              "click:append": function ($event) {
-                                _vm.passwordShow = !_vm.passwordShow
+                              submit: function ($event) {
+                                $event.preventDefault()
+                                return _vm.submitHandler.apply(null, arguments)
                               },
                             },
-                            model: {
-                              value: _vm.form.password,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.form, "password", $$v)
-                              },
-                              expression: "form.password",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("v-switch", {
-                            attrs: { label: "Remember me", color: "indigo" },
-                            model: {
-                              value: _vm.form.remember,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.form, "remember", $$v)
-                              },
-                              expression: "form.remember",
-                            },
-                          }),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-card-actions",
-                        { staticClass: "justify-center" },
-                        [
-                          _c(
-                            "v-btn",
-                            {
-                              attrs: {
-                                disabled: _vm.disableBtn,
-                                loading: _vm.loading,
-                                type: "submit",
-                                color: "indigo",
-                              },
-                            },
-                            [
-                              _c("span", { staticClass: "white--text px-8" }, [
-                                _vm._v("Login"),
-                              ]),
-                            ]
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "v-snackbar",
-        {
-          attrs: { top: "", color: "red" },
-          model: {
-            value: _vm.snackbar,
-            callback: function ($$v) {
-              _vm.snackbar = $$v
-            },
-            expression: "snackbar",
-          },
-        },
-        [_vm._v("\n    Something went wrong\n  ")]
-      ),
+                          },
+                          [
+                            _c(
+                              "v-card-text",
+                              [
+                                _c("v-text-field", {
+                                  attrs: {
+                                    loading: _vm.loading,
+                                    rules: _vm.emailRules,
+                                    type: "email",
+                                    label: "Email",
+                                    placeholder: "Email",
+                                    "prepend-inner-icon": "mdi-account",
+                                    required: "",
+                                  },
+                                  model: {
+                                    value: _vm.form.email,
+                                    callback: function ($$v) {
+                                      _vm.$set(_vm.form, "email", $$v)
+                                    },
+                                    expression: "form.email",
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c("v-text-field", {
+                                  attrs: {
+                                    loading: _vm.loading,
+                                    rules: _vm.passwordRules,
+                                    type: _vm.passwordShow
+                                      ? "text"
+                                      : "password",
+                                    label: "Password",
+                                    placeholder: "Password",
+                                    "prepend-inner-icon": "mdi-key",
+                                    "append-icon": _vm.passwordShow
+                                      ? "mdi-eye"
+                                      : "mdi-eye-off",
+                                    required: "",
+                                  },
+                                  on: {
+                                    "click:append": function ($event) {
+                                      _vm.passwordShow = !_vm.passwordShow
+                                    },
+                                  },
+                                  model: {
+                                    value: _vm.form.password,
+                                    callback: function ($$v) {
+                                      _vm.$set(_vm.form, "password", $$v)
+                                    },
+                                    expression: "form.password",
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c("v-switch", {
+                                  attrs: {
+                                    label: "Remember me",
+                                    color: "indigo",
+                                  },
+                                  model: {
+                                    value: _vm.form.remember,
+                                    callback: function ($$v) {
+                                      _vm.$set(_vm.form, "remember", $$v)
+                                    },
+                                    expression: "form.remember",
+                                  },
+                                }),
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-card-actions",
+                              { staticClass: "justify-center" },
+                              [
+                                _c(
+                                  "v-btn",
+                                  {
+                                    attrs: {
+                                      disabled: _vm.disableBtn,
+                                      loading: _vm.loading,
+                                      type: "submit",
+                                      color: "indigo",
+                                    },
+                                  },
+                                  [
+                                    _c(
+                                      "span",
+                                      { staticClass: "white--text px-8" },
+                                      [_vm._v("Login")]
+                                    ),
+                                  ]
+                                ),
+                              ],
+                              1
+                            ),
+                          ],
+                          1
+                        ),
+                      ],
+                      1
+                    ),
+                  ],
+                  1
+                ),
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "v-snackbar",
+              {
+                attrs: { top: "", color: "red" },
+                model: {
+                  value: _vm.snackbar,
+                  callback: function ($$v) {
+                    _vm.snackbar = $$v
+                  },
+                  expression: "snackbar",
+                },
+              },
+              [_vm._v("\n        Something went wrong\n      ")]
+            ),
+          ],
+          1
+        ),
+      ]),
     ],
     1
   )
@@ -31478,207 +31601,233 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
-    { staticClass: "background" },
+    "v-main",
     [
-      _c(
-        "v-main",
-        { staticClass: "d-flex justify-center align-center" },
-        [
-          _c(
-            "v-col",
-            { staticClass: "mx-auto", attrs: { cols: "10", lg: "4" } },
-            [
-              _c(
-                "v-card",
-                { staticClass: "pa-2" },
-                [
-                  _c(
-                    "div",
-                    { staticClass: "text-center" },
-                    [
-                      _c(
-                        "v-avatar",
-                        { attrs: { size: "100", color: "indigo lighten-4" } },
-                        [
-                          _c(
-                            "v-icon",
-                            { attrs: { size: "40", color: "indigo" } },
-                            [_vm._v("mdi-account")]
-                          ),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("h2", { staticClass: "indigo--text" }, [
-                        _vm._v("Register Prontobool"),
-                      ]),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-form",
-                    {
-                      ref: "form",
-                      on: {
-                        submit: function ($event) {
-                          $event.preventDefault()
-                          return _vm.submitHandler.apply(null, arguments)
-                        },
-                      },
-                    },
-                    [
-                      _c(
-                        "v-card-text",
-                        [
-                          _c("v-text-field", {
-                            attrs: {
-                              "prepend-inner-icon": "mdi-form-textbox",
-                              loading: _vm.loading,
-                              rules: _vm.nameRules,
-                              counter: 25,
-                              label: "Name",
-                              required: "",
-                            },
-                            model: {
-                              value: _vm.form.name,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.form, "name", $$v)
+      _c("v-container", { attrs: { fluid: "" } }, [
+        _c(
+          "div",
+          { staticClass: "background" },
+          [
+            _c(
+              "v-main",
+              { staticClass: "d-flex justify-center align-center" },
+              [
+                _c(
+                  "v-col",
+                  { staticClass: "mx-auto", attrs: { cols: "10", lg: "4" } },
+                  [
+                    _c(
+                      "v-card",
+                      { staticClass: "pa-2" },
+                      [
+                        _c(
+                          "div",
+                          { staticClass: "text-center" },
+                          [
+                            _c(
+                              "v-avatar",
+                              {
+                                attrs: {
+                                  size: "100",
+                                  color: "indigo lighten-4",
+                                },
                               },
-                              expression: "form.name",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("v-text-field", {
-                            attrs: {
-                              loading: _vm.loading,
-                              rules: _vm.emailRules,
-                              type: "email",
-                              label: "Email",
-                              placeholder: "Email",
-                              "prepend-inner-icon": "mdi-account",
-                              required: "",
-                            },
-                            model: {
-                              value: _vm.form.email,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.form, "email", $$v)
-                              },
-                              expression: "form.email",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("v-text-field", {
-                            attrs: {
-                              loading: _vm.loading,
-                              rules: _vm.passwordRules,
-                              type: _vm.passwordShow ? "text" : "password",
-                              label: "Password",
-                              placeholder: "Password",
-                              "prepend-inner-icon": "mdi-key",
-                              "append-icon": _vm.passwordShow
-                                ? "mdi-eye"
-                                : "mdi-eye-off",
-                              required: "",
-                            },
+                              [
+                                _c(
+                                  "v-icon",
+                                  { attrs: { size: "40", color: "indigo" } },
+                                  [_vm._v("mdi-account")]
+                                ),
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("h2", { staticClass: "indigo--text" }, [
+                              _vm._v("Register Prontobool"),
+                            ]),
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-form",
+                          {
+                            ref: "form",
                             on: {
-                              "click:append": function ($event) {
-                                _vm.passwordShow = !_vm.passwordShow
+                              submit: function ($event) {
+                                $event.preventDefault()
+                                return _vm.submitHandler.apply(null, arguments)
                               },
                             },
-                            model: {
-                              value: _vm.form.password,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.form, "password", $$v)
-                              },
-                              expression: "form.password",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("v-text-field", {
-                            attrs: {
-                              loading: _vm.loading,
-                              rules: _vm.passwordRules,
-                              type: _vm.passwordShow2 ? "text" : "password",
-                              label: "Check",
-                              placeholder: "Confirm Password",
-                              "prepend-inner-icon": "mdi-lock",
-                              "append-icon": _vm.passwordShow
-                                ? "mdi-eye"
-                                : "mdi-eye-off",
-                              required: "",
-                            },
-                            on: {
-                              "click:append": function ($event) {
-                                _vm.passwordShow2 = !_vm.passwordShow2
-                              },
-                            },
-                            model: {
-                              value: _vm.form.password_confirmation,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.form, "password_confirmation", $$v)
-                              },
-                              expression: "form.password_confirmation",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("v-switch", {
-                            attrs: { label: "Remember me", color: "indigo" },
-                          }),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-card-actions",
-                        { staticClass: "justify-center" },
-                        [
-                          _c(
-                            "v-btn",
-                            {
-                              attrs: {
-                                loading: _vm.loading,
-                                type: "submit",
-                                color: "indigo",
-                              },
-                            },
-                            [
-                              _c("span", { staticClass: "white--text px-8" }, [
-                                _vm._v("Register"),
-                              ]),
-                            ]
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "v-snackbar",
-        {
-          attrs: { top: "", color: "red" },
-          model: {
-            value: _vm.snackbar,
-            callback: function ($$v) {
-              _vm.snackbar = $$v
-            },
-            expression: "snackbar",
-          },
-        },
-        [_vm._v("\n    " + _vm._s(_vm.errors) + "\n  ")]
-      ),
+                          },
+                          [
+                            _c(
+                              "v-card-text",
+                              [
+                                _c("v-text-field", {
+                                  attrs: {
+                                    "prepend-inner-icon": "mdi-form-textbox",
+                                    loading: _vm.loading,
+                                    rules: _vm.nameRules,
+                                    counter: 25,
+                                    label: "Name",
+                                    required: "",
+                                  },
+                                  model: {
+                                    value: _vm.form.name,
+                                    callback: function ($$v) {
+                                      _vm.$set(_vm.form, "name", $$v)
+                                    },
+                                    expression: "form.name",
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c("v-text-field", {
+                                  attrs: {
+                                    loading: _vm.loading,
+                                    rules: _vm.emailRules,
+                                    type: "email",
+                                    label: "Email",
+                                    placeholder: "Email",
+                                    "prepend-inner-icon": "mdi-account",
+                                    required: "",
+                                  },
+                                  model: {
+                                    value: _vm.form.email,
+                                    callback: function ($$v) {
+                                      _vm.$set(_vm.form, "email", $$v)
+                                    },
+                                    expression: "form.email",
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c("v-text-field", {
+                                  attrs: {
+                                    loading: _vm.loading,
+                                    rules: _vm.passwordRules,
+                                    type: _vm.passwordShow
+                                      ? "text"
+                                      : "password",
+                                    label: "Password",
+                                    placeholder: "Password",
+                                    "prepend-inner-icon": "mdi-key",
+                                    "append-icon": _vm.passwordShow
+                                      ? "mdi-eye"
+                                      : "mdi-eye-off",
+                                    required: "",
+                                  },
+                                  on: {
+                                    "click:append": function ($event) {
+                                      _vm.passwordShow = !_vm.passwordShow
+                                    },
+                                  },
+                                  model: {
+                                    value: _vm.form.password,
+                                    callback: function ($$v) {
+                                      _vm.$set(_vm.form, "password", $$v)
+                                    },
+                                    expression: "form.password",
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c("v-text-field", {
+                                  attrs: {
+                                    loading: _vm.loading,
+                                    rules: _vm.passwordRules,
+                                    type: _vm.passwordShow2
+                                      ? "text"
+                                      : "password",
+                                    label: "Check",
+                                    placeholder: "Confirm Password",
+                                    "prepend-inner-icon": "mdi-lock",
+                                    "append-icon": _vm.passwordShow
+                                      ? "mdi-eye"
+                                      : "mdi-eye-off",
+                                    required: "",
+                                  },
+                                  on: {
+                                    "click:append": function ($event) {
+                                      _vm.passwordShow2 = !_vm.passwordShow2
+                                    },
+                                  },
+                                  model: {
+                                    value: _vm.form.password_confirmation,
+                                    callback: function ($$v) {
+                                      _vm.$set(
+                                        _vm.form,
+                                        "password_confirmation",
+                                        $$v
+                                      )
+                                    },
+                                    expression: "form.password_confirmation",
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c("v-switch", {
+                                  attrs: {
+                                    label: "Remember me",
+                                    color: "indigo",
+                                  },
+                                }),
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-card-actions",
+                              { staticClass: "justify-center" },
+                              [
+                                _c(
+                                  "v-btn",
+                                  {
+                                    attrs: {
+                                      loading: _vm.loading,
+                                      type: "submit",
+                                      color: "indigo",
+                                    },
+                                  },
+                                  [
+                                    _c(
+                                      "span",
+                                      { staticClass: "white--text px-8" },
+                                      [_vm._v("Register")]
+                                    ),
+                                  ]
+                                ),
+                              ],
+                              1
+                            ),
+                          ],
+                          1
+                        ),
+                      ],
+                      1
+                    ),
+                  ],
+                  1
+                ),
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "v-snackbar",
+              {
+                attrs: { top: "", color: "red" },
+                model: {
+                  value: _vm.snackbar,
+                  callback: function ($$v) {
+                    _vm.snackbar = $$v
+                  },
+                  expression: "snackbar",
+                },
+              },
+              [_vm._v("\n        " + _vm._s(_vm.errors) + "\n      ")]
+            ),
+          ],
+          1
+        ),
+      ]),
     ],
     1
   )
@@ -31707,77 +31856,84 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-container",
+    "v-main",
     [
       _c(
-        "v-row",
-        { attrs: { justify: "space-around" } },
+        "v-container",
+        { attrs: { fluid: "" } },
         [
           _c(
-            "v-col",
-            { attrs: { cols: "12", md: "4" } },
+            "v-row",
+            { attrs: { justify: "space-around" } },
             [
               _c(
-                "v-sheet",
-                { staticClass: "d-flex justify-center" },
+                "v-col",
+                { attrs: { cols: "12", md: "4" } },
                 [
-                  _c("div"),
-                  _vm._v(" "),
                   _c(
                     "v-sheet",
-                    {
-                      attrs: {
-                        color: "white",
-                        elevation: "24",
-                        height: "250",
-                        width: "250",
-                      },
-                    },
+                    { staticClass: "d-flex justify-center" },
                     [
-                      _c("v-btn", { attrs: { to: _vm.sheets[0].link } }, [
-                        _vm._v(_vm._s(_vm.sheets[0].title)),
-                      ]),
+                      _c("div"),
+                      _vm._v(" "),
+                      _c(
+                        "v-sheet",
+                        {
+                          attrs: {
+                            color: "white",
+                            elevation: "24",
+                            height: "250",
+                            width: "250",
+                          },
+                        },
+                        [
+                          _c("v-btn", { attrs: { to: _vm.sheets[0].link } }, [
+                            _vm._v(_vm._s(_vm.sheets[0].title)),
+                          ]),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("div"),
                     ],
                     1
                   ),
-                  _vm._v(" "),
-                  _c("div"),
                 ],
                 1
               ),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-col",
-            { attrs: { cols: "12", md: "4" } },
-            [
+              _vm._v(" "),
               _c(
-                "v-sheet",
-                { staticClass: "d-flex justify-center" },
+                "v-col",
+                { attrs: { cols: "12", md: "4" } },
                 [
-                  _c("div"),
-                  _vm._v(" "),
                   _c(
                     "v-sheet",
-                    {
-                      attrs: {
-                        color: "white",
-                        elevation: "24",
-                        height: "250",
-                        width: "250",
-                      },
-                    },
+                    { staticClass: "d-flex justify-center" },
                     [
-                      _c("v-btn", { attrs: { to: _vm.sheets[1].link } }, [
-                        _vm._v(_vm._s(_vm.sheets[1].title)),
-                      ]),
+                      _c("div"),
+                      _vm._v(" "),
+                      _c(
+                        "v-sheet",
+                        {
+                          attrs: {
+                            color: "white",
+                            elevation: "24",
+                            height: "250",
+                            width: "250",
+                          },
+                        },
+                        [
+                          _c("v-btn", { attrs: { to: _vm.sheets[1].link } }, [
+                            _vm._v(_vm._s(_vm.sheets[1].title)),
+                          ]),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("div"),
                     ],
                     1
                   ),
-                  _vm._v(" "),
-                  _c("div"),
                 ],
                 1
               ),
@@ -47659,8 +47815,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VCol.js");
-/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VRow.js");
+/* harmony import */ var vuetify_lib_components_VAppBar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VAppBar */ "./node_modules/vuetify/lib/components/VAppBar/VAppBar.js");
+/* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/VCard.js");
+/* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VCol.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VContainer.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VRow.js");
 
 
 
@@ -47683,7 +47843,11 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 ;
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_4__["default"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_5__["default"]})
+
+
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VAppBar: vuetify_lib_components_VAppBar__WEBPACK_IMPORTED_MODULE_4__["default"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["default"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__.VCardTitle,VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["default"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["default"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["default"]})
 
 
 /* hot reload */
@@ -47761,6 +47925,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Home_vue_vue_type_template_id_25aafd53___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Home.vue?vue&type=template&id=25aafd53& */ "./resources/js/SPA/pages/Home.vue?vue&type=template&id=25aafd53&");
 /* harmony import */ var _Home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Home.vue?vue&type=script&lang=js& */ "./resources/js/SPA/pages/Home.vue?vue&type=script&lang=js&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
+/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VContainer.js");
+/* harmony import */ var vuetify_lib_components_VMain__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VMain */ "./node_modules/vuetify/lib/components/VMain/VMain.js");
 
 
 
@@ -47778,6 +47946,13 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
   null
   
 )
+
+/* vuetify-loader */
+;
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_4__["default"],VMain: vuetify_lib_components_VMain__WEBPACK_IMPORTED_MODULE_5__["default"]})
+
 
 /* hot reload */
 if (false) { var api; }
@@ -47808,12 +47983,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/VCard.js");
 /* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
 /* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VCol.js");
-/* harmony import */ var vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VForm */ "./node_modules/vuetify/lib/components/VForm/VForm.js");
-/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/VIcon.js");
-/* harmony import */ var vuetify_lib_components_VMain__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VMain */ "./node_modules/vuetify/lib/components/VMain/VMain.js");
-/* harmony import */ var vuetify_lib_components_VSnackbar__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VSnackbar */ "./node_modules/vuetify/lib/components/VSnackbar/VSnackbar.js");
-/* harmony import */ var vuetify_lib_components_VSwitch__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vuetify/lib/components/VSwitch */ "./node_modules/vuetify/lib/components/VSwitch/VSwitch.js");
-/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/VTextField.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VContainer.js");
+/* harmony import */ var vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VForm */ "./node_modules/vuetify/lib/components/VForm/VForm.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/VIcon.js");
+/* harmony import */ var vuetify_lib_components_VMain__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VMain */ "./node_modules/vuetify/lib/components/VMain/VMain.js");
+/* harmony import */ var vuetify_lib_components_VSnackbar__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vuetify/lib/components/VSnackbar */ "./node_modules/vuetify/lib/components/VSnackbar/VSnackbar.js");
+/* harmony import */ var vuetify_lib_components_VSwitch__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! vuetify/lib/components/VSwitch */ "./node_modules/vuetify/lib/components/VSwitch/VSwitch.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/VTextField.js");
 
 
 
@@ -47847,7 +48023,8 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VAvatar: vuetify_lib_components_VAvatar__WEBPACK_IMPORTED_MODULE_5__["default"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_6__["default"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_7__["default"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_8__.VCardActions,VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_8__.VCardText,VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["default"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_10__["default"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_11__["default"],VMain: vuetify_lib_components_VMain__WEBPACK_IMPORTED_MODULE_12__["default"],VSnackbar: vuetify_lib_components_VSnackbar__WEBPACK_IMPORTED_MODULE_13__["default"],VSwitch: vuetify_lib_components_VSwitch__WEBPACK_IMPORTED_MODULE_14__["default"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_15__["default"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VAvatar: vuetify_lib_components_VAvatar__WEBPACK_IMPORTED_MODULE_5__["default"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_6__["default"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_7__["default"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_8__.VCardActions,VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_8__.VCardText,VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["default"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_10__["default"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_11__["default"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_12__["default"],VMain: vuetify_lib_components_VMain__WEBPACK_IMPORTED_MODULE_13__["default"],VSnackbar: vuetify_lib_components_VSnackbar__WEBPACK_IMPORTED_MODULE_14__["default"],VSwitch: vuetify_lib_components_VSwitch__WEBPACK_IMPORTED_MODULE_15__["default"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_16__["default"]})
 
 
 /* hot reload */
@@ -47879,12 +48056,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/VCard.js");
 /* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
 /* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VCol.js");
-/* harmony import */ var vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VForm */ "./node_modules/vuetify/lib/components/VForm/VForm.js");
-/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/VIcon.js");
-/* harmony import */ var vuetify_lib_components_VMain__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VMain */ "./node_modules/vuetify/lib/components/VMain/VMain.js");
-/* harmony import */ var vuetify_lib_components_VSnackbar__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VSnackbar */ "./node_modules/vuetify/lib/components/VSnackbar/VSnackbar.js");
-/* harmony import */ var vuetify_lib_components_VSwitch__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vuetify/lib/components/VSwitch */ "./node_modules/vuetify/lib/components/VSwitch/VSwitch.js");
-/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/VTextField.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VContainer.js");
+/* harmony import */ var vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VForm */ "./node_modules/vuetify/lib/components/VForm/VForm.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/VIcon.js");
+/* harmony import */ var vuetify_lib_components_VMain__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VMain */ "./node_modules/vuetify/lib/components/VMain/VMain.js");
+/* harmony import */ var vuetify_lib_components_VSnackbar__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vuetify/lib/components/VSnackbar */ "./node_modules/vuetify/lib/components/VSnackbar/VSnackbar.js");
+/* harmony import */ var vuetify_lib_components_VSwitch__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! vuetify/lib/components/VSwitch */ "./node_modules/vuetify/lib/components/VSwitch/VSwitch.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/VTextField.js");
 
 
 
@@ -47918,7 +48096,8 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VAvatar: vuetify_lib_components_VAvatar__WEBPACK_IMPORTED_MODULE_5__["default"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_6__["default"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_7__["default"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_8__.VCardActions,VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_8__.VCardText,VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["default"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_10__["default"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_11__["default"],VMain: vuetify_lib_components_VMain__WEBPACK_IMPORTED_MODULE_12__["default"],VSnackbar: vuetify_lib_components_VSnackbar__WEBPACK_IMPORTED_MODULE_13__["default"],VSwitch: vuetify_lib_components_VSwitch__WEBPACK_IMPORTED_MODULE_14__["default"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_15__["default"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VAvatar: vuetify_lib_components_VAvatar__WEBPACK_IMPORTED_MODULE_5__["default"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_6__["default"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_7__["default"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_8__.VCardActions,VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_8__.VCardText,VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["default"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_10__["default"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_11__["default"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_12__["default"],VMain: vuetify_lib_components_VMain__WEBPACK_IMPORTED_MODULE_13__["default"],VSnackbar: vuetify_lib_components_VSnackbar__WEBPACK_IMPORTED_MODULE_14__["default"],VSwitch: vuetify_lib_components_VSwitch__WEBPACK_IMPORTED_MODULE_15__["default"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_16__["default"]})
 
 
 /* hot reload */
@@ -47947,8 +48126,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/VBtn.js");
 /* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VCol.js");
 /* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VContainer.js");
-/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VRow.js");
-/* harmony import */ var vuetify_lib_components_VSheet__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VSheet */ "./node_modules/vuetify/lib/components/VSheet/VSheet.js");
+/* harmony import */ var vuetify_lib_components_VMain__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VMain */ "./node_modules/vuetify/lib/components/VMain/VMain.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VRow.js");
+/* harmony import */ var vuetify_lib_components_VSheet__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VSheet */ "./node_modules/vuetify/lib/components/VSheet/VSheet.js");
 
 
 
@@ -47974,7 +48154,8 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["default"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_5__["default"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["default"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["default"],VSheet: vuetify_lib_components_VSheet__WEBPACK_IMPORTED_MODULE_8__["default"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["default"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_5__["default"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["default"],VMain: vuetify_lib_components_VMain__WEBPACK_IMPORTED_MODULE_7__["default"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["default"],VSheet: vuetify_lib_components_VSheet__WEBPACK_IMPORTED_MODULE_9__["default"]})
 
 
 /* hot reload */

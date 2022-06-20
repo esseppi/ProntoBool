@@ -1,31 +1,33 @@
 <template>
-  <v-container>
-    <v-braintree
-      :authorization="authorization"
-      locale="it_IT"
-      @success="onSuccess"
-      @error="onError"
-      @load="onLoad"
-    >
-      <template #button="slotProps">
-        <v-row justify="center" class="py-3">
-          <v-btn
-            color="success"
-            dark
-            large
-            ref="paymentBtnRef"
-            @click="slotProps.submit"
-            >BUY
-          </v-btn>
-        </v-row>
-      </template>
-    </v-braintree>
-    <div>
-      <p v-if="error" class="text-red-500 mb-4">
-        {{ error }}
-      </p>
-    </div>
-  </v-container>
+  <v-main>
+    <v-container fluid>
+      <v-braintree
+        :authorization="authorization"
+        locale="it_IT"
+        @success="onSuccess"
+        @error="onError"
+        @load="onLoad"
+      >
+        <template #button="slotProps">
+          <v-row justify="center" class="py-3">
+            <v-btn
+              color="success"
+              dark
+              large
+              ref="paymentBtnRef"
+              @click="slotProps.submit"
+              >BUY
+            </v-btn>
+          </v-row>
+        </template>
+      </v-braintree>
+      <div>
+        <p v-if="error" class="text-red-500 mb-4">
+          {{ error }}
+        </p>
+      </div>
+    </v-container>
+  </v-main>
 </template>
 
 <script>

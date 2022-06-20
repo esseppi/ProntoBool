@@ -4,7 +4,7 @@
     <HeaderApp :bool="bool" v-if="headerShow" />
     <HeaderHome :bool="bool" v-if="headerShow" />
     <v-main>
-      <v-container fluid>
+      <v-container full-width>
         <router-view></router-view>
       </v-container>
     </v-main>
@@ -13,7 +13,6 @@
 
 <script>
 import HeaderApp from "./components/HeaderApp.vue";
-import HeaderHome from "./components/HeaderApp.vue";
 import Drawer from "./components/Drawer.vue";
 
 export default {
