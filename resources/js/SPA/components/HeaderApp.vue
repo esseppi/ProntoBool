@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar light dense color="#D7E4F3" height="56px" app>
+  <v-app-bar light dense color="#D7E4F3" elevation="0" height="56px" app>
     <v-app-bar-nav-icon v-if="!bool"></v-app-bar-nav-icon>
 
     <v-toolbar-title>ProntoBool</v-toolbar-title>
