@@ -1,19 +1,22 @@
 <template>
   <v-app-bar light dense color="#D7E4F3" elevation="0" height="56px" app>
-    <v-app-bar-nav-icon v-if="!bool"></v-app-bar-nav-icon>
+    <v-container>
+      <v-row align="center">
+        <v-app-bar-nav-icon v-if="!bool"></v-app-bar-nav-icon>
 
-    <v-toolbar-title>ProntoBool</v-toolbar-title>
+        <v-toolbar-title>ProntoBool</v-toolbar-title>
 
-    <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
 
-    <v-btn icon>
-      <v-icon>mdi-magnify</v-icon>
-    </v-btn>
-
-    <button v-if="bool" @click.prevent="logout">Logout</button>
-    <div v-else>
-      <button @click.prevent="login">Sei un professionista?</button>
-    </div>
+        <v-btn icon>
+          <v-icon>mdi-magnify</v-icon>
+        </v-btn>
+        <button v-if="bool" @click.prevent="logout">Logout</button>
+        <div v-else>
+          <button @click.prevent="login">Sei un professionista?</button>
+        </div>
+      </v-row>
+    </v-container>
   </v-app-bar>
 </template>
 

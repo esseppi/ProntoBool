@@ -1,6 +1,6 @@
 <template>
   <div>
-    <HeroApp></HeroApp>
+    <HeroApp />
     <v-main>
       <v-container fluid> </v-container>
     </v-main>
