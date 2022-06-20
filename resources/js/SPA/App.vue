@@ -23,6 +23,7 @@ export default {
       user: null,
       bool: null,
       headerShow: false,
+      profile: null
     };
   },
   components: {
@@ -39,6 +40,9 @@ export default {
         if (this.user) {
           this.bool = true;
         }
+      });
+      axios.get("/api/profile/" + user.id).then((res) => {
+        this.profile = res.data;
       });
     } else {
       this.bool = false;

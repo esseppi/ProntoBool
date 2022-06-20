@@ -11,8 +11,17 @@ use App\Models\Professionist\Service;
 use App\Models\Professionist\Profession;
 use App\Models\Professionist\Review;
 
+
 class ServiceController extends Controller
 {
+    private function getValidators(){
+        return [
+            'profession_id' => 'required',
+            'desc' => 'required|string|max:255',
+            'price' => 'required|numeric|integer',
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -54,8 +63,12 @@ class ServiceController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        
+        //Validazione
+        $request->validate($this->getValidators());
+
         $service = Service::create($data + ['profile_id' => Auth::user()->id]);
-        return view('dashboard');
+        return view ('dashboard.service.show', compact('service'));
     }
 
     /**

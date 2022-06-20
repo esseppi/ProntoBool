@@ -11,7 +11,12 @@
                     <input name="name"
                         class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                         id="grid-first-name" type="text" placeholder="Jane">
+                        @error('name')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                 </div>
+
+                
                 <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                         for="grid-first-name">
@@ -20,6 +25,9 @@
                     <input name="vote"
                         class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                         id="grid-first-name" type="number" placeholder="5">
+                        @error('vote')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                 </div>
             </div>
             <div class="flex flex-wrap -mx-3 mb-6">
@@ -31,6 +39,9 @@
                     <input name="email"
                         class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                         id="email" type="email">
+                        @error('email')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                     <p class="text-gray-600 text-xs italic">Some tips - as long as needed</p>
                 </div>
             </div>
@@ -46,6 +57,9 @@
                     <textarea name="message"
                         class=" no-resize appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-48 resize-none"
                         id="message"></textarea>
+                        @error('message')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                     <p class="text-gray-600 text-xs italic">Re-size can be disabled by set by resize-none / resize-y
                         /
                         resize-x / resize</p>
@@ -71,11 +85,14 @@
                         m-0
                         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                         aria-label="Default select example">
-                        <option selected>Open this select menu</option>
+                        <option value="" selected>Open this select menu</option>
                         @foreach ($data as $item)
                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                         @endforeach
                     </select>
+                    @error('profile_id')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
             <div class="md:flex md:items-center">

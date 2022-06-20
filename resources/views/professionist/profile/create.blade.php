@@ -32,23 +32,46 @@
                                             <input name="profilepic" type="file"
                                                 class="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                         </div>
+                                        @error('profilepic')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                     </div>
-                                    {{-- WEBSITE --}}
-                                    <div class="grid grid-cols-3 gap-6">
-                                        <div class="col-span-3 sm:col-span-2">
-                                            <label for="company-website"
-                                                class="block text-sm font-medium text-gray-700">
-                                                Website </label>
-                                            <div class="mt-1 flex rounded-md shadow-sm">
-                                                <span
-                                                    class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
-                                                    http:// </span>
-                                                <input type="text" name="company-website" id="company-website"
-                                                    class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
-                                                    placeholder="www.example.com">
-                                            </div>
+
+                                    {{-- PHONE NUMBER --}}
+                                    <div class="flex flex-wrap -mx-3 mb-6">
+                                        <div class="w-full px-3">
+                                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                                for="grid-phone">
+                                                Phone number
+                                            </label>
+                                            <input name="phone"
+                                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                                id="phone" type="text">
+                                                @error('phone')
+                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                @enderror
                                         </div>
                                     </div>
+
+
+                                    {{-- ADDRESS --}}
+                                    <div class="flex flex-wrap -mx-3 mb-6">
+                                        <div class="w-full px-3">
+                                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                                for="grid-address">
+                                                Insert your address
+                                            </label>
+                                            <input name="address"
+                                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                                id="address" type="text">
+                                                @error('address')
+                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                @enderror
+                                        </div>
+                                    </div>
+
+
+                                    
                                     {{-- DESCRIZIONE --}}
                                     <div>
                                         <label for="description" class="block text-sm font-medium text-gray-700">
@@ -62,7 +85,11 @@
                                         <p class="mt-2 text-sm text-gray-500">Brief description for your profile.
                                             URLs
                                             are
-                                            hyperlinked.</p>
+                                            hyperlinked.
+                                        </p>
+                                        @error('description')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     {{-- NewProfession --}}
@@ -81,32 +108,11 @@
                                                         for="profession-{{ $profession->id }}">{{ $profession->name }}</label>
                                                 @endforeach
                                             </fieldset>
-                                            {{-- <label for="description" class="block text-sm font-medium text-gray-700">
-                                                Seleziona una professione tra quelle esistenti o creane una nuova
-                                            </label>
-                                            <div class="flex">
-                                                <div class="mb-3 xl:w-96">
-                                                    <select id="newProfession" name="profession"
-                                                        class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                                        aria-label="Default select example">
-                                                        <option selected>Seleziona una
-                                                            professione</option>
-                                                        @foreach ($professions as $profession)
-                                                            <option value="{{ $profession->id }}">
-                                                                {{ $profession->name }}</option>
-                                                        @endforeach
-                                                        <option value="">Nessuna di queste</option>
-                                                    </select>
-                                                </div>
-                                            </div> --}}
-                                            {{-- <p class="mt-2 text-sm text-gray-500">Seleziona una professione, o se
-                                                non
-                                                presente tra quelle nella lista, creane una tu!</p> --}}
+                                            @error('professions')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
-
-
                                     </div>
-
 
 
                                     {{-- UPLOAD CURRICULUM --}}
@@ -132,9 +138,13 @@
                                                     <p class="pl-1">or drag and drop</p>
                                                 </div>
                                                 <p class="text-xs text-gray-500">PNG, JPG, PDF up to 10MB</p>
-                                            </div>
+
+                                                @error('curriculum')
+                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div> 
                                         </div>
-                                    </div>
+                                    </div> 
                                 </div>
 
                                 {{-- SUBMIT --}}

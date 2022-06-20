@@ -12,6 +12,16 @@ use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
+    private function getValidators(){
+        return [
+            'name' => 'required|min:2',
+            'vote' => 'required|numeric|min:0|max:5',
+            'email' => 'required|email',
+            'profile_id' => 'required',
+            'message' => 'required|min:10|max:255',
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -45,22 +55,10 @@ class ReviewController extends Controller
         $data = $request->all();
 
         //validazione dei campi
-        /* $validation = Validator::make($data, [
-            'name' => 'required',
-            'email' => 'required|email',
-            'profile_id' => 'required',
-            'message' => 'required',
-        ]);
-        if ($validation->fails()) {
-            return response()->json([
-                'success' => false,
-                'error' => $validation->errors(),
-            ]);
-        } else {
-            */
+        $request->validate($this->getValidators());
+        
         $lead = Review::create($data);
         return redirect()->route('dashboard', Auth::user()->id);
-        //};
     }
 
     /**

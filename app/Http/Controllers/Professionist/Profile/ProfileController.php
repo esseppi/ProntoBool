@@ -17,6 +17,28 @@ use App\Models\Professionist\Sponsorship;
 
 class ProfileController extends Controller
 {
+    private function getCreateValidators(){
+        $arr = [
+            'phone' => 'required|min:10|max:20',
+            'address' => 'required',
+            'description' => 'required',
+            'professions' => 'required',
+            'curriculum' => 'required|mimes:pdf',
+            'profilepic' => 'required|min:2|mimes:png,jpg'
+        ];
+        return $arr;
+    }
+
+    private function getEditValidators(){
+        $arr = [
+            'phone' => 'required|min:10|max:20',
+            'address' => 'required',
+            'description' => 'required',
+            'professions' => 'required',
+        ];
+        return $arr;
+    }
+    
     public function deleteJob($id)
     {
         $profile = Profile::find(Auth::user()->id);
@@ -74,58 +96,28 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, Profession $profession)
-    {   // CREAZIONE NUOVO PROFILO
+    {   
+        // CREAZIONE NUOVO PROFILO
         $formData = $request->all() + [
             'id' => Auth::user()->id,
             'user_id' => Auth::user()->id,
         ];
 
-
+        //validation 
+        $request->validate($this->getCreateValidators());
+        
         $cv_url = Storage::put('cv', $formData['curriculum']);
         $pic_url = Storage::put('pic', $formData['profilepic']);
         $formData['curriculum'] = $cv_url;
         $formData['pic'] = $pic_url;
-
-
-        // CREA PROFILO
-        // VERIFICA SE LA PROFESSIONE INSERITA ESISTE GIA'
         $profession = $formData['professions'];
-        // dd($profession);
 
-        // $newProfession = Profession::find($profession)->id;
         // ATTACCA LA PROFESSIONE AL PROFILO
 
-
         Profile::create($formData);
-
         $profile = Profile::find(Auth::user()->id);
         $profile->professions()->attach($profession);
-
         return view('dashboard');
-
-
-        // formData = $request->all() + [
-        //     'id' => Auth::user()->id,
-        //     'user_id' => Auth::user()->id,
-        // ];
-        // $cv_url = Storage::put('cv', $formData['curriculum']);
-        // $pic_url = Storage::put('pic', $formData['profilepic']);
-        // $formData['curriculum'] = $cv_url;
-        // $formData['pic'] = $pic_url;
-        // // CREA PROFILO
-        // Profile::create($formData);
-        // // VERIFICA SE LA PROFESSIONE INSERITA ESISTE GIA'
-        // $profession = $formData['profession'];
-        // // $checkIfProfessionExists = Profession::where('name', $profession)->exists();
-        // // if (!$checkIfProfessionExists) {
-        // //     $newProfession = Profession::create(['name' => $profession]);
-        // // }
-        // // SE NON ESISTE LA PROFESSIONE VIENE CREATA
-        // $newProfession = Profession::where('name', $profession)->get('id');
-        // // ATTACCA LA PROFESSIONE AL PROFILO
-        // $profile = Profile::find(Auth::user()->id);
-        // $profile->professions()->attach($newProfession->pluck('id')->all());
-        // return view('dashboard');
     }
 
     /**
@@ -162,8 +154,6 @@ class ProfileController extends Controller
     {
         $professions = Profession::whereRaw('1 = 1')->get();
         return view('professionist.profile.edit', [
-            'profile'      => Auth::user(),
-            //dice che stiamo ripetendo l'ogetto provare senza la riga qui sotto
             'profile'        => $profile,
             'professions'    => $professions,
         ]);
@@ -178,9 +168,11 @@ class ProfileController extends Controller
      */
     public function update(Request $request, Profile $profile)
     {
+        //validation
+        $request->validate($this->getEditValidators());
+        
         // if (Auth::user()->id !== $profile->user_id) abort(403);
-
-
+        
         $formData = $request->all();
         $professionId = $formData['professions'];
         $profile->update($formData);
