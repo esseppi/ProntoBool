@@ -1,5 +1,5 @@
 <template>
-  <div class="background">
+  <v-container>
     <v-main class="d-flex justify-center align-center">
       <v-col cols="10" lg="4" class="mx-auto">
         <v-card class="pa-4">
@@ -56,7 +56,7 @@
     <v-snackbar top color="red" v-model="snackbar">
       Something went wrong
     </v-snackbar>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -114,7 +114,7 @@ export default {
 };
 </script>
 <style>
-.backgruond {
+/* .backgruond {
   background-image: url(./assets/Order-Banner.jpg) !important;
   height: 300px;
   width: 100%;
@@ -122,5 +122,5 @@ export default {
   position: absolute;
   top: 0;
   background-size: cover;
-}
+} */
 </style>

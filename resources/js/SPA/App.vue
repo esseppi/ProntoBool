@@ -1,19 +1,15 @@
 <template>
   <v-app>
     <Drawer :user="user" v-if="bool" />
-    <HeaderApp :bool="bool" v-if="headerShow" />
-    <HeaderHome :bool="bool" v-if="headerShow" />
+    <HeaderApp :bool="bool" />
     <v-main>
-      <v-container fluid>
-        <router-view></router-view>
-      </v-container>
+      <router-view></router-view>
     </v-main>
   </v-app>
 </template>
 
 <script>
 import HeaderApp from "./components/HeaderApp.vue";
-import HeaderHome from "./components/HeaderApp.vue";
 import Drawer from "./components/Drawer.vue";
 
 export default {

@@ -1,5 +1,10 @@
 <template>
-  <HeroApp></HeroApp>
+  <div>
+    <HeroApp></HeroApp>
+    <v-main>
+      <v-container fluid> </v-container>
+    </v-main>
+  </div>
 </template>
 
 <script>
