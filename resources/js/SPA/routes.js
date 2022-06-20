@@ -4,7 +4,7 @@ import Auth from "./pages/auth/auth.vue";
 import Register from "./pages/auth/Register.vue";
 import Home from "./pages/Home.vue";
 import Cart from "./pages/checkout/cart.vue";
-import Bundles from "./pages/Bundles";
+import Bundles from "./pages/professionist/Bundles.vue";
 import Router from "vue-router";
 
 Vue.use(Router);
@@ -28,7 +28,6 @@ const router = new Router({
                 requiresGuest: true,
             },
         },
-
         {
             path: "/registerSpa",
             name: "register",
