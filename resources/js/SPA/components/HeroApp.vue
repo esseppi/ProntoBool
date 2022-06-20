@@ -3,7 +3,7 @@
     <v-col cols="12">
       <v-card color="#D6E4F4" elevation="0" app>
         <v-app-bar flat color="rgba(0, 0, 0, 0)">
-          <HeaderApp />
+          <!-- <HeaderApp /> -->
         </v-app-bar>
         <v-container>
           <v-card-title class="black--text text-h2 mt-8">

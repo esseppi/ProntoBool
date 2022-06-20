@@ -1,12 +1,9 @@
 <template>
   <v-app>
     <Drawer :user="user" v-if="bool" />
-    <HeaderApp :bool="bool" v-if="headerShow" />
-    <HeaderHome :bool="bool" v-if="headerShow" />
+    <HeaderApp :bool="bool" />
     <v-main>
-      <v-container full-width>
-        <router-view></router-view>
-      </v-container>
+      <router-view></router-view>
     </v-main>
   </v-app>
 </template>
