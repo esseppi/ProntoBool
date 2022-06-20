@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Login from "./pages/auth/Login.vue";
+import Dashboard from "./pages/professionist/MyDashboard.vue";
 import Auth from "./pages/auth/auth.vue";
 import Register from "./pages/auth/Register.vue";
 import Home from "./pages/Home.vue";
@@ -19,6 +20,11 @@ const router = new Router({
             path: "/home",
             name: "home",
             component: Home,
+        },
+        {
+            path: "/mydashboard",
+            name: "dashboard",
+            component: Dashboard,
         },
         {
             path: "/auth",

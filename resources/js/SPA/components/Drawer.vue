@@ -39,7 +39,7 @@ export default {
       items: [
         {
           title: "Dashboard",
-          name: "/dashboard",
+          name: "/mydashboard",
           icon: "mdi-account",
         },
         {

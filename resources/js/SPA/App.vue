@@ -1,16 +1,18 @@
 <template>
   <v-app>
-    <Drawer :user="user" v-if="bool" />
+    <Drawer :user="user" v-if="user" />
     <HeaderApp :bool="bool" />
-    <v-main>
+    <v-content>
       <router-view></router-view>
-    </v-main>
+    </v-content>
+    <FooterApp />
   </v-app>
 </template>
 
 <script>
 import HeaderApp from "./components/HeaderApp.vue";
 import Drawer from "./components/Drawer.vue";
+import FooterApp from "./pages/FooterApp.vue";
 
 export default {
   name: "App",
@@ -23,6 +25,7 @@ export default {
   components: {
     HeaderApp,
     Drawer,
+    FooterApp,
   },
   updated() {
     if (this.$route.name != "home") this.headerShow = true;

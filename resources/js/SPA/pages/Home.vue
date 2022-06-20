@@ -1,18 +1,18 @@
 <template>
-  <div>
+  <v-sheet>
     <HeroApp />
-    <v-main>
-      <v-container fluid> </v-container>
-    </v-main>
-  </div>
+    <Results />
+  </v-sheet>
 </template>
 
 <script>
 import HeroApp from "../components/HeroApp.vue";
+import Results from "../components/Results.vue";
 export default {
   name: "Home",
   components: {
     HeroApp,
+    Results,
   },
 };
 </script>
