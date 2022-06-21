@@ -39,7 +39,7 @@
               <input id="password" name="password" type="password" />
             </label>
           </div>
-          <input class="btn" type="submit" value="Send message" />
+          <input class="btn" type="submit" value="Confirm user" />
         </form>
       </div>
     </div>
@@ -73,6 +73,8 @@ export default {
   list-style: none;
   justify-content: space-between;
   align-items: center;
+  margin: 0;
+  padding: 0;
 }
 
 .step-circle {
