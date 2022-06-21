@@ -1,7 +1,7 @@
 <template>
-  <v-row justify="start" no-gutters>
+  <v-row justify="start" elevetion="24" no-gutters>
     <v-col cols="12">
-      <v-card color="#D6E4F4" elevation="0" app>
+      <v-card color="#D6E4F4" min-height="">
         <v-container>
           <v-card-title class="black--text text-h2 mt-8">
             Find local dentists <br />

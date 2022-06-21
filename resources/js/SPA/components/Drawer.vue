@@ -38,6 +38,11 @@ export default {
       drawer: true,
       items: [
         {
+          title: "Home",
+          name: "/home",
+          icon: "mdi-home",
+        },
+        {
           title: "Dashboard",
           name: "/mydashboard",
           icon: "mdi-account",
