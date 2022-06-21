@@ -1,6 +1,14 @@
 <template>
-  <v-app-bar light dense color="#D7E4F3" elevation="0" height="56px" app>
-    <v-container>
+  <v-app-bar
+    light
+    dense
+    color="#D7E4F3"
+    elevation="0"
+    height="56px"
+    absolute
+    app
+  >
+    <v-container fluid>
       <v-row align="center">
         <v-app-bar-nav-icon v-if="!bool"></v-app-bar-nav-icon>
 

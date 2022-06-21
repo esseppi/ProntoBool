@@ -1,22 +1,23 @@
 <template>
   <v-app>
-    <Drawer :profile="profile" :user="user" v-if="bool" />
+    <Drawer :user="user" v-if="user" />
     <HeaderApp :bool="bool" />
-    <v-main>
+    <v-content>
       <router-view></router-view>
-    </v-main>
+    </v-content>
+    <FooterApp />
   </v-app>
 </template>
 
 <script>
 import HeaderApp from "./components/HeaderApp.vue";
 import Drawer from "./components/Drawer.vue";
+import FooterApp from "./pages/FooterApp.vue";
 
 export default {
   name: "App",
   data() {
     return {
-      profile: null,
       user: null,
       bool: null,
     };
@@ -24,31 +25,23 @@ export default {
   components: {
     HeaderApp,
     Drawer,
+    FooterApp,
   },
   updated() {
     if (this.$route.name != "home") this.headerShow = true;
   },
-  created(){
-        if (localStorage.getItem("auth")) {
-     axios.get("/api/user").then((res) => {
+  created() {
+    if (localStorage.getItem("auth")) {
+      axios.get("/api/user").then((res) => {
         this.user = res.data;
-        if (this.user) {this.bool = true;}
-      })
+        if (this.user) {
+          this.bool = true;
+        }
+      });
     } else {
       this.bool = false;
     }
-    
-
   },
-  mounted() {
-    if (localStorage.getItem("auth")) {
-      axios.get("/api/profile/" + this.user.id).then((res) => {
-      this.profile = res.data.response;
-      console.log(res.data.response)
-      });
-      
-    }
-
-  },
+  mounted() {},
 };
 </script>
