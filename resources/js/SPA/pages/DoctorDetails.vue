@@ -19,28 +19,67 @@
                         </div>
                     </div>
                 </div>
-                    <ul class="ul-info">
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Location</a></li>
-                        <li><a href="#">Reviews</a></li>
-                        <li><a href="#">Curriculum</a></li>
-                    </ul>
+                <ul class="ul-info">
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Curriculum</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Reviews</a></li>
+                    <li><a href="#">Location</a></li>
+                </ul>
             </section>
 
-            <!-- ABOUT  -->
+            <!-- ABOUT -->
             <section class="about">
                 <h2>About {{ profileData.name }}</h2>
                 <p>{{ profileData.description }}</p>
             </section>
 
-            <!-- CURRICULUM 
+            <!-- CURRICULUM -->
             <section class="curriculum">
-                <div class=""></div>
                 <h2>Curriculum Vitae</h2>
+                <div class="card"></div>
             </section>
-            -->
 
-            <!-- MAP 
+            <!-- REVIEWS -->
+            <section>
+            <h2>{{ profileReviews.length }} Reviews</h2>
+                <div class="banner">
+                <div class="icon-container"> <v-icon class="icon">mdi-information-outline</v-icon> </div>
+                <p>Your trust is our top concern, so providers can't pay to alter or remove reviews. We also don't publish reviews that contain any private information.</p>
+                </div>
+                <div class="reviews-top-container">
+                    <div class="">
+                        <h4>Overall rating</h4>
+                        <div class="vote">{{ profileData.vote }}</div>
+                    </div>
+                    <div class="">
+                        <button class="btn">Write a review</button>
+                    </div>
+                </div>
+                <div class="reviews-bottom-container">
+                    <div v-for="(item, index) in profileReviews.slice(0, reviewsShowed)" :key="index" class="review">
+                        <div class="star">
+                            <ul>
+                                <li v-for="ind in Math.floor(item.vote)" :key="'star-'+index+'-'+ind">
+                                    <v-icon class="star-color">mdi-star</v-icon>
+                                </li>
+                                <li v-for="ind in 5 - Math.floor(item.vote)" :key="'star-void-'+index+'-'+ind">
+                                    <v-icon class="star-color">mdi-star-outline</v-icon>
+                                </li>
+                            </ul>
+                        </div>
+                        <p>{{ item.message }}</p>
+                        <div class="reviews-info">
+                            <span>{{ item.name }}</span> • 
+                            <span>{{ item.date }}</span>
+                        </div>
+                    </div>
+                    <button @click="reviewsShowed+=5" v-if="reviewsShowed <= profileReviews.length" class="btn outlined">See more</button>
+                </div>
+            </section>
+        </div>
+
+        <!-- MAP 
             <section>
                 <h2>Office location</h2>
                 <div class="map-flex">
@@ -60,26 +99,7 @@
             </section>
             -->
 
-            <!-- REVIEWS -->
-            <section>
-            <h2>Reviews</h2>
-                <div class="banner">
-                <div class="icon-container"> <v-icon class="icon">mdi-information-outline</v-icon> </div>
-                <p>Your trust is our top concern, so providers can't pay to alter or remove reviews. We also don't publish reviews that contain any private information.</p>
-                </div>
-                <div class="reviews-top-container">
-                    <div class="">
-                        <h4>Overall rating</h4>
-                        <div class="vote">{{ profileData.vote }}</div>
-                    </div>
-                    <div class="">
-                        <button>Write a review</button>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-
+        <!-- SECTION BOX MESSAGE -->
         <section class="message-box">
             <h2>Book an appointment for free</h2>
             <form>
@@ -99,7 +119,7 @@
                 <textarea id="name" name="name"></textarea>
                 </label> 
 
-                <input type="submit" value="Send message">
+                <input class="btn" type="submit" value="Send message">
             </form>
         </section>
     </div>
@@ -120,7 +140,82 @@ export default {
             vote: 4.5,
             phone: "3412345678",
             email: "twotimesgi@gmail.com"
-        }
+        },
+        profileReviews: [
+            {
+                name: "Marco",
+                vote: 1,
+                message: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+                date: "12/12/2019"
+            },
+            {
+                name: "Antonio",
+                vote: 2.4,
+                message: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+                date: "20/1/2020"
+            },
+            {
+                name: "Sara",
+                vote: 5,
+                message: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+                date: "12/6/2021"
+            },
+            {
+                name: "Lorena",
+                vote: 3.3,
+                message: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+                date: "23/3/2019"
+            },
+                        {
+                name: "Marco",
+                vote: 1,
+                message: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+                date: "12/12/2019"
+            },
+            {
+                name: "Antonio",
+                vote: 2.4,
+                message: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+                date: "20/1/2020"
+            },
+            {
+                name: "Sara",
+                vote: 5,
+                message: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+                date: "12/6/2021"
+            },
+            {
+                name: "Lorena",
+                vote: 3.3,
+                message: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+                date: "23/3/2019"
+            },
+            {
+                name: "Marco",
+                vote: 1,
+                message: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+                date: "12/12/2019"
+            },
+            {
+                name: "Antonio",
+                vote: 2.4,
+                message: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+                date: "20/1/2020"
+            },
+            {
+                name: "Sara",
+                vote: 5,
+                message: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+                date: "12/6/2021"
+            },
+            {
+                name: "Lorena",
+                vote: 3.3,
+                message: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+                date: "23/3/2019"
+            }
+        ],
+        reviewsShowed: 5,
     }
   }
 };
@@ -132,7 +227,6 @@ export default {
     .inner{
         width: 90%;
         margin: 0 auto;
-        padding: 40px 0 40px 0;
         display: flex;
         gap: 70px;
         color: #00234B;
@@ -144,8 +238,8 @@ export default {
         flex-basis: 60%;
     }
 
-        section{
-        padding: 30px 0;
+    section{
+        padding: 0 0 30px 0;
     }
 
     .message-box{
@@ -165,17 +259,18 @@ export default {
     .badge{
         border-radius: 1rem;
         padding: 5px 20px;
-        margin: 15px 0;
         background-color: #F7F8F9;
     }
 
     .badge-container {
         display: flex;
         gap: 10px;
+        flex-wrap: wrap;
     }
 
     .prof-flex{
         display: flex;
+        
     }
 
     .profile-image{
@@ -183,8 +278,21 @@ export default {
         height: 150px;
         border-radius: 200px;
         overflow: hidden;
+        flex-shrink: 0;
     }
 
+    .card {
+ width: 190px;
+ height: 254px;
+ background: rgb(255, 255, 255);
+ border-radius: 0.4em;
+ transition: border 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+ border: #E1E1E4 0.2em solid;
+}
+
+.card:hover {
+ border: #00234B 0.2em solid;
+}
     .data-flex{
         display: flex;
         align-items: center;
@@ -237,7 +345,7 @@ export default {
         resize: none;
     }
 
-    input[type="submit"], button{
+    .btn{
         width: 100%;
         padding-top: 10px;
         padding-bottom: 10px;
@@ -246,9 +354,18 @@ export default {
         background-color: #FDE721 ;
     }
 
-    input[type="submit"]:hover, button:hover{
+    .btn.outlined{
+        background-color: transparent;
+        border: 2px solid #00234B;
+    }
+    
+    .btn:hover{
         color: white;
         background-color:#00234B;
+    }
+
+    .btn.outlined:hover{
+        border: 2px solid #00234B;
     }
 
     .ul-info{
@@ -330,5 +447,84 @@ export default {
         justify-content: center;
         align-items: center;
     }
- 
+
+    .reviews-bottom-container{
+        border-top: 1px solid #E1E1E4;
+        display: flex;
+        flex-direction: column;
+        gap: 35px;
+        padding-top: 20px;
+    }
+
+    .review{
+        width: 100%;
+    }
+
+    .review > p{
+        margin-bottom: 5px;
+    }
+
+    .reviews-info{
+        font-size: .9rem;
+        color: #a1a1a1;
+    }
+
+    .star ul li{
+        display: inline-block;
+
+    }
+
+    .star ul {
+        padding: 0;
+        margin-bottom: 5px;
+    }
+
+    .star-color{
+        color: #FF6372;
+    }
+
+    @media screen and (max-width: 950px){
+        .inner{
+            width: 100%;
+            flex-direction: column;
+            padding: 30px;
+        }
+
+        .message-box{
+            width: 100%;
+        }
+
+        .profile-data{
+            width: 100%;
+        }
+
+        .prof-flex{
+            flex-direction: column;
+            align-content: center;
+        }
+
+        .profile-image{
+            margin-bottom: 20px;
+            align-self: center;
+        }
+
+        .ul-info{
+            overflow-x: scroll;
+            overflow-y: hidden;
+        }
+
+        .data-flex{
+            flex-direction: column;
+            text-align: center;
+            align-content: center;
+        }
+
+        .profile-info{
+            margin-left: 0px;
+        } 
+
+        .btn{
+            font-size: 1.3rem;
+        }
+    }
 </style>
