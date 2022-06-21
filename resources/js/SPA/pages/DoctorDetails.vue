@@ -21,10 +21,9 @@
                 </div>
                     <ul class="ul-info">
                         <li><a href="#">About</a></li>
-                        <li><a href="#">Insurance</a></li>
                         <li><a href="#">Location</a></li>
                         <li><a href="#">Reviews</a></li>
-                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Curriculum</a></li>
                     </ul>
             </section>
 
@@ -34,8 +33,14 @@
                 <p>{{ profileData.description }}</p>
             </section>
 
-            <!-- MAP -->
+            <!-- CURRICULUM 
+            <section class="curriculum">
+                <div class=""></div>
+                <h2>Curriculum Vitae</h2>
+            </section>
+            -->
 
+            <!-- MAP 
             <section>
                 <h2>Office location</h2>
                 <div class="map-flex">
@@ -53,31 +58,29 @@
                     </div>
                 </div>
             </section>
-
-            <!-- CURRICULUM -->
-            <section class="curriculum">
-                <div class=""></div>
-                <h4>Curriculum Vitae</h4>
-            </section>
+            -->
 
             <!-- REVIEWS -->
-            <!-- <div>
-                <div>
-                    <span>Overall rating</span>
-                    <div>5</div>
-                    <div>
-                        <ul>
-                            <li><v-icon>mdi-star</v-icon></li>
-                            <li><v-icon>mdi-star</v-icon></li>
-                            <li><v-icon>mdi-star</v-icon></li>
-                            <li><v-icon>mdi-star</v-icon></li>
-                            <li><v-icon>mdi-star</v-icon></li>
-                        </ul>
+            <section>
+            <h2>Reviews</h2>
+                <div class="banner">
+                <div class="icon-container"> <v-icon class="icon">mdi-information-outline</v-icon> </div>
+                <p>Your trust is our top concern, so providers can't pay to alter or remove reviews. We also don't publish reviews that contain any private information.</p>
+                </div>
+                <div class="reviews-top-container">
+                    <div class="">
+                        <h4>Overall rating</h4>
+                        <div class="vote">{{ profileData.vote }}</div>
+                    </div>
+                    <div class="">
+                        <button>Write a review</button>
                     </div>
                 </div>
-            </div> -->
+            </section>
         </div>
-        <div class="message-box">
+
+
+        <section class="message-box">
             <h2>Book an appointment for free</h2>
             <form>
                 <label>Name:
@@ -98,7 +101,7 @@
 
                 <input type="submit" value="Send message">
             </form>
-        </div>
+        </section>
     </div>
 </v-main>
 </template>
@@ -126,7 +129,6 @@ export default {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Anek+Latin:wght@200;300;500&display=swap');
-
     .inner{
         width: 90%;
         margin: 0 auto;
@@ -208,9 +210,19 @@ export default {
     }
 
     h2{
-        font-size: 20px;
+        font-size: 1.8rem;
         font-weight: bold;
         margin-bottom: 20px;
+    }
+
+    h3{
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    h4{
+        font-size: 1.5rem;
     }
 
     input[type="text"], textarea{
@@ -272,5 +284,51 @@ export default {
         gap: 25px;
     }
     
+    .reviews-top-container{
+        display: flex;
+        width: 100%;
+    }
+
+    .reviews-top-container div{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 50%;
+        padding: 0 30px;
+    }
+
+    .reviews-top-container div:first-child{
+        border-right: 1px solid #E1E1E4;
+    }
+
+    .vote{
+        font-size: 5rem;
+        margin-top: -30px;
+    }
+
+    .banner{
+        width: 100%;
+        padding: 10px 20px;
+        background-color: #F3F3F4;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+    }
+
+    .banner p{
+        margin: 0;
+    }
+
+    .icon-container{
+    padding: 15px 15px;
+    display: flex;    
+    }
+
+    .icon{
+        color: #00234B;
+        justify-content: center;
+        align-items: center;
+    }
  
 </style>

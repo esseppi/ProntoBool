@@ -3271,6 +3271,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Home",
   data: function data() {
@@ -28691,7 +28694,7 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap);"]);
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Anek+Latin:wght@200;300;500&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.inner[data-v-73b0c942]{\r\n        width: 90%;\r\n        margin: 0 auto;\r\n        padding: 40px 0 40px 0;\r\n        display: flex;\r\n        gap: 70px;\r\n        color: #00234B;\r\n        font-family: 'Anek Latin', sans-serif;\n}\n.profile-data[data-v-73b0c942]{\r\n        width: 60%;\r\n        flex-basis: 60%;\n}\nsection[data-v-73b0c942]{\r\n        padding: 30px 0;\n}\n.message-box[data-v-73b0c942]{\r\n        width: 40%;\r\n        background-color: #F7F8F9;\r\n        border:  1px solid #E1E1E4;\r\n        padding: 20px;\r\n        align-self: flex-start;\n}\n.message-box form[data-v-73b0c942]{\r\n        display: flex;\r\n        flex-direction: column;\r\n        gap: 15px;\n}\n.badge[data-v-73b0c942]{\r\n        border-radius: 1rem;\r\n        padding: 5px 20px;\r\n        margin: 15px 0;\r\n        background-color: #F7F8F9;\n}\n.badge-container[data-v-73b0c942] {\r\n        display: flex;\r\n        gap: 10px;\n}\n.prof-flex[data-v-73b0c942]{\r\n        display: flex;\n}\n.profile-image[data-v-73b0c942]{\r\n        width: 150px;\r\n        height: 150px;\r\n        border-radius: 200px;\r\n        overflow: hidden;\n}\n.data-flex[data-v-73b0c942]{\r\n        display: flex;\r\n        align-items: center;\n}\n.profile-info[data-v-73b0c942]{\r\n        margin-left: 30px;\n}\n.profile-name[data-v-73b0c942]{\r\n        font-size: 40px;\r\n        font-weight: bold;\n}\n.profile-image img[data-v-73b0c942]{\r\n        width: 100%;\r\n        height: 100%;\n}\n.profile-address[data-v-73b0c942]{\r\n        font-size: 18px;\r\n        color: #a1a1a1;\n}\nh2[data-v-73b0c942]{\r\n        font-size: 20px;\r\n        font-weight: bold;\r\n        margin-bottom: 20px;\n}\ninput[type=\"text\"][data-v-73b0c942], textarea[data-v-73b0c942]{\r\n        width: 100%;\r\n        border:  1px solid #E1E1E4;\r\n        background-color: white;\r\n        margin-top: 5px;\n}\n.message-box textarea[data-v-73b0c942]{ \r\n        height: 100px;\r\n        resize: none;\n}\ninput[type=\"submit\"][data-v-73b0c942], button[data-v-73b0c942]{\r\n        width: 100%;\r\n        padding-top: 10px;\r\n        padding-bottom: 10px;\r\n        font-size: 1.3rem;\r\n        color:#00234B;\r\n        background-color: #FDE721 ;\n}\ninput[type=\"submit\"][data-v-73b0c942]:hover, button[data-v-73b0c942]:hover{\r\n        color: white;\r\n        background-color:#00234B;\n}\n.ul-info[data-v-73b0c942]{\r\n        padding: 0;\r\n        list-style: none;\r\n        display: flex;\r\n        gap: 25px;\r\n        margin-top: 25px;\r\n        border-top: #E1E1E4 solid 1px;\r\n        border-bottom: #E1E1E4 solid 1px;\r\n        height: 70px;\r\n        line-height: 70px;\n}\n.ul-info li[data-v-73b0c942]{\r\n        height: 100%;\r\n        border-bottom: 3px solid transparent;\r\n        vertical-align: middle;\n}\n.ul-info > li > a[data-v-73b0c942]{\r\n        font-size: 1.3rem;\r\n        font-weight: 400;\r\n        color: #00234B;\n}\n.ul-info li[data-v-73b0c942]:hover{\r\n        border-bottom: 3px solid #00234B;\n}\n.map-flex[data-v-73b0c942]{\r\n        display: flex;\r\n        gap: 25px;\n}\r\n    \r\n \r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.inner[data-v-73b0c942]{\r\n        width: 90%;\r\n        margin: 0 auto;\r\n        padding: 40px 0 40px 0;\r\n        display: flex;\r\n        gap: 70px;\r\n        color: #00234B;\r\n        font-family: 'Anek Latin', sans-serif;\n}\n.profile-data[data-v-73b0c942]{\r\n        width: 60%;\r\n        flex-basis: 60%;\n}\nsection[data-v-73b0c942]{\r\n        padding: 30px 0;\n}\n.message-box[data-v-73b0c942]{\r\n        width: 40%;\r\n        background-color: #F7F8F9;\r\n        border:  1px solid #E1E1E4;\r\n        padding: 20px;\r\n        align-self: flex-start;\n}\n.message-box form[data-v-73b0c942]{\r\n        display: flex;\r\n        flex-direction: column;\r\n        gap: 15px;\n}\n.badge[data-v-73b0c942]{\r\n        border-radius: 1rem;\r\n        padding: 5px 20px;\r\n        margin: 15px 0;\r\n        background-color: #F7F8F9;\n}\n.badge-container[data-v-73b0c942] {\r\n        display: flex;\r\n        gap: 10px;\n}\n.prof-flex[data-v-73b0c942]{\r\n        display: flex;\n}\n.profile-image[data-v-73b0c942]{\r\n        width: 150px;\r\n        height: 150px;\r\n        border-radius: 200px;\r\n        overflow: hidden;\n}\n.data-flex[data-v-73b0c942]{\r\n        display: flex;\r\n        align-items: center;\n}\n.profile-info[data-v-73b0c942]{\r\n        margin-left: 30px;\n}\n.profile-name[data-v-73b0c942]{\r\n        font-size: 40px;\r\n        font-weight: bold;\n}\n.profile-image img[data-v-73b0c942]{\r\n        width: 100%;\r\n        height: 100%;\n}\n.profile-address[data-v-73b0c942]{\r\n        font-size: 18px;\r\n        color: #a1a1a1;\n}\nh2[data-v-73b0c942]{\r\n        font-size: 1.8rem;\r\n        font-weight: bold;\r\n        margin-bottom: 20px;\n}\nh3[data-v-73b0c942]{\r\n        font-size: 1.5rem;\r\n        font-weight: bold;\r\n        margin-bottom: 20px;\n}\nh4[data-v-73b0c942]{\r\n        font-size: 1.5rem;\n}\ninput[type=\"text\"][data-v-73b0c942], textarea[data-v-73b0c942]{\r\n        width: 100%;\r\n        border:  1px solid #E1E1E4;\r\n        background-color: white;\r\n        margin-top: 5px;\n}\n.message-box textarea[data-v-73b0c942]{ \r\n        height: 100px;\r\n        resize: none;\n}\ninput[type=\"submit\"][data-v-73b0c942], button[data-v-73b0c942]{\r\n        width: 100%;\r\n        padding-top: 10px;\r\n        padding-bottom: 10px;\r\n        font-size: 1.3rem;\r\n        color:#00234B;\r\n        background-color: #FDE721 ;\n}\ninput[type=\"submit\"][data-v-73b0c942]:hover, button[data-v-73b0c942]:hover{\r\n        color: white;\r\n        background-color:#00234B;\n}\n.ul-info[data-v-73b0c942]{\r\n        padding: 0;\r\n        list-style: none;\r\n        display: flex;\r\n        gap: 25px;\r\n        margin-top: 25px;\r\n        border-top: #E1E1E4 solid 1px;\r\n        border-bottom: #E1E1E4 solid 1px;\r\n        height: 70px;\r\n        line-height: 70px;\n}\n.ul-info li[data-v-73b0c942]{\r\n        height: 100%;\r\n        border-bottom: 3px solid transparent;\r\n        vertical-align: middle;\n}\n.ul-info > li > a[data-v-73b0c942]{\r\n        font-size: 1.3rem;\r\n        font-weight: 400;\r\n        color: #00234B;\n}\n.ul-info li[data-v-73b0c942]:hover{\r\n        border-bottom: 3px solid #00234B;\n}\n.map-flex[data-v-73b0c942]{\r\n        display: flex;\r\n        gap: 25px;\n}\n.reviews-top-container[data-v-73b0c942]{\r\n        display: flex;\r\n        width: 100%;\n}\n.reviews-top-container div[data-v-73b0c942]{\r\n        display: flex;\r\n        flex-direction: column;\r\n        align-items: center;\r\n        justify-content: center;\r\n        width: 50%;\r\n        padding: 0 30px;\n}\n.reviews-top-container div[data-v-73b0c942]:first-child{\r\n        border-right: 1px solid #E1E1E4;\n}\n.vote[data-v-73b0c942]{\r\n        font-size: 5rem;\r\n        margin-top: -30px;\n}\n.banner[data-v-73b0c942]{\r\n        width: 100%;\r\n        padding: 10px 20px;\r\n        background-color: #F3F3F4;\r\n        margin-bottom: 20px;\r\n        display: flex;\r\n        align-items: center;\n}\n.banner p[data-v-73b0c942]{\r\n        margin: 0;\n}\n.icon-container[data-v-73b0c942]{\r\n    padding: 15px 15px;\r\n    display: flex;\n}\n.icon[data-v-73b0c942]{\r\n        color: #00234B;\r\n        justify-content: center;\r\n        align-items: center;\n}\r\n \r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -35130,15 +35133,13 @@ var render = function () {
           _c("ul", { staticClass: "ul-info" }, [
             _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("About")])]),
             _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "#" } }, [_vm._v("Insurance")]),
-            ]),
-            _vm._v(" "),
             _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Location")])]),
             _vm._v(" "),
             _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Reviews")])]),
             _vm._v(" "),
-            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("FAQs")])]),
+            _c("li", [
+              _c("a", { attrs: { href: "#" } }, [_vm._v("Curriculum")]),
+            ]),
           ]),
         ]),
         _vm._v(" "),
@@ -35149,42 +35150,42 @@ var render = function () {
         ]),
         _vm._v(" "),
         _c("section", [
-          _c("h2", [_vm._v("Office location")]),
+          _c("h2", [_vm._v("Reviews")]),
           _vm._v(" "),
-          _c("div", { staticClass: "map-flex" }, [
-            _c("div", [
-              _c("div", { staticClass: "map-container" }, [
-                _c("div", { attrs: { id: "map" } }, [
-                  _c("img", {
-                    attrs: {
-                      src: "https://www.tremplin-numerique.org/wp-content/uploads/2021/03/1615212209_265_Comment-changer-lechelle-de-Google-Maps-de-miles-en-kilometres.png",
-                      alt: "ciao",
-                    },
-                  }),
+          _c("div", { staticClass: "banner" }, [
+            _c(
+              "div",
+              { staticClass: "icon-container" },
+              [
+                _c("v-icon", { staticClass: "icon" }, [
+                  _vm._v("mdi-information-outline"),
                 ]),
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("p", [
+              _vm._v(
+                "Your trust is our top concern, so providers can't pay to alter or remove reviews. We also don't publish reviews that contain any private information."
+              ),
+            ]),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "reviews-top-container" }, [
+            _c("div", {}, [
+              _c("h4", [_vm._v("Overall rating")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "vote" }, [
+                _vm._v(_vm._s(_vm.profileData.vote)),
               ]),
             ]),
             _vm._v(" "),
-            _c("div", [
-              _c("div", { staticClass: "map-info" }, [
-                _c("p", [_vm._v(_vm._s(_vm.profileData.address))]),
-                _vm._v(" "),
-                _c("p", [_vm._v(_vm._s(_vm.profileData.phone))]),
-                _vm._v(" "),
-                _c("p", [_vm._v(_vm._s(_vm.profileData.email))]),
-              ]),
-            ]),
+            _c("div", {}, [_c("button", [_vm._v("Write a review")])]),
           ]),
-        ]),
-        _vm._v(" "),
-        _c("section", { staticClass: "curriculum" }, [
-          _c("div", {}),
-          _vm._v(" "),
-          _c("h4", [_vm._v("Curriculum Vitae")]),
         ]),
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "message-box" }, [
+      _c("section", { staticClass: "message-box" }, [
         _c("h2", [_vm._v("Book an appointment for free")]),
         _vm._v(" "),
         _c("form", [
@@ -52333,7 +52334,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! !../../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var vuetify_lib_components_VMain__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VMain */ "./node_modules/vuetify/lib/components/VMain/VMain.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/VIcon.js");
+/* harmony import */ var vuetify_lib_components_VMain__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VMain */ "./node_modules/vuetify/lib/components/VMain/VMain.js");
 
 
 
@@ -52356,7 +52358,8 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 /* vuetify-loader */
 ;
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VMain: vuetify_lib_components_VMain__WEBPACK_IMPORTED_MODULE_5__["default"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_5__["default"],VMain: vuetify_lib_components_VMain__WEBPACK_IMPORTED_MODULE_6__["default"]})
 
 
 /* hot reload */
