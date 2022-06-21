@@ -98,14 +98,13 @@
       fullscreen
       hide-overlay
       transition="dialog-bottom-transition"
-      scrollable
     >
       <v-card tile>
         <v-toolbar flat dark color="primary">
           <v-btn icon dark @click="responsePage = false">
             <v-icon>mdi-close</v-icon>
           </v-btn>
-          <v-toolbar-title>Settings</v-toolbar-title>
+          <v-toolbar-title>Prontobool Search</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
             <v-btn dark text @click="dialog = false"> Save </v-btn>
@@ -128,78 +127,41 @@
           </v-menu>
         </v-toolbar>
         <v-card-text>
-          <v-btn color="primary" dark class="ma-2" @click="dialog2 = !dialog2">
-            Open Dialog 2
-          </v-btn>
-          <v-tooltip right>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn class="ma-2" v-bind="attrs" v-on="on">
-                Tool Tip Activator
-              </v-btn>
-            </template>
-            Tool Tip
-          </v-tooltip>
           <v-list three-line subheader>
-            <v-subheader>User Controls</v-subheader>
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title>Content filtering</v-list-item-title>
-                <v-list-item-subtitle
-                  >Set the content filtering level to restrict apps that can be
-                  downloaded</v-list-item-subtitle
-                >
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title>Password</v-list-item-title>
-                <v-list-item-subtitle
-                  >Require password for purchase or use password to restrict
-                  purchase</v-list-item-subtitle
-                >
-              </v-list-item-content>
-            </v-list-item>
+            <div>
+              <v-data-table
+                :headers="headers"
+                :items="desserts"
+                item-key="name"
+                class="elevation-1"
+                :search="search"
+              >
+                <template v-slot:top>
+                  <v-text-field
+                    v-model="search"
+                    label="Cerca un professionista)"
+                    class="mx-4"
+                  ></v-text-field>
+                </template>
+                <template v-slot:body.append>
+                  <tr>
+                    <td></td>
+                    <td>
+                      <v-text-field
+                        v-model="calories"
+                        type="number"
+                        label="Less than"
+                      ></v-text-field>
+                    </td>
+                    <td colspan="4"></td>
+                  </tr>
+                </template>
+              </v-data-table>
+            </div>
           </v-list>
           <v-divider></v-divider>
-          <v-list three-line subheader>
-            <v-subheader>General</v-subheader>
-            <v-list-item>
-              <v-list-item-action>
-                <v-checkbox v-model="notifications"></v-checkbox>
-              </v-list-item-action>
-              <v-list-item-content>
-                <v-list-item-title>Notifications</v-list-item-title>
-                <v-list-item-subtitle
-                  >Notify me about updates to apps or games that I
-                  downloaded</v-list-item-subtitle
-                >
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-action>
-                <v-checkbox v-model="sound"></v-checkbox>
-              </v-list-item-action>
-              <v-list-item-content>
-                <v-list-item-title>Sound</v-list-item-title>
-                <v-list-item-subtitle
-                  >Auto-update apps at any time. Data charges may
-                  apply</v-list-item-subtitle
-                >
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-action>
-                <v-checkbox v-model="widgets"></v-checkbox>
-              </v-list-item-action>
-              <v-list-item-content>
-                <v-list-item-title>Auto-add widgets</v-list-item-title>
-                <v-list-item-subtitle
-                  >Automatically add home screen widgets</v-list-item-subtitle
-                >
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
         </v-card-text>
+        <FooterApp />
 
         <div style="flex: 1 1 auto"></div>
       </v-card>
@@ -207,6 +169,7 @@
   </v-row>
 </template>
 <script>
+import FooterApp from "../pages/FooterApp.vue";
 export default {
   data() {
     return {
@@ -225,22 +188,127 @@ export default {
       // RESPONSE
       dialog: false,
       responsePage: false,
+      // RESULT DATA TABLE
+      search: "",
+      calories: "",
+      desserts: [
+        {
+          name: "Frozen Yogurt",
+          calories: 159,
+          fat: 6.0,
+          carbs: 24,
+          protein: 4.0,
+        },
+        {
+          name: "Ice cream sandwich",
+          calories: 237,
+          fat: 9.0,
+          carbs: 37,
+          protein: 4.3,
+        },
+        {
+          name: "Eclair",
+          calories: 262,
+          fat: 16.0,
+          carbs: 23,
+          protein: 6.0,
+        },
+        {
+          name: "Cupcake",
+          calories: 305,
+          fat: 3.7,
+          carbs: 67,
+          protein: 4.3,
+        },
+        {
+          name: "Gingerbread",
+          calories: 356,
+          fat: 16.0,
+          carbs: 49,
+          protein: 3.9,
+        },
+        {
+          name: "Jelly bean",
+          calories: 375,
+          fat: 0.0,
+          carbs: 94,
+          protein: 0.0,
+        },
+        {
+          name: "Lollipop",
+          calories: 392,
+          fat: 0.2,
+          carbs: 98,
+          protein: 0,
+        },
+        {
+          name: "Honeycomb",
+          calories: 408,
+          fat: 3.2,
+          carbs: 87,
+          protein: 6.5,
+        },
+        {
+          name: "Donut",
+          calories: 452,
+          fat: 25.0,
+          carbs: 51,
+          protein: 4.9,
+        },
+        {
+          name: "KitKat",
+          calories: 518,
+          fat: 26.0,
+          carbs: 65,
+          protein: 7,
+        },
+      ],
     };
   },
+  components: {
+    FooterApp,
+  },
   watch: {
+    // LANDING PAGE
     search(val) {
       val && val !== this.select && this.querySelections(val);
     },
+    // OPEN DIALOG
     dialog(val) {
       if (!val) return;
-
       setTimeout(
         () => ((this.dialog = false), (this.responsePage = true)),
-        4000
+        1500
       );
+    },
+    // RESULT TABLE
+  },
+  computed: {
+    headers() {
+      return [
+        {
+          text: "Name",
+          align: "start",
+          sortable: false,
+          value: "name",
+        },
+        { text: "Image", value: "fat" },
+        {
+          text: "Review",
+          value: "calories",
+          filter: (value) => {
+            if (!this.calories) return true;
+
+            return value < parseInt(this.calories);
+          },
+        },
+        { text: "Actions", value: "carbs" },
+        { text: "Service", value: "protein" },
+      ];
     },
   },
   methods: {
+    // LANDING PAGE
     querySelections(v) {
       this.loading = true;
       // Simulated ajax query
