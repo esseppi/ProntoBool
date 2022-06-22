@@ -10,6 +10,9 @@ import Bundles from "./pages/professionist/Bundles.vue";
 import Router from "vue-router";
 import DoctorDetails from "./pages/DoctorDetails.vue";
 import SignUp from "./pages/SignUp.vue";
+import Reviews from "./pages/professionist/Reviews.vue";
+import Messages from "./pages/professionist/Messages.vue";
+
 
 
 Vue.use(Router);
@@ -29,6 +32,16 @@ const router = new Router({
             path: "/mydashboard",
             name: "dashboard",
             component: Dashboard,
+        },
+        {
+            path: "/reviews",
+            name: "reviews",
+            component: Reviews,
+        },
+        {
+            path: "/messages",
+            name: "messages",
+            component: Messages,
         },
         {
             path: "/auth",

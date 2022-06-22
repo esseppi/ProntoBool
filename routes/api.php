@@ -39,6 +39,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
+
 // FRONTENDAPI CALLS
 Route::get('/getBundles', [ProfessionistApiController::class, 'getBundle']);
 Route::get('/profile/{id}', [ProfessionistApiController::class, 'getProfileInfo']);

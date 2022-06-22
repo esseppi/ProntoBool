@@ -29,13 +29,13 @@
             </section>
 
             <!-- ABOUT -->
-            <section class="about">
+            <section>
                 <h2>About {{ profileData.name }}</h2>
                 <p>{{ profileData.description }}</p>
             </section>
 
             <!-- CURRICULUM -->
-            <section class="curriculum">
+            <section class="curriculum"> <!--questa classe non è usata in questo css -->
                 <h2>Curriculum Vitae</h2>
                 <div class="card"></div>
             </section>
@@ -224,6 +224,10 @@ export default {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Anek+Latin:wght@200;300;500&display=swap');
+
+    /* PROFILE -------
+    ------------------
+    ------------------*/
     .inner{
         width: 90%;
         margin: 0 auto;
@@ -238,39 +242,8 @@ export default {
         flex-basis: 60%;
     }
 
-    section{
-        padding: 0 0 30px 0;
-    }
-
-    .message-box{
-        width: 40%;
-        background-color: #F7F8F9;
-        border:  1px solid #E1E1E4;
-        padding: 20px;
-        align-self: flex-start;
-    }
-
-    .message-box form{
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .badge{
-        border-radius: 1rem;
-        padding: 5px 20px;
-        background-color: #F7F8F9;
-    }
-
-    .badge-container {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-    }
-
     .prof-flex{
         display: flex;
-        
     }
 
     .profile-image{
@@ -281,18 +254,11 @@ export default {
         flex-shrink: 0;
     }
 
-    .card {
- width: 190px;
- height: 254px;
- background: rgb(255, 255, 255);
- border-radius: 0.4em;
- transition: border 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
- border: #E1E1E4 0.2em solid;
-}
+    .profile-image img{
+        width: 100%;
+        height: 100%;
+    }
 
-.card:hover {
- border: #00234B 0.2em solid;
-}
     .data-flex{
         display: flex;
         align-items: center;
@@ -307,14 +273,176 @@ export default {
         font-weight: bold;
     }
 
-    .profile-image img{
-        width: 100%;
-        height: 100%;
-    }
-
     .profile-address{
         font-size: 18px;
         color: #a1a1a1;
+    }
+
+    .badge{
+        border-radius: 1rem;
+        padding: 5px 20px;
+        background-color: #F7F8F9;
+    }
+
+    .badge-container {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .ul-info{
+        padding: 0;
+        list-style: none;
+        display: flex;
+        gap: 25px;
+        margin-top: 25px;
+        border-top: #E1E1E4 solid 1px;
+        border-bottom: #E1E1E4 solid 1px;
+        height: 70px;
+        line-height: 70px;
+    }
+
+    .ul-info li{
+        height: 100%;
+        border-bottom: 3px solid transparent;
+        vertical-align: middle;
+    }
+
+    .ul-info > li > a{
+        font-size: 1.3rem;
+        font-weight: 400;
+        color: #00234B;
+    }
+
+    .ul-info li:hover{
+        border-bottom: 3px solid #00234B;
+    }
+
+    /* CURRICULUM --------
+    ----------------------
+    ----------------------*/
+
+    .card {
+        width: 190px;
+        height: 254px;
+        background: rgb(255, 255, 255);
+        border-radius: 0.4em;
+        transition: border 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: #E1E1E4 0.2em solid;
+    }
+
+    .card:hover {
+    border: #00234B 0.2em solid;
+    }
+
+    /*REVIEW--------
+    ----------------
+    ----------------*/
+    .banner{
+        width: 100%;
+        padding: 10px 20px;
+        background-color: #F3F3F4;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+    }
+
+    .banner p{
+        margin: 0;
+    }
+
+    .icon-container{
+    padding: 15px 15px;
+    display: flex;    
+    }
+
+    .icon{
+        color: #00234B;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .reviews-top-container{
+        display: flex;
+        width: 100%;
+    }
+
+    .reviews-top-container div{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 50%;
+        padding: 0 30px;
+    }
+
+    .reviews-top-container div:first-child{
+        border-right: 1px solid #E1E1E4;
+    }
+
+    .vote{
+        font-size: 5rem;
+        margin-top: -30px;
+    }
+
+    .reviews-bottom-container{
+        border-top: 1px solid #E1E1E4;
+        display: flex;
+        flex-direction: column;
+        gap: 35px;
+        padding-top: 20px;
+    }
+
+    .star ul li{
+        display: inline-block;
+
+    }
+
+    .star ul {
+        padding: 0;
+        margin-bottom: 5px;
+    }
+
+    .star-color{
+        color: #FF6372;
+    }
+
+    .reviews-info{
+        font-size: .9rem;
+        color: #a1a1a1;
+    }
+
+    .review{
+        width: 100%;
+    }
+
+    .review > p{
+        margin-bottom: 5px;
+    }
+
+    /* BOX MESSAGES -------
+    -----------------------
+    -----------------------*/
+    .message-box{
+        width: 40%;
+        background-color: #F7F8F9;
+        border:  1px solid #E1E1E4;
+        padding: 20px;
+        align-self: flex-start;
+    }
+
+    .message-box form{
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    /* GENERICI-------
+    ------------------
+    ------------------*/
+
+    section{
+        padding: 0 0 30px 0;
     }
 
     h2{
@@ -368,119 +496,9 @@ export default {
         border: 2px solid #00234B;
     }
 
-    .ul-info{
-        padding: 0;
-        list-style: none;
-        display: flex;
-        gap: 25px;
-        margin-top: 25px;
-        border-top: #E1E1E4 solid 1px;
-        border-bottom: #E1E1E4 solid 1px;
-        height: 70px;
-        line-height: 70px;
-    }
-
-    .ul-info li{
-        height: 100%;
-        border-bottom: 3px solid transparent;
-        vertical-align: middle;
-    }
-
-    .ul-info > li > a{
-        font-size: 1.3rem;
-        font-weight: 400;
-        color: #00234B;
-    }
-
-    .ul-info li:hover{
-        border-bottom: 3px solid #00234B;
-    }
-
     .map-flex{
         display: flex;
         gap: 25px;
-    }
-    
-    .reviews-top-container{
-        display: flex;
-        width: 100%;
-    }
-
-    .reviews-top-container div{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 50%;
-        padding: 0 30px;
-    }
-
-    .reviews-top-container div:first-child{
-        border-right: 1px solid #E1E1E4;
-    }
-
-    .vote{
-        font-size: 5rem;
-        margin-top: -30px;
-    }
-
-    .banner{
-        width: 100%;
-        padding: 10px 20px;
-        background-color: #F3F3F4;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-    }
-
-    .banner p{
-        margin: 0;
-    }
-
-    .icon-container{
-    padding: 15px 15px;
-    display: flex;    
-    }
-
-    .icon{
-        color: #00234B;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .reviews-bottom-container{
-        border-top: 1px solid #E1E1E4;
-        display: flex;
-        flex-direction: column;
-        gap: 35px;
-        padding-top: 20px;
-    }
-
-    .review{
-        width: 100%;
-    }
-
-    .review > p{
-        margin-bottom: 5px;
-    }
-
-    .reviews-info{
-        font-size: .9rem;
-        color: #a1a1a1;
-    }
-
-    .star ul li{
-        display: inline-block;
-
-    }
-
-    .star ul {
-        padding: 0;
-        margin-bottom: 5px;
-    }
-
-    .star-color{
-        color: #FF6372;
     }
 
     @media screen and (max-width: 950px){
@@ -525,6 +543,10 @@ export default {
 
         .btn{
             font-size: 1.3rem;
+        }
+
+        .badge-container{
+            justify-content: center;
         }
     }
 </style>

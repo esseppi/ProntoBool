@@ -2,7 +2,6 @@
 <v-main>
     <div class="inner">
         <div class="profile-data">
-            
             <!-- PROFILE -->
             <section>
                 <div class="prof-flex">
@@ -28,7 +27,7 @@
             </section>
 
             <!-- ABOUT  -->
-            <section class="about">
+            <section>
                 <h2>About {{ profileData.name }}</h2>
                 <p>{{ profileData.description }}</p>
             </section>
@@ -94,7 +93,7 @@
             </section>
         </div>
         
-      <div class="group-rigt" >
+      <div class="group-right" >
         <!-- SECTION BOX MESSAGE -->
         <section class="message-box">
             <h2>Last messages recived</h2>
@@ -224,6 +223,16 @@ export default {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Anek+Latin:wght@200;300;500&display=swap');
+
+    /* profile---------
+    -------------------
+    -------------------
+     */
+    .profile-data{
+        width: 60%;
+        flex-basis: 60%;
+    }
+
     .inner{
         width: 90%;
         margin: 0 auto;
@@ -234,48 +243,8 @@ export default {
         font-family: 'Anek Latin', sans-serif;
     }
 
-    .profile-data{
-        width: 60%;
-        flex-basis: 60%;
-    }
-
-    section{
-        padding: 30px 0;
-    }
-
-    .group-right{
-      width: 40%;
-    }
-
-    .message-box{
-        width: 100%;
-        background-color: #F7F8F9;
-        border:  1px solid #E1E1E4;
-        padding: 20px;
-        align-self: flex-start;
-    }
-
-    .message-box form{
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .badge{
-        border-radius: 1rem;
-        padding: 5px 20px;
-        background-color: #F7F8F9;
-    }
-
-    .badge-container {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-    }
-
     .prof-flex{
         display: flex;
-        
     }
 
     .profile-image{
@@ -284,6 +253,11 @@ export default {
         border-radius: 200px;
         overflow: hidden;
         flex-shrink: 0;
+    }
+
+    .profile-image img{
+        width: 100%;
+        height: 100%;
     }
 
     .data-flex{
@@ -300,68 +274,21 @@ export default {
         font-weight: bold;
     }
 
-    .profile-image img{
-        width: 100%;
-        height: 100%;
-    }
-
     .profile-address{
         font-size: 18px;
         color: #a1a1a1;
     }
 
-    h2{
-        font-size: 1.8rem;
-        font-weight: bold;
-        margin-bottom: 20px;
+    .badge-container {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
     }
 
-    h3{
-        font-size: 1.5rem;
-        font-weight: bold;
-        margin-bottom: 20px;
-    }
-
-    h4{
-        font-size: 1.5rem;
-    }
-
-    input[type="text"], textarea{
-        width: 100%;
-        border:  1px solid #E1E1E4;
-        background-color: white;
-        margin-top: 5px;
-    }
-
-    .message-box textarea{ 
-        height: 100px;
-        resize: none;
-    }
-
-    .btn{
-        display: inline-block;
-        width: 100%;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        font-size: 1.3rem;
-        color:#00234B;
-        background-color: #FDE721 ;
-        border:1px solid #00234B;
-    }
-
-    .btn.outlined{
-        background-color: transparent;
-        border: 2px solid #00234B;
-    }
-    
-    .btn:hover{
-        color: white;
-        background-color:#00234B;
-        border:1px solid #FDE721;
-    }
-
-    .btn.outlined:hover{
-        border: 2px solid #00234B;
+    .badge{
+        border-radius: 1rem;
+        padding: 5px 20px;
+        background-color: #F7F8F9;
     }
 
     .ul-info{
@@ -392,19 +319,17 @@ export default {
         border-bottom: 3px solid #00234B;
     }
 
-    .map-flex{
-        display: flex;
-        gap: 25px;
-    }
-    
-    .reviews-top-container{
-        text-align: center;
+
+    /*review--------
+    ----------------
+    ----------------    */
+
+    .review{
         width: 100%;
     }
 
-    .vote{
-        font-size: 5rem;
-        margin-top: -30px;
+    .review > p{
+        margin-bottom: 5px;
     }
 
     .banner{
@@ -431,6 +356,16 @@ export default {
         align-items: center;
     }
 
+    .reviews-top-container{
+        text-align: center;
+        width: 100%;
+    }
+
+    .vote{
+        font-size: 5rem;
+        margin-top: -30px;
+    }
+
     .reviews-bottom-container{
         border-top: 1px solid #E1E1E4;
         display: flex;
@@ -440,23 +375,10 @@ export default {
  
     .reviews-bottom-container .filter-bar{
         display: flex;
-        justify-content: start;
+        justify-content: flex-start;
         padding: 10px 0;
         font-size: 1.3rem;
         font-weight: 600;
-    }
-
-    .review{
-        width: 100%;
-    }
-
-    .review > p{
-        margin-bottom: 5px;
-    }
-
-    .reviews-info{
-        font-size: .9rem;
-        color: #a1a1a1;
     }
 
     .star ul li{
@@ -473,6 +395,38 @@ export default {
         color: #FF6372;
     }
 
+    .reviews-info{
+        font-size: .9rem;
+        color: #a1a1a1;
+    }
+
+    /* BOX MESSAGE-------
+    ---------------------
+    --------------------- */
+
+    .group-right{
+      width: 40%;
+    }
+
+    .message-box{
+        width: 100%;
+        background-color: #F7F8F9;
+        border:  1px solid #E1E1E4;
+        padding: 20px;
+        align-self: flex-start;
+    }
+
+    .message-box form{
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .message-box textarea{ 
+        height: 100px;
+        resize: none;
+    }
+
     .margin-top{
       margin-top: 1rem;
     }
@@ -483,11 +437,103 @@ export default {
       margin: 1rem;
     }
 
+
+    /* generici---------
+    --------------------
+    --------------------*/
+    section{
+        padding: 30px 0;
+    }
+
+    h2{
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    h3{
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    h4{
+        font-size: 1.5rem;
+    }
+
+    input[type="text"], textarea{
+        width: 100%;
+        border:  1px solid #E1E1E4;
+        background-color: white;
+        margin-top: 5px;
+    }
+
+    .btn{
+        display: inline-block;
+        width: 100%;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        margin-top:1rem;
+        font-size: 1.3rem;
+        color:#00234B;
+        background-color: #FDE721 ;
+        border:1px solid transparent;
+    }
+
+    .btn:hover{
+        color: white;
+        background-color:#00234B;
+        border:1px solid #FDE721;
+    }
+
+    .btn.outlined{
+        background-color: transparent;
+        border: 2px solid #00234B;
+    }
+    
+
+    .btn.outlined:hover{
+        border: 2px solid #00234B;
+    }
+
     .text-center{
       text-align: center;
     }
 
+    
+    /* inutilizzato
+    .map-flex{
+        display: flex;
+        gap: 25px;
+    }
+    */
+
+    
+
     @media screen and (max-width: 950px){
+
+        /* profile */
+        .profile-image{
+            margin-bottom: 20px;
+            align-self: center;
+        }
+
+        .prof-flex{
+            flex-direction: column;
+        }
+
+        .data-flex{
+            flex-direction: column;
+            text-align: center;
+            align-content: center;
+        }
+
+        .ul-info{
+            overflow-x: scroll;
+            overflow-y: hidden;
+            text-align: center;
+        }
+
         .inner{
             width: 100%;
             flex-direction: column;
@@ -502,25 +548,11 @@ export default {
             width: 100%;
         }
 
-        .prof-flex{
-            flex-direction: column;
-        }
-
-        .profile-image{
-            margin-bottom: 20px;
-            align-self: center;
-        }
-
-        .ul-info{
-            overflow-x: scroll;
-            overflow-y: hidden;
-            text-align: center;
-        }
-
-        .data-flex{
-            flex-direction: column;
-            text-align: center;
-            align-content: center;
+        .group-right{
+            width:100%;
+            display:flex;
+            justify-content: center;
+            flex-wrap:wrap;
         }
     }
 </style>

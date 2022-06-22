@@ -26,6 +26,9 @@
         "vue-loader": "^15.9.5"
     },
     "dependencies": {
+        "@vue/composition-api": "^1.6.2",
+        "@vuelidate/core": "^2.0.0-alpha.41",
+        "@vuelidate/validators": "^2.0.0-alpha.29",
         "vue-braintree": "^2.1.0",
         "vue-router": "^3.5.4",
         "vuetify": "^2.6.6",
