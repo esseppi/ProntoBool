@@ -326,7 +326,7 @@ export default {
       // RESULT DATA TABLE
       itemsPerPageArray: [12, 24, 36],
       search: "",
-      filter: {},
+      // filter: {},
       sortDesc: false,
       page: 1,
       itemsPerPage: 20,

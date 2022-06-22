@@ -21,48 +21,52 @@
       <div class="form-container">
         <div class="step-view" v-show="currentStep == 1">
           <div>
-            <label
-              >Name:
-              <input id="name" v-model.trim="$v.name" name="name" type="text" />
-              <p
-  v-for="error of v$.name.$errors"
-  :key="error.$uid"
->
-              <div v-if="!v$.name.$error" :class="{'is-invalid': true }">This field is required.</div>
+            <label>Name:
+              <input id="name" v-model.trim="name" @blur="v$.name.$touch(), nextStepDisabled = false" name="name" type="text" />
+              <div class="error-message">
+                <span v-for="error of v$.name.$errors" :key="error.$uid">
+                {{ error.$message }}
+                </span>
+              </div>
             </label>
 
             <label
               >Surname:
-              <input id="surname" v-model="surname" name="surname" type="text"/>
-              <div class="error-message">{{ inputErrors.surname }}</div>
+              <input id="surname" v-model="surname" @blur="v$.surname.$touch(), nextStepDisabled = false" name="surname" type="text"/>
+                            <div class="error-message">
+                <span v-for="error of v$.surname.$errors" :key="error.$uid">
+                {{ error.$message }}
+                </span>
+              </div>
             </label>
           </div>
           <div>
             <label
               >Email:
-              <input type="text" v-model="email" id="email" name="email" />
-              <div class="error-message">{{ inputErrors.email }}</div>
+              <input type="text" v-model="email" id="email" @blur="v$.email.$touch(), nextStepDisabled = false" name="email" />
+                            <div class="error-message">
+                <span v-for="error of v$.email.$errors" :key="error.$uid">
+                {{ error.$message }}
+                </span>
+              </div>
             </label>
             <label
               >Address:
               <input id="address" v-model="address" name="address" type="text"/>
-              <div class="error-message">{{ inputErrors.address }}</div>
             </label>
           </div>
           <div>
             <label
               >Password:
               <input id="password" v-model="password" name="password" type="password"/>
-              <div class="error-message">{{ inputErrors.password }}</div>
             </label>
             <label
               >Confirm Password:
               <input id="confirmPassword" v-model="confirmPassword" name="confirmPassword" type="password"/>
-              <div class="error-message">{{ inputErrors.confirmPassword }}</div>
             </label>
           </div>
           <div>
-            <button class="btn" @click="currentStep++">Next step</button>
+          <button class="btn" :disabled="v$.$errors" @click="currentStep++">Next step</button>
           </div>
         </div>
 
@@ -143,21 +147,28 @@ export default {
         curriculum: "",
         phone: "",
         description: "",
+        nextStepDisabled: true
     };
   },
   validations() {
     return {
       name: {
         required,
-        minLength: minLength(2),
+      },
+      surname: {
+        required
+      },
+      email:  {
+        required,
+        email
       }
     }
   },
   methods: {
-  },
     signupRequest() {
       // AXIOS REQUEST
     },
+  },
 }
 </script>
 
@@ -176,6 +187,7 @@ export default {
 .error-message {
   height: 2rem;
   color: #ff6372;
+  width: 100%;
 }
 
 .stepper-container ul {

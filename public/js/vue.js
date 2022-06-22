@@ -5291,7 +5291,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       //   SECOND AUTOCOMPLETE
       cities: [],
       city: null
-    }, _defineProperty(_ref, "value", null), _defineProperty(_ref, "loadingCity", false), _defineProperty(_ref, "searchCity", null), _defineProperty(_ref, "dialog", false), _defineProperty(_ref, "responsePage", false), _defineProperty(_ref, "itemsPerPageArray", [12, 24, 36]), _defineProperty(_ref, "search", ""), _defineProperty(_ref, "filter", {}), _defineProperty(_ref, "sortDesc", false), _defineProperty(_ref, "page", 1), _defineProperty(_ref, "itemsPerPage", 20), _defineProperty(_ref, "sortBy", "name"), _defineProperty(_ref, "keys", ["name", "city", "review_avg", "profession", "views"]), _defineProperty(_ref, "items", []), _defineProperty(_ref, "loadingCard", false), _ref;
+    }, _defineProperty(_ref, "value", null), _defineProperty(_ref, "loadingCity", false), _defineProperty(_ref, "searchCity", null), _defineProperty(_ref, "dialog", false), _defineProperty(_ref, "responsePage", false), _defineProperty(_ref, "itemsPerPageArray", [12, 24, 36]), _defineProperty(_ref, "search", ""), _defineProperty(_ref, "sortDesc", false), _defineProperty(_ref, "page", 1), _defineProperty(_ref, "itemsPerPage", 20), _defineProperty(_ref, "sortBy", "name"), _defineProperty(_ref, "keys", ["name", "city", "review_avg", "profession", "views"]), _defineProperty(_ref, "items", []), _defineProperty(_ref, "loadingCard", false), _ref;
   },
   components: {
     FooterApp: _pages_FooterApp_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -6017,6 +6017,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -6040,18 +6044,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       description: "",
       pic: "",
       curriculum: ""
-    }, _defineProperty(_ref, "phone", ""), _defineProperty(_ref, "description", ""), _ref;
+    }, _defineProperty(_ref, "phone", ""), _defineProperty(_ref, "description", ""), _defineProperty(_ref, "nextStepDisabled", true), _ref;
   },
   validations: function validations() {
     return {
       name: {
+        required: _vuelidate_validators__WEBPACK_IMPORTED_MODULE_1__.required
+      },
+      surname: {
+        required: _vuelidate_validators__WEBPACK_IMPORTED_MODULE_1__.required
+      },
+      email: {
         required: _vuelidate_validators__WEBPACK_IMPORTED_MODULE_1__.required,
-        minLength: (0,_vuelidate_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(2)
+        email: _vuelidate_validators__WEBPACK_IMPORTED_MODULE_1__.email
       }
     };
   },
-  methods: {},
-  signupRequest: function signupRequest() {// AXIOS REQUEST
+  methods: {
+    signupRequest: function signupRequest() {// AXIOS REQUEST
+    }
   }
 });
 
@@ -33209,7 +33220,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.inner[data-v-1b57ba2c] {\n  width: 70%;\n  margin: 0 auto;\n  gap: 70px;\n  color: #00234b;\n  font-family: \"Anek Latin\", sans-serif;\n}\n.stepper-container[data-v-1b57ba2c] {\n  width: 100%;\n}\n.error-message[data-v-1b57ba2c] {\n  height: 2rem;\n  color: #ff6372;\n}\n.stepper-container ul[data-v-1b57ba2c] {\n  display: flex;\n  list-style: none;\n  justify-content: space-between;\n  align-items: center;\n  margin: 0;\n  padding: 0;\n}\n.step-circle[data-v-1b57ba2c] {\n  width: 50px;\n  height: 50px;\n  border-radius: 30px;\n  color: #00234b;\n  border: 3px solid #00234b;\n  font-size: 1.5rem;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.step-circle.active[data-v-1b57ba2c] {\n  background-color: #00234b;\n  color: white;\n}\n.form-container[data-v-1b57ba2c] {\n  padding: 40px 0;\n}\n.form-container .step-view[data-v-1b57ba2c] {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  gap: 30px;\n}\n.form-container .step-view div[data-v-1b57ba2c] {\n  display: flex;\n  gap: 40px;\n}\n.line[data-v-1b57ba2c] {\n  width: 100%;\n  height: 2px;\n  background-color: #f3f3f4;\n  margin: 0 15px;\n}\nlabel[data-v-1b57ba2c] {\n  flex-grow: 1;\n  display: flex;\n  flex-direction: column;\n}\ninput[type=\"text\"][data-v-1b57ba2c],\ntextarea[data-v-1b57ba2c],\ninput[type=\"password\"][data-v-1b57ba2c],\ninput[type=\"tel\"][data-v-1b57ba2c] {\n  border: 1px solid #e1e1e4;\n  background-color: white;\n  margin-top: 5px;\n}\n.message-box textarea[data-v-1b57ba2c] {\n  height: 100px;\n  resize: none;\n}\n.btn[data-v-1b57ba2c] {\n  width: 100%;\n  padding-top: 10px;\n  padding-bottom: 10px;\n  font-size: 1.3rem;\n  color: #00234b;\n  background-color: #fde721;\n}\n.btn[disabled][data-v-1b57ba2c] {\n  background-color: lightgrey;\n}\n.btn.outlined[data-v-1b57ba2c] {\n  background-color: transparent;\n  border: 2px solid #00234b;\n}\n.btn[data-v-1b57ba2c]:hover {\n  color: white;\n  background-color: #00234b;\n}\n.btn.outlined[data-v-1b57ba2c]:hover {\n  border: 2px solid #00234b;\n}\n@media screen and (max-width: 600px) {\n.inner[data-v-1b57ba2c] {\n    width: 100%;\n    padding: 30px;\n}\n.form-container .step-view div[data-v-1b57ba2c] {\n    flex-direction: column;\n    gap: 15px;\n}\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.inner[data-v-1b57ba2c] {\n  width: 70%;\n  margin: 0 auto;\n  gap: 70px;\n  color: #00234b;\n  font-family: \"Anek Latin\", sans-serif;\n}\n.stepper-container[data-v-1b57ba2c] {\n  width: 100%;\n}\n.error-message[data-v-1b57ba2c] {\n  height: 2rem;\n  color: #ff6372;\n  width: 100%;\n}\n.stepper-container ul[data-v-1b57ba2c] {\n  display: flex;\n  list-style: none;\n  justify-content: space-between;\n  align-items: center;\n  margin: 0;\n  padding: 0;\n}\n.step-circle[data-v-1b57ba2c] {\n  width: 50px;\n  height: 50px;\n  border-radius: 30px;\n  color: #00234b;\n  border: 3px solid #00234b;\n  font-size: 1.5rem;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.step-circle.active[data-v-1b57ba2c] {\n  background-color: #00234b;\n  color: white;\n}\n.form-container[data-v-1b57ba2c] {\n  padding: 40px 0;\n}\n.form-container .step-view[data-v-1b57ba2c] {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  gap: 30px;\n}\n.form-container .step-view div[data-v-1b57ba2c] {\n  display: flex;\n  gap: 40px;\n}\n.line[data-v-1b57ba2c] {\n  width: 100%;\n  height: 2px;\n  background-color: #f3f3f4;\n  margin: 0 15px;\n}\nlabel[data-v-1b57ba2c] {\n  flex-grow: 1;\n  display: flex;\n  flex-direction: column;\n}\ninput[type=\"text\"][data-v-1b57ba2c],\ntextarea[data-v-1b57ba2c],\ninput[type=\"password\"][data-v-1b57ba2c],\ninput[type=\"tel\"][data-v-1b57ba2c] {\n  border: 1px solid #e1e1e4;\n  background-color: white;\n  margin-top: 5px;\n}\n.message-box textarea[data-v-1b57ba2c] {\n  height: 100px;\n  resize: none;\n}\n.btn[data-v-1b57ba2c] {\n  width: 100%;\n  padding-top: 10px;\n  padding-bottom: 10px;\n  font-size: 1.3rem;\n  color: #00234b;\n  background-color: #fde721;\n}\n.btn[disabled][data-v-1b57ba2c] {\n  background-color: lightgrey;\n}\n.btn.outlined[data-v-1b57ba2c] {\n  background-color: transparent;\n  border: 2px solid #00234b;\n}\n.btn[data-v-1b57ba2c]:hover {\n  color: white;\n  background-color: #00234b;\n}\n.btn.outlined[data-v-1b57ba2c]:hover {\n  border: 2px solid #00234b;\n}\n@media screen and (max-width: 600px) {\n.inner[data-v-1b57ba2c] {\n    width: 100%;\n    padding: 30px;\n}\n.form-container .step-view div[data-v-1b57ba2c] {\n    flex-direction: column;\n    gap: 15px;\n}\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -39676,49 +39687,56 @@ var render = function () {
           },
           [
             _c("div", [
-              _c(
-                "label",
-                [
-                  _vm._v("Name:\n              "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model.trim",
-                        value: _vm.$v.name,
-                        expression: "$v.name",
-                        modifiers: { trim: true },
+              _c("label", [
+                _vm._v("Name:\n            "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model.trim",
+                      value: _vm.name,
+                      expression: "name",
+                      modifiers: { trim: true },
+                    },
+                  ],
+                  attrs: { id: "name", name: "name", type: "text" },
+                  domProps: { value: _vm.name },
+                  on: {
+                    blur: [
+                      function ($event) {
+                        _vm.v$.name.$touch(), (_vm.nextStepDisabled = false)
                       },
-                    ],
-                    attrs: { id: "name", name: "name", type: "text" },
-                    domProps: { value: _vm.$v.name },
-                    on: {
-                      input: function ($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.$v, "name", $event.target.value.trim())
-                      },
-                      blur: function ($event) {
+                      function ($event) {
                         return _vm.$forceUpdate()
                       },
+                    ],
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.name = $event.target.value.trim()
                     },
-                  }),
-                  _vm._v(" "),
+                  },
+                }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "error-message" },
                   _vm._l(_vm.v$.name.$errors, function (error) {
-                    return _c("p", { key: error.$uid })
+                    return _c("span", { key: error.$uid }, [
+                      _vm._v(
+                        "\n              " +
+                          _vm._s(error.$message) +
+                          "\n              "
+                      ),
+                    ])
                   }),
-                  !_vm.v$.name.$error
-                    ? _c("div", { class: { "is-invalid": true } }, [
-                        _vm._v("This field is required."),
-                      ])
-                    : _vm._e(),
-                ],
-                2
-              ),
+                  0
+                ),
+              ]),
               _vm._v(" "),
               _c("label", [
-                _vm._v("Surname:\n              "),
+                _vm._v("Surname:\n            "),
                 _c("input", {
                   directives: [
                     {
@@ -39731,6 +39749,9 @@ var render = function () {
                   attrs: { id: "surname", name: "surname", type: "text" },
                   domProps: { value: _vm.surname },
                   on: {
+                    blur: function ($event) {
+                      _vm.v$.surname.$touch(), (_vm.nextStepDisabled = false)
+                    },
                     input: function ($event) {
                       if ($event.target.composing) {
                         return
@@ -39740,15 +39761,26 @@ var render = function () {
                   },
                 }),
                 _vm._v(" "),
-                _c("div", { staticClass: "error-message" }, [
-                  _vm._v(_vm._s(_vm.inputErrors.surname)),
-                ]),
+                _c(
+                  "div",
+                  { staticClass: "error-message" },
+                  _vm._l(_vm.v$.surname.$errors, function (error) {
+                    return _c("span", { key: error.$uid }, [
+                      _vm._v(
+                        "\n              " +
+                          _vm._s(error.$message) +
+                          "\n              "
+                      ),
+                    ])
+                  }),
+                  0
+                ),
               ]),
             ]),
             _vm._v(" "),
             _c("div", [
               _c("label", [
-                _vm._v("Email:\n              "),
+                _vm._v("Email:\n            "),
                 _c("input", {
                   directives: [
                     {
@@ -39761,6 +39793,9 @@ var render = function () {
                   attrs: { type: "text", id: "email", name: "email" },
                   domProps: { value: _vm.email },
                   on: {
+                    blur: function ($event) {
+                      _vm.v$.email.$touch(), (_vm.nextStepDisabled = false)
+                    },
                     input: function ($event) {
                       if ($event.target.composing) {
                         return
@@ -39770,13 +39805,24 @@ var render = function () {
                   },
                 }),
                 _vm._v(" "),
-                _c("div", { staticClass: "error-message" }, [
-                  _vm._v(_vm._s(_vm.inputErrors.email)),
-                ]),
+                _c(
+                  "div",
+                  { staticClass: "error-message" },
+                  _vm._l(_vm.v$.email.$errors, function (error) {
+                    return _c("span", { key: error.$uid }, [
+                      _vm._v(
+                        "\n              " +
+                          _vm._s(error.$message) +
+                          "\n              "
+                      ),
+                    ])
+                  }),
+                  0
+                ),
               ]),
               _vm._v(" "),
               _c("label", [
-                _vm._v("Address:\n              "),
+                _vm._v("Address:\n            "),
                 _c("input", {
                   directives: [
                     {
@@ -39797,16 +39843,12 @@ var render = function () {
                     },
                   },
                 }),
-                _vm._v(" "),
-                _c("div", { staticClass: "error-message" }, [
-                  _vm._v(_vm._s(_vm.inputErrors.address)),
-                ]),
               ]),
             ]),
             _vm._v(" "),
             _c("div", [
               _c("label", [
-                _vm._v("Password:\n              "),
+                _vm._v("Password:\n            "),
                 _c("input", {
                   directives: [
                     {
@@ -39827,14 +39869,10 @@ var render = function () {
                     },
                   },
                 }),
-                _vm._v(" "),
-                _c("div", { staticClass: "error-message" }, [
-                  _vm._v(_vm._s(_vm.inputErrors.password)),
-                ]),
               ]),
               _vm._v(" "),
               _c("label", [
-                _vm._v("Confirm Password:\n              "),
+                _vm._v("Confirm Password:\n            "),
                 _c("input", {
                   directives: [
                     {
@@ -39859,10 +39897,6 @@ var render = function () {
                     },
                   },
                 }),
-                _vm._v(" "),
-                _c("div", { staticClass: "error-message" }, [
-                  _vm._v(_vm._s(_vm.inputErrors.confirmPassword)),
-                ]),
               ]),
             ]),
             _vm._v(" "),
@@ -39871,6 +39905,7 @@ var render = function () {
                 "button",
                 {
                   staticClass: "btn",
+                  attrs: { disabled: _vm.v$.$errors },
                   on: {
                     click: function ($event) {
                       _vm.currentStep++
@@ -39899,7 +39934,7 @@ var render = function () {
           [
             _c("div", [
               _c("label", [
-                _vm._v("Picture:\n              "),
+                _vm._v("Picture:\n            "),
                 _c("input", {
                   attrs: {
                     type: "file",
@@ -39911,7 +39946,7 @@ var render = function () {
               ]),
               _vm._v(" "),
               _c("label", [
-                _vm._v("Phone:\n              "),
+                _vm._v("Phone:\n            "),
                 _c("input", {
                   directives: [
                     {
@@ -39942,7 +39977,7 @@ var render = function () {
             _vm._v(" "),
             _c("div", [
               _c("label", [
-                _vm._v("Description:\n              "),
+                _vm._v("Description:\n            "),
                 _c("textarea", {
                   directives: [
                     {
@@ -40012,7 +40047,7 @@ var render = function () {
           [
             _c("div", [
               _c("label", [
-                _vm._v("Curriculum:\n              "),
+                _vm._v("Curriculum:\n            "),
                 _c("input", {
                   attrs: {
                     type: "file",
