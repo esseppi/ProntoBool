@@ -4004,6 +4004,24 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_9__["default"]({
     meta: {
       requiresAuth: true
     }
+  }, {
+    // /search/screens -> /search?q=screens
+    path: "/*",
+    redirect: function redirect(to) {
+      // the function receives the target route as the argument
+      // we return a redirect path/location here.
+      return {
+        path: "/"
+      };
+    } // },        {
+    //     // /search/screens -> /search?q=screens
+    //     path: "/search/:searchText",
+    //     redirect: (to) => {
+    //         // the function receives the target route as the argument
+    //         // we return a redirect path/location here.
+    //         return { path: "/search", query: { q: to.params.searchText } };
+    //     },
+
   }]
 });
 router.beforeEach(function (to, from, next) {
@@ -33679,14 +33697,14 @@ var render = function () {
         [
           _c(
             "v-card",
-            { attrs: { color: "#D6E4F4" } },
+            { staticClass: "pb-12", attrs: { color: "#D6E4F4" } },
             [
               _c(
                 "v-container",
                 [
                   _c(
                     "v-card-title",
-                    { staticClass: "black--text text-h2 mt-8" },
+                    { staticClass: "black--text text-h2 my-8" },
                     [
                       _c(
                         "p",

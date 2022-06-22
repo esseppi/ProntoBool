@@ -1,9 +1,9 @@
 <template>
   <v-row justify="start" elevetion="24" no-gutters>
     <v-col cols="12">
-      <v-card color="#D6E4F4">
+      <v-card color="#D6E4F4" class="pb-12">
         <v-container>
-          <v-card-title class="black--text text-h2 mt-8">
+          <v-card-title class="black--text text-h2 my-8">
             <p class="word-wrap brake-word overflow-wrap">
               Find local dentists <br />
               who take your insurance

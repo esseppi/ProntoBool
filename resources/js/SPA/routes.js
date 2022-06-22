@@ -72,6 +72,23 @@ const router = new Router({
                 requiresAuth: true,
             },
         },
+        {
+            // /search/screens -> /search?q=screens
+            path: "/*",
+            redirect: (to) => {
+                // the function receives the target route as the argument
+                // we return a redirect path/location here.
+                return { path: "/" };
+            },
+            // },        {
+            //     // /search/screens -> /search?q=screens
+            //     path: "/search/:searchText",
+            //     redirect: (to) => {
+            //         // the function receives the target route as the argument
+            //         // we return a redirect path/location here.
+            //         return { path: "/search", query: { q: to.params.searchText } };
+            //     },
+        },
     ],
 });
 router.beforeEach((to, from, next) => {
