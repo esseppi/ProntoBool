@@ -39,7 +39,7 @@ export default {
       items: [
         {
           title: "Home",
-          name: "/home",
+          name: "/",
           icon: "mdi-home",
         },
         {

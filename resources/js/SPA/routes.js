@@ -18,7 +18,7 @@ const router = new Router({
     base: process.env.BASE_URL,
     routes: [
         {
-            path: "/home",
+            path: "/",
             name: "home",
             component: Home,
         },
@@ -80,7 +80,7 @@ router.beforeEach((to, from, next) => {
     if (requiresGuest && localStorage.auth) {
         next("/loginSpa");
     } else if (requiresAuth && !localStorage.auth) {
-        next("/home");
+        next("/");
     } else {
         next();
     }

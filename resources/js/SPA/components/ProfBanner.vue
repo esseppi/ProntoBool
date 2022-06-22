@@ -57,6 +57,7 @@
 <script>
 export default {
   data: () => ({
+    loading4: false,
     cards: [
       {
         title: "Pre-fab homes",
@@ -69,27 +70,27 @@ export default {
         flex: 3,
       },
       {
-        title: "Best airlines",
+        title: "Best airline",
         src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
         flex: 3,
       },
       {
-        title: "Best airlines",
+        title: "Best airlin",
         src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
         flex: 3,
       },
       {
-        title: "Best airlines",
+        title: "Best airli",
         src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
         flex: 6,
       },
       {
-        title: "Best airlines",
+        title: "Best air",
         src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
         flex: 6,
       },
       {
-        title: "Best airlines",
+        title: "Bes airlines",
         src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
         flex: 12,
       },

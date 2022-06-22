@@ -10,7 +10,7 @@
                 v-bind="attrs"
                 v-on="on"
                 prepend-icon="mdi-briefcase "
-                v-model="profession"
+                v-model="form.profession"
                 :items="professions"
                 :loading="loadingProf"
                 :search-input.sync="searchProf"
@@ -32,6 +32,9 @@
     </v-col>
     <v-col cols="12" md="5">
       <v-card height="100%">
+        <div class="d-none">
+          {{ form }}
+        </div>
         <v-card-title> Seleziona la tua città </v-card-title>
         <v-card-text>
           <v-tooltip bottom>
@@ -41,7 +44,7 @@
                 v-on="on"
                 prepend-icon="mdi-city"
                 multiple
-                v-model="city"
+                v-model="form.city"
                 :items="cities"
                 :loading="loadingCity"
                 :search-input.sync="searchCity"
@@ -72,7 +75,7 @@
             :loading="dialog"
             class="white--text"
             color="purple darken-2"
-            @click="dialog = true"
+            @click="customFilter"
           >
             <v-icon>mdi-magnify</v-icon>
           </v-btn>
@@ -115,15 +118,6 @@
                 <v-icon>mdi-dots-vertical</v-icon>
               </v-btn>
             </template>
-            <v-list>
-              <v-list-item
-                v-for="(item, i) in items"
-                :key="i"
-                @click="() => {}"
-              >
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
           </v-menu>
         </v-toolbar>
         <v-card-text>
@@ -131,7 +125,7 @@
             <div>
               <v-data-table
                 :headers="headers"
-                :items="desserts"
+                :items="allProfiles"
                 item-key="name"
                 class="elevation-1"
                 :search="search"
@@ -139,11 +133,11 @@
                 <template v-slot:top>
                   <v-text-field
                     v-model="search"
-                    label="Cerca un professionista)"
+                    label="Cerca un professionista"
                     class="mx-4"
                   ></v-text-field>
                 </template>
-                <template v-slot:body.append>
+                <!-- <template v-slot:body.append>
                   <tr>
                     <td></td>
                     <td>
@@ -155,14 +149,13 @@
                     </td>
                     <td colspan="4"></td>
                   </tr>
-                </template>
+                </template> -->
               </v-data-table>
             </div>
           </v-list>
           <v-divider></v-divider>
         </v-card-text>
         <FooterApp />
-
         <div style="flex: 1 1 auto"></div>
       </v-card>
     </v-dialog>
@@ -173,14 +166,17 @@ import FooterApp from "../pages/FooterApp.vue";
 export default {
   data() {
     return {
+      form: {
+        profession: [],
+        city: [],
+      },
       // FIRST AUTOCOMPLETE DATA
-      professions: ["foo", "bar", "fizz", "buzz"],
-      profession: ["foo", "bar"],
+      professions: [],
       value: null,
       loadingProf: false,
       searchProf: null,
       //   SECOND AUTOCOMPLETE
-      cities: ["Reggio", "Roma", "Asti", "Milano"],
+      cities: [],
       city: null,
       value: null,
       loadingCity: false,
@@ -190,79 +186,9 @@ export default {
       responsePage: false,
       // RESULT DATA TABLE
       search: "",
-      calories: "",
-      desserts: [
-        {
-          name: "Frozen Yogurt",
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-        },
-        {
-          name: "Ice cream sandwich",
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-        },
-        {
-          name: "Eclair",
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-        },
-        {
-          name: "Cupcake",
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-        },
-        {
-          name: "Gingerbread",
-          calories: 356,
-          fat: 16.0,
-          carbs: 49,
-          protein: 3.9,
-        },
-        {
-          name: "Jelly bean",
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0,
-        },
-        {
-          name: "Lollipop",
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0,
-        },
-        {
-          name: "Honeycomb",
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5,
-        },
-        {
-          name: "Donut",
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9,
-        },
-        {
-          name: "KitKat",
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7,
-        },
-      ],
+      review_avg: null,
+      actions: ["show", "lead", "category"],
+      allProfiles: [],
     };
   },
   components: {
@@ -276,6 +202,7 @@ export default {
     // OPEN DIALOG
     dialog(val) {
       if (!val) return;
+
       setTimeout(
         () => ((this.dialog = false), (this.responsePage = true)),
         1500
@@ -292,18 +219,18 @@ export default {
           sortable: false,
           value: "name",
         },
-        { text: "Image", value: "fat" },
+        { text: "Image", value: "image" },
         {
           text: "Review",
-          value: "calories",
-          filter: (value) => {
-            if (!this.calories) return true;
+          value: "review_avg",
+          // filter: (value) => {
+          //   if (!this.calories) return true;
 
-            return value < parseInt(this.calories);
-          },
+          //   return value < parseInt(this.calories);
+          // },
         },
-        { text: "Actions", value: "carbs" },
-        { text: "Service", value: "protein" },
+        { text: "Profession", value: "profession" },
+        { text: "Views", value: "views" },
       ];
     },
   },
@@ -319,6 +246,55 @@ export default {
         this.loading = false;
       }, 500);
     },
+    // MAKE A RESEARCH
+    customFilter() {
+      this.dialog = true;
+      axios.post("/api/customFilter", { ...this.form }).then((res) => {
+        this.getProfInfo();
+      });
+    },
+    getProfInfo() {
+      axios.get("/api/getProfInfo").then((res) => {
+        res.data.data.forEach((element) => {
+          let avg = [];
+          let profession = [];
+          if (element.reviews) {
+            element.reviews.forEach((elemento) => {
+              avg.push(elemento.vote);
+            });
+          }
+          if (element.professions) {
+            element.professions.forEach((elemento) => {
+              profession.push(elemento.name);
+            });
+          }
+          this.allProfiles.push({
+            name: element.name,
+            image: element.pic,
+            review_avg: avg / avg.length,
+            profession: profession,
+            views: element.views,
+          });
+        });
+      });
+    },
+  },
+  created() {
+    axios
+      .all([axios.get("/api/getSearchInfo"), axios.get("/api/landingPage")])
+      .then(
+        axios.spread((firstResponse, secondResponse) => {
+          this.cities = Object.keys(firstResponse.data["placeNames"]);
+          let items = secondResponse.data["profNames"];
+          items.forEach((element) => {
+            this.professions.push(element.name);
+          });
+          // secondResponse.data["profNames"].forEach((element) => {
+          //   this.professions = element["name"];
+          // });
+        })
+      )
+      .catch((error) => console.log(error));
   },
 };
 </script>

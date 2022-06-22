@@ -2,9 +2,9 @@
   <v-app>
     <Drawer :user="user" v-if="user" />
     <HeaderApp :bool="bool" />
-    <v-content>
+    <v-main>
       <router-view></router-view>
-    </v-content>
+    </v-main>
     <FooterApp />
   </v-app>
 </template>

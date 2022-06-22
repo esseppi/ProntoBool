@@ -40,5 +40,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 // FRONTENDAPI CALLS
+
 Route::get('/getBundles', [ProfessionistApiController::class, 'getBundle']);
 Route::get('/profile/{id}', [ProfessionistApiController::class, 'getProfileInfo']);
+
+// FRONTENTD LENDING PAGE 
+Route::get('/landingPage', [GuestApiController::class, 'landingPage']);
+Route::get('/getSearchInfo', [GuestApiController::class, 'getSearchInfo']);
+Route::post('/customFilter', [GuestApiController::class, 'customFilter']);
+Route::get('/getProfInfo', [GuestApiController::class, 'getProfInfo']);
