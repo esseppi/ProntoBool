@@ -4,15 +4,21 @@
       <div class="stepper-container">
         <ul>
           <li>
-            <div class="step-circle" :class="{ active: currentStep == 1 }">1</div>
+            <div class="step-circle" :class="{ active: currentStep == 1 }">
+              1
+            </div>
           </li>
           <li class="line"></li>
           <li>
-            <div class="step-circle" :class="{ active: currentStep == 2 }">2</div>
+            <div class="step-circle" :class="{ active: currentStep == 2 }">
+              2
+            </div>
           </li>
           <li class="line"></li>
           <li>
-            <div class="step-circle" :class="{ active: currentStep == 3 }">3</div>
+            <div class="step-circle" :class="{ active: currentStep == 3 }">
+              3
+            </div>
           </li>
         </ul>
       </div>
@@ -21,21 +27,34 @@
       <div class="form-container">
         <div class="step-view" v-show="currentStep == 1">
           <div>
-            <label>Name:
-              <input id="name" v-model.trim="name" @blur="v$.name.$touch(), nextStepDisabled = false" name="name" type="text" />
+            <label
+              >Name:
+              <input
+                id="name"
+                v-model.trim="name"
+                @blur="v$.name.$touch()"
+                name="name"
+                type="text"
+              />
               <div class="error-message">
                 <span v-for="error of v$.name.$errors" :key="error.$uid">
-                {{ error.$message }}
+                  {{ error.$message }}
                 </span>
               </div>
             </label>
 
             <label
               >Surname:
-              <input id="surname" v-model="surname" @blur="v$.surname.$touch(), nextStepDisabled = false" name="surname" type="text"/>
-                            <div class="error-message">
+              <input
+                id="surname"
+                v-model="surname"
+                @blur="v$.surname.$touch()"
+                name="surname"
+                type="text"
+              />
+              <div class="error-message">
                 <span v-for="error of v$.surname.$errors" :key="error.$uid">
-                {{ error.$message }}
+                  {{ error.$message }}
                 </span>
               </div>
             </label>
@@ -43,30 +62,72 @@
           <div>
             <label
               >Email:
-              <input type="text" v-model="email" id="email" @blur="v$.email.$touch(), nextStepDisabled = false" name="email" />
-                            <div class="error-message">
+              <input
+                type="text"
+                v-model="email"
+                id="email"
+                @blur="v$.email.$touch()"
+                name="email"
+              />
+              <div class="error-message">
                 <span v-for="error of v$.email.$errors" :key="error.$uid">
-                {{ error.$message }}
+                  {{ error.$message }}
                 </span>
               </div>
             </label>
             <label
               >Address:
-              <input id="address" v-model="address" name="address" type="text"/>
+              <input
+                id="address"
+                v-model="address"
+                name="address"
+                @blur="v$.address.$touch()"
+                type="text"
+              />
+              <span v-for="error of v$.address.$errors" :key="error.$uid">
+                {{ error.$message }}
+              </span>
             </label>
           </div>
           <div>
             <label
               >Password:
-              <input id="password" v-model="password" name="password" type="password"/>
+              <input
+                id="password"
+                v-model="password"
+                name="password"
+                @blur="v$.password.$touch()"
+                type="password"
+              />
+              <span v-for="error of v$.password.$errors" :key="error.$uid">
+                {{ error.$message }}
+              </span>
             </label>
             <label
               >Confirm Password:
-              <input id="confirmPassword" v-model="confirmPassword" name="confirmPassword" type="password"/>
+              <input
+                id="confirmPassword"
+                v-model="confirmPassword"
+                @blur="v$.confirmPassword.$touch()"
+                name="confirmPassword"
+                type="password"
+              />
+              <span
+                v-for="error of v$.confirmPassword.$errors"
+                :key="error.$uid"
+              >
+                {{ error.$message }}
+              </span>
             </label>
           </div>
           <div>
-          <button class="btn" :disabled="v$.$errors" @click="currentStep++">Next step</button>
+            <button
+              class="btn"
+              :disabled="!(!v$.$error && v$.$dirty)"
+              @click="currentStep++"
+            >
+              Next step
+            </button>
           </div>
         </div>
 
@@ -128,48 +189,69 @@
 </template>
 
 <script>
-import useVuelidate from '@vuelidate/core'
-import { required, email, maxLength, minLength} from '@vuelidate/validators'
+import useVuelidate from "@vuelidate/core";
+import {
+  required,
+  email,
+  maxLength,
+  minLength,
+  sameAs,
+} from "@vuelidate/validators";
 export default {
   setup: () => ({ v$: useVuelidate() }),
   data() {
     return {
       currentStep: 1,
-        name: "",
-        surname: "",
-        email: "",
-        address: "",
-        password: "",
-        confirmPassword: "",
-        phone: "",
-        description: "",
-        pic: "",
-        curriculum: "",
-        phone: "",
-        description: "",
-        nextStepDisabled: true
+      name: "",
+      surname: "",
+      email: "",
+      address: "",
+      password: "",
+      confirmPassword: "",
+      phone: "",
+      description: "",
+      pic: "",
+      curriculum: "",
+      phone: "",
+      description: "",
     };
   },
   validations() {
     return {
       name: {
         required,
+        maxLength: maxLength(30),
       },
       surname: {
-        required
-      },
-      email:  {
         required,
-        email
-      }
-    }
+        maxLength: maxLength(30),
+      },
+      email: {
+        required,
+        email,
+        maxLength: maxLength(30),
+      },
+      address: {
+        required,
+        minLength: minLength(5),
+        maxLength: maxLength(30),
+      },
+      password: {
+        required,
+        minLength: minLength(6),
+      },
+      confirmPassword: {
+        required,
+        sameAs: sameAs(this.password),
+      },
+    };
   },
   methods: {
     signupRequest() {
       // AXIOS REQUEST
     },
   },
-}
+};
 </script>
 
 <style scoped>
