@@ -1,5 +1,7 @@
 <template>
   <v-card elevation="24" max-width="100%" class="mx-auto">
+    <v-system-bar dark></v-system-bar>
+
     <v-carousel
       :continuous="false"
       :cycle="cycle"
@@ -54,6 +56,7 @@ export default {
         "orange darken-1",
       ],
       cycle: true,
+
       slides: ["First", "Second", "Third", "Fourth", "Fifth"],
     };
   },

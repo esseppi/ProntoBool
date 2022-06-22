@@ -102,6 +102,18 @@
       hide-overlay
       transition="dialog-bottom-transition"
     >
+      <!-- NUOVA HEADER APP QUI -->
+      <v-app-bar color="blue" dark>
+        <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
+        <v-toolbar-title>Prontobool Search</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-btn icon dark @click="responsePage = false">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+      </v-app-bar>
+      <Carousel />
+
+      <!-- PAGINA RISULTATI -->
       <v-card tile>
         <v-data-iterator
           :items="items"
@@ -115,21 +127,16 @@
           <!-- TOOLBAR-->
           <template v-slot:header>
             <v-toolbar dark color="blue darken-3" class="mb-1">
-              <v-btn icon dark @click="responsePage = false">
-                <v-icon>mdi-close</v-icon>
-              </v-btn>
-
               <v-text-field
                 type="text"
                 v-model="search"
-                clearable
                 flat
                 hide-details
                 prepend-inner-icon="mdi-magnify"
                 label="Search"
               ></v-text-field>
               <v-spacer></v-spacer>
-              
+
               <template v-if="$vuetify.breakpoint.mdAndUp">
                 <v-select
                   v-model="sortBy"
@@ -154,16 +161,6 @@
           </template>
           <!-- CARD -->
           <template height="100%" v-slot:default="props">
-            <v-toolbar extended>
-              <v-app-bar-nav-icon></v-app-bar-nav-icon>
-              <v-spacer></v-spacer>
-
-              <v-toolbar-title>Title</v-toolbar-title>
-             
-
-
-              </v-btn>
-            </v-toolbar>
             <v-container>
               <v-row>
                 <!-- STAMPA COLONNA CARTA -->
@@ -176,11 +173,7 @@
                   lg="3"
                 >
                   <!-- VECCHIA CARTA -->
-                  <v-card
-                    :loading="loadingCard"
-                    class="mx-auto my-12"
-                    max-width="374"
-                  >
+                  <v-card :loading="loadingCard" class="mx-auto" height="100%">
                     <template slot="progress">
                       <v-progress-linear
                         color="deep-purple"
@@ -209,7 +202,7 @@
                         ></v-rating>
 
                         <div class="grey--text ms-4">
-                          4.5 ({{ item.count_review }})
+                          {{ item.review_avg }} ({{ item.count_review }})
                         </div>
                       </v-row>
 
@@ -217,27 +210,29 @@
                         <v-icon>mdi-city</v-icon> • {{ item.city }}
                       </div>
 
-                      <div>
-                        Small plates, salads & sandwiches - an intimate setting
-                        with 12 indoor seats plus patio seating.
-                      </div>
+                      <v-sheet class="overflow-y-auto" height="100">
+                        {{ item.description }}
+                      </v-sheet>
                     </v-card-text>
 
                     <v-divider class="mx-4"></v-divider>
+                    <v-card-title>Professione:</v-card-title>
 
-                    <v-card-title>Tonight's availability</v-card-title>
-
-                    <v-card-text>
-             
-                    </v-card-text>
-        
-
+                    <!-- BOTTOM -->
                     <v-card-actions>
-                      <v-btn
-                        color="deep-purple lighten-2"
-                        text
-                        @click="reserve"
-                      >
+                      <v-chip-group>
+                        <v-chip
+                          v-for="item in item.profession"
+                          :key="item"
+                          class="deep-purple accent-4 white--text"
+                        >
+                          {{ item }}
+                        </v-chip>
+                      </v-chip-group>
+                      <v-spacer></v-spacer>
+                    </v-card-actions>
+                    <v-card-actions>
+                      <v-btn color="deep-purple lighten-2" text>
                         Reserve
                       </v-btn>
                     </v-card-actions>
@@ -246,68 +241,58 @@
               </v-row>
             </v-container>
           </template>
-          <!-- BOTTOM -->
-          <v-card-actions>
-            <v-chip-group>
-              <v-chip
-                   v-for="(key, index) in filteredKeys"
-                   :key="index"
-                   :class="{ 'deep-purple accent-4 white--text': sortBy === key }">
-                   </v-chip>
-                    </v-chip-group>
-          </v-card-actions>
-            </v-card-actions>
-            <template v-slot:footer>
-              <v-row class="mt-2" align="center" justify="center">
-                <span class="grey--text">Items per page</span>
-                <v-menu offset-y>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn
-                      dark
-                      text
-                      color="primary"
-                      class="ml-2"
-                      v-bind="attrs"
-                      v-on="on"
-                    >
-                      {{ itemsPerPage }}
-                      <v-icon>mdi-chevron-down</v-icon>
-                    </v-btn>
-                  </template>
-                  <v-list>
-                    <v-list-item
-                      v-for="(number, index) in itemsPerPageArray"
-                      :key="index"
-                      @click="updateItemsPerPage(number)"
-                    >
-                      <v-list-item-title>{{ number }}</v-list-item-title>
-                    </v-list-item>
-                  </v-list>
-                </v-menu>
-                <v-spacer></v-spacer>
-                <span class="mr-4 grey--text">
-                  Page {{ page }} of {{ numberOfPages }}
-                </span>
-                <v-btn
-                  fab
-                  dark
-                  color="blue darken-3"
-                  class="mr-1"
-                  @click="formerPage"
-                >
-                  <v-icon>mdi-chevron-left</v-icon>
-                </v-btn>
-                <v-btn
-                  fab
-                  dark
-                  color="blue darken-3"
-                  class="ml-1"
-                  @click="nextPage"
-                >
-                  <v-icon>mdi-chevron-right</v-icon>
-                </v-btn>
-              </v-row>
-            </template>
+
+          <template v-slot:footer>
+            <v-row class="mt-2" align="center" justify="center">
+              <span class="grey--text">Items per page</span>
+              <v-menu offset-y>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    dark
+                    text
+                    color="primary"
+                    class="ml-2"
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    {{ itemsPerPage }}
+                    <v-icon>mdi-chevron-down</v-icon>
+                  </v-btn>
+                </template>
+                <v-list>
+                  <v-list-item
+                    v-for="(number, index) in itemsPerPageArray"
+                    :key="index"
+                    @click="updateItemsPerPage(number)"
+                  >
+                    <v-list-item-title>{{ number }}</v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+              <v-spacer></v-spacer>
+              <span class="mr-4 grey--text">
+                Page {{ page }} of {{ numberOfPages }}
+              </span>
+              <v-btn
+                fab
+                dark
+                color="blue darken-3"
+                class="mr-1"
+                @click="formerPage"
+              >
+                <v-icon>mdi-chevron-left</v-icon>
+              </v-btn>
+              <v-btn
+                fab
+                dark
+                color="blue darken-3"
+                class="ml-1"
+                @click="nextPage"
+              >
+                <v-icon>mdi-chevron-right</v-icon>
+              </v-btn>
+            </v-row>
+          </template>
         </v-data-iterator>
       </v-card>
     </v-dialog>
@@ -315,6 +300,8 @@
 </template>
 <script>
 import FooterApp from "../pages/FooterApp.vue";
+import Carousel from "./Carousel2.vue";
+import HeaderApp from "./HeaderApp.vue";
 export default {
   data() {
     return {
@@ -353,6 +340,8 @@ export default {
   },
   components: {
     FooterApp,
+    HeaderApp,
+    Carousel,
   },
   watch: {
     // LANDING PAGE
@@ -403,6 +392,9 @@ export default {
       axios.get("/api/getProfInfo").then((res) => {
         res.data.data.forEach((element) => {
           let avg = [];
+          const average = (array) =>
+            Number((array.reduce((a, b) => a + b) / array.length).toFixed(2));
+
           let profession = [];
           if (element.reviews) {
             element.reviews.forEach((elemento) => {
@@ -418,7 +410,8 @@ export default {
             name: element.name,
             city: element.address,
             image: element.pic,
-            review_avg: avg / avg.length,
+            review_avg: average(avg),
+            description: element.description,
             count_review: avg.length,
             profession: profession,
             views: element.views,
