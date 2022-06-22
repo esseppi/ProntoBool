@@ -103,60 +103,212 @@
       transition="dialog-bottom-transition"
     >
       <v-card tile>
-        <v-toolbar flat dark color="primary">
-          <v-btn icon dark @click="responsePage = false">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-          <v-toolbar-title>Prontobool Search</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-toolbar-items>
-            <v-btn dark text @click="dialog = false"> Save </v-btn>
-          </v-toolbar-items>
-          <v-menu bottom right offset-y>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn dark icon v-bind="attrs" v-on="on">
-                <v-icon>mdi-dots-vertical</v-icon>
+        <v-data-iterator
+          :items="items"
+          :items-per-page.sync="itemsPerPage"
+          :page.sync="page"
+          :search="search"
+          :sort-by="sortBy.toLowerCase()"
+          :sort-desc="sortDesc"
+          hide-default-footer
+        >
+          <!-- TOOLBAR-->
+          <template v-slot:header>
+            <v-toolbar dark color="blue darken-3" class="mb-1">
+              <v-btn icon dark @click="responsePage = false">
+                <v-icon>mdi-close</v-icon>
               </v-btn>
+
+              <v-text-field
+                type="text"
+                v-model="search"
+                clearable
+                flat
+                hide-details
+                prepend-inner-icon="mdi-magnify"
+                label="Search"
+              ></v-text-field>
+              <v-spacer></v-spacer>
+              
+              <template v-if="$vuetify.breakpoint.mdAndUp">
+                <v-select
+                  v-model="sortBy"
+                  flat
+                  hide-details
+                  chips
+                  :items="keys"
+                  prepend-inner-icon="mdi-magnify"
+                  label="Sort by"
+                ></v-select>
+                <v-spacer></v-spacer>
+                <v-btn-toggle v-model="sortDesc" mandatory>
+                  <v-btn large depressed color="blue" :value="false">
+                    <v-icon>mdi-arrow-up</v-icon>
+                  </v-btn>
+                  <v-btn large depressed color="blue" :value="true">
+                    <v-icon>mdi-arrow-down</v-icon>
+                  </v-btn>
+                </v-btn-toggle>
+              </template>
+            </v-toolbar>
+          </template>
+          <!-- CARD -->
+          <template height="100%" v-slot:default="props">
+            <v-toolbar extended>
+              <v-app-bar-nav-icon></v-app-bar-nav-icon>
+              <v-spacer></v-spacer>
+
+              <v-toolbar-title>Title</v-toolbar-title>
+             
+
+
+              </v-btn>
+            </v-toolbar>
+            <v-container>
+              <v-row>
+                <!-- STAMPA COLONNA CARTA -->
+                <v-col
+                  v-for="item in props.items"
+                  :key="item.name"
+                  cols="12"
+                  sm="6"
+                  md="4"
+                  lg="3"
+                >
+                  <!-- VECCHIA CARTA -->
+                  <v-card
+                    :loading="loadingCard"
+                    class="mx-auto my-12"
+                    max-width="374"
+                  >
+                    <template slot="progress">
+                      <v-progress-linear
+                        color="deep-purple"
+                        height="10"
+                        indeterminate
+                      ></v-progress-linear>
+                    </template>
+
+                    <v-img
+                      height="250"
+                      src="https://cdn.vuetifyjs.com/images/john.jpg"
+                    >
+                    </v-img>
+
+                    <v-card-title>{{ item.name }}</v-card-title>
+
+                    <v-card-text>
+                      <v-row align="center" class="mx-0">
+                        <v-rating
+                          :value="item.review_avg"
+                          color="amber"
+                          dense
+                          half-increments
+                          readonly
+                          size="14"
+                        ></v-rating>
+
+                        <div class="grey--text ms-4">
+                          4.5 ({{ item.count_review }})
+                        </div>
+                      </v-row>
+
+                      <div class="my-4 text-subtitle-1">
+                        <v-icon>mdi-city</v-icon> • {{ item.city }}
+                      </div>
+
+                      <div>
+                        Small plates, salads & sandwiches - an intimate setting
+                        with 12 indoor seats plus patio seating.
+                      </div>
+                    </v-card-text>
+
+                    <v-divider class="mx-4"></v-divider>
+
+                    <v-card-title>Tonight's availability</v-card-title>
+
+                    <v-card-text>
+             
+                    </v-card-text>
+        
+
+                    <v-card-actions>
+                      <v-btn
+                        color="deep-purple lighten-2"
+                        text
+                        @click="reserve"
+                      >
+                        Reserve
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-col>
+              </v-row>
+            </v-container>
+          </template>
+          <!-- BOTTOM -->
+          <v-card-actions>
+            <v-chip-group>
+              <v-chip
+                   v-for="(key, index) in filteredKeys"
+                   :key="index"
+                   :class="{ 'deep-purple accent-4 white--text': sortBy === key }">
+                   </v-chip>
+                    </v-chip-group>
+          </v-card-actions>
+            </v-card-actions>
+            <template v-slot:footer>
+              <v-row class="mt-2" align="center" justify="center">
+                <span class="grey--text">Items per page</span>
+                <v-menu offset-y>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                      dark
+                      text
+                      color="primary"
+                      class="ml-2"
+                      v-bind="attrs"
+                      v-on="on"
+                    >
+                      {{ itemsPerPage }}
+                      <v-icon>mdi-chevron-down</v-icon>
+                    </v-btn>
+                  </template>
+                  <v-list>
+                    <v-list-item
+                      v-for="(number, index) in itemsPerPageArray"
+                      :key="index"
+                      @click="updateItemsPerPage(number)"
+                    >
+                      <v-list-item-title>{{ number }}</v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+                <v-spacer></v-spacer>
+                <span class="mr-4 grey--text">
+                  Page {{ page }} of {{ numberOfPages }}
+                </span>
+                <v-btn
+                  fab
+                  dark
+                  color="blue darken-3"
+                  class="mr-1"
+                  @click="formerPage"
+                >
+                  <v-icon>mdi-chevron-left</v-icon>
+                </v-btn>
+                <v-btn
+                  fab
+                  dark
+                  color="blue darken-3"
+                  class="ml-1"
+                  @click="nextPage"
+                >
+                  <v-icon>mdi-chevron-right</v-icon>
+                </v-btn>
+              </v-row>
             </template>
-          </v-menu>
-        </v-toolbar>
-        <v-card-text>
-          <v-list three-line subheader>
-            <div>
-              <v-data-table
-                :headers="headers"
-                :items="allProfiles"
-                item-key="name"
-                class="elevation-1"
-                :search="search"
-              >
-                <template v-slot:top>
-                  <v-text-field
-                    v-model="search"
-                    label="Cerca un professionista"
-                    class="mx-4"
-                  ></v-text-field>
-                </template>
-                <!-- <template v-slot:body.append>
-                  <tr>
-                    <td></td>
-                    <td>
-                      <v-text-field
-                        v-model="calories"
-                        type="number"
-                        label="Less than"
-                      ></v-text-field>
-                    </td>
-                    <td colspan="4"></td>
-                  </tr>
-                </template> -->
-              </v-data-table>
-            </div>
-          </v-list>
-          <v-divider></v-divider>
-        </v-card-text>
-        <FooterApp />
-        <div style="flex: 1 1 auto"></div>
+        </v-data-iterator>
       </v-card>
     </v-dialog>
   </v-row>
@@ -185,10 +337,18 @@ export default {
       dialog: false,
       responsePage: false,
       // RESULT DATA TABLE
+      itemsPerPageArray: [12, 24, 36],
       search: "",
-      review_avg: null,
-      actions: ["show", "lead", "category"],
-      allProfiles: [],
+      filter: {},
+      sortDesc: false,
+      page: 1,
+      itemsPerPage: 20,
+      sortBy: "name",
+      keys: ["name", "city", "review_avg", "profession", "views"],
+      items: [],
+
+      // CARD
+      loadingCard: false,
     };
   },
   components: {
@@ -204,34 +364,19 @@ export default {
       if (!val) return;
 
       setTimeout(
-        () => ((this.dialog = false), (this.responsePage = true)),
-        1500
+        () => ((this.dialog = false), (this.responsePage = true))
+        // 1500
       );
     },
     // RESULT TABLE
   },
   computed: {
-    headers() {
-      return [
-        {
-          text: "Name",
-          align: "start",
-          sortable: false,
-          value: "name",
-        },
-        { text: "Image", value: "image" },
-        {
-          text: "Review",
-          value: "review_avg",
-          // filter: (value) => {
-          //   if (!this.calories) return true;
-
-          //   return value < parseInt(this.calories);
-          // },
-        },
-        { text: "Profession", value: "profession" },
-        { text: "Views", value: "views" },
-      ];
+    // RESULT
+    numberOfPages() {
+      return Math.ceil(this.items.length / this.itemsPerPage);
+    },
+    filteredKeys() {
+      return this.keys.filter((key) => key !== "Name");
     },
   },
   methods: {
@@ -246,13 +391,14 @@ export default {
         this.loading = false;
       }, 500);
     },
-    // MAKE A RESEARCH
+    // ATTIVATORE FINESTRA RICERCA E GENERATORE
     customFilter() {
       this.dialog = true;
       axios.post("/api/customFilter", { ...this.form }).then((res) => {
         this.getProfInfo();
       });
     },
+    // GENERATORE INFORMAZIONI
     getProfInfo() {
       axios.get("/api/getProfInfo").then((res) => {
         res.data.data.forEach((element) => {
@@ -268,15 +414,27 @@ export default {
               profession.push(elemento.name);
             });
           }
-          this.allProfiles.push({
+          this.items.push({
             name: element.name,
+            city: element.address,
             image: element.pic,
             review_avg: avg / avg.length,
+            count_review: avg.length,
             profession: profession,
             views: element.views,
           });
         });
       });
+    },
+    // RESULT SETTINGS
+    nextPage() {
+      if (this.page + 1 <= this.numberOfPages) this.page += 1;
+    },
+    formerPage() {
+      if (this.page - 1 >= 1) this.page -= 1;
+    },
+    updateItemsPerPage(number) {
+      this.itemsPerPage = number;
     },
   },
   created() {

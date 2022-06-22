@@ -1,87 +1,5 @@
 <template>
   <v-row dark no-gutters>
-    <v-col cols="12" md="5">
-      <v-card height="100%">
-        <v-card-title>Cerca un professionista</v-card-title>
-        <v-card-text>
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-autocomplete
-                v-bind="attrs"
-                v-on="on"
-                prepend-icon="mdi-briefcase "
-                v-model="form.profession"
-                :items="professions"
-                :loading="loadingProf"
-                :search-input.sync="searchProf"
-                multiple
-                cache-items
-                class="mx-4"
-                flat
-                hide-no-data
-                hide-details
-                label="What state are you from?"
-                solo-inverted
-              />
-            </template>
-            <span>Seleziona fino a 5 professioni</span>
-          </v-tooltip>
-        </v-card-text>
-        <v-card-actions></v-card-actions>
-      </v-card>
-    </v-col>
-    <v-col cols="12" md="5">
-      <v-card height="100%">
-        <div class="d-none">
-          {{ form }}
-        </div>
-        <v-card-title> Seleziona la tua città </v-card-title>
-        <v-card-text>
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-autocomplete
-                v-bind="attrs"
-                v-on="on"
-                prepend-icon="mdi-city"
-                multiple
-                v-model="form.city"
-                :items="cities"
-                :loading="loadingCity"
-                :search-input.sync="searchCity"
-                cache-items
-                class="mx-4"
-                flat
-                hide-no-data
-                hide-details
-                label="What state are you from?"
-                solo-inverted
-              />
-            </template>
-            <span>Seleziona fino a 5 città contemporaneamente</span>
-          </v-tooltip>
-        </v-card-text>
-      </v-card>
-    </v-col>
-    <v-col cols="12" md="1">
-      <v-card
-        class="yellow d-flex flex-col justify-center align-center"
-        height="100%"
-      >
-        <div class="text-center">
-          <v-btn
-            icon
-            large
-            :disabled="dialog"
-            :loading="dialog"
-            class="white--text"
-            color="purple darken-2"
-            @click="customFilter"
-          >
-            <v-icon>mdi-magnify</v-icon>
-          </v-btn>
-        </div>
-      </v-card>
-    </v-col>
     <!-- RESPONSE LOADER ACTIVATOR -->
     <v-dialog v-model="dialog" hide-overlay persistent width="300">
       <v-card color="primary" dark>
@@ -103,155 +21,60 @@
       transition="dialog-bottom-transition"
     >
       <v-card tile>
-        <v-data-iterator
-          :items="items"
-          :items-per-page.sync="itemsPerPage"
-          :page.sync="page"
-          :search="search"
-          :sort-by="sortBy.toLowerCase()"
-          :sort-desc="sortDesc"
-          hide-default-footer
-        >
-          <!-- BOTTONI DI CAMBIO PAGINA -->
-
-          <template v-slot:footer>
-            <v-row class="mt-2" align="center" justify="center">
-              <span class="grey--text">Items per page</span>
-              <v-menu offset-y>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    dark
-                    text
-                    color="primary"
-                    class="ml-2"
-                    v-bind="attrs"
-                    v-on="on"
-                  >
-                    {{ itemsPerPage }}
-                    <v-icon>mdi-chevron-down</v-icon>
-                  </v-btn>
+        <v-toolbar flat dark color="primary">
+          <v-btn icon dark @click="responsePage = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <v-toolbar-title>Prontobool Search</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-toolbar-items>
+            <v-btn dark text @click="dialog = false"> Save </v-btn>
+          </v-toolbar-items>
+          <v-menu bottom right offset-y>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn dark icon v-bind="attrs" v-on="on">
+                <v-icon>mdi-dots-vertical</v-icon>
+              </v-btn>
+            </template>
+          </v-menu>
+        </v-toolbar>
+        <v-card-text>
+          <v-list three-line subheader>
+            <div>
+              <v-data-table
+                :headers="headers"
+                :items="allProfiles"
+                item-key="name"
+                class="elevation-1"
+                :search="search"
+              >
+                <template v-slot:top>
+                  <v-text-field
+                    v-model="search"
+                    label="Cerca un professionista"
+                    class="mx-4"
+                  ></v-text-field>
                 </template>
-                <v-list>
-                  <v-list-item
-                    v-for="(number, index) in itemsPerPageArray"
-                    :key="index"
-                    @click="updateItemsPerPage(number)"
-                  >
-                    <v-list-item-title>{{ number }}</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
-
-              <v-spacer></v-spacer>
-
-              <span class="mr-4 grey--text">
-                Page {{ page }} of {{ numberOfPages }}
-              </span>
-              <v-btn
-                fab
-                dark
-                color="blue darken-3"
-                class="mr-1"
-                @click="formerPage"
-              >
-                <v-icon>mdi-chevron-left</v-icon>
-              </v-btn>
-              <v-btn
-                fab
-                dark
-                color="blue darken-3"
-                class="ml-1"
-                @click="nextPage"
-              >
-                <v-icon>mdi-chevron-right</v-icon>
-              </v-btn>
-            </v-row>
-          </template>
-          <!-- item -->
-          <template v-slot:default="props">
-            <v-container>
-              <v-row>
-                <!-- STAMPA COLONNA CARTA -->
-                <v-col
-                  v-for="item in props.items"
-                  :key="item.name"
-                  cols="12"
-                  sm="6"
-                  md="4"
-                  lg="3"
-                >
-                  <v-card height="100%">
-                    <!-- STAMPA CARTA -->
-                    <v-card-title class="subheading font-weight-bold">
-                      {{ item.name }}
-                    </v-card-title>
-
-                    <v-divider></v-divider>
-
-                    <v-list dense>
-                      <v-list-item
-                        v-for="(key, index) in filteredKeys"
-                        :key="index"
-                      >
-                        <v-list-item-content
-                          :class="{ 'blue--text': sortBy === key }"
-                        >
-                          {{ key }}:
-                        </v-list-item-content>
-                        <v-list-item-content
-                          class="align-end"
-                          :class="{ 'blue--text': sortBy === key }"
-                        >
-                          {{ item[key.toLowerCase()] }}
-                        </v-list-item-content>
-                      </v-list-item>
-                    </v-list>
-                  </v-card>
-                </v-col>
-              </v-row>
-            </v-container>
-          </template>
-
-          <!-- SEARCH SORTBY ICON-UP ICON-DOWN TOOLBAR-->
-          <template v-slot:header>
-            <v-toolbar dark color="blue darken-3" class="mb-1">
-              <v-btn icon dark @click="responsePage = false">
-                <v-icon>mdi-close</v-icon>
-              </v-btn>
-
-              <v-text-field
-                type="text"
-                v-model="search"
-                clearable
-                flat
-                hide-details
-                prepend-inner-icon="mdi-magnify"
-                label="Search"
-              ></v-text-field>
-              <v-spacer></v-spacer>
-              <template v-if="$vuetify.breakpoint.mdAndUp">
-                <v-select
-                  v-model="sortBy"
-                  class="width=50px"
-                  flat
-                  hide-details
-                  :items="keys"
-                  prepend-inner-icon="mdi-magnify"
-                  label="Sort by"
-                ></v-select>
-                <v-spacer></v-spacer>
-                <v-btn-toggle v-model="sortDesc" mandatory>
-                  <v-btn large depressed color="blue" :value="false">
-                    <v-icon>mdi-arrow-up</v-icon>
-                  </v-btn>
-                  <v-btn large depressed color="blue" :value="true">
-                    <v-icon>mdi-arrow-down</v-icon>
-                  </v-btn>
-                </v-btn-toggle>
-              </template>
-            </v-toolbar>
-          </template>
-        </v-data-iterator>
+                <!-- <template v-slot:body.append>
+                  <tr>
+                    <td></td>
+                    <td>
+                      <v-text-field
+                        v-model="calories"
+                        type="number"
+                        label="Less than"
+                      ></v-text-field>
+                    </td>
+                    <td colspan="4"></td>
+                  </tr>
+                </template> -->
+              </v-data-table>
+            </div>
+          </v-list>
+          <v-divider></v-divider>
+        </v-card-text>
+        <FooterApp />
+        <div style="flex: 1 1 auto"></div>
       </v-card>
     </v-dialog>
   </v-row>
@@ -265,30 +88,15 @@ export default {
         profession: [],
         city: [],
       },
-      // FIRST AUTOCOMPLETE DATA
-      professions: [],
-      value: null,
-      loadingProf: false,
-      searchProf: null,
-      //   SECOND AUTOCOMPLETE
-      cities: [],
-      city: null,
-      value: null,
-      loadingCity: false,
-      searchCity: null,
+
       // RESPONSE
       dialog: false,
       responsePage: false,
       // RESULT DATA TABLE
-      itemsPerPageArray: [12, 24, 36],
       search: "",
-      filter: {},
-      sortDesc: false,
-      page: 1,
-      itemsPerPage: 20,
-      sortBy: "name",
-      keys: ["name", "city", "review_avg", "profession", "views"],
-      items: [],
+      review_avg: null,
+      actions: ["show", "lead", "category"],
+      allProfiles: [],
     };
   },
   components: {
@@ -304,19 +112,34 @@ export default {
       if (!val) return;
 
       setTimeout(
-        () => ((this.dialog = false), (this.responsePage = true))
-        // 1500
+        () => ((this.dialog = false), (this.responsePage = true)),
+        1500
       );
     },
     // RESULT TABLE
   },
   computed: {
-    // RESULT
-    numberOfPages() {
-      return Math.ceil(this.items.length / this.itemsPerPage);
-    },
-    filteredKeys() {
-      return this.keys.filter((key) => key !== "Name");
+    headers() {
+      return [
+        {
+          text: "Name",
+          align: "start",
+          sortable: false,
+          value: "name",
+        },
+        { text: "Image", value: "image" },
+        {
+          text: "Review",
+          value: "review_avg",
+          // filter: (value) => {
+          //   if (!this.calories) return true;
+
+          //   return value < parseInt(this.calories);
+          // },
+        },
+        { text: "Profession", value: "profession" },
+        { text: "Views", value: "views" },
+      ];
     },
   },
   methods: {
@@ -331,14 +154,13 @@ export default {
         this.loading = false;
       }, 500);
     },
-    // ATTIVATORE FINESTRA RICERCA E GENERATORE
+    // MAKE A RESEARCH
     customFilter() {
       this.dialog = true;
       axios.post("/api/customFilter", { ...this.form }).then((res) => {
         this.getProfInfo();
       });
     },
-    // GENERATORE INFORMAZIONI
     getProfInfo() {
       axios.get("/api/getProfInfo").then((res) => {
         res.data.data.forEach((element) => {
@@ -354,9 +176,8 @@ export default {
               profession.push(elemento.name);
             });
           }
-          this.items.push({
+          this.allProfiles.push({
             name: element.name,
-            city: element.address,
             image: element.pic,
             review_avg: avg / avg.length,
             profession: profession,
@@ -364,16 +185,6 @@ export default {
           });
         });
       });
-    },
-    // RESULT SETTINGS
-    nextPage() {
-      if (this.page + 1 <= this.numberOfPages) this.page += 1;
-    },
-    formerPage() {
-      if (this.page - 1 >= 1) this.page -= 1;
-    },
-    updateItemsPerPage(number) {
-      this.itemsPerPage = number;
     },
   },
   created() {
