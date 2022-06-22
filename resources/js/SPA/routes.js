@@ -8,6 +8,8 @@ import Home from "./pages/Home.vue";
 import Cart from "./pages/checkout/cart.vue";
 import Bundles from "./pages/professionist/Bundles.vue";
 import Router from "vue-router";
+import DoctorDetails from "./pages/DoctorDetails.vue";
+import SignUp from "./pages/SignUp.vue";
 
 Vue.use(Router);
 let check = true;
@@ -36,7 +38,12 @@ const router = new Router({
             },
         },
         {
-            path: "/registerSpa",
+            path: "/signup",
+            name: "signup",
+            component: SignUp,
+        },
+        {
+            path: "/register2",
             name: "register",
             component: Register,
             meta: {

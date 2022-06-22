@@ -68,7 +68,7 @@ class ServiceController extends Controller
         $request->validate($this->getValidators());
 
         $service = Service::create($data + ['profile_id' => Auth::user()->id]);
-        return view ('dashboard.service.show', compact('service'));
+        return view ('professionist.service.show', compact('service'));
     }
 
     /**

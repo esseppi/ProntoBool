@@ -20,27 +20,66 @@
                     </div>
                 </div>
                 <ul class="ul-info">
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Curriculum</a></li>
+                    <li><a href="#">Services</a></li>
                     <li><a href="#">Reviews</a></li>
-                    <li><a href="#">sponsorship</a></li>
-                    <li><a href="#">Messages </a> </li>
-                    <li><a href="#">Edit profile</a></li>
+                    <li><a href="#">Location</a></li>
                 </ul>
             </section>
 
-            <!-- ABOUT  -->
+            <!-- ABOUT -->
             <section class="about">
                 <h2>About {{ profileData.name }}</h2>
                 <p>{{ profileData.description }}</p>
             </section>
 
-            <!-- CURRICULUM 
+            <!-- CURRICULUM -->
             <section class="curriculum">
-                <div class=""></div>
                 <h2>Curriculum Vitae</h2>
+                <div class="card"></div>
             </section>
-            -->
 
-            <!-- MAP 
+            <!-- REVIEWS -->
+            <section>
+            <h2>{{ profileReviews.length }} Reviews</h2>
+                <div class="banner">
+                <div class="icon-container"> <v-icon class="icon">mdi-information-outline</v-icon> </div>
+                <p>Your trust is our top concern, so providers can't pay to alter or remove reviews. We also don't publish reviews that contain any private information.</p>
+                </div>
+                <div class="reviews-top-container">
+                    <div class="">
+                        <h4>Overall rating</h4>
+                        <div class="vote">{{ profileData.vote }}</div>
+                    </div>
+                    <div class="">
+                        <button class="btn">Write a review</button>
+                    </div>
+                </div>
+                <div class="reviews-bottom-container">
+                    <div v-for="(item, index) in profileReviews.slice(0, reviewsShowed)" :key="index" class="review">
+                        <div class="star">
+                            <ul>
+                                <li v-for="ind in Math.floor(item.vote)" :key="'star-'+index+'-'+ind">
+                                    <v-icon class="star-color">mdi-star</v-icon>
+                                </li>
+                                <li v-for="ind in 5 - Math.floor(item.vote)" :key="'star-void-'+index+'-'+ind">
+                                    <v-icon class="star-color">mdi-star-outline</v-icon>
+                                </li>
+                            </ul>
+                        </div>
+                        <p>{{ item.message }}</p>
+                        <div class="reviews-info">
+                            <span>{{ item.name }}</span> • 
+                            <span>{{ item.date }}</span>
+                        </div>
+                    </div>
+                    <button @click="reviewsShowed+=5" v-if="reviewsShowed <= profileReviews.length" class="btn outlined">See more</button>
+                </div>
+            </section>
+        </div>
+
+        <!-- MAP 
             <section>
                 <h2>Office location</h2>
                 <div class="map-flex">
@@ -60,75 +99,36 @@
             </section>
             -->
 
-            <!-- REVIEWS -->
-            <section>
-            <h2>Reviews</h2>
-                <div class="banner">
-                <div class="icon-container"> <v-icon class="icon">mdi-information-outline</v-icon> </div>
-                <p>Your trust is our top concern, so providers can't pay to alter or remove reviews. We also don't publish reviews that contain any private information.</p>
-                </div>
-                <div class="reviews-top-container">
-                        <h4>Overall rating</h4>
-                        <div class="vote">{{ profileData.vote }}</div>
-                </div>
-                <div class="reviews-bottom-container">
-                    <div class="filter-bar">
-                        <span>{{ profileReviews.length }} Reviews</span>
-                    </div>
-                    <div v-for="(item, index) in profileReviews.slice(0, reviewsShowed)" :key="index" class="review">
-                        <div class="star">
-                            <ul>
-                                <li v-for="ind in Math.floor(item.vote)" :key="'star-'+index+'-'+ind">
-                                    <v-icon class="star-color">mdi-star</v-icon>
-                                </li>
-                            </ul>
-                        </div>
-                        <p>{{ item.message }}</p>
-                        <div class="reviews-info">
-                            <span>{{ item.name }}</span> 
-                            <span>{{ item.date }}</span>
-                        </div>
-                    </div>
-                    <button @click="reviewsShowed+=5" v-if="reviewsShowed <= profileReviews.length" class="btn outlined">See more</button>
-                </div>
-            </section>
-        </div>
-        
-      <div class="group-rigt" >
         <!-- SECTION BOX MESSAGE -->
         <section class="message-box">
-            <h2>Last messages recived</h2>
-            <div>
-              <span>oggetto messagio</span>
-            </div>
-            <div>
-              <span>nome e cognome</span>
-            </div>
-            <div class="last">
-              <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quam molestiae excepturi eos. Amet mollitia praesentium velit blanditiis ipsa qui, reprehenderit quidem eius eaque harum exercitationem illo magni quasi quaerat unde.</span>
-            </div> 
-            <div class="text-center" >
-              <a class="btn" href="#"> messages list </a> <a class="btn" href="#"> show message </a>
-            </div>
-             
-        </section>
+            <h2>Book an appointment for free</h2>
+            <form>
+                <label>Name:
+                <input id="name" name="name" type="text" />
+                </label> 
+                
+                <label >Email:
+                <input id="email" name="email" type="text" />
+                </label> 
+                
+                <label>Phone:
+                <input id="name" name="phone" type="text" />
+                </label> 
+                
+                <label>Message:
+                <textarea id="name" name="name"></textarea>
+                </label> 
 
-        <!--sponsor-->
-        <section class="message-box margin-top">
-            <h2>your sponsorship</h2>
-            <!-- TODO: aggiungere un v-if per distinguere chi ha gia una sponsorizzazione attiva e chi no -->
-            <p>date start</p>
-            <p>date end</p>
-            <a href="#">buy now</a>
+                <input class="btn" type="submit" value="Send message">
+            </form>
         </section>
-      </div>  
     </div>
 </v-main>
 </template>
 
 <script>
 export default {
-  name: "mydashboard",
+  name: "Home",
   data(){
     return {
         profileData: {
@@ -227,7 +227,6 @@ export default {
     .inner{
         width: 90%;
         margin: 0 auto;
-        padding: 40px 0 40px 0;
         display: flex;
         gap: 70px;
         color: #00234B;
@@ -240,15 +239,11 @@ export default {
     }
 
     section{
-        padding: 30px 0;
-    }
-
-    .group-right{
-      width: 40%;
+        padding: 0 0 30px 0;
     }
 
     .message-box{
-        width: 100%;
+        width: 40%;
         background-color: #F7F8F9;
         border:  1px solid #E1E1E4;
         padding: 20px;
@@ -286,6 +281,18 @@ export default {
         flex-shrink: 0;
     }
 
+    .card {
+ width: 190px;
+ height: 254px;
+ background: rgb(255, 255, 255);
+ border-radius: 0.4em;
+ transition: border 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+ border: #E1E1E4 0.2em solid;
+}
+
+.card:hover {
+ border: #00234B 0.2em solid;
+}
     .data-flex{
         display: flex;
         align-items: center;
@@ -339,14 +346,12 @@ export default {
     }
 
     .btn{
-        display: inline-block;
         width: 100%;
         padding-top: 10px;
         padding-bottom: 10px;
         font-size: 1.3rem;
         color:#00234B;
         background-color: #FDE721 ;
-        border:1px solid #00234B;
     }
 
     .btn.outlined{
@@ -357,7 +362,6 @@ export default {
     .btn:hover{
         color: white;
         background-color:#00234B;
-        border:1px solid #FDE721;
     }
 
     .btn.outlined:hover{
@@ -398,8 +402,21 @@ export default {
     }
     
     .reviews-top-container{
-        text-align: center;
+        display: flex;
         width: 100%;
+    }
+
+    .reviews-top-container div{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 50%;
+        padding: 0 30px;
+    }
+
+    .reviews-top-container div:first-child{
+        border-right: 1px solid #E1E1E4;
     }
 
     .vote{
@@ -436,14 +453,7 @@ export default {
         display: flex;
         flex-direction: column;
         gap: 35px;
-    }
- 
-    .reviews-bottom-container .filter-bar{
-        display: flex;
-        justify-content: start;
-        padding: 10px 0;
-        font-size: 1.3rem;
-        font-weight: 600;
+        padding-top: 20px;
     }
 
     .review{
@@ -473,20 +483,6 @@ export default {
         color: #FF6372;
     }
 
-    .margin-top{
-      margin-top: 1rem;
-    }
-
-    .last{
-      background-color:white;
-      border: 1px solid black;
-      margin: 1rem;
-    }
-
-    .text-center{
-      text-align: center;
-    }
-
     @media screen and (max-width: 950px){
         .inner{
             width: 100%;
@@ -504,6 +500,7 @@ export default {
 
         .prof-flex{
             flex-direction: column;
+            align-content: center;
         }
 
         .profile-image{
@@ -514,13 +511,20 @@ export default {
         .ul-info{
             overflow-x: scroll;
             overflow-y: hidden;
-            text-align: center;
         }
 
         .data-flex{
             flex-direction: column;
             text-align: center;
             align-content: center;
+        }
+
+        .profile-info{
+            margin-left: 0px;
+        } 
+
+        .btn{
+            font-size: 1.3rem;
         }
     }
 </style>
