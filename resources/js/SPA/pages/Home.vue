@@ -1,11 +1,11 @@
 <template>
   <v-sheet>
     <HeroApp />
-    <GroupBanner />
+    <Carousel />
     <ProfBanner />
     <LandingInfo />
     <RoadTime />
-    <Carousel />
+    <GroupBanner />
   </v-sheet>
 </template>
 

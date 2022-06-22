@@ -14,7 +14,6 @@ import Reviews from "./pages/professionist/Reviews.vue";
 import Messages from "./pages/professionist/Messages.vue";
 
 
-
 Vue.use(Router);
 let check = true;
 
@@ -24,7 +23,7 @@ const router = new Router({
     base: process.env.BASE_URL,
     routes: [
         {
-            path: "/home",
+            path: "/",
             name: "home",
             component: Home,
         },
@@ -94,9 +93,21 @@ const router = new Router({
             },
         },
         {
-            path: "/doc",
-            name: "doctorDetails",
-            component: DoctorDetails,
+            // /search/screens -> /search?q=screens
+            path: "/*",
+            redirect: (to) => {
+                // the function receives the target route as the argument
+                // we return a redirect path/location here.
+                return { path: "/" };
+            },
+            // },        {
+            //     // /search/screens -> /search?q=screens
+            //     path: "/search/:searchText",
+            //     redirect: (to) => {
+            //         // the function receives the target route as the argument
+            //         // we return a redirect path/location here.
+            //         return { path: "/search", query: { q: to.params.searchText } };
+            //     },
         },
     ],
 });
@@ -106,7 +117,7 @@ router.beforeEach((to, from, next) => {
     if (requiresGuest && localStorage.auth) {
         next("/loginSpa");
     } else if (requiresAuth && !localStorage.auth) {
-        next("/home");
+        next("/");
     } else {
         next();
     }

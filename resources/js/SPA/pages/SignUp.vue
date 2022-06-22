@@ -124,7 +124,7 @@
 </template>
 
 <script>
-import useValidate from '@vuelidate/core'
+import useVuelidate from '@vuelidate/core'
 import { required, email, maxLength, minLength} from '@vuelidate/validators'
 export default {
   setup: () => ({ v$: useVuelidate() }),

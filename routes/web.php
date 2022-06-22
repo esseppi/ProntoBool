@@ -22,9 +22,9 @@ use App\Http\Controllers\Professionist\Sponsorship\SponsorshipController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
 

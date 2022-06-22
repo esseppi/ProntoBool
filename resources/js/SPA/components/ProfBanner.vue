@@ -2,7 +2,12 @@
   <v-card>
     <v-container>
       <v-row>
-        <v-col v-for="card in cards" :key="card.title" :cols="card.flex">
+        <v-col
+          v-for="card in cards"
+          :key="card.title"
+          :md="card.flex"
+          cols="12"
+        >
           <v-card>
             <v-img
               :src="card.src"
@@ -14,18 +19,33 @@
             </v-img>
 
             <v-card-actions>
-              <v-spacer></v-spacer>
-
-              <v-btn icon>
+              <v-btn v-if="card.flex == 3" icon>
                 <v-icon>mdi-heart</v-icon>
               </v-btn>
 
-              <v-btn icon>
-                <v-icon>mdi-bookmark</v-icon>
+              <v-spacer></v-spacer>
+              <v-btn v-if="card.flex == 3" icon>
+                <v-icon>mdi-eye</v-icon>
               </v-btn>
+              <v-btn
+                v-else
+                class="ma-2"
+                :loading="loading4"
+                :disabled="loading4"
+                color="info"
+                @click="loader = 'loading4'"
+              >
+                Visita questa sezione
+                <template v-slot:loader>
+                  <span class="custom-loader">
+                    <v-icon light>mdi-cached</v-icon>
+                  </span>
+                </template>
+              </v-btn>
+              <v-spacer></v-spacer>
 
-              <v-btn icon>
-                <v-icon>mdi-share-variant</v-icon>
+              <v-btn v-if="card.flex == 3" icon>
+                <v-icon>mdi-message</v-icon>
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -37,6 +57,7 @@
 <script>
 export default {
   data: () => ({
+    loading4: false,
     cards: [
       {
         title: "Pre-fab homes",
@@ -49,17 +70,27 @@ export default {
         flex: 3,
       },
       {
-        title: "Best airlines",
+        title: "Best airline",
         src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
         flex: 3,
       },
       {
-        title: "Best airlines",
+        title: "Best airlin",
         src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
         flex: 3,
       },
       {
-        title: "Best airlines",
+        title: "Best airli",
+        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
+        flex: 6,
+      },
+      {
+        title: "Best air",
+        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
+        flex: 6,
+      },
+      {
+        title: "Bes airlines",
         src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
         flex: 12,
       },

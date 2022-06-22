@@ -18,6 +18,7 @@ class ProfileSeeder extends Seeder
     public function run(Faker $faker)
     {
         $profNumb = User::whereRaw('1 = 1')->count();
+        $city = ['Reggio', 'Roma', 'Asti', 'Milano'];
         for ($i = 5; $i < $profNumb; $i++) {
             Profile::create([
                 'id' => $i,
@@ -25,7 +26,7 @@ class ProfileSeeder extends Seeder
                 'user_id' => $i,
                 'curriculum' => $faker->url(),
                 'description' => $faker->text(),
-                'address' => $faker->address(),
+                'address' => $city[rand(0, 3)],
                 'phone' => $faker->phoneNumber(),
                 'views' => $faker->numberBetween(0, 1000),
             ]);

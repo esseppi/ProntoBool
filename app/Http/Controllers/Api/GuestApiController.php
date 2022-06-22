@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\Professionist\Profile;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Professionist\Profile;
+use PhpParser\Node\Expr\Cast\Object_;
+use App\Models\Professionist\Profession;
+use App\Models\Professionist\Review;
 
 class GuestApiController extends Controller
 {
@@ -24,13 +29,61 @@ class GuestApiController extends Controller
             ]
         ]);
     }
-    public function authcheck(Request $request)
+    public function getSearchInfo(Request $request)
     {
-        $data = Auth::user();
+
+        $profNames = Profession::all('name');
+        $profGroupByCity = Profile::all()
+            ->groupBy('address');
 
         return response()->json([
-            'status'    => true,
-            'response'  => $data
+            'profNames'  => $profNames,
+            'placeNames'  => $profGroupByCity
+
+        ]);
+    }
+
+    public function getSearchResult(Request $request)
+    {
+
+        $profNames = Profession::all('name');
+        $profGroupByCity = Profile::all()
+            ->groupBy('address');
+
+        return response()->json([
+            'profNames'  => $profNames,
+            'placeNames'  => $profGroupByCity
+
+        ]);
+    }
+    public function customFilter(Request $request)
+    {
+        return response()->json([
+            $request->all()
+        ]);
+    }
+    public function getProfInfo(Request $request)
+    {
+
+        $users = Profile::with('professions', 'reviews')->join('users', 'profiles.id', '=', 'users.id')
+            ->get();
+        return response()->json([
+            // 'data2' => $checkIfHasProfile,
+            'data' => $users
+        ]);
+    }
+
+    public function landingPage(Request $request)
+    {
+
+        $profNames = Profession::all('name');
+        $profGroupByCity = Profile::all()
+            ->groupBy('address');
+
+        return response()->json([
+            'profNames'  => $profNames,
+            'placeNames'  => $profGroupByCity
+
         ]);
     }
 

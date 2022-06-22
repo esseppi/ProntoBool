@@ -10,7 +10,7 @@
   >
     <v-container fluid>
       <v-row align="center">
-        <v-app-bar-nav-icon v-if="!bool"></v-app-bar-nav-icon>
+        <!-- <v-app-bar-nav-icon v-if="!bool"></v-app-bar-nav-icon> -->
 
         <v-toolbar-title>ProntoBool</v-toolbar-title>
 

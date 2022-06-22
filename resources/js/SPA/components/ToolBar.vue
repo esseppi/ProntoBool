@@ -10,7 +10,7 @@
                 v-bind="attrs"
                 v-on="on"
                 prepend-icon="mdi-briefcase "
-                v-model="profession"
+                v-model="form.profession"
                 :items="professions"
                 :loading="loadingProf"
                 :search-input.sync="searchProf"
@@ -32,6 +32,9 @@
     </v-col>
     <v-col cols="12" md="5">
       <v-card height="100%">
+        <div class="d-none">
+          {{ form }}
+        </div>
         <v-card-title> Seleziona la tua città </v-card-title>
         <v-card-text>
           <v-tooltip bottom>
@@ -41,7 +44,7 @@
                 v-on="on"
                 prepend-icon="mdi-city"
                 multiple
-                v-model="city"
+                v-model="form.city"
                 :items="cities"
                 :loading="loadingCity"
                 :search-input.sync="searchCity"
@@ -72,7 +75,7 @@
             :loading="dialog"
             class="white--text"
             color="purple darken-2"
-            @click="dialog = true"
+            @click="customFilter"
           >
             <v-icon>mdi-magnify</v-icon>
           </v-btn>
@@ -98,126 +101,221 @@
       fullscreen
       hide-overlay
       transition="dialog-bottom-transition"
-      scrollable
     >
-      <v-card tile>
-        <v-toolbar flat dark color="primary">
-          <v-btn icon dark @click="responsePage = false">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-          <v-toolbar-title>Settings</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-toolbar-items>
-            <v-btn dark text @click="dialog = false"> Save </v-btn>
-          </v-toolbar-items>
-          <v-menu bottom right offset-y>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn dark icon v-bind="attrs" v-on="on">
-                <v-icon>mdi-dots-vertical</v-icon>
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item
-                v-for="(item, i) in items"
-                :key="i"
-                @click="() => {}"
-              >
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-        </v-toolbar>
-        <v-card-text>
-          <v-btn color="primary" dark class="ma-2" @click="dialog2 = !dialog2">
-            Open Dialog 2
-          </v-btn>
-          <v-tooltip right>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn class="ma-2" v-bind="attrs" v-on="on">
-                Tool Tip Activator
-              </v-btn>
-            </template>
-            Tool Tip
-          </v-tooltip>
-          <v-list three-line subheader>
-            <v-subheader>User Controls</v-subheader>
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title>Content filtering</v-list-item-title>
-                <v-list-item-subtitle
-                  >Set the content filtering level to restrict apps that can be
-                  downloaded</v-list-item-subtitle
-                >
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title>Password</v-list-item-title>
-                <v-list-item-subtitle
-                  >Require password for purchase or use password to restrict
-                  purchase</v-list-item-subtitle
-                >
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-          <v-divider></v-divider>
-          <v-list three-line subheader>
-            <v-subheader>General</v-subheader>
-            <v-list-item>
-              <v-list-item-action>
-                <v-checkbox v-model="notifications"></v-checkbox>
-              </v-list-item-action>
-              <v-list-item-content>
-                <v-list-item-title>Notifications</v-list-item-title>
-                <v-list-item-subtitle
-                  >Notify me about updates to apps or games that I
-                  downloaded</v-list-item-subtitle
-                >
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-action>
-                <v-checkbox v-model="sound"></v-checkbox>
-              </v-list-item-action>
-              <v-list-item-content>
-                <v-list-item-title>Sound</v-list-item-title>
-                <v-list-item-subtitle
-                  >Auto-update apps at any time. Data charges may
-                  apply</v-list-item-subtitle
-                >
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-action>
-                <v-checkbox v-model="widgets"></v-checkbox>
-              </v-list-item-action>
-              <v-list-item-content>
-                <v-list-item-title>Auto-add widgets</v-list-item-title>
-                <v-list-item-subtitle
-                  >Automatically add home screen widgets</v-list-item-subtitle
-                >
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-        </v-card-text>
+      <!-- NUOVA HEADER APP QUI -->
+      <v-app-bar color="blue" dark>
+        <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
+        <v-toolbar-title>Prontobool Search</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-btn icon dark @click="responsePage = false">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+      </v-app-bar>
+      <Carousel />
 
-        <div style="flex: 1 1 auto"></div>
+      <!-- PAGINA RISULTATI -->
+      <v-card tile>
+        <v-data-iterator
+          :items="items"
+          :items-per-page.sync="itemsPerPage"
+          :page.sync="page"
+          :search="search"
+          :sort-by="sortBy.toLowerCase()"
+          :sort-desc="sortDesc"
+          hide-default-footer
+        >
+          <!-- TOOLBAR-->
+          <template v-slot:header>
+            <v-toolbar dark color="blue darken-3" class="mb-1">
+              <v-text-field
+                type="text"
+                v-model="search"
+                flat
+                hide-details
+                prepend-inner-icon="mdi-magnify"
+                label="Search"
+              ></v-text-field>
+              <v-spacer></v-spacer>
+
+              <template v-if="$vuetify.breakpoint.mdAndUp">
+                <v-select
+                  v-model="sortBy"
+                  flat
+                  hide-details
+                  chips
+                  :items="keys"
+                  prepend-inner-icon="mdi-magnify"
+                  label="Sort by"
+                ></v-select>
+                <v-spacer></v-spacer>
+                <v-btn-toggle v-model="sortDesc" mandatory>
+                  <v-btn large depressed color="blue" :value="false">
+                    <v-icon>mdi-arrow-up</v-icon>
+                  </v-btn>
+                  <v-btn large depressed color="blue" :value="true">
+                    <v-icon>mdi-arrow-down</v-icon>
+                  </v-btn>
+                </v-btn-toggle>
+              </template>
+            </v-toolbar>
+          </template>
+          <!-- CARD -->
+          <template height="100%" v-slot:default="props">
+            <v-container>
+              <v-row>
+                <!-- STAMPA COLONNA CARTA -->
+                <v-col
+                  v-for="item in props.items"
+                  :key="item.name"
+                  cols="12"
+                  sm="6"
+                  md="4"
+                  lg="3"
+                >
+                  <!-- VECCHIA CARTA -->
+                  <v-card :loading="loadingCard" class="mx-auto" height="100%">
+                    <template slot="progress">
+                      <v-progress-linear
+                        color="deep-purple"
+                        height="10"
+                        indeterminate
+                      ></v-progress-linear>
+                    </template>
+
+                    <v-img
+                      height="250"
+                      src="https://cdn.vuetifyjs.com/images/john.jpg"
+                    >
+                    </v-img>
+
+                    <v-card-title>{{ item.name }}</v-card-title>
+
+                    <v-card-text>
+                      <v-row align="center" class="mx-0">
+                        <v-rating
+                          :value="item.review_avg"
+                          color="amber"
+                          dense
+                          half-increments
+                          readonly
+                          size="14"
+                        ></v-rating>
+
+                        <div class="grey--text ms-4">
+                          {{ item.review_avg }} ({{ item.count_review }})
+                        </div>
+                      </v-row>
+
+                      <div class="my-4 text-subtitle-1">
+                        <v-icon>mdi-city</v-icon> • {{ item.city }}
+                      </div>
+
+                      <v-sheet class="overflow-y-auto" height="100">
+                        {{ item.description }}
+                      </v-sheet>
+                    </v-card-text>
+
+                    <v-divider class="mx-4"></v-divider>
+                    <v-card-title>Professione:</v-card-title>
+
+                    <!-- BOTTOM -->
+                    <v-card-actions>
+                      <v-chip-group>
+                        <v-chip
+                          v-for="item in item.profession"
+                          :key="item"
+                          class="deep-purple accent-4 white--text"
+                        >
+                          {{ item }}
+                        </v-chip>
+                      </v-chip-group>
+                      <v-spacer></v-spacer>
+                    </v-card-actions>
+                    <v-card-actions>
+                      <v-btn color="deep-purple lighten-2" text>
+                        Reserve
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-col>
+              </v-row>
+            </v-container>
+          </template>
+
+          <template v-slot:footer>
+            <v-row class="mt-2" align="center" justify="center">
+              <span class="grey--text">Items per page</span>
+              <v-menu offset-y>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    dark
+                    text
+                    color="primary"
+                    class="ml-2"
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    {{ itemsPerPage }}
+                    <v-icon>mdi-chevron-down</v-icon>
+                  </v-btn>
+                </template>
+                <v-list>
+                  <v-list-item
+                    v-for="(number, index) in itemsPerPageArray"
+                    :key="index"
+                    @click="updateItemsPerPage(number)"
+                  >
+                    <v-list-item-title>{{ number }}</v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+              <v-spacer></v-spacer>
+              <span class="mr-4 grey--text">
+                Page {{ page }} of {{ numberOfPages }}
+              </span>
+              <v-btn
+                fab
+                dark
+                color="blue darken-3"
+                class="mr-1"
+                @click="formerPage"
+              >
+                <v-icon>mdi-chevron-left</v-icon>
+              </v-btn>
+              <v-btn
+                fab
+                dark
+                color="blue darken-3"
+                class="ml-1"
+                @click="nextPage"
+              >
+                <v-icon>mdi-chevron-right</v-icon>
+              </v-btn>
+            </v-row>
+          </template>
+        </v-data-iterator>
       </v-card>
     </v-dialog>
   </v-row>
 </template>
 <script>
+import FooterApp from "../pages/FooterApp.vue";
+import Carousel from "./Carousel2.vue";
+import HeaderApp from "./HeaderApp.vue";
 export default {
   data() {
     return {
+      form: {
+        profession: [],
+        city: [],
+      },
       // FIRST AUTOCOMPLETE DATA
-      professions: ["foo", "bar", "fizz", "buzz"],
-      profession: ["foo", "bar"],
+      professions: [],
       value: null,
       loadingProf: false,
       searchProf: null,
       //   SECOND AUTOCOMPLETE
-      cities: ["Reggio", "Roma", "Asti", "Milano"],
+      cities: [],
       city: null,
       value: null,
       loadingCity: false,
@@ -225,22 +323,53 @@ export default {
       // RESPONSE
       dialog: false,
       responsePage: false,
+      // RESULT DATA TABLE
+      itemsPerPageArray: [12, 24, 36],
+      search: "",
+      filter: {},
+      sortDesc: false,
+      page: 1,
+      itemsPerPage: 20,
+      sortBy: "name",
+      keys: ["name", "city", "review_avg", "profession", "views"],
+      items: [],
+
+      // CARD
+      loadingCard: false,
     };
   },
+  components: {
+    FooterApp,
+    HeaderApp,
+    Carousel,
+  },
   watch: {
+    // LANDING PAGE
     search(val) {
       val && val !== this.select && this.querySelections(val);
     },
+    // OPEN DIALOG
     dialog(val) {
       if (!val) return;
 
       setTimeout(
-        () => ((this.dialog = false), (this.responsePage = true)),
-        4000
+        () => ((this.dialog = false), (this.responsePage = true))
+        // 1500
       );
+    },
+    // RESULT TABLE
+  },
+  computed: {
+    // RESULT
+    numberOfPages() {
+      return Math.ceil(this.items.length / this.itemsPerPage);
+    },
+    filteredKeys() {
+      return this.keys.filter((key) => key !== "Name");
     },
   },
   methods: {
+    // LANDING PAGE
     querySelections(v) {
       this.loading = true;
       // Simulated ajax query
@@ -251,6 +380,72 @@ export default {
         this.loading = false;
       }, 500);
     },
+    // ATTIVATORE FINESTRA RICERCA E GENERATORE
+    customFilter() {
+      this.dialog = true;
+      axios.post("/api/customFilter", { ...this.form }).then((res) => {
+        this.getProfInfo();
+      });
+    },
+    // GENERATORE INFORMAZIONI
+    getProfInfo() {
+      axios.get("/api/getProfInfo").then((res) => {
+        res.data.data.forEach((element) => {
+          let avg = [];
+          const average = (array) =>
+            Number((array.reduce((a, b) => a + b) / array.length).toFixed(2));
+
+          let profession = [];
+          if (element.reviews) {
+            element.reviews.forEach((elemento) => {
+              avg.push(elemento.vote);
+            });
+          }
+          if (element.professions) {
+            element.professions.forEach((elemento) => {
+              profession.push(elemento.name);
+            });
+          }
+          this.items.push({
+            name: element.name,
+            city: element.address,
+            image: element.pic,
+            review_avg: average(avg),
+            description: element.description,
+            count_review: avg.length,
+            profession: profession,
+            views: element.views,
+          });
+        });
+      });
+    },
+    // RESULT SETTINGS
+    nextPage() {
+      if (this.page + 1 <= this.numberOfPages) this.page += 1;
+    },
+    formerPage() {
+      if (this.page - 1 >= 1) this.page -= 1;
+    },
+    updateItemsPerPage(number) {
+      this.itemsPerPage = number;
+    },
+  },
+  created() {
+    axios
+      .all([axios.get("/api/getSearchInfo"), axios.get("/api/landingPage")])
+      .then(
+        axios.spread((firstResponse, secondResponse) => {
+          this.cities = Object.keys(firstResponse.data["placeNames"]);
+          let items = secondResponse.data["profNames"];
+          items.forEach((element) => {
+            this.professions.push(element.name);
+          });
+          // secondResponse.data["profNames"].forEach((element) => {
+          //   this.professions = element["name"];
+          // });
+        })
+      )
+      .catch((error) => console.log(error));
   },
 };
 </script>

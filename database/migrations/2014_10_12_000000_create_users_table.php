@@ -19,8 +19,6 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('braintree_id')->nullable();
-            $table->string('braintree_nonce')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

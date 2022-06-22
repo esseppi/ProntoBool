@@ -17,10 +17,17 @@ class ProfessionProfileSeeder extends Seeder
     {
         $profiles = Profile::all();
         $numProfile = $profiles->count();
+        foreach ($profiles as $profile) {
+            $profession = Profession::inRandomOrder()->limit(rand(1, 2))->get();
 
-        for ($i = 5; $i < $numProfile; $i++) {
-            $profession = Profession::inRandomOrder()->limit(rand(0, 3))->get();
-            Profile::find($i)->professions()->attach($profession->pluck('id')->all());
+            $profile->professions()->attach($profession);
+            # code...
         }
+
+        // for ($i = 5; $i < count($profiles); $i++) {
+        //     $profession = Profession::inRandomOrder()->limit(rand(1, 2))->get();
+
+        //     Profile::find($i)->professions()->attach($profession->pluck('id')->all());
+        // }
     }
 }
