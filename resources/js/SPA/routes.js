@@ -12,7 +12,7 @@ import DoctorDetails from "./pages/DoctorDetails.vue";
 import SignUp from "./pages/SignUp.vue";
 import Reviews from "./pages/professionist/Reviews.vue";
 import Messages from "./pages/professionist/Messages.vue";
-
+import ResultPage from "./pages/ResultPage.vue";
 
 Vue.use(Router);
 let check = true;
@@ -56,6 +56,11 @@ const router = new Router({
             component: SignUp,
         },
         {
+            path: "/doc",
+            name: "doc",
+            component: DoctorDetails,
+        },
+        {
             path: "/register2",
             name: "register",
             component: Register,
@@ -91,6 +96,11 @@ const router = new Router({
             meta: {
                 requiresAuth: true,
             },
+        },
+        {
+            path: "/results/:city",
+            name: "results",
+            component: ResultPage,
         },
         {
             // /search/screens -> /search?q=screens

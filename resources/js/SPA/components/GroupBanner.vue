@@ -1,5 +1,5 @@
 <template>
-  <v-carousel cycle height="280" hide-delimiter-background show-arrows-on-hover>
+  <v-carousel cycle height="300" hide-delimiters show-arrows-on-hover>
     <template v-slot:prev="{ on, attrs }">
       <v-btn color="success" v-bind="attrs" v-on="on"
         ><v-icon>mdi-skip-previous-circle</v-icon></v-btn
@@ -10,8 +10,8 @@
         ><v-icon>mdi-skip-next-circle</v-icon></v-btn
       >
     </template>
-    <v-carousel-item v-for="(card, i) in cards" :key="i">
-      <v-sheet :color="colors[i]">
+    <v-carousel-item v-for="(card, i) in cards" :key="i" height="300">
+      <v-sheet color="#D7E4F3" height="320">
         <v-container>
           <v-row class="fill-height" align="center" justify="center">
             <v-col :cols="card.flex">
@@ -32,7 +32,7 @@
               </v-sheet>
             </v-col>
             <v-col :cols="card.flex">
-              <v-card height="280" shaped :color="lighten[i]">
+              <v-card height="280" shaped>
                 <v-card-text>
                   <v-img
                     :src="card.src"
@@ -55,14 +55,6 @@
 export default {
   data() {
     return {
-      colors: [
-        "indigo darken-2",
-        "warning ",
-        "yellow darken-2",
-        "red darken-5",
-        "deep-purple darken-8",
-      ],
-      lighten: ["indigo", "warning", "yellow", "red", "deep-purple"],
       slides: ["First", "Second", "Third", "Fourth", "Fifth"],
       cards: [
         {

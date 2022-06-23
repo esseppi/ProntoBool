@@ -1,11 +1,13 @@
 <template>
   <v-sheet>
     <HeroApp />
-    <Carousel />
+    <Carousel2 />
     <ProfBanner />
+    <Carousel />
     <LandingInfo />
     <RoadTime />
     <GroupBanner />
+    <UserBanner />
   </v-sheet>
 </template>
 
@@ -14,8 +16,10 @@ import HeroApp from "../components/HeroApp.vue";
 import LandingInfo from "../components/LandingInfo.vue";
 import RoadTime from "../components/RoadTime.vue";
 import Carousel from "../components/Carousel.vue";
+import Carousel2 from "../components/Carousel2.vue";
 import ProfBanner from "../components/ProfBanner.vue";
 import GroupBanner from "../components/GroupBanner.vue";
+import UserBanner from "../components/UserBanner.vue";
 export default {
   name: "Home",
   components: {
@@ -23,8 +27,10 @@ export default {
     RoadTime,
     LandingInfo,
     Carousel,
+    Carousel2,
     ProfBanner,
     GroupBanner,
+    UserBanner,
   },
 };
 </script>
