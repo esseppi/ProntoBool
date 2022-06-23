@@ -75,7 +75,7 @@
             :loading="dialog"
             class="white--text"
             color="purple darken-2"
-            @click="customFilter"
+            @click="openPage"
           >
             <v-icon>mdi-magnify</v-icon>
           </v-btn>
@@ -103,19 +103,25 @@
       transition="dialog-bottom-transition"
     >
       <!-- NUOVA HEADER APP QUI -->
-      <v-app-bar color="blue" dark>
-        <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
-        <v-toolbar-title>Prontobool Search</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-btn icon dark @click="responsePage = false">
-          <v-icon>mdi-close</v-icon>
-        </v-btn>
-      </v-app-bar>
-      <Carousel />
+      <div>
+        <v-app-bar color="blue" dark>
+          <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
+          <v-toolbar-title>
+            <v-btn @click="responsePage = false"> Prontobool </v-btn>
+          </v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-btn icon dark @click="responsePage = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-app-bar>
+        <Carousel />
+      </div>
 
       <!-- PAGINA RISULTATI -->
       <v-card tile>
         <v-data-iterator
+          loading
+          loading-text="Loading Professionist Data"
           :items="items"
           :items-per-page.sync="itemsPerPage"
           :page.sync="page"
@@ -125,8 +131,8 @@
           hide-default-footer
         >
           <!-- TOOLBAR-->
-          <template v-slot:header>
-            <v-toolbar dark color="blue darken-3" class="mb-1">
+          <template v-slot:header class="py-5">
+            <v-toolbar dark color="blue lighten-3">
               <v-text-field
                 type="text"
                 v-model="search"
@@ -172,7 +178,7 @@
                   md="4"
                   lg="3"
                 >
-                  <!-- VECCHIA CARTA -->
+                  <!-- CARTA -->
                   <v-card :loading="loadingCard" class="mx-auto" height="100%">
                     <template slot="progress">
                       <v-progress-linear
@@ -216,12 +222,12 @@
                     </v-card-text>
 
                     <v-divider class="mx-4"></v-divider>
-                    <v-card-title>Professione:</v-card-title>
 
                     <!-- BOTTOM -->
-                    <v-card-actions>
-                      <v-chip-group>
+                    <v-card-actions class="d-flex justify-center">
+                      <v-chip-group show-arrows>
                         <v-chip
+                          center-active
                           v-for="item in item.profession"
                           :key="item"
                           class="deep-purple accent-4 white--text"
@@ -231,10 +237,24 @@
                       </v-chip-group>
                       <v-spacer></v-spacer>
                     </v-card-actions>
-                    <v-card-actions>
-                      <v-btn color="deep-purple lighten-2" text>
-                        Reserve
-                      </v-btn>
+                    <v-card-actions class="d-flex justify-center">
+                      <v-chip-group center-active>
+                        <v-chip center-active>
+                          <v-icon color="deep-purple lighten-2" text>
+                            mdi-eye
+                          </v-icon>
+                        </v-chip>
+                        <v-chip>
+                          <v-icon color="deep-purple lighten-2" text>
+                            mdi-message-arrow-right-outline
+                          </v-icon>
+                        </v-chip>
+                        <v-chip>
+                          <v-icon color="deep-purple lighten-2" text>
+                            mdi-shape
+                          </v-icon>
+                        </v-chip>
+                      </v-chip-group>
                     </v-card-actions>
                   </v-card>
                 </v-col>
@@ -306,16 +326,16 @@ export default {
   data() {
     return {
       form: {
-        profession: [],
+        // profession: [],
         city: [],
       },
       // FIRST AUTOCOMPLETE DATA
-      professions: [],
+      professions: ["Qualsiasi"],
       value: null,
       loadingProf: false,
       searchProf: null,
       //   SECOND AUTOCOMPLETE
-      cities: [],
+      cities: ["Ovunque"],
       city: null,
       value: null,
       loadingCity: false,
@@ -369,6 +389,11 @@ export default {
     },
   },
   methods: {
+    openPage() {
+      this.dialog = true;
+      this.getProfInfo();
+    },
+
     // LANDING PAGE
     querySelections(v) {
       this.loading = true;
@@ -381,25 +406,21 @@ export default {
       }, 500);
     },
     // ATTIVATORE FINESTRA RICERCA E GENERATORE
-    customFilter() {
-      this.dialog = true;
-      axios.post("/api/customFilter", { ...this.form }).then((res) => {
-        this.getProfInfo();
-      });
-    },
+
     // GENERATORE INFORMAZIONI
     getProfInfo() {
       axios.get("/api/getProfInfo").then((res) => {
         res.data.data.forEach((element) => {
-          let avg = [];
+          let avg = [0];
           const average = (array) =>
             Number((array.reduce((a, b) => a + b) / array.length).toFixed(2));
-
           let profession = [];
           if (element.reviews) {
             element.reviews.forEach((elemento) => {
               avg.push(elemento.vote);
             });
+          } else {
+            avg.push([0, 0]);
           }
           if (element.professions) {
             element.professions.forEach((elemento) => {
@@ -412,7 +433,6 @@ export default {
             image: element.pic,
             review_avg: average(avg),
             description: element.description,
-            count_review: avg.length,
             profession: profession,
             views: element.views,
           });

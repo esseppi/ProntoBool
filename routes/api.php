@@ -54,3 +54,6 @@ Route::get('/landingPage', [GuestApiController::class, 'landingPage']);
 Route::get('/getSearchInfo', [GuestApiController::class, 'getSearchInfo']);
 Route::post('/customFilter', [GuestApiController::class, 'customFilter']);
 Route::get('/getProfInfo', [GuestApiController::class, 'getProfInfo']);
+Route::get('/cityUser', [GuestApiController::class, 'cityUser']); // FATTO
+Route::get('/promotedUser', [GuestApiController::class, 'promotedUser']); //FATTO
+Route::get('/bannerUser', [GuestApiController::class, 'bannerUser']); //FATTO

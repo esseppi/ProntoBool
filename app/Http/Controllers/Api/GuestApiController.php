@@ -11,6 +11,7 @@ use App\Models\Professionist\Profile;
 use PhpParser\Node\Expr\Cast\Object_;
 use App\Models\Professionist\Profession;
 use App\Models\Professionist\Review;
+use App\Models\Professionist\Sponsorship;
 
 class GuestApiController extends Controller
 {
@@ -19,6 +20,67 @@ class GuestApiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function customFilter(Request $request)
+    {
+        $formData = $request->all();
+        $res = [];
+        // NO FILTRO
+        if ($formData['city'] == 'ovunque') {
+            array_push($res, Profile::with('professions', 'reviews')->join('users', 'profiles.id', '=', 'users.id')
+                ->get());
+        }
+        // FILTRO CITTA
+        else if ($formData['city'] != 'ovunque') {
+            array_push($res, Profile::with('professions', 'reviews')->where('address', $formData['city'])->join('users', 'profiles.id', '=', 'users.id')
+                ->get());
+        }
+
+
+
+        return response()->json([
+            'data' => $res
+        ]);
+    }
+
+
+
+    public function cityUser(Request $request)
+    {
+        $profGroupByCity = Profile::all()
+            ->groupBy('address');
+        return response()->json([
+            'cities' => $profGroupByCity,
+
+        ]);
+    }
+    public function promotedUser(Request $request)
+    {
+
+        $sponsoredUser = Profile::with('sponsorships', 'professions', 'reviews')->join('users', 'user_id', '=', 'users.id')->has('sponsorships')->get();
+
+
+
+        return response()->json([
+            'data' => $sponsoredUser
+        ]);
+    }
+
+
+
+    public function bannerUser(Request $request)
+    {
+        $users = Profile::with('professions', 'reviews')->join('users', 'profiles.id', '=', 'users.id')->paginate(8);
+        return response()->json([
+            // 'data2' => $checkIfHasProfile,
+            'data' => $users
+        ]);
+
+        return response()->json([]);
+    }
+
+
+
     public function index(Request $request)
     {
         $data = Profile::whereRaw('1 = 1');
@@ -56,12 +118,7 @@ class GuestApiController extends Controller
 
         ]);
     }
-    public function customFilter(Request $request)
-    {
-        return response()->json([
-            $request->all()
-        ]);
-    }
+
     public function getProfInfo(Request $request)
     {
 
@@ -73,6 +130,7 @@ class GuestApiController extends Controller
             'data' => $users
         ]);
     }
+
 
     public function landingPage(Request $request)
     {
