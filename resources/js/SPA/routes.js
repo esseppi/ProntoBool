@@ -1,9 +1,11 @@
 import Vue from "vue";
+// LOGIN E REGISTER SASO
+import LoginSaso from "./pages/auth/Login.vue";
+import RegisterSaso from "./pages/auth/Register.vue";
 import Login from "./pages/Login.vue";
 import Dashboard from "./pages/professionist/MyDashboard.vue";
 import CustomerLead from "./pages/CustomerLead.vue";
 import Auth from "./pages/auth/auth.vue";
-import Register from "./pages/auth/Register.vue";
 import Home from "./pages/Home.vue";
 import Cart from "./pages/checkout/cart.vue";
 import Bundles from "./pages/professionist/Bundles.vue";
@@ -67,14 +69,7 @@ const router = new Router({
             name: "doc",
             component: DoctorDetails,
         },
-        {
-            path: "/register2",
-            name: "register",
-            component: Register,
-            meta: {
-                requiresGuest: true,
-            },
-        },
+
         {
             path: "/loginprof",
             name: "login",
@@ -105,6 +100,22 @@ const router = new Router({
             path: "/results/:city",
             name: "results",
             component: ResultPage,
+        },
+        {
+            path: "/registerSpa",
+            name: "register",
+            component: RegisterSaso,
+            meta: {
+                requiresGuest: true,
+            },
+        },
+        {
+            path: "/loginSpa",
+            name: "loginSaso",
+            component: LoginSaso,
+            meta: {
+                requiresGuest: true,
+            },
         },
         {
             // /search/screens -> /search?q=screens

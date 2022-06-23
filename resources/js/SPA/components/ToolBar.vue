@@ -2,7 +2,9 @@
   <v-row dark no-gutters>
     <v-col cols="12" md="5">
       <v-card height="100%">
-        <v-card-title>Cerca un professionista</v-card-title>
+        <p class="pt-5 text-center text-h5 font-weight-medium">
+          Cerca un professionista
+        </p>
         <v-card-text>
           <v-tooltip bottom>
             <template v-slot:activator="{ on, attrs }">
@@ -24,7 +26,7 @@
                 solo-inverted
               />
             </template>
-            <span>Seleziona fino a 5 professioni</span>
+            <span>Seleziona la professione che cerchi</span>
           </v-tooltip>
         </v-card-text>
         <v-card-actions></v-card-actions>
@@ -35,7 +37,9 @@
         <div class="d-none">
           {{ form }}
         </div>
-        <v-card-title> Seleziona la tua città </v-card-title>
+        <p class="pt-5 text-center text-h5 font-weight-medium">
+          In che città cerchi il servizio?
+        </p>
         <v-card-text>
           <v-tooltip bottom>
             <template v-slot:activator="{ on, attrs }">
@@ -230,7 +234,7 @@
                           center-active
                           v-for="item in item.profession"
                           :key="item"
-                          class="deep-purple accent-4 white--text"
+                          class="warning accent-4 white--text"
                         >
                           {{ item }}
                         </v-chip>
@@ -240,19 +244,15 @@
                     <v-card-actions class="d-flex justify-center">
                       <v-chip-group center-active>
                         <v-chip center-active>
-                          <v-icon color="deep-purple lighten-2" text>
-                            mdi-eye
-                          </v-icon>
+                          <v-icon dark color="blue" text> mdi-eye </v-icon>
                         </v-chip>
                         <v-chip>
-                          <v-icon color="deep-purple lighten-2" text>
+                          <v-icon color="blue" text>
                             mdi-message-arrow-right-outline
                           </v-icon>
                         </v-chip>
                         <v-chip>
-                          <v-icon color="deep-purple lighten-2" text>
-                            mdi-shape
-                          </v-icon>
+                          <v-icon color="blue" text> mdi-shape </v-icon>
                         </v-chip>
                       </v-chip-group>
                     </v-card-actions>
@@ -432,6 +432,7 @@ export default {
             city: element.address,
             image: element.pic,
             review_avg: average(avg),
+            count_review: avg.length,
             description: element.description,
             profession: profession,
             views: element.views,

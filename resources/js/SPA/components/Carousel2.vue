@@ -1,12 +1,12 @@
 <template>
-  <v-card elevation="24" max-width="100%" class="mx-auto">
-    <v-system-bar dark> </v-system-bar>
+  <v-card elevation="24" max-width="100%" class="mx-auto" :loading="loading">
+    <v-system-bar height="10" color="warning"> </v-system-bar>
 
     <v-carousel
       :interval="interval"
       progress-color="blue"
       hide-delimiters
-      show-arrows-on-hover
+      :show-arrows="false"
       :continuous="true"
       :cycle="cycle"
       height="300"
@@ -46,6 +46,7 @@ import NoWorkResult from "postcss/lib/no-work-result";
 export default {
   data() {
     return {
+      loading: true,
       advUser: [],
       interval: 3300,
       colOrder1: 1,
@@ -113,6 +114,7 @@ export default {
           profession: profession,
         });
       });
+      this.loading = false;
     });
   },
 };
