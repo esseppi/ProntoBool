@@ -51,7 +51,7 @@ export default {
   methods: {
     signupRequest() {
       let userData = {
-        name: this.inputData.name,
+        name: `${this.inputData.name} ${this.inputData.surname}`,
         email: this.inputData.email,
         password: this.inputData.password,
         password_confirmation: this.inputData.confirmPassword

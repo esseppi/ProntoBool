@@ -1,131 +1,151 @@
 <template>
-<v-main>
-    <div class="inner">
-        <div class="profile-data">
-            <!-- PROFILE -->
-            <section>
-                <div class="prof-flex">
-                    <div class="profile-image">
-                        <img :src="profileData.pic" :alt="profileData.name">
-                    </div>
-                    <div class="data-flex">
-                        <div class="profile-info">
-                            <h1 class="profile-name">{{ profileData.name }}</h1>
-                            <p class="profile-address">{{ profileData.address }}</p>
-                            <div class="badge-container">
-                                <span class="badge" v-for="(item, index) in profileData.professions" :key="index">{{ item }}</span>
+    <v-main>
+        <div class="inner">
+            <div class="profile-data">
+                <!-- PROFILE -->
+                <section>
+                    <div class="prof-flex">
+                        <div class="profile-image">
+                            <img :src="profileData.pic" :alt="profileData.name">
+                        </div>
+                        <div class="data-flex">
+                            <div class="profile-info">
+                                <h1 class="profile-name">{{ profileData.name }}</h1>
+                                <p class="profile-address">{{ profileData.address }}</p>
+                                <div class="badge-container">
+                                    <span class="badge" v-for="(item, index) in profileData.professions" :key="index">{{ item }}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <ul class="ul-info">
+                        <li><a href="#">Reviews</a></li>
+                        <li><a href="#">sponsorship</a></li>
+                        <li><a href="#">Messages </a> </li>
+                        <li><a href="#">Edit profile</a></li>
+                    </ul>
+                </section>
+
+                <!-- ABOUT  -->
+                <section>
+                    <h2>About {{ profileData.name }}</h2>
+                    <p>{{ profileData.description }}</p>
+                </section>
+
+                <!-- CURRICULUM 
+                <section class="curriculum">
+                    <div class=""></div>
+                    <h2>Curriculum Vitae</h2>
+                </section>
+                -->
+
+                <!-- MAP 
+                <section>
+                    <h2>Office location</h2>
+                    <div class="map-flex">
+                        <div>
+                            <div class="map-container">
+                                <div id="map"><img src="https://www.tremplin-numerique.org/wp-content/uploads/2021/03/1615212209_265_Comment-changer-lechelle-de-Google-Maps-de-miles-en-kilometres.png" alt="ciao"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="map-info">
+                                <p>{{ profileData.address }}</p>
+                                <p>{{ profileData.phone }}</p>
+                                <p>{{ profileData.email }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                -->
+
+                <!-- REVIEWS -->
+                <section>
+                <h2>Reviews</h2>
+                    <div class="banner">
+                    <div class="icon-container"> <v-icon class="icon">mdi-information-outline</v-icon> </div>
+                    <p>Your trust is our top concern, so providers can't pay to alter or remove reviews. We also don't publish reviews that contain any private information.</p>
+                    </div>
+                    <div class="reviews-top-container">
+                            <h4>Overall rating</h4>
+                            <div class="vote">{{ profileData.vote }}</div>
+                    </div>
+                    <div class="reviews-bottom-container">
+                        <div class="filter-bar">
+                            <span>{{ profileReviews.length }} Reviews</span>
+                        </div>
+                        <div v-for="(item, index) in profileReviews.slice(0, reviewsShowed)" :key="index" class="review">
+                            <div class="star">
+                                <ul>
+                                    <li v-for="ind in Math.floor(item.vote)" :key="'star-'+index+'-'+ind">
+                                        <v-icon class="star-color">mdi-star</v-icon>
+                                    </li>
+                                </ul>
+                            </div>
+                            <p>{{ item.message }}</p>
+                            <div class="reviews-info">
+                                <span>{{ item.name }}</span> 
+                                <span>{{ item.date }}</span>
+                            </div>
+                        </div>
+                        <button @click="reviewsShowed+=5" v-if="reviewsShowed <= profileReviews.length" class="btn outlined">See more</button>
+                    </div>
+                </section>
+            </div>
+            
+        <div class="group-right" >
+            <!-- SECTION BOX MESSAGE -->
+            <section class="message-box">
+                <h2>Last messages recived</h2>
+                <div>
+                <span>oggetto messagio</span>
                 </div>
-                <ul class="ul-info">
-                    <li><a href="#">Reviews</a></li>
-                    <li><a href="#">sponsorship</a></li>
-                    <li><a href="#">Messages </a> </li>
-                    <li><a href="#">Edit profile</a></li>
-                </ul>
+                <div>
+                <span>nome e cognome</span>
+                </div>
+                <div class="last">
+                <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quam molestiae excepturi eos. Amet mollitia praesentium velit blanditiis ipsa qui, reprehenderit quidem eius eaque harum exercitationem illo magni quasi quaerat unde.</span>
+                </div> 
+                <div class="text-center" >
+                <a class="btn" href="#"> messages list </a> <a class="btn" href="#"> show message </a>
+                </div>
+                
             </section>
 
-            <!-- ABOUT  -->
+            <!--sponsor-->
+            <section class="message-box margin-top">
+                <h2>your sponsorship</h2>
+                <!-- TODO: aggiungere un v-if per distinguere chi ha gia una sponsorizzazione attiva e chi no -->
+                <p>date start</p>
+                <p>date end</p>
+                <a href="#">buy now</a>
+            </section>
+
+            <!--grafico-->
             <section>
-                <h2>About {{ profileData.name }}</h2>
-                <p>{{ profileData.description }}</p>
+                <Bar
+                    :chart-options="chartOptions"
+                    :chart-data="chartData"
+                    :chart-id="chartId"
+                    :dataset-id-key="datasetIdKey"
+                    :plugins="plugins"
+                    :css-classes="cssClasses"
+                    :styles="styles"
+                    :width="width"
+                    :height="height"
+                />
             </section>
-
-            <!-- CURRICULUM 
-            <section class="curriculum">
-                <div class=""></div>
-                <h2>Curriculum Vitae</h2>
-            </section>
-            -->
-
-            <!-- MAP 
-            <section>
-                <h2>Office location</h2>
-                <div class="map-flex">
-                    <div>
-                        <div class="map-container">
-                            <div id="map"><img src="https://www.tremplin-numerique.org/wp-content/uploads/2021/03/1615212209_265_Comment-changer-lechelle-de-Google-Maps-de-miles-en-kilometres.png" alt="ciao"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="map-info">
-                            <p>{{ profileData.address }}</p>
-                            <p>{{ profileData.phone }}</p>
-                            <p>{{ profileData.email }}</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            -->
-
-            <!-- REVIEWS -->
-            <section>
-            <h2>Reviews</h2>
-                <div class="banner">
-                <div class="icon-container"> <v-icon class="icon">mdi-information-outline</v-icon> </div>
-                <p>Your trust is our top concern, so providers can't pay to alter or remove reviews. We also don't publish reviews that contain any private information.</p>
-                </div>
-                <div class="reviews-top-container">
-                        <h4>Overall rating</h4>
-                        <div class="vote">{{ profileData.vote }}</div>
-                </div>
-                <div class="reviews-bottom-container">
-                    <div class="filter-bar">
-                        <span>{{ profileReviews.length }} Reviews</span>
-                    </div>
-                    <div v-for="(item, index) in profileReviews.slice(0, reviewsShowed)" :key="index" class="review">
-                        <div class="star">
-                            <ul>
-                                <li v-for="ind in Math.floor(item.vote)" :key="'star-'+index+'-'+ind">
-                                    <v-icon class="star-color">mdi-star</v-icon>
-                                </li>
-                            </ul>
-                        </div>
-                        <p>{{ item.message }}</p>
-                        <div class="reviews-info">
-                            <span>{{ item.name }}</span> 
-                            <span>{{ item.date }}</span>
-                        </div>
-                    </div>
-                    <button @click="reviewsShowed+=5" v-if="reviewsShowed <= profileReviews.length" class="btn outlined">See more</button>
-                </div>
-            </section>
+        </div>  
         </div>
-        
-      <div class="group-right" >
-        <!-- SECTION BOX MESSAGE -->
-        <section class="message-box">
-            <h2>Last messages recived</h2>
-            <div>
-              <span>oggetto messagio</span>
-            </div>
-            <div>
-              <span>nome e cognome</span>
-            </div>
-            <div class="last">
-              <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quam molestiae excepturi eos. Amet mollitia praesentium velit blanditiis ipsa qui, reprehenderit quidem eius eaque harum exercitationem illo magni quasi quaerat unde.</span>
-            </div> 
-            <div class="text-center" >
-              <a class="btn" href="#"> messages list </a> <a class="btn" href="#"> show message </a>
-            </div>
-             
-        </section>
-
-        <!--sponsor-->
-        <section class="message-box margin-top">
-            <h2>your sponsorship</h2>
-            <!-- TODO: aggiungere un v-if per distinguere chi ha gia una sponsorizzazione attiva e chi no -->
-            <p>date start</p>
-            <p>date end</p>
-            <a href="#">buy now</a>
-        </section>
-      </div>  
-    </div>
-</v-main>
+    </v-main>
 </template>
 
 <script>
+import { Bar } from 'vue-chartjs/legacy';
+import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
+
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
+
 export default {
   name: "mydashboard",
   data(){
@@ -212,6 +232,28 @@ export default {
                 vote: 3.3,
                 message: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
                 date: "23/3/2019"
+            }
+        ],
+        statistics: [
+            {
+                month : 'January',
+                views : '10',
+                messages : '2'
+            },
+            {
+                month : 'February',
+                views : '10',
+                messages : '2'
+            },
+            {
+                month : 'March',
+                views : '10',
+                messages : '2'
+            },
+            {
+                month : 'April',
+                views : '10',
+                messages : '2'
             }
         ],
         reviewsShowed: 5,

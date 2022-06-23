@@ -42,6 +42,13 @@ const router = new Router({
             name: "messages",
             component: Messages,
         },
+
+        {
+            path: "/doc/:id",
+            name: "doc",
+            component: DoctorDetails,
+        },
+
         {
             path: "/auth",
             name: "auth",

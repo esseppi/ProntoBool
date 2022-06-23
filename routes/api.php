@@ -26,9 +26,9 @@ Route::get('/authcheck', [GuestApiController::class, 'authcheck']);
 Route::get('/unique', [GuestApiController::class, 'isUnique']);
 
 
-
-
 Route::get('orders/generate', [OrderController::class, 'generate']);
+
+Route::post('sendreview', [GuestApiController::class, 'sendReview']);
 Route::post('orders/makepayment', [OrderController::class, 'makePayment'])->name('pay');
 Route::post('login', [AuthenticatedSessionController::class, 'store']);
 Route::post('register', [RegisteredUserController::class, 'store']);
@@ -46,6 +46,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/getBundles', [ProfessionistApiController::class, 'getBundle']);
 Route::get('/profile/{id}', [ProfessionistApiController::class, 'getProfileInfo']);
+Route::get('/user/{id}', [ProfessionistApiController::class, 'getUserInfo']);
+
 
 // FRONTENTD LENDING PAGE 
 Route::get('/landingPage', [GuestApiController::class, 'landingPage']);

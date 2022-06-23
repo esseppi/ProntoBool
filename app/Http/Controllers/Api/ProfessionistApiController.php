@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Models\Professionist\Sponsorship;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\Professionist\Profile;
+use App\Models\Professionist\Sponsorship;
 
 class ProfessionistApiController extends Controller
 {
@@ -25,6 +26,14 @@ class ProfessionistApiController extends Controller
         return response()->json([
             'status' => true,
             'response' => $profile
+        ]);
+    }
+
+    public function getUserInfo($id){
+        $user = User::find($id);
+        return response()->json([
+            'status' => true,
+            'response' => $user
         ]);
     }
 }
