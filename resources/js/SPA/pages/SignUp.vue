@@ -22,88 +22,24 @@
           </li>
         </ul>
       </div>
-
-      <!-- Step 1 -->
-      <div class="form-container">
-        <Step1 v-if="currentStep == 1" @nextStep="nextStep" />
-
-        <!-- Step 2 -->
-        <div class="step-view" v-show="currentStep == 2">
-          <div>
-            <label
-              >Picture:
-              <input
-                type="file"
-                id="pic"
-                name="pic"
-                accept="image/png, image/jpeg"
-              />
-            </label>
-            <label
-              >Phone:
-              <input
-                type="tel"
-                v-model="phone"
-                id="phone"
-                name="phone"
-                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-              />
-            </label>
-          </div>
-          <div>
-            <label
-              >Description:
-              <textarea
-                id="description"
-                v-model="description"
-                name="description"
-              ></textarea>
-            </label>
-          </div>
-          <div>
-            <button class="btn" @click="currentStep--">Previous step</button>
-            <button class="btn" @click="currentStep++">Next step</button>
-          </div>
-        </div>
-
-        <!-- Step 3 -->
-        <div class="step-view" v-show="currentStep == 3">
-          <div>
-            <label
-              >Curriculum:
-              <input type="file" name="curriculum" accept="application/pdf" />
-            </label>
-          </div>
-          <div>
-            <button class="btn" @click="currentStep--">Previous step</button>
-            <button class="btn" @click="signupRequest">Signup</button>
-          </div>
-        </div>
-      </div>
+      <step-1 v-show="currentStep == 1" @nextStep="nextStep"/>
+      <step-2 v-show="currentStep == 2" @nextStep="nextStep"  @previousStep="previousStep"/>
+      <step-3 v-show="currentStep == 3" @nextStep="nextStep"  @previousStep="previousStep"/>
     </div>
   </v-main>
 </template>
 
 <script>
 import Step1 from "../components/SignUp/Step1.vue";
+import Step2 from "../components/SignUp/Step2.vue";
+import Step3 from '../components/SignUp/Step3.vue';
 import useVuelidate from "@vuelidate/core";
-import {
-  required,
-  email,
-  maxLength,
-  minLength,
-  sameAs,
-  helpers,
-} from "@vuelidate/validators";
-
-const isEmailTaken = (value) => {
-  if (value != "asd@asd.asd" || value === "") return true;
-  return false;
-}; //fetch(`/api/unique/${value}`).then(r => r.json()) check the email in the server
 
 export default {
   components: {
     Step1,
+    Step2,
+    Step3,
   },
   setup: () => ({ v$: useVuelidate() }),
   data() {
@@ -112,48 +48,29 @@ export default {
       inputData: {},
     };
   },
-  validations() {
-    return {
-      name: {
-        required,
-        maxLength: maxLength(30),
-      },
-      surname: {
-        required,
-        maxLength: maxLength(30),
-      },
-      email: {
-        required,
-        email,
-        maxLength: maxLength(30),
-        isUnique: helpers.withMessage(
-          "This email is already taken",
-          helpers.withAsync(isEmailTaken)
-        ),
-      },
-      address: {
-        required,
-        minLength: minLength(5),
-        maxLength: maxLength(30),
-      },
-      password: {
-        required,
-        minLength: minLength(6),
-      },
-      confirmPassword: {
-        required,
-        sameAs: sameAs(this.password),
-      },
-    };
-  },
   methods: {
     signupRequest() {
-      // AXIOS REQUEST
+      let userData = {
+        name: this.inputData.name,
+        email: this.inputData.email,
+        password: this.inputData.password,
+        password_confirmation: this.inputData.confirmPassword
+      }
+      
+        axios.post("/api/register", userData).then(res => {
+          console.log(res)
+          localStorage.setItem("auth", true);
+          window.location = "/";
+        })
+        
     },
     nextStep(inputData) {
-      this.currentStep++;
       this.inputData = { ...this.inputData, ...inputData };
-      console.log(this.inputData);
+      if(this.currentStep == 3) {
+        this.signupRequest()
+      }else{
+        this.currentStep++;
+      }
     },
     previousStep() {
       this.currentStep--;
@@ -171,12 +88,6 @@ export default {
   font-family: "Anek Latin", sans-serif;
 }
 .stepper-container {
-  width: 100%;
-}
-
-.error-message {
-  height: 2rem;
-  color: #ff6372;
   width: 100%;
 }
 
@@ -206,22 +117,6 @@ export default {
   color: white;
 }
 
-.form-container {
-  padding: 40px 0;
-}
-
-.form-container .step-view {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
-.form-container .step-view div {
-  display: flex;
-  gap: 40px;
-}
-
 .line {
   width: 100%;
   height: 2px;
@@ -229,51 +124,15 @@ export default {
   margin: 0 15px;
 }
 
-label {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-}
-
 input[type="text"],
 textarea,
 input[type="password"],
-input[type="tel"] {
+input[type="tel"],
+input[type="email"] {
   border: 1px solid #e1e1e4;
   background-color: white;
   margin-top: 5px;
-}
-
-.message-box textarea {
-  height: 100px;
-  resize: none;
-}
-
-.btn {
   width: 100%;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  font-size: 1.3rem;
-  color: #00234b;
-  background-color: #fde721;
-}
-
-.btn[disabled] {
-  background-color: lightgrey;
-}
-
-.btn.outlined {
-  background-color: transparent;
-  border: 2px solid #00234b;
-}
-
-.btn:hover {
-  color: white;
-  background-color: #00234b;
-}
-
-.btn.outlined:hover {
-  border: 2px solid #00234b;
 }
 
 @media screen and (max-width: 600px) {
@@ -282,9 +141,12 @@ input[type="tel"] {
     padding: 30px;
   }
 
-  .form-container .step-view div {
+  .input-group {
     flex-direction: column;
-    gap: 15px;
+  }
+
+  .input-elements {
+    width: 100%;
   }
 }
 </style>

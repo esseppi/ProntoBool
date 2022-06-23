@@ -1,11 +1,10 @@
 <template>
-  <div class="step-view">
-    <div>
-      <label
-        >Name:
+  <div class="form-container">
+    <div class="input-group">
+      <div class="input-elements">
+        <label for="name">Name</label>
         <input
-          id="name"
-          v-model.trim="inputData.name"
+          v-model="inputData.name"
           @blur="v$.inputData.name.$touch()"
           name="name"
           type="text"
@@ -15,12 +14,10 @@
             {{ error.$message }}
           </span>
         </div>
-      </label>
-
-      <label
-        >Surname:
+      </div>
+      <div class="input-elements">
+        <label for="surname">Surname</label>
         <input
-          id="surname"
           v-model="inputData.surname"
           @blur="v$.inputData.surname.$touch()"
           name="surname"
@@ -31,31 +28,29 @@
             {{ error.$message }}
           </span>
         </div>
-      </label>
+      </div>
     </div>
-    <div>
-      <label
-        >Email:
+    <div class="input-group">
+      <div class="input-elements">
+        <label for="email">Email</label>
         <input
-          type="text"
           v-model="inputData.email"
-          id="email"
           @blur="v$.inputData.email.$touch()"
           name="email"
+          type="email"
         />
         <div class="error-message">
           <span v-for="error of v$.inputData.email.$errors" :key="error.$uid">
             {{ error.$message }}
           </span>
         </div>
-      </label>
-      <label
-        >Address:
+      </div>
+      <div class="input-elements">
+        <label for="address">Address</label>
         <input
-          id="address"
           v-model="inputData.address"
-          name="address"
           @blur="v$.inputData.address.$touch()"
+          name="address"
           type="text"
         />
         <div class="error-message">
@@ -63,16 +58,15 @@
             {{ error.$message }}
           </span>
         </div>
-      </label>
+      </div>
     </div>
-    <div>
-      <label
-        >Password:
+    <div class="input-group">
+      <div class="input-elements">
+        <label for="password">Password</label>
         <input
-          id="password"
           v-model="inputData.password"
-          name="password"
           @blur="v$.inputData.password.$touch()"
+          name="password"
           type="password"
         />
         <div class="error-message">
@@ -83,11 +77,10 @@
             {{ error.$message }}
           </span>
         </div>
-      </label>
-      <label
-        >Confirm Password:
+      </div>
+      <div class="input-elements">
+        <label for="confirmPassword">Confirm Password</label>
         <input
-          id="confirmPassword"
           v-model="inputData.confirmPassword"
           @blur="v$.inputData.confirmPassword.$touch()"
           name="confirmPassword"
@@ -101,9 +94,9 @@
             {{ error.$message }}
           </span>
         </div>
-      </label>
+      </div>
     </div>
-    <div>
+    <div class="input-group">
       <button
         class="btn"
         :disabled="!(!v$.$error && v$.$dirty)"
@@ -126,16 +119,9 @@ import {
   helpers,
 } from "@vuelidate/validators";
 
-function isUnique(value){
-    console.log(value)
-    return axios.get(`/api/unique`,{ params: { email: value } }).then(r => {
-        return r.data.isUnique
-        })
-}
-
-//fetch(`/api/unique/${value}`).then(r => r.json()) check the email in the server
 
 export default {
+  name: "Step1",
   setup: () => ({ v$: useVuelidate() }),
   data() {
     return {
@@ -166,7 +152,7 @@ export default {
           maxLength: maxLength(30),
           isUnique: helpers.withMessage(
             "This email is already taken",
-            helpers.withAsync(isUnique)
+            helpers.withAsync(this.isUnique)
           ),
         },
         address: {
@@ -176,7 +162,7 @@ export default {
         },
         password: {
           required,
-          minLength: minLength(6),
+          minLength: minLength(8),
         },
         confirmPassword: {
           required,
@@ -186,101 +172,23 @@ export default {
     };
   },
   methods: {
-    iEmailTaken(value){
-        axios.get("/api/istaken",{ params: { email: value } }).then( res => {
-            console.log(res.data.isTaken);
-            return res.data.isTaken;
-        })
+    isUnique(value) {
+    return axios
+        .get("/api/unique", { params: { email: value } })
+        .then((r) => {
+          return r.data.isUnique;
+        });
     },
-  }
+  },
 };
 </script>
 
 <style scoped>
-.inner {
-  width: 70%;
-  margin: 0 auto;
-  gap: 70px;
-  color: #00234b;
-  font-family: "Anek Latin", sans-serif;
-}
-.stepper-container {
-  width: 100%;
-}
-
 .error-message {
   height: 2rem;
   color: #ff6372;
   width: 100%;
-}
-
-.stepper-container ul {
-  display: flex;
-  list-style: none;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0;
-  padding: 0;
-}
-
-.step-circle {
-  width: 50px;
-  height: 50px;
-  border-radius: 30px;
-  color: #00234b;
-  border: 3px solid #00234b;
-  font-size: 1.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.step-circle.active {
-  background-color: #00234b;
-  color: white;
-}
-
-.form-container {
-  padding: 40px 0;
-}
-
-.form-container .step-view {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
-.form-container .step-view div {
-  display: flex;
-  gap: 40px;
-}
-
-.line {
-  width: 100%;
-  height: 2px;
-  background-color: #f3f3f4;
-  margin: 0 15px;
-}
-
-label {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-input[type="text"],
-textarea,
-input[type="password"],
-input[type="tel"] {
-  border: 1px solid #e1e1e4;
-  background-color: white;
-  margin-top: 5px;
-}
-
-.message-box textarea {
-  height: 100px;
-  resize: none;
+  word-break: break-all;
 }
 
 .btn {
@@ -310,15 +218,42 @@ input[type="tel"] {
   border: 2px solid #00234b;
 }
 
+.form-container {
+  width: 100%;
+  padding: 40px 0;
+}
+
+.input-group {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+}
+
+.input-elements {
+  width: 50%;
+}
+
+label {
+  display: block;
+}
+
+input[type="text"],
+textarea,
+input[type="password"],
+input[type="tel"],
+input[type="email"] {
+  border: 1px solid #e1e1e4;
+  background-color: white;
+  margin-top: 5px;
+  width: 100%;
+}
 @media screen and (max-width: 600px) {
-  .inner {
-    width: 100%;
-    padding: 30px;
+  .input-group {
+    flex-direction: column;
   }
 
-  .form-container .step-view div {
-    flex-direction: column;
-    gap: 15px;
+  .input-elements {
+    width: 100%;
   }
 }
 </style>
