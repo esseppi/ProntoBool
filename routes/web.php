@@ -75,5 +75,5 @@ require __DIR__ . '/auth.php';
 
 
 Route::get("{any?}", function () {
-    return view("spa");
-})->where("any", ".*");
+     return view("spa");
+ })->where("any", ".*");

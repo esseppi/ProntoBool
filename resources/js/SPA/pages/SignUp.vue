@@ -25,117 +25,7 @@
 
       <!-- Step 1 -->
       <div class="form-container">
-        <div class="step-view" v-show="currentStep == 1">
-          <div>
-            <label
-              >Name:
-              <input
-                id="name"
-                v-model.trim="name"
-                @blur="v$.name.$touch()"
-                name="name"
-                type="text"
-              />
-              <div class="error-message">
-                <span v-for="error of v$.name.$errors" :key="error.$uid">
-                  {{ error.$message }}
-                </span>
-              </div>
-            </label>
-
-            <label
-              >Surname:
-              <input
-                id="surname"
-                v-model="surname"
-                @blur="v$.surname.$touch()"
-                name="surname"
-                type="text"
-              />
-              <div class="error-message">
-                <span v-for="error of v$.surname.$errors" :key="error.$uid">
-                  {{ error.$message }}
-                </span>
-              </div>
-            </label>
-          </div>
-          <div>
-            <label
-              >Email:
-              <input
-                type="text"
-                v-model="email"
-                id="email"
-                @blur="v$.email.$touch()"
-                name="email"
-              />
-              <div class="error-message">
-                <span v-for="error of v$.email.$errors" :key="error.$uid">
-                  {{ error.$message }}
-                </span>
-              </div>
-            </label>
-            <label
-              >Address:
-              <input
-                id="address"
-                v-model="address"
-                name="address"
-                @blur="v$.address.$touch()"
-                type="text"
-              />
-              <div class="error-message">
-                <span v-for="error of v$.address.$errors" :key="error.$uid">
-                  {{ error.$message }}
-                </span>
-              </div>
-            </label>
-          </div>
-          <div>
-            <label
-              >Password:
-              <input
-                id="password"
-                v-model="password"
-                name="password"
-                @blur="v$.password.$touch()"
-                type="password"
-              />
-              <div class="error-message">
-                <span v-for="error of v$.password.$errors" :key="error.$uid">
-                  {{ error.$message }}
-                </span>
-              </div>
-            </label>
-            <label
-              >Confirm Password:
-              <input
-                id="confirmPassword"
-                v-model="confirmPassword"
-                @blur="v$.confirmPassword.$touch()"
-                name="confirmPassword"
-                type="password"
-              />
-              <div class="error-message">
-                <span
-                  v-for="error of v$.confirmPassword.$errors"
-                  :key="error.$uid"
-                >
-                  {{ error.$message }}
-                </span>
-              </div>
-            </label>
-          </div>
-          <div>
-            <button
-              class="btn"
-              :disabled="!(!v$.$error && v$.$dirty)"
-              @click="currentStep++"
-            >
-              Next step
-            </button>
-          </div>
-        </div>
+        <Step1 v-if="currentStep == 1" @nextStep="nextStep" />
 
         <!-- Step 2 -->
         <div class="step-view" v-show="currentStep == 2">
@@ -195,6 +85,7 @@
 </template>
 
 <script>
+import Step1 from "../components/SignUp/Step1.vue";
 import useVuelidate from "@vuelidate/core";
 import {
   required,
@@ -202,31 +93,23 @@ import {
   maxLength,
   minLength,
   sameAs,
-  helpers
+  helpers,
 } from "@vuelidate/validators";
 
-const isEmailTaken = (value) => { 
-  if(value != "asd@asd.asd" || value === "") return true;
+const isEmailTaken = (value) => {
+  if (value != "asd@asd.asd" || value === "") return true;
   return false;
-  }//fetch(`/api/unique/${value}`).then(r => r.json()) check the email in the server
+}; //fetch(`/api/unique/${value}`).then(r => r.json()) check the email in the server
 
 export default {
+  components: {
+    Step1,
+  },
   setup: () => ({ v$: useVuelidate() }),
   data() {
     return {
       currentStep: 1,
-      name: "",
-      surname: "",
-      email: "",
-      address: "",
-      password: "",
-      confirmPassword: "",
-      phone: "",
-      description: "",
-      pic: "",
-      curriculum: "",
-      phone: "",
-      description: "",
+      inputData: {},
     };
   },
   validations() {
@@ -243,8 +126,11 @@ export default {
         required,
         email,
         maxLength: maxLength(30),
-        isUnique: helpers.withMessage('This email is already taken',  helpers.withAsync(isEmailTaken))
-        },
+        isUnique: helpers.withMessage(
+          "This email is already taken",
+          helpers.withAsync(isEmailTaken)
+        ),
+      },
       address: {
         required,
         minLength: minLength(5),
@@ -263,6 +149,14 @@ export default {
   methods: {
     signupRequest() {
       // AXIOS REQUEST
+    },
+    nextStep(inputData) {
+      this.currentStep++;
+      this.inputData = { ...this.inputData, ...inputData };
+      console.log(this.inputData);
+    },
+    previousStep() {
+      this.currentStep--;
     },
   },
 };

@@ -23,6 +23,8 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 Route::get('/sponsorship', [SponsorshipController::class, 'index']);
 Route::get('/profiles', [GuestApiController::class, 'index']);
 Route::get('/authcheck', [GuestApiController::class, 'authcheck']);
+Route::get('/unique', [GuestApiController::class, 'isUnique']);
+
 
 
 
