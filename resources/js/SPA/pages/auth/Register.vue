@@ -78,7 +78,6 @@ export default {
   data: () => ({
     form: {
       name: "",
-      name: "",
       email: "",
       password: "",
       password_confirmation: "",

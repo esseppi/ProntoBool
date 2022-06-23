@@ -145,6 +145,16 @@ class GuestApiController extends Controller
         ]);
     }
 
+    public function isUnique(Request $request)
+    {
+
+        $query = User::where('email',$request['email'])->get();
+        $response = $query->count() == 0;
+        return response()->json([
+            'isUnique'  => $response
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

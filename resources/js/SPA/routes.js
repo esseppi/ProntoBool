@@ -1,5 +1,5 @@
 import Vue from "vue";
-import Login from "./pages/auth/Login.vue";
+import Login from "./pages/Login.vue";
 import Dashboard from "./pages/professionist/MyDashboard.vue";
 import CustomerLead from "./pages/CustomerLead.vue";
 import Auth from "./pages/auth/auth.vue";
@@ -69,12 +69,9 @@ const router = new Router({
             },
         },
         {
-            path: "/loginSpa",
+            path: "/loginprof",
             name: "login",
             component: Login,
-            meta: {
-                requiresGuest: true,
-            },
         },
         {
             path: "/checkout/:id",

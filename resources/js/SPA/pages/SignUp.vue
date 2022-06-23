@@ -4,172 +4,79 @@
       <div class="stepper-container">
         <ul>
           <li>
-            <div class="step-circle" :class="{ active: currentStep == 1 }">1</div>
+            <div class="step-circle" :class="{ active: currentStep == 1 }">
+              1
+            </div>
           </li>
           <li class="line"></li>
           <li>
-            <div class="step-circle" :class="{ active: currentStep == 2 }">2</div>
+            <div class="step-circle" :class="{ active: currentStep == 2 }">
+              2
+            </div>
           </li>
           <li class="line"></li>
           <li>
-            <div class="step-circle" :class="{ active: currentStep == 3 }">3</div>
+            <div class="step-circle" :class="{ active: currentStep == 3 }">
+              3
+            </div>
           </li>
         </ul>
       </div>
-
-      <!-- Step 1 -->
-      <div class="form-container">
-        <div class="step-view" v-show="currentStep == 1">
-          <div>
-            <label>Name:
-              <input id="name" v-model.trim="name" @blur="v$.name.$touch(), nextStepDisabled = false" name="name" type="text" />
-              <div class="error-message">
-                <span v-for="error of v$.name.$errors" :key="error.$uid">
-                {{ error.$message }}
-                </span>
-              </div>
-            </label>
-
-            <label
-              >Surname:
-              <input id="surname" v-model="surname" @blur="v$.surname.$touch(), nextStepDisabled = false" name="surname" type="text"/>
-                            <div class="error-message">
-                <span v-for="error of v$.surname.$errors" :key="error.$uid">
-                {{ error.$message }}
-                </span>
-              </div>
-            </label>
-          </div>
-          <div>
-            <label
-              >Email:
-              <input type="text" v-model="email" id="email" @blur="v$.email.$touch(), nextStepDisabled = false" name="email" />
-                            <div class="error-message">
-                <span v-for="error of v$.email.$errors" :key="error.$uid">
-                {{ error.$message }}
-                </span>
-              </div>
-            </label>
-            <label
-              >Address:
-              <input id="address" v-model="address" name="address" type="text"/>
-            </label>
-          </div>
-          <div>
-            <label
-              >Password:
-              <input id="password" v-model="password" name="password" type="password"/>
-            </label>
-            <label
-              >Confirm Password:
-              <input id="confirmPassword" v-model="confirmPassword" name="confirmPassword" type="password"/>
-            </label>
-          </div>
-          <div>
-          <button class="btn" :disabled="v$.$errors" @click="currentStep++">Next step</button>
-          </div>
-        </div>
-
-        <!-- Step 2 -->
-        <div class="step-view" v-show="currentStep == 2">
-          <div>
-            <label
-              >Picture:
-              <input
-                type="file"
-                id="pic"
-                name="pic"
-                accept="image/png, image/jpeg"
-              />
-            </label>
-            <label
-              >Phone:
-              <input
-                type="tel"
-                v-model="phone"
-                id="phone"
-                name="phone"
-                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-              />
-            </label>
-          </div>
-          <div>
-            <label
-              >Description:
-              <textarea
-                id="description"
-                v-model="description"
-                name="description"
-              ></textarea>
-            </label>
-          </div>
-          <div>
-            <button class="btn" @click="currentStep--">Previous step</button>
-            <button class="btn" @click="currentStep++">Next step</button>
-          </div>
-        </div>
-
-        <!-- Step 3 -->
-        <div class="step-view" v-show="currentStep == 3">
-          <div>
-            <label
-              >Curriculum:
-              <input type="file" name="curriculum" accept="application/pdf" />
-            </label>
-          </div>
-          <div>
-            <button class="btn" @click="currentStep--">Previous step</button>
-            <button class="btn" @click="signupRequest">Signup</button>
-          </div>
-        </div>
-      </div>
+      <step-1 v-show="currentStep == 1" @nextStep="nextStep"/>
+      <step-2 v-show="currentStep == 2" @nextStep="nextStep"  @previousStep="previousStep"/>
+      <step-3 v-show="currentStep == 3" @nextStep="nextStep"  @previousStep="previousStep"/>
     </div>
   </v-main>
 </template>
 
 <script>
-import useVuelidate from '@vuelidate/core'
-import { required, email, maxLength, minLength} from '@vuelidate/validators'
+import Step1 from "../components/SignUp/Step1.vue";
+import Step2 from "../components/SignUp/Step2.vue";
+import Step3 from '../components/SignUp/Step3.vue';
+import useVuelidate from "@vuelidate/core";
+
 export default {
+  components: {
+    Step1,
+    Step2,
+    Step3,
+  },
   setup: () => ({ v$: useVuelidate() }),
   data() {
     return {
       currentStep: 1,
-        name: "",
-        surname: "",
-        email: "",
-        address: "",
-        password: "",
-        confirmPassword: "",
-        phone: "",
-        description: "",
-        pic: "",
-        curriculum: "",
-        phone: "",
-        description: "",
-        nextStepDisabled: true
+      inputData: {},
     };
-  },
-  validations() {
-    return {
-      name: {
-        required,
-      },
-      surname: {
-        required
-      },
-      email:  {
-        required,
-        email
-      }
-    }
   },
   methods: {
     signupRequest() {
-      // AXIOS REQUEST
+      let userData = {
+        name: this.inputData.name,
+        email: this.inputData.email,
+        password: this.inputData.password,
+        password_confirmation: this.inputData.confirmPassword
+      }
+      
+        axios.post("/api/register", userData).then(res => {
+          console.log(res)
+          localStorage.setItem("auth", true);
+          window.location = "/";
+        })
+        
+    },
+    nextStep(inputData) {
+      this.inputData = { ...this.inputData, ...inputData };
+      if(this.currentStep == 3) {
+        this.signupRequest()
+      }else{
+        this.currentStep++;
+      }
+    },
+    previousStep() {
+      this.currentStep--;
     },
   },
-}
+};
 </script>
 
 <style scoped>
@@ -181,12 +88,6 @@ export default {
   font-family: "Anek Latin", sans-serif;
 }
 .stepper-container {
-  width: 100%;
-}
-
-.error-message {
-  height: 2rem;
-  color: #ff6372;
   width: 100%;
 }
 
@@ -216,22 +117,6 @@ export default {
   color: white;
 }
 
-.form-container {
-  padding: 40px 0;
-}
-
-.form-container .step-view {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
-.form-container .step-view div {
-  display: flex;
-  gap: 40px;
-}
-
 .line {
   width: 100%;
   height: 2px;
@@ -239,51 +124,15 @@ export default {
   margin: 0 15px;
 }
 
-label {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-}
-
 input[type="text"],
 textarea,
 input[type="password"],
-input[type="tel"] {
+input[type="tel"],
+input[type="email"] {
   border: 1px solid #e1e1e4;
   background-color: white;
   margin-top: 5px;
-}
-
-.message-box textarea {
-  height: 100px;
-  resize: none;
-}
-
-.btn {
   width: 100%;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  font-size: 1.3rem;
-  color: #00234b;
-  background-color: #fde721;
-}
-
-.btn[disabled] {
-  background-color: lightgrey;
-}
-
-.btn.outlined {
-  background-color: transparent;
-  border: 2px solid #00234b;
-}
-
-.btn:hover {
-  color: white;
-  background-color: #00234b;
-}
-
-.btn.outlined:hover {
-  border: 2px solid #00234b;
 }
 
 @media screen and (max-width: 600px) {
@@ -292,9 +141,12 @@ input[type="tel"] {
     padding: 30px;
   }
 
-  .form-container .step-view div {
+  .input-group {
     flex-direction: column;
-    gap: 15px;
+  }
+
+  .input-elements {
+    width: 100%;
   }
 }
 </style>
