@@ -52,11 +52,13 @@
         </v-col>
       </v-row>
     </v-container>
+    <v-pagination v-model="page" :length="4" circle></v-pagination>
   </v-card>
 </template>
 <script>
 export default {
   data: () => ({
+    page: 1,
     loading4: false,
     cards: [],
   }),
