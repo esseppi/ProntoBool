@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="24" max-width="100%" class="mx-auto">
+  <v-card elevation="24" max-width="100%" class="mx-auto" :loading="loading">
     <v-system-bar dark height="40">
       <v-list-item-action>
         <v-switch v-model="cycle" label="Cycle Slides" inset></v-switch>
@@ -74,6 +74,7 @@ import { identifier } from "@babel/types";
 export default {
   data() {
     return {
+      loading: true,
       interval: 3300,
       colOrder1: 1,
       colOrder2: 2,
@@ -114,6 +115,8 @@ export default {
   created() {
     axios.get("/api/promotedUser").then((res) => {
       res.data.data.forEach((element) => {
+        this.loading = true;
+
         let profession = [];
         if (element.professions) {
           element.professions.forEach((elemento) => {

@@ -12,7 +12,9 @@
       <v-row align="center">
         <!-- <v-app-bar-nav-icon v-if="!bool"></v-app-bar-nav-icon> -->
 
-        <v-toolbar-title>ProntoBool</v-toolbar-title>
+        <v-toolbar-title>
+          <v-btn @click="refresh" dark>ProntoBool</v-btn>
+        </v-toolbar-title>
 
         <v-spacer></v-spacer>
 
@@ -42,6 +44,9 @@ export default {
     bool: Boolean,
   },
   methods: {
+    refresh() {
+      window.location = "/auth";
+    },
     logout() {
       axios.post("/api/logout").then(() => {
         localStorage.removeItem("auth");
