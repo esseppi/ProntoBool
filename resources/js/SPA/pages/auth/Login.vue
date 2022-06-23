@@ -1,5 +1,5 @@
 <template>
-  <div class="backgruond">
+  <v-container>
     <v-main class="d-flex justify-center align-center">
       <v-col cols="10" lg="4" class="mx-auto">
         <v-card class="pa-4">
@@ -12,7 +12,8 @@
           <v-form @submit.prevent="submitHandler" ref="form">
             <v-card-text>
               <v-text-field
-                v-model="email"
+                :loading="loading"
+                v-model="form.email"
                 :rules="emailRules"
                 type="email"
                 label="Email"
@@ -21,7 +22,8 @@
                 required
               />
               <v-text-field
-                v-model="password"
+                :loading="loading"
+                v-model="form.password"
                 :rules="passwordRules"
                 :type="passwordShow ? 'text' : 'password'"
                 label="Password"
@@ -31,10 +33,19 @@
                 @click:append="passwordShow = !passwordShow"
                 required
               />
-              <v-switch label="Remember me" color="indigo"></v-switch>
+              <v-switch
+                label="Remember me"
+                color="indigo"
+                v-model="form.remember"
+              ></v-switch>
             </v-card-text>
             <v-card-actions class="justify-center">
-              <v-btn :loading="loading" type="submit" color="indigo">
+              <v-btn
+                :disabled="disableBtn"
+                :loading="loading"
+                type="submit"
+                color="indigo"
+              >
                 <span class="white--text px-8">Login</span>
               </v-btn>
             </v-card-actions>
@@ -42,10 +53,10 @@
         </v-card>
       </v-col>
     </v-main>
-    <v-snackbar top color="green" v-model="snackbar">
-      Login success
+    <v-snackbar top color="red" v-model="snackbar">
+      Something went wrong
     </v-snackbar>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -53,6 +64,12 @@ export default {
   name: "App",
 
   data: () => ({
+    form: {
+      email: "",
+      password: "",
+      remember: false,
+    },
+    disableBtn: false,
     loading: false,
     snackbar: false,
     passwordShow: false,
@@ -68,6 +85,9 @@ export default {
     ],
   }),
   methods: {
+    remember_function() {
+      this.remember = true;
+    },
     submitHandler() {
       if (this.$refs.form.validate()) {
         this.loading = true;
@@ -75,13 +95,25 @@ export default {
           this.loading = false;
           this.snackbar = true;
         }, 3000);
+        this.loginUser();
       }
+    },
+    loginUser() {
+      axios
+        .post("/api/login", this.form)
+        .then(() => {
+          localStorage.setItem("auth", true);
+          window.location = "/home";
+        })
+        .catch((error) => {
+          this.errors = error.response.data.errors;
+        });
     },
   },
 };
 </script>
 <style>
-.backgruond {
+/* .backgruond {
   background-image: url(./assets/Order-Banner.jpg) !important;
   height: 300px;
   width: 100%;
@@ -89,5 +121,5 @@ export default {
   position: absolute;
   top: 0;
   background-size: cover;
-}
+} */
 </style>

@@ -23,10 +23,9 @@ mix.vuetify();
  |
  */
 
-mix.js("resources/js/vue.js", "public/js")
+mix.js("resources/js/vue.js", "public/js/vue.js")
     .vue()
-    .js("resources/js/app.js", "public/js")
-    .sass("resources/sass/app.scss", "public/css")
+    .js("resources/js/app.js", "public/js/app.js")
     .postCss("resources/css/app.css", "public/css", [
         require("tailwindcss"),
         require("autoprefixer"),

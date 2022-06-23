@@ -22,9 +22,9 @@ use App\Http\Controllers\Professionist\Sponsorship\SponsorshipController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
 
@@ -75,5 +75,5 @@ require __DIR__ . '/auth.php';
 
 
 Route::get("{any?}", function () {
-    return view("spa");
-})->where("any", ".*");
+     return view("spa");
+ })->where("any", ".*");

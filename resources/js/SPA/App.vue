@@ -3,16 +3,16 @@
     <Drawer :user="user" v-if="user" />
     <HeaderApp :bool="bool" />
     <v-main>
-      <v-container fluid>
-        <router-view></router-view>
-      </v-container>
+      <router-view></router-view>
     </v-main>
+    <FooterApp />
   </v-app>
 </template>
 
 <script>
 import HeaderApp from "./components/HeaderApp.vue";
 import Drawer from "./components/Drawer.vue";
+import FooterApp from "./pages/FooterApp.vue";
 
 export default {
   name: "App",
@@ -25,16 +25,23 @@ export default {
   components: {
     HeaderApp,
     Drawer,
+    FooterApp,
   },
-  mounted() {
-    axios.get("/api/user").then((res) => {
-      this.user = res.data;
-      if (this.user) {
-        this.bool = true;
-      } else {
-        this.bool = false;
-      }
-    });
+  updated() {
+    if (this.$route.name != "home") this.headerShow = true;
   },
+  created() {
+    if (localStorage.getItem("auth")) {
+      axios.get("/api/user").then((res) => {
+        this.user = res.data;
+        if (this.user) {
+          this.bool = true;
+        }
+      });
+    } else {
+      this.bool = false;
+    }
+  },
+  mounted() {},
 };
 </script>

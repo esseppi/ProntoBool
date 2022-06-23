@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(ProfessionSeeder::class);
         $this->call(UserSeeder::class);
-        User::factory(10)->create();
+        User::factory(250)->create();
         $this->call(ProfileSeeder::class);
         $this->call(ProfessionProfileSeeder::class);
         $this->call(LeadSeeder::class);

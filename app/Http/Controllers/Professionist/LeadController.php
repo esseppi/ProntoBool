@@ -16,11 +16,23 @@ use Illuminate\Support\Facades\Validator;
 
 class LeadController extends Controller
 {
+
+    private function getValidators(){
+        return [
+            'name' => 'required|min:2',
+            'email' => 'required|email',
+            'profile_id' => 'required',
+            'message' => 'required|min:10|max:255',
+            'phone' => 'required|min:10|max:20'
+        ];
+    }
+    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function index()
     {
         $findMsgProfile = Profile::find(Auth::user()->id)->id;
@@ -54,35 +66,20 @@ class LeadController extends Controller
     {
         $data = $request->all();
 
-        //validazione dei campi
-        $validation = Validator::make($data, [
-            'name' => 'required',
-            'email' => 'required|email',
-            'profile_id' => 'required',
-            'message' => 'required',
-        ]);
+        $request->validate($this->getValidators());
 
-        if ($validation->fails()) {
-            return response()->json([
-                'success' => false,
-                'error' => $validation->errors(),
-            ]);
-        } else {
-            $lead = Lead::create($data);
-            //Credenziali Mailtrap.io
-            //mail: luigibardellagerbi@mail.com
-            //pwd: team5boolean
+        $lead = Lead::create($data);
+        //Credenziali Mailtrap.io
+        //mail: luigibardellagerbi@mail.com
+        //pwd: team5boolean
 
-            $email_prof = DB::table('users')
-                ->where('users.id', $data['profile_id'])
-                ->join('profiles', 'users.id', '=', 'profiles.user_id')
-                ->get('email');
-
-            Mail::to($email_prof)->send(new NewMessageMail($lead));
-            // Mail::to($lead->email)->send(new NewMessageMail($lead));
-
-            return redirect()->route('professionist.lead.index', Auth::user()->id);
-        };
+        $email_prof = DB::table('users')
+            ->where('users.id', $data['profile_id'])
+            ->join('profiles', 'users.id', '=', 'profiles.user_id')
+            ->get('email');
+            
+        Mail::to($email_prof)->send(new NewMessageMail($lead));
+        return redirect()->route('professionist.lead.index', Auth::user()->id);
     }
 
     /**

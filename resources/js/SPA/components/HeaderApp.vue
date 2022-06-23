@@ -1,22 +1,39 @@
 <template>
-  <v-app-bar elevation="0" color="#D7E4F3" light app>
-    <v-toolbar-title>ProntoPro</v-toolbar-title>
-    <v-spacer></v-spacer>
-    <div v-if="bool">
-      <button @click.prevent="logout">Logout</button>
-    </div>
-    <div v-else>
-      <button @click.prevent="login">Sei un professionista?</button>
-    </div>
+  <v-app-bar
+    light
+    dense
+    color="#D7E4F3"
+    elevation="0"
+    height="56px"
+    absolute
+    app
+  >
+    <v-container fluid>
+      <v-row align="center">
+        <!-- <v-app-bar-nav-icon v-if="!bool"></v-app-bar-nav-icon> -->
+
+        <v-toolbar-title>ProntoBool</v-toolbar-title>
+
+        <v-spacer></v-spacer>
+
+        <v-btn icon>
+          <v-icon>mdi-magnify</v-icon>
+        </v-btn>
+        <button v-if="bool" @click.prevent="logout">Logout</button>
+        <div v-else>
+          <button @click.prevent="login">Sei un professionista?</button>
+        </div>
+      </v-row>
+    </v-container>
   </v-app-bar>
 </template>
-
 
 <script>
 export default {
   name: "HeaderApp",
   data() {
     return {
+      home: "/home",
       toggle_exclusive: 1,
       group: null,
     };
@@ -24,19 +41,16 @@ export default {
   props: {
     bool: Boolean,
   },
-  mounted() {
-    axios.get("/api/user").then((res) => {
-      this.user = res.data;
-    });
-  },
   methods: {
     logout() {
-      axios.post("http://127.0.0.1:8000/api/logout").then(() => {
-        window.location = "/loginSpa";
+      axios.post("/api/logout").then(() => {
+        localStorage.removeItem("auth");
+        window.location = "/auth";
       });
     },
     login() {
-      this.$router.push({ name: "login" });
+      localStorage.removeItem("auth");
+      window.location = "/auth";
     },
   },
   created() {},

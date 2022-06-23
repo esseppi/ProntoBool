@@ -16,7 +16,7 @@ class ReviewSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        for ($i = 0; $i < 4; $i++) {
+        for ($i = 0; $i < 800; $i++) {
             Review::create([
                 'profile_id' => Profile::inRandomOrder()->first()->id,
                 'name' => $faker->name(),

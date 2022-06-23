@@ -12,10 +12,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
     <!-- Styles -->
+
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     <!-- Scripts -->
-    <!--front office o back office??? -->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-braintree/dist/vue-braintree.umd.min.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 
