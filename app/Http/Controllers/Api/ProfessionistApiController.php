@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Professionist\Profile;
+use App\Models\Professionist\Review;
 use App\Models\Professionist\Sponsorship;
 
 class ProfessionistApiController extends Controller
@@ -34,6 +35,14 @@ class ProfessionistApiController extends Controller
         return response()->json([
             'status' => true,
             'response' => $user
+        ]);
+    }
+
+    public function getUserReviews($id){
+        $reviews = Review::where('profile_id', $id)->get();
+        return response()->json([
+            'status' => true,
+            'response' => $reviews
         ]);
     }
 }

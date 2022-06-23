@@ -1,105 +1,102 @@
 <template>
   <div>
-
-  <!-- pop up review -->
+    <!-- pop up review -->
     <div v-if="showModal" class="backdrop">
       <div v-if="showModal" class="modal">
-          <button @click="showModal = false" class="close">x</button>
-          <div>
-            <label
-              >Name:
-              <input
-                id="name"
-                v-model="reviewData.name"
-                @blur="v$.reviewData.name.$touch()"
-                name="name"
-                type="text"
-              />
-            </label>
+        <button @click="showModal = false" class="close">x</button>
+        <div>
+          <label
+            >Name:
+            <input
+              id="name"
+              v-model="reviewData.name"
+              @blur="v$.reviewData.name.$touch()"
+              name="name"
+              type="text"
+            />
+          </label>
+          <div class="error-message">
+            <span v-for="error of v$.reviewData.name.$errors" :key="error.$uid">
+              {{ error.$message }}
+            </span>
+          </div>
+        </div>
+
+        <div>
+          <label
+            >Email:
+            <input
+              id="email"
+              v-model="reviewData.email"
+              @blur="v$.reviewData.email.$touch()"
+              name="email"
+              type="text"
+            />
+          </label>
+          <div class="error-message">
+            <span
+              v-for="error of v$.reviewData.email.$errors"
+              :key="error.$uid"
+            >
+              {{ error.$message }}
+            </span>
+          </div>
+        </div>
+
+        <div>
+          <label
+            >Vote:
+            <select
+              name="vote"
+              v-model="reviewData.vote"
+              @blur="v$.reviewData.vote.$touch()"
+              id="vote"
+            >
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
             <div class="error-message">
               <span
-                v-for="error of v$.reviewData.name.$errors"
+                v-for="error of v$.reviewData.vote.$errors"
                 :key="error.$uid"
               >
                 {{ error.$message }}
               </span>
             </div>
-          </div>
+          </label>
+        </div>
 
-          <div>
-            <label
-              >Email:
-              <input
-                id="email"
-                v-model="reviewData.email"
-                @blur="v$.reviewData.email.$touch()"
-                name="email"
-                type="text"
-              />
-            </label>
-            <div class="error-message">
-              <span
-                v-for="error of v$.reviewData.email.$errors"
-                :key="error.$uid"
-              >
-                {{ error.$message }}
-              </span>
-            </div>
+        <div>
+          <label
+            >Message Review:
+            <textarea
+              id="message"
+              v-model="reviewData.message"
+              @blur="v$.reviewData.message.$touch()"
+              name="message"
+            ></textarea>
+          </label>
+          <div class="error-message">
+            <span
+              v-for="error of v$.reviewData.message.$errors"
+              :key="error.$uid"
+            >
+              {{ error.$message }}
+            </span>
           </div>
+        </div>
 
-          <div>
-            <label
-              >Vote:
-              <select
-                name="vote"
-                v-model="reviewData.vote"
-                @blur="v$.reviewData.vote.$touch()"
-                id="vote"
-              >
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>
-              <div class="error-message">
-                <span
-                  v-for="error of v$.reviewData.vote.$errors"
-                  :key="error.$uid"
-                >
-                  {{ error.$message }}
-                </span>
-              </div>
-            </label>
-          </div>
-
-          <div>
-            <label
-              >Message Review:
-              <textarea
-                id="message"
-                v-model="reviewData.message"
-                @blur="v$.reviewData.message.$touch()"
-                name="message"
-              ></textarea>
-            </label>
-            <div class="error-message">
-              <span
-                v-for="error of v$.reviewData.message.$errors"
-                :key="error.$uid"
-              >
-                {{ error.$message }}
-              </span>
-            </div>
-          </div>
-
-          <button
-            class="btn"
-            :disabled="!(!v$.reviewData.$error && v$.reviewData.$dirty)"
-            @click="sendReview"
-            type="submit"
-            >Send Review
-          </button>
+        <button
+          class="btn"
+          :disabled="!(!v$.reviewData.$error && v$.reviewData.$dirty)"
+          @click="sendReview"
+          type="submit"
+        >
+          Send Review
+        </button>
       </div>
     </div>
 
@@ -107,7 +104,6 @@
     <v-main>
       <div class="inner">
         <div class="profile-data">
-
           <!-- PROFILE -->
           <section>
             <div class="prof-flex">
@@ -166,7 +162,7 @@
             <div class="reviews-top-container">
               <div class="">
                 <h4>Overall rating</h4>
-                <div class="vote">{{ profileData.vote }}</div>
+                <div class="vote">{{ this.vote.toFixed(2) }}</div>
               </div>
               <div class="">
                 <button @click="showModal = true" class="btn">
@@ -199,7 +195,9 @@
                 <p>{{ item.message }}</p>
                 <div class="reviews-info">
                   <span>{{ item.name }}</span> •
-                  <span>{{ item.date }}</span>
+                  <span>{{
+                    new Date(item.created_at).toLocaleDateString("en-US")
+                  }}</span>
                 </div>
               </div>
               <button
@@ -282,6 +280,7 @@ export default {
   data() {
     return {
       showModal: false,
+      vote: 0,
       profile_id: "",
       profileData: {
         name: "Luigi Bardella Gerbi",
@@ -398,8 +397,12 @@ export default {
        this.profileData = res.data.response;
        axios.get(`api/user/${this.profile_id}`).then((res) => {
             this.userData = res.data.response;
-            console.log(this.userData);
        });
+       axios.get(`api/reviews/${this.profile_id}`).then((res)=>{
+           this.profileReviews = res.data.response.reverse();
+           console.log(this.profileReviews)
+           this.getAvg();
+       })
     });
   },
   validations() {
@@ -431,13 +434,25 @@ export default {
         profile_id: this.profile_id,
         name: this.reviewData.name,
         email: this.reviewData.email,
-        vote: 5,
+        vote: this.reviewData.vote,
         message: this.reviewData.message
       }
       axios.post("/api/sendreview", data).then((res) => {
         console.log(res);
+        axios.get(`api/reviews/${this.profile_id}`).then((res)=>{
+           this.profileReviews = res.data.response.reverse();
+           console.log(this.profileReviews)
+           this.getAvg();
+       })
       })
       this.showModal = false;
+    },
+    getAvg(){
+      let sum = 0;
+      this.profileReviews.forEach(element => {
+        sum = sum + element.vote;
+      });
+      this.vote = sum / this.profileReviews.length;
     }
   }
 };
@@ -457,12 +472,12 @@ export default {
   word-break: break-all;
 }
 
-.close{
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    color: #00234b;
-    font-size: 20px;
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: #00234b;
+  font-size: 20px;
 }
 .backdrop {
   background-color: rgba(0, 0, 0, 0.8);
