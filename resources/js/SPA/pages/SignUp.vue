@@ -84,9 +84,11 @@
                 @blur="v$.address.$touch()"
                 type="text"
               />
-              <span v-for="error of v$.address.$errors" :key="error.$uid">
-                {{ error.$message }}
-              </span>
+              <div class="error-message">
+                <span v-for="error of v$.address.$errors" :key="error.$uid">
+                  {{ error.$message }}
+                </span>
+              </div>
             </label>
           </div>
           <div>
@@ -99,9 +101,11 @@
                 @blur="v$.password.$touch()"
                 type="password"
               />
-              <span v-for="error of v$.password.$errors" :key="error.$uid">
-                {{ error.$message }}
-              </span>
+              <div class="error-message">
+                <span v-for="error of v$.password.$errors" :key="error.$uid">
+                  {{ error.$message }}
+                </span>
+              </div>
             </label>
             <label
               >Confirm Password:
@@ -112,12 +116,14 @@
                 name="confirmPassword"
                 type="password"
               />
-              <span
-                v-for="error of v$.confirmPassword.$errors"
-                :key="error.$uid"
-              >
-                {{ error.$message }}
-              </span>
+              <div class="error-message">
+                <span
+                  v-for="error of v$.confirmPassword.$errors"
+                  :key="error.$uid"
+                >
+                  {{ error.$message }}
+                </span>
+              </div>
             </label>
           </div>
           <div>
@@ -196,7 +202,14 @@ import {
   maxLength,
   minLength,
   sameAs,
+  helpers
 } from "@vuelidate/validators";
+
+const isEmailTaken = (value) => { 
+  if(value != "asd@asd.asd" || value === "") return true;
+  return false;
+  }//fetch(`/api/unique/${value}`).then(r => r.json()) check the email in the server
+
 export default {
   setup: () => ({ v$: useVuelidate() }),
   data() {
@@ -230,7 +243,8 @@ export default {
         required,
         email,
         maxLength: maxLength(30),
-      },
+        isUnique: helpers.withMessage('This email is already taken',  helpers.withAsync(isEmailTaken))
+        },
       address: {
         required,
         minLength: minLength(5),
