@@ -68,6 +68,7 @@
     </v-col>
     <v-col cols="12" md="1">
       <v-card
+        @click="openPage"
         class="yellow d-flex flex-col justify-center align-center"
         height="100%"
       >
@@ -79,7 +80,6 @@
             :loading="dialog"
             class="white--text"
             color="purple darken-2"
-            @click="openPage"
           >
             <v-icon>mdi-magnify</v-icon>
           </v-btn>

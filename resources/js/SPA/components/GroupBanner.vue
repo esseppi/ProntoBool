@@ -36,6 +36,9 @@
                 <v-sheet>
                   <p
                     class="
+                      d-flex
+                      justify-center
+                      align-middle
                       text-h5
                       font-weight-bold
                       text-center

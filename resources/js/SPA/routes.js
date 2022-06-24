@@ -73,11 +73,6 @@ const router = new Router({
                 requiresGuest: true,
             },
         },
-        {
-            path: "/doc",
-            name: "doc",
-            component: DoctorDetails,
-        },
 
         {
             path: "/login-spa",
