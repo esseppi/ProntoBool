@@ -17,8 +17,10 @@
               <li v-for="(item, index) in reviewsCounter" :key="index">
                 {{ index }} stars ({{ item }})
                 <div class="bar">
-                  <div
-                    :style="{ width: item*100/profileReviews.length + '%' }"
+                  <div v-if="profileReviews.length > 0"
+                    :style="{
+                      width: (item * 100) / profileReviews.length + '%',
+                    }"
                     class="internal-bar"
                   ></div>
                 </div>
@@ -52,7 +54,7 @@
           <p>{{ item.message }}</p>
           <div class="reviews-info">
             <span>{{ item.name }}</span> •
-            <span>{{ item.date }}</span>
+            <span>{{ item.created_at }}</span>
           </div>
         </div>
         <button
@@ -72,92 +74,8 @@ export default {
   name: "Reviews",
   data() {
     return {
-      profileReviews: [
-        {
-          name: "Marco",
-          vote: 1,
-          message:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-          date: "12/12/2019",
-        },
-        {
-          name: "Antonio",
-          vote: 3,
-          message:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-          date: "20/1/2020",
-        },
-        {
-          name: "Sara",
-          vote: 5,
-          message:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-          date: "12/6/2021",
-        },
-        {
-          name: "Lorena",
-          vote: 3,
-          message:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-          date: "23/3/2019",
-        },
-        {
-          name: "Marco",
-          vote: 1,
-          message:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-          date: "12/12/2019",
-        },
-        {
-          name: "Antonio",
-          vote: 2,
-          message:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-          date: "20/1/2020",
-        },
-        {
-          name: "Sara",
-          vote: 5,
-          message:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-          date: "12/6/2021",
-        },
-        {
-          name: "Lorena",
-          vote: 5,
-          message:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-          date: "23/3/2019",
-        },
-        {
-          name: "Marco",
-          vote: 1,
-          message:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-          date: "12/12/2019",
-        },
-        {
-          name: "Antonio",
-          vote: 5,
-          message:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-          date: "20/1/2020",
-        },
-        {
-          name: "Sara",
-          vote: 5,
-          message:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-          date: "12/6/2021",
-        },
-        {
-          name: "Lorena",
-          vote: 4,
-          message:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-          date: "23/3/2019",
-        },
-      ],
+      user: null,
+      profileReviews: [],
       reviewsShowed: 10,
       vote: null,
       reviewsCounter: {
@@ -169,13 +87,23 @@ export default {
       },
     };
   },
-  mounted() {
-    let sum = 0;
-    this.profileReviews.forEach((item) => {
-      sum += item.vote;
-      this.reviewsCounter[item.vote]++;
+  created() {
+    if (localStorage.getItem("auth")) {
+      axios.get("/api/user").then((res) => {
+        this.user = res.data;
+        axios.get(`api/reviews/${this.user.id}`).then((res) => {
+      this.profileReviews = res.data.response.reverse();
+      console.log(this.profileReviews);
+
+      let sum = 0;
+      this.profileReviews.forEach((item) => {
+        sum += item.vote;
+        this.reviewsCounter[item.vote]++;
+      });
+      this.profileReviews > 0 ? this.vote = (sum / this.profileReviews.length).toFixed(2) : this.vote = 0;
     });
-    this.vote = (sum / this.profileReviews.length).toFixed(2);
+      });
+    }
   },
 };
 </script>
@@ -222,7 +150,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
-    padding: 0;
+  padding: 0;
 }
 
 .reviews-top-container li {
@@ -234,9 +162,9 @@ export default {
   margin-top: -30px;
 }
 
-    h4{
-        font-size: 1.5rem;
-    }
+h4 {
+  font-size: 1.5rem;
+}
 
 .reviews-bottom-container {
   border-top: 1px solid #e1e1e4;
@@ -310,41 +238,41 @@ export default {
   background-color: #ff6372;
 }
 
-.reviews-counter{
-    width: 100%;
+.reviews-counter {
+  width: 100%;
 }
 
-@media screen and (max-width: 800px){
-	.inner {
-		width: 100%;
-		padding: 20px;
-	}
+@media screen and (max-width: 800px) {
+  .inner {
+    width: 100%;
+    padding: 20px;
+  }
 
-	.reviews-top-container > div{
-		width: 50%;
-	}
+  .reviews-top-container > div {
+    width: 50%;
+  }
 
-	.reviews-top-container > div:last-child{
-		width: 100%;
-		border: 0;
-	}
+  .reviews-top-container > div:last-child {
+    width: 100%;
+    border: 0;
+  }
 
-	.reviews-top-container > div:last-child > h4{
-		display: none;
-	}
+  .reviews-top-container > div:last-child > h4 {
+    display: none;
+  }
 
-	.vote{
-		margin-top: -10px;
-		font-size: 3.5rem;
-	}
+  .vote {
+    margin-top: -10px;
+    font-size: 3.5rem;
+  }
 
-	h4{
-		text-align: center;
-		font-size: 1rem;
-	}
+  h4 {
+    text-align: center;
+    font-size: 1rem;
+  }
 
-	.reviews-counter{
-		margin-top: 30px;
-	}
+  .reviews-counter {
+    margin-top: 30px;
+  }
 }
 </style>
