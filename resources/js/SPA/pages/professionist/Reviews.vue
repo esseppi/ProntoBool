@@ -100,7 +100,7 @@ export default {
         sum += item.vote;
         this.reviewsCounter[item.vote]++;
       });
-      this.profileReviews > 0 ? this.vote = (sum / this.profileReviews.length).toFixed(2) : this.vote = 0;
+      this.profileReviews.length > 0 ? this.vote = (sum / this.profileReviews.length).toFixed(2) : this.vote = 0;
     });
       });
     }
