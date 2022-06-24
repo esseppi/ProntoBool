@@ -35,9 +35,12 @@ const router = new Router({
             component: Dashboard,
         },
         {
-            path: "/reviews",
+            path: "/myreviews",
             name: "reviews",
             component: Reviews,
+            meta: {
+                requiresAuth: true,
+            },
         },
         {
             path: "/messages",

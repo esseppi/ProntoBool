@@ -452,7 +452,7 @@ export default {
       this.profileReviews.forEach(element => {
         sum = sum + element.vote;
       });
-      this.vote = sum / this.profileReviews.length;
+      sum != 0 ? this.vote = sum / this.profileReviews.length : this.vote = 0;
     }
   }
 };
