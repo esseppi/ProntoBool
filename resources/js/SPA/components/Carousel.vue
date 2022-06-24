@@ -1,10 +1,6 @@
 <template>
   <v-card elevation="24" max-width="100%" class="mx-auto" :loading="loading">
-    <v-system-bar dark height="40">
-      <v-list-item-action>
-        <v-switch v-model="cycle" label="Cycle Slides" inset></v-switch>
-      </v-list-item-action>
-    </v-system-bar>
+    <v-system-bar dark height="10"> </v-system-bar>
 
     <v-carousel
       :interval="interval"
@@ -29,6 +25,11 @@
         <v-sheet color="warning" height="310" tile>
           <v-row class="fill-height" align="center" justify="center">
             <v-col :order="colOrder1">
+              <div class="d-flex justify-center">
+                <v-avatar class="mb-5" color="grey" size="164">
+                  <v-img :src="slide.pic"></v-img>
+                </v-avatar>
+              </div>
               <v-sheet class="text-h2">{{ slide.name }}</v-sheet>
             </v-col>
             <v-col :order="colOrder2">
@@ -65,6 +66,9 @@
 
         <v-icon x-large>mdi-slack</v-icon>
       </v-btn>
+      <!-- <v-list-item-action>
+        <v-switch v-model="cycle" label="Cycle Slides" inset></v-switch>
+      </v-list-item-action> -->
     </v-bottom-navigation>
   </v-card>
 </template>
@@ -125,6 +129,7 @@ export default {
           this.slides.push({
             name: element.name,
             city: element.address,
+            pic: element.pic,
             profession: profession,
           });
         }

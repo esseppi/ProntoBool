@@ -1,80 +1,80 @@
 <template>
-  <v-card height="680" :loading="loading1" class="py-10">
-    <v-container>
-      <v-row>
-        <v-col
-          v-for="card in cards"
-          :key="card.title"
-          :md="card.flex"
-          cols="12"
-        >
-          <v-card>
-            <v-img
-              :loading="loading2"
-              :src="card.src"
-              class="white--text align-end"
-              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              height="200px"
-            >
-              <v-card-title
-                primary-title
-                class="justify-center white--text"
-                v-text="card.title"
-              ></v-card-title>
-              <v-chip-group class="align-self-end" show-arrows>
-                <v-chip
-                  center-active
-                  v-for="item in card.profession"
-                  :key="item"
-                  class="warning accent-4 white--text"
-                >
-                  {{ item }}
-                </v-chip>
-              </v-chip-group>
-              <!-- </v-card> -->
-            </v-img>
-
-            <v-card-actions class="justify-center">
-              <v-btn v-if="card.flex == 3" icon>
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>
-
-              <v-spacer></v-spacer>
-              <v-btn v-if="card.flex == 3" icon>
-                <v-icon>mdi-eye</v-icon>
-              </v-btn>
-              <v-btn
-                v-else
-                class="ma-2"
-                :loading="loading4"
-                :disabled="loading4"
-                color="info"
-                @click="loader = 'loading4'"
+  <v-parallax
+    dark
+    height="680"
+    src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
+  >
+    <v-card color="transparent" height="680" :loading="loading1" class="py-10">
+      <v-container>
+        <v-row>
+          <v-col
+            v-for="card in cards"
+            :key="card.title"
+            :md="card.flex"
+            cols="12"
+          >
+            <v-card>
+              <v-img
+                :loading="loading2"
+                :src="card.src"
+                class="white--text align-end"
+                gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                height="200px"
               >
-                Visita questa sezione
-                <template v-slot:loader>
-                  <span class="custom-loader">
-                    <v-icon light>mdi-cached</v-icon>
-                  </span>
-                </template>
-              </v-btn>
-              <v-spacer></v-spacer>
+                <v-card-title
+                  primary-title
+                  class="justify-center white--text"
+                  v-text="card.title"
+                ></v-card-title>
+                <v-card-actions>
+                  <v-chip-group
+                    center-active
+                    class="align-self-end"
+                    show-arrows
+                  >
+                    <v-chip
+                      center-active
+                      v-for="item in card.profession"
+                      :key="item"
+                      class="warning accent-4 white--text"
+                    >
+                      {{ item }}
+                    </v-chip>
+                  </v-chip-group>
+                </v-card-actions>
+                <!-- </v-card> -->
+              </v-img>
 
-              <v-btn v-if="card.flex == 3" icon>
-                <v-icon>mdi-message</v-icon>
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
-    <v-pagination
-      :length="15"
-      :total-visible="7"
-      v-model="page"
-      @input="getData('/api/bannerUser/?page=' + page)"
-    ></v-pagination>
-  </v-card>
+              <v-card-actions class="justify-center">
+                <v-btn v-if="card.flex == 3" :to="`/doc/` + card.id" icon link>
+                  <v-icon>mdi-eye</v-icon>
+                </v-btn>
+                <v-spacer></v-spacer>
+                <v-rating
+                  :value="card.review_avg"
+                  color="amber"
+                  dense
+                  half-increments
+                  readonly
+                  size="14"
+                ></v-rating>
+                <v-spacer></v-spacer>
+                <v-btn v-if="card.flex == 3" icon>
+                  <v-icon>mdi-message</v-icon>
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+      <v-pagination
+        :length="15"
+        :total-visible="7"
+        v-model="page"
+        @input="getData('/api/bannerUser/?page=' + page)"
+      ></v-pagination>
+    </v-card>
+  </v-parallax>
 </template>
 <script>
 export default {
@@ -100,7 +100,6 @@ export default {
     getData(url) {
       this.cards = [];
       axios.get(url).then((res) => {
-        console.log(res.data.data);
         this.totalPages = res.data.data.data.total;
 
         // PUSH CURRENT PAGINATION CARD IN ARRAY
@@ -111,21 +110,26 @@ export default {
           const randomPh =
             this.pic[Math.floor(Math.random() * this.pic.length)];
           let profession = [];
+          if (element.reviews) {
+            element.reviews.forEach((elemento) => {
+              avg.push(elemento.vote);
+            });
+          }
           if (element.professions) {
             element.professions.forEach((elemento) => {
               profession.push(elemento.name);
             });
             this.cards.push({
               title: element.name,
+              id: element.id,
               review_avg: average(avg),
               count_review: avg.length,
-              src: randomPh,
+              src: element.pic,
               flex: 3,
               profession: profession,
             });
           }
         });
-        console.log(res.data.data.data);
         this.loading1 = false;
         this.loading2 = false;
       });

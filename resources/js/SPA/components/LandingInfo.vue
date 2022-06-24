@@ -3,11 +3,11 @@
     <v-container>
       <v-card-text>
         <div>Word of the Day</div>
-        <p class="text-h4 text--primary">el·ee·mos·y·nar·y</p>
-        <p>adjective</p>
+        <p class="text-h4 text--primary">enlargement·of·the·service</p>
+        <p>wait for your city</p>
         <div class="text--primary">
-          relating to or dependent on charity; charitable.<br />
-          "an eleemosynary educational institution."
+          If you need it, <br />
+          Hire a professionist with Prontobool!
         </div>
       </v-card-text>
       <v-card-actions>

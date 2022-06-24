@@ -1,5 +1,5 @@
 <template>
-  <v-card class="py-7">
+  <v-card color="white" class="py-7">
     <v-container>
       <v-row>
         <v-col
@@ -8,50 +8,27 @@
           :md="card.flex"
           cols="12"
         >
-          <v-card color="#D7E4F3" :to="card.link" link>
+          <v-card :to="card.link" link>
             <v-img
               :src="card.src"
-              class="white--text align-end"
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
               height="200px"
             >
-              <v-card-title
-                class="align-self-start"
-                v-text="card.title"
-              ></v-card-title>
-              <v-chip dark> {{ card.profNumber }} Professionisti </v-chip>
-            </v-img>
-
-            <v-card-actions>
-              <v-btn v-if="card.flex == 3" icon>
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>
-
-              <v-spacer></v-spacer>
-              <v-btn v-if="card.flex == 3" icon>
-                <v-icon>mdi-eye</v-icon>
-              </v-btn>
-              <v-btn
-                v-else
-                class="ma-2"
-                :loading="loading4"
-                :disabled="loading4"
-                color="warning"
-                @click="loader = 'loading4'"
+              <v-card
+                height="200px"
+                color="transparent"
+                class="d-flex flex-col"
               >
-                Assumi personale a {{ card.title }}
-                <template v-slot:loader>
-                  <span class="custom-loader">
-                    <v-icon light>mdi-cached</v-icon>
-                  </span>
-                </template>
-              </v-btn>
-              <v-spacer></v-spacer>
+                <v-spacer></v-spacer>
 
-              <v-btn v-if="card.flex == 3" icon>
-                <v-icon>mdi-message</v-icon>
-              </v-btn>
-            </v-card-actions>
+                <v-card-title
+                  class="align-self-center white--text font-weight-black"
+                  v-text="card.title"
+                ></v-card-title>
+                <v-spacer></v-spacer>
+                <v-btn dark> {{ card.profNumber }} Professionisti </v-btn>
+              </v-card>
+            </v-img>
           </v-card>
         </v-col>
       </v-row>

@@ -1,7 +1,5 @@
 <template>
   <v-card elevation="24" max-width="100%" class="mx-auto" :loading="loading">
-    <v-system-bar height="10" color="warning"> </v-system-bar>
-
     <v-carousel
       :interval="interval"
       progress-color="blue"
@@ -25,7 +23,12 @@
         <v-sheet color="warning" height="310" tile>
           <v-row class="fill-height" align="center" justify="center">
             <v-col :order="colOrder1">
-              <v-sheet class="text-h2">{{ slide.name }}</v-sheet>
+              <v-sheet class="text-h2 d-flex flex-col">
+                {{ slide.name }}
+                <v-avatar
+                  ><v-img>{{ slide.pic }}</v-img></v-avatar
+                >
+              </v-sheet>
             </v-col>
             <v-col :order="colOrder2">
               <v-sheet class="text-h2">{{ slide.city }} </v-sheet>
@@ -46,7 +49,7 @@ import NoWorkResult from "postcss/lib/no-work-result";
 export default {
   data() {
     return {
-      loading: true,
+      loading: false,
       advUser: [],
       interval: 3300,
       colOrder1: 1,
@@ -111,6 +114,7 @@ export default {
           review_avg: average(avg),
           count_review: avg.length,
           city: el.address,
+          pic: el.pic,
           profession: profession,
         });
       });

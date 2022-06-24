@@ -1,13 +1,13 @@
 <template>
   <v-sheet>
     <HeroApp />
-    <Carousel2 />
     <ProfBanner />
     <Carousel />
     <LandingInfo />
     <RoadTime />
     <GroupBanner />
     <UserBanner />
+    <Carousel2 />
   </v-sheet>
 </template>
 

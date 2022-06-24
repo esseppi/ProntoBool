@@ -19,9 +19,9 @@ class ProfileSeeder extends Seeder
     {
         $profNumb = User::whereRaw('1 = 1')->count();
         $city = ['Reggio', 'Roma', 'Asti', 'Milano'];
-        for ($i = 5; $i < $profNumb; $i++) {
+        for ($i = 1; $i < $profNumb; $i++) {
             $page = file_get_contents("https://fakeface.rest/face/json");
-            $decoded = json_decode($page,true); // decode the json record
+            $decoded = json_decode($page, true); // decode the json record
             Profile::create([
                 'id' => $i,
                 'pic' => $decoded['image_url'],
