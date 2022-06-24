@@ -43,9 +43,12 @@ const router = new Router({
             },
         },
         {
-            path: "/messages",
+            path: "/mymessages",
             name: "messages",
             component: Messages,
+            meta: {
+                requiresAuth: true,
+            },
         },
 
         {
@@ -66,6 +69,9 @@ const router = new Router({
             path: "/signup",
             name: "signup",
             component: SignUp,
+            meta: {
+                requiresGuest: true,
+            },
         },
         {
             path: "/doc",
@@ -74,9 +80,12 @@ const router = new Router({
         },
 
         {
-            path: "/loginprof",
+            path: "/login-spa",
             name: "login",
             component: Login,
+            meta: {
+                requiresGuest: true,
+            },
         },
         {
             path: "/checkout/:id",
@@ -105,22 +114,6 @@ const router = new Router({
             component: ResultPage,
         },
         {
-            path: "/registerSpa",
-            name: "register",
-            component: RegisterSaso,
-            meta: {
-                requiresGuest: true,
-            },
-        },
-        {
-            path: "/loginSpa",
-            name: "loginSaso",
-            component: LoginSaso,
-            meta: {
-                requiresGuest: true,
-            },
-        },
-        {
             // /search/screens -> /search?q=screens
             path: "/*",
             redirect: (to) => {
@@ -143,9 +136,9 @@ router.beforeEach((to, from, next) => {
     const requiresAuth = to.matched.some((record) => to.meta.requiresAuth);
     const requiresGuest = to.matched.some((record) => to.meta.requiresGuest);
     if (requiresGuest && localStorage.auth) {
-        next("/loginSpa");
+        next("/login");
     } else if (requiresAuth && !localStorage.auth) {
-        next("/");
+        next("/login-spa");
     } else {
         next();
     }
