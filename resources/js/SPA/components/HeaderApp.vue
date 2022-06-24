@@ -19,7 +19,7 @@
         <v-spacer></v-spacer>
 
         <v-btn icon>
-          <v-icon>mdi-magnify</v-icon>
+          <v-icon @click="searchPage()">mdi-magnify</v-icon>
         </v-btn>
         <button v-if="bool" @click.prevent="logout">Logout</button>
         <div v-else>
@@ -35,7 +35,8 @@ export default {
   name: "HeaderApp",
   data() {
     return {
-      home: "/home",
+      home: "/",
+
       toggle_exclusive: 1,
       group: null,
     };
@@ -45,7 +46,10 @@ export default {
   },
   methods: {
     refresh() {
-      window.location = "/auth";
+      window.location = "/";
+    },
+    searchPage() {
+      this.$router.push({ path: "/results/ovunque" });
     },
     logout() {
       axios.post("/api/logout").then(() => {

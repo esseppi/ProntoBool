@@ -19,7 +19,7 @@ class ProfileSeeder extends Seeder
     {
         $city = ['Reggio', 'Roma', 'Asti', 'Milano'];
         $page = file_get_contents("https://fakeface.rest/face/json");
-        $decoded = json_decode($page,true); // decode the json record
+        $decoded = json_decode($page, true); // decode the json record
         Profile::create([
             'id' => 2,
             'pic' => $decoded['image_url'],
@@ -30,11 +30,11 @@ class ProfileSeeder extends Seeder
             'phone' => $faker->phoneNumber(),
             'views' => $faker->numberBetween(0, 1000),
         ]);
-        
+
         $profNumb = User::whereRaw('1 = 1')->count();
         for ($i = 5; $i < $profNumb; $i++) {
             $page = file_get_contents("https://fakeface.rest/face/json");
-            $decoded = json_decode($page,true); // decode the json record
+            $decoded = json_decode($page, true); // decode the json record
             Profile::create([
                 'id' => $i,
                 'pic' => $decoded['image_url'],

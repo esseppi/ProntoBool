@@ -2,7 +2,7 @@
   <v-navigation-drawer v-model="drawer" :mini-variant.sync="mini" permanent app>
     <v-list-item class="px-2">
       <v-list-item-avatar>
-        <!-- <v-img :src="profile.pic"></v-img> -->
+        <v-img :src="profile.pic"></v-img>
       </v-list-item-avatar>
 
       <v-list-item-title>{{ user.name }}</v-list-item-title>

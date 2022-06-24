@@ -11,43 +11,67 @@
       >
     </template>
     <v-carousel-item v-for="(card, i) in cards" :key="i" height="300">
-      <v-sheet color="#D7E4F3" height="320">
+      <v-card color="#D7E4F3" height="320" :to="`/doc/` + card.id" link>
         <v-container>
           <v-row class="fill-height" align="center" justify="center">
             <v-col :cols="card.flex">
-              <v-sheet>
-                <p
-                  class="
-                    text-h5
-                    font-weight-bold
-                    text-center
-                    word-wrap
-                    brake-word
-                    overflow-wrap
-                    text-gray-800x
-                  "
-                >
-                  {{ card.title }}
-                </p>
+              <v-sheet
+                color="transparent"
+                class="d-flex flex-col align-middle justify-center"
+              >
+                <v-rating
+                  class="mx-auto"
+                  :value="card.review_avg"
+                  color="amber"
+                  dense
+                  half-increments
+                  readonly
+                  size="30"
+                ></v-rating>
+
+                <v-card-title class="text-h4 mb-4 mx-auto">
+                  {{ card.name }}
+                </v-card-title>
+
+                <v-sheet>
+                  <p
+                    class="
+                      text-h5
+                      font-weight-bold
+                      text-center
+                      word-wrap
+                      brake-word
+                      overflow-wrap
+                      text-gray-800x
+                    "
+                  >
+                    {{ card.title }}
+                  </p>
+                </v-sheet>
+                <v-spacer></v-spacer>
               </v-sheet>
             </v-col>
             <v-col :cols="card.flex">
-              <v-card height="280" shaped>
-                <v-card-text>
+              <v-sheet
+                height="280"
+                color="transparent"
+                class="d-flex flex-col align-center"
+              >
+                <v-spacer></v-spacer>
+
+                <v-avatar class="profile" size="250">
                   <v-img
                     :src="card.src"
-                    class="white--text align-end"
-                    gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-                    height="230px"
-                  >
-                    <v-card-title v-text="card.title"></v-card-title>
-                  </v-img>
-                </v-card-text>
-              </v-card>
+                    class="white--text align-center"
+                  ></v-img>
+                </v-avatar>
+
+                <v-spacer></v-spacer>
+              </v-sheet>
             </v-col>
           </v-row>
         </v-container>
-      </v-sheet>
+      </v-card>
     </v-carousel-item>
   </v-carousel>
 </template>
@@ -56,37 +80,40 @@ export default {
   data() {
     return {
       slides: ["First", "Second", "Third", "Fourth", "Fifth"],
-      cards: [
-        {
-          title: "Pre-fab homes",
-          title2: "Best airlines",
-
-          src: "https://cdn.vuetifyjs.com/images/cards/house.jpg",
-          flex: 6,
-        },
-        {
-          title: "Pre-fab homes",
-          title2: "Best airlines",
-
-          src: "https://cdn.vuetifyjs.com/images/cards/house.jpg",
-          flex: 5,
-        },
-        {
-          title: "Favorite road trips",
-          title2: "Best airlines",
-
-          src: "https://cdn.vuetifyjs.com/images/cards/road.jpg",
-          flex: 6,
-        },
-        {
-          title: "Best airlines",
-          title2: "Best airlines",
-
-          src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-          flex: 5,
-        },
-      ],
+      cards: [],
     };
+  },
+  created() {
+    axios.get("/api/promotedUser").then((res) => {
+      res.data.data.forEach((element) => {
+        let avg = [0];
+        this.loading = true;
+        const average = (array) =>
+          Number((array.reduce((a, b) => a + b) / array.length).toFixed(2));
+
+        let profession = [];
+        if (element.professions) {
+          element.professions.forEach((elemento) => {
+            profession.push(elemento.name);
+          });
+          if (element.reviews) {
+            element.reviews.forEach((elemento) => {
+              avg.push(elemento.vote);
+            });
+          }
+          this.cards.push({
+            flex: 6,
+            id: element.id,
+            review_avg: average(avg),
+            name: element.name,
+            city: element.address,
+            src: element.pic,
+            title: profession,
+          });
+        }
+      });
+      console.log(res.data.data);
+    });
   },
 };
 </script>
