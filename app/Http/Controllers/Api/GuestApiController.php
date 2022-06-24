@@ -124,7 +124,7 @@ class GuestApiController extends Controller
 
         $users = Profile::with('professions', 'reviews')->join('users', 'profiles.id', '=', 'users.id')
             ->get();
-        
+
         return response()->json([
             // 'data2' => $checkIfHasProfile,
             'data' => $users
@@ -149,14 +149,15 @@ class GuestApiController extends Controller
     public function isUnique(Request $request)
     {
 
-        $query = User::where('email',$request['email'])->get();
+        $query = User::where('email', $request['email'])->get();
         $response = $query->count() == 0;
         return response()->json([
             'isUnique'  => $response
         ]);
     }
 
-    public function sendReview(Request $request){
+    public function sendReview(Request $request)
+    {
         $data = $request->all();
         $resp = Review::create($data);
         return response()->json([

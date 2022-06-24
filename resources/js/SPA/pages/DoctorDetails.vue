@@ -293,9 +293,7 @@ export default {
         phone: "3412345678",
         email: "twotimesgi@gmail.com",
       },
-      userData: {
-
-      },
+      userData: {},
       profileReviews: [
         {
           name: "Marco",
@@ -391,18 +389,18 @@ export default {
       },
     };
   },
-  mounted(){
+  mounted() {
     this.profile_id = this.$route.params.id;
     axios.get(`api/profile/${this.profile_id}`).then((res) => {
-       this.profileData = res.data.response;
-       axios.get(`api/user/${this.profile_id}`).then((res) => {
-            this.userData = res.data.response;
-       });
-       axios.get(`api/reviews/${this.profile_id}`).then((res)=>{
-           this.profileReviews = res.data.response.reverse();
-           console.log(this.profileReviews)
-           this.getAvg();
-       })
+      this.profileData = res.data.response;
+      axios.get(`api/user/${this.profile_id}`).then((res) => {
+        this.userData = res.data.response;
+      });
+      axios.get(`api/reviews/${this.profile_id}`).then((res) => {
+        this.profileReviews = res.data.response.reverse();
+        console.log(this.profileReviews);
+        this.getAvg();
+      });
     });
   },
   validations() {
@@ -418,7 +416,7 @@ export default {
           maxLength: maxLength(30),
         },
         vote: {
-          required
+          required,
         },
         message: {
           required,
@@ -429,32 +427,34 @@ export default {
     };
   },
   methods: {
-    sendReview(){
+    sendReview() {
       let data = {
         profile_id: this.profile_id,
         name: this.reviewData.name,
         email: this.reviewData.email,
         vote: this.reviewData.vote,
-        message: this.reviewData.message
-      }
+        message: this.reviewData.message,
+      };
       axios.post("/api/sendreview", data).then((res) => {
         console.log(res);
-        axios.get(`api/reviews/${this.profile_id}`).then((res)=>{
-           this.profileReviews = res.data.response.reverse();
-           console.log(this.profileReviews)
-           this.getAvg();
-       })
-      })
+        axios.get(`api/reviews/${this.profile_id}`).then((res) => {
+          this.profileReviews = res.data.response.reverse();
+          console.log(this.profileReviews);
+          this.getAvg();
+        });
+      });
       this.showModal = false;
     },
-    getAvg(){
+    getAvg() {
       let sum = 0;
-      this.profileReviews.forEach(element => {
+      this.profileReviews.forEach((element) => {
         sum = sum + element.vote;
       });
-      sum != 0 ? this.vote = sum / this.profileReviews.length : this.vote = 0;
-    }
-  }
+      sum != 0
+        ? (this.vote = sum / this.profileReviews.length)
+        : (this.vote = 0);
+    },
+  },
 };
 </script>
 
