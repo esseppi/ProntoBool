@@ -36,6 +36,7 @@ Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->middl
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::middleware('auth:sanctum')->get('/messages/{id}', [ProfessionistApiController::class, 'getUserMessages']);
 
 
 
@@ -48,6 +49,7 @@ Route::get('/getBundles', [ProfessionistApiController::class, 'getBundle']);
 Route::get('/profile/{id}', [ProfessionistApiController::class, 'getProfileInfo']);
 Route::get('/user/{id}', [ProfessionistApiController::class, 'getUserInfo']);
 Route::get('/reviews/{id}', [ProfessionistApiController::class, 'getUserReviews']);
+Route::get('/messages/{id}', [ProfessionistApiController::class, 'getUserMessages']);
 
 
 

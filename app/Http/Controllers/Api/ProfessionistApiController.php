@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Professionist\Lead;
 use App\Http\Controllers\Controller;
-use App\Models\Professionist\Profile;
 use App\Models\Professionist\Review;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Professionist\Profile;
 use App\Models\Professionist\Sponsorship;
 
 class ProfessionistApiController extends Controller
@@ -44,5 +46,13 @@ class ProfessionistApiController extends Controller
             'status' => true,
             'response' => $reviews
         ]);
+    }
+
+    public function getUserMessages($id){
+            $leads = Lead::where('profile_id', $id)->get();
+            return response()->json([
+                'status' => true,
+                'response' => $leads
+            ]);
     }
 }
