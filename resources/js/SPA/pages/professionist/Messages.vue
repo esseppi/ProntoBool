@@ -1,5 +1,5 @@
 <template>
-  <v-main>
+  <div>
     <div class="inner">
       <div class="reviews-top-container">
         <div class="">
@@ -26,7 +26,7 @@
         </button>
       </div>
     </div>
-  </v-main>
+  </div>
 </template>
 
 <script>
@@ -199,6 +199,7 @@ export default {
       ],
       messagesShowed: 5,
       vote: null,
+      user: null,
     };
   },
   created() {
