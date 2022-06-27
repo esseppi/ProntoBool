@@ -16,6 +16,7 @@ use App\Models\Professionist\Sponsorship;
 
 class GuestApiController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *

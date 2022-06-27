@@ -22,9 +22,9 @@
           </li>
         </ul>
       </div>
-      <step-1 v-show="currentStep == 1" @nextStep="nextStep"/>
-      <step-2 v-show="currentStep == 2" @nextStep="nextStep"  @previousStep="previousStep"/>
-      <step-3 v-show="currentStep == 3" @nextStep="nextStep"  @previousStep="previousStep"/>
+      <step-1 v-show="currentStep == 1" @nextStep="nextStep" />
+      <step-2 v-show="currentStep == 2" @nextStep="nextStep" @previousStep="previousStep" />
+      <step-3 v-show="currentStep == 3" @nextStep="nextStep" @previousStep="previousStep" />
     </div>
   </v-main>
 </template>
@@ -50,25 +50,47 @@ export default {
   },
   methods: {
     signupRequest() {
+      let usedId;
       let userData = {
         name: `${this.inputData.name} ${this.inputData.surname}`,
         email: this.inputData.email,
         password: this.inputData.password,
         password_confirmation: this.inputData.confirmPassword
       }
-      
-        axios.post("/api/register", userData).then(res => {
-          console.log(res)
-          localStorage.setItem("auth", true);
-          window.location = "/";
-        })
-        
+
+      axios.post("/api/register", userData).then(res => {
+        localStorage.setItem("auth", true);
+        const config = {
+          headers: {
+            'content-type': 'multipart/form-data',
+          }
+        }
+        // form data
+        let formData = new FormData();
+        formData.append('description', this.inputData.description);
+        formData.append('phone', this.inputData.phone);
+        formData.append('profilepic', this.inputData.pic);
+        formData.append('curriculum', this.inputData.curriculum);
+
+        formData.append('id', res.data.response.user.id);
+        formData.append('user_id', res.data.response.user.id);
+        formData.append('professions', "1")
+        formData.append('address', this.inputData.address)
+
+
+        // send upload request
+        axios.post('/api/newprofile', formData, config)
+          .then(function (response) {
+            console.log(response.data);
+            window.location = "/";
+          });
+      })
     },
     nextStep(inputData) {
       this.inputData = { ...this.inputData, ...inputData };
-      if(this.currentStep == 3) {
+      if (this.currentStep == 3) {
         this.signupRequest()
-      }else{
+      } else {
         this.currentStep++;
       }
     },
@@ -87,6 +109,7 @@ export default {
   color: #00234b;
   font-family: "Anek Latin", sans-serif;
 }
+
 .stepper-container {
   width: 100%;
 }

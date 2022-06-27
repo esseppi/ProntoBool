@@ -4,7 +4,7 @@
       <div class="input-elements">
         <!-- image v-model="inputData.pic"  -->
         <label for="pic">Picture</label>
-        <input type="file" id="pic" name="pic" accept="image/png, image/jpeg" />
+        <input type="file" id="pic" name="pic" v-on:change="onFileChange" accept="image/png, image/jpeg" />
         <!-- <div class="error-message">
           <span v-for="error of v$.inputData.pic.$errors" :key="error.$uid">
             {{ error.$message }}
@@ -15,12 +15,7 @@
       <!-- phone -->
       <div class="input-elements">
         <label for="phone">Phone</label>
-        <input
-          v-model="inputData.phone"
-          @blur="v$.inputData.phone.$touch()"
-          name="phone"
-          type="text"
-        />
+        <input v-model="inputData.phone" @blur="v$.inputData.phone.$touch()" name="phone" type="text" />
         <div class="error-message">
           <span v-for="error of v$.inputData.phone.$errors" :key="error.$uid">
             {{ error.$message }}
@@ -33,18 +28,11 @@
     <div class="input-group">
       <div class="input-elements">
         <label for="description">Description</label>
-        <textarea
-          v-model="inputData.description"
-          @blur="v$.inputData.description.$touch()"
-          name="description"
-          type="description"
-        >
+        <textarea v-model="inputData.description" @blur="v$.inputData.description.$touch()" name="description"
+          type="description">
         </textarea>
         <div class="error-message">
-          <span
-            v-for="error of v$.inputData.description.$errors"
-            :key="error.$uid"
-          >
+          <span v-for="error of v$.inputData.description.$errors" :key="error.$uid">
             {{ error.$message }}
           </span>
         </div>
@@ -52,19 +40,12 @@
     </div>
     <div class="input-group">
       <div class="input-elements">
-        <button
-          class="btn"
-          @click="$emit('previousStep')"
-        >
+        <button class="btn" @click="$emit('previousStep')">
           Previous step
         </button>
       </div>
       <div class="input-elements">
-        <button
-          class="btn"
-          :disabled="!(!v$.$error && v$.$dirty)"
-          @click="$emit('nextStep', inputData)"
-        >
+        <button class="btn" :disabled="!(!v$.$error && v$.$dirty)" @click="$emit('nextStep', inputData)">
           Next step
         </button>
       </div>
@@ -103,6 +84,11 @@ export default {
         },
       },
     };
+  },
+  methods: {
+    onFileChange(e) {
+      this.inputData.pic = e.target.files[0];
+    },
   },
 };
 </script>
@@ -171,6 +157,7 @@ input[type="email"] {
   margin-top: 5px;
   width: 100%;
 }
+
 @media screen and (max-width: 600px) {
   .input-group {
     flex-direction: column;

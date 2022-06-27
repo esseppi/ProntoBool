@@ -49,6 +49,12 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        return response()->json([
+            'status' => true,
+            'response' => [
+                'message' => 'User created successfully',
+                'user' => $user,
+            ]
+        ]);
     }
 }

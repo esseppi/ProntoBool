@@ -40,6 +40,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->get('/messages/{id}', [ProfessionistApiController::class, 'getUserMessages']);
 Route::post('profile/{id}/update', [ProfessionistApiController::class, 'updateProfile']);
 Route::post('user/{id}/update', [ProfessionistApiController::class, 'updateUser']);
+Route::post('newprofile', [ProfessionistApiController::class, 'newProfile']);
 
 
 
