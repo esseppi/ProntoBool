@@ -20,7 +20,7 @@
         >
       </template>
       <v-carousel-item height="300" v-for="(slide, i) in slides" :key="i">
-        <v-sheet color="warning" height="310" tile>
+        <v-sheet color="#D7E4F3" height="310" tile>
           <v-row class="fill-height" align="center" justify="center">
             <v-col :order="colOrder1">
               <v-sheet class="text-h2 d-flex flex-col">
