@@ -11,6 +11,7 @@ use App\Models\Professionist\Profile;
 use PhpParser\Node\Expr\Cast\Object_;
 use App\Models\Professionist\Profession;
 use App\Models\Professionist\Review;
+use App\Models\Professionist\Lead;
 use App\Models\Professionist\Sponsorship;
 
 class GuestApiController extends Controller
@@ -160,6 +161,15 @@ class GuestApiController extends Controller
     {
         $data = $request->all();
         $resp = Review::create($data);
+        return response()->json([
+            "response" => $resp
+        ]);
+    }
+
+    public function sendMessage(Request $request)
+    {
+        $data = $request->all();
+        $resp = Lead::create($data);
         return response()->json([
             "response" => $resp
         ]);

@@ -5,15 +5,8 @@
       <div v-if="showModal" class="modal">
         <button @click="showModal = false" class="close">x</button>
         <div>
-          <label
-            >Name:
-            <input
-              id="name"
-              v-model="reviewData.name"
-              @blur="v$.reviewData.name.$touch()"
-              name="name"
-              type="text"
-            />
+          <label>Name:
+            <input id="name" v-model="reviewData.name" @blur="v$.reviewData.name.$touch()" name="name" type="text" />
           </label>
           <div class="error-message">
             <span v-for="error of v$.reviewData.name.$errors" :key="error.$uid">
@@ -23,35 +16,20 @@
         </div>
 
         <div>
-          <label
-            >Email:
-            <input
-              id="email"
-              v-model="reviewData.email"
-              @blur="v$.reviewData.email.$touch()"
-              name="email"
-              type="text"
-            />
+          <label>Email:
+            <input id="email" v-model="reviewData.email" @blur="v$.reviewData.email.$touch()" name="email"
+              type="text" />
           </label>
           <div class="error-message">
-            <span
-              v-for="error of v$.reviewData.email.$errors"
-              :key="error.$uid"
-            >
+            <span v-for="error of v$.reviewData.email.$errors" :key="error.$uid">
               {{ error.$message }}
             </span>
           </div>
         </div>
 
         <div>
-          <label
-            >Vote:
-            <select
-              name="vote"
-              v-model="reviewData.vote"
-              @blur="v$.reviewData.vote.$touch()"
-              id="vote"
-            >
+          <label>Vote:
+            <select name="vote" v-model="reviewData.vote" @blur="v$.reviewData.vote.$touch()" id="vote">
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -59,10 +37,7 @@
               <option value="5">5</option>
             </select>
             <div class="error-message">
-              <span
-                v-for="error of v$.reviewData.vote.$errors"
-                :key="error.$uid"
-              >
+              <span v-for="error of v$.reviewData.vote.$errors" :key="error.$uid">
                 {{ error.$message }}
               </span>
             </div>
@@ -70,31 +45,19 @@
         </div>
 
         <div>
-          <label
-            >Message Review:
-            <textarea
-              id="message"
-              v-model="reviewData.message"
-              @blur="v$.reviewData.message.$touch()"
-              name="message"
-            ></textarea>
+          <label>Review text:
+            <textarea id="message" v-model="reviewData.message" @blur="v$.reviewData.message.$touch()"
+              name="message"></textarea>
           </label>
           <div class="error-message">
-            <span
-              v-for="error of v$.reviewData.message.$errors"
-              :key="error.$uid"
-            >
+            <span v-for="error of v$.reviewData.message.$errors" :key="error.$uid">
               {{ error.$message }}
             </span>
           </div>
         </div>
 
-        <button
-          class="btn"
-          :disabled="!(!v$.reviewData.$error && v$.reviewData.$dirty)"
-          @click="sendReview"
-          type="submit"
-        >
+        <button class="btn" :disabled="!(!v$.reviewData.$error && v$.reviewData.$dirty)" @click="sendReview"
+          type="submit">
           Send Review
         </button>
       </div>
@@ -115,12 +78,7 @@
                   <h1 class="profile-name">{{ userData.name }}</h1>
                   <p class="profile-address">{{ profileData.address }}</p>
                   <div class="badge-container">
-                    <span
-                      class="badge"
-                      v-for="(item, index) in profileData.professions"
-                      :key="index"
-                      >{{ item }}</span
-                    >
+                    <span class="badge" v-for="(item, index) in profileData.professions" :key="index">{{ item }}</span>
                   </div>
                 </div>
               </div>
@@ -171,23 +129,13 @@
               </div>
             </div>
             <div class="reviews-bottom-container">
-              <div
-                v-for="(item, index) in profileReviews.slice(0, reviewsShowed)"
-                :key="index"
-                class="review"
-              >
+              <div v-for="(item, index) in profileReviews.slice(0, reviewsShowed)" :key="index" class="review">
                 <div class="star">
                   <ul>
-                    <li
-                      v-for="ind in Math.floor(item.vote)"
-                      :key="'star-' + index + '-' + ind"
-                    >
+                    <li v-for="ind in Math.floor(item.vote)" :key="'star-' + index + '-' + ind">
                       <v-icon class="star-color">mdi-star</v-icon>
                     </li>
-                    <li
-                      v-for="ind in 5 - Math.floor(item.vote)"
-                      :key="'star-void-' + index + '-' + ind"
-                    >
+                    <li v-for="ind in 5 - Math.floor(item.vote)" :key="'star-void-' + index + '-' + ind">
                       <v-icon class="star-color">mdi-star-outline</v-icon>
                     </li>
                   </ul>
@@ -196,15 +144,11 @@
                 <div class="reviews-info">
                   <span>{{ item.name }}</span> •
                   <span>{{
-                    new Date(item.created_at).toLocaleDateString("en-US")
+                      new Date(item.created_at).toLocaleDateString("en-US")
                   }}</span>
                 </div>
               </div>
-              <button
-                @click="reviewsShowed += 5"
-                v-if="reviewsShowed <= profileReviews.length"
-                class="btn outlined"
-              >
+              <button @click="reviewsShowed += 5" v-if="reviewsShowed <= profileReviews.length" class="btn outlined">
                 See more
               </button>
             </div>
@@ -234,28 +178,48 @@
         <!-- SECTION BOX MESSAGE -->
         <section class="message-box">
           <h2>Book an appointment for free</h2>
-          <form>
-            <label
-              >Name:
-              <input id="name" name="name" type="text" />
+          <form v-on:submit.prevent>
+            <label>Name:
+              <input v-model="messageData.name" @blur="v$.messageData.name.$touch()" id="name" name="name"
+                type="text" />
+              <div class="error-message">
+                <span v-for="error of v$.messageData.name.$errors" :key="error.$uid">
+                  {{ error.$message }}
+                </span>
+              </div>
             </label>
 
-            <label
-              >Email:
-              <input id="email" name="email" type="text" />
+            <label>Email:
+              <input v-model="messageData.email" @blur="v$.messageData.email.$touch()" id="email" name="email"
+                type="text" />
+              <div class="error-message">
+                <span v-for="error of v$.messageData.email.$errors" :key="error.$uid">
+                  {{ error.$message }}
+                </span>
+              </div>
             </label>
 
-            <label
-              >Phone:
-              <input id="name" name="phone" type="text" />
+            <label>Phone:
+              <input v-model="messageData.phone" @blur="v$.messageData.phone.$touch()" id="phone" name="phone"
+                type="text" />
+              <div class="error-message">
+                <span v-for="error of v$.messageData.phone.$errors" :key="error.$uid">
+                  {{ error.$message }}
+                </span>
+              </div>
             </label>
 
-            <label
-              >Message:
-              <textarea id="name" name="message"></textarea>
+            <label>Message:
+              <textarea v-model="messageData.message" @blur="v$.messageData.message.$touch()" id="message"
+                name="message"></textarea>
+              <div class="error-message">
+                <span v-for="error of v$.messageData.message.$errors" :key="error.$uid">
+                  {{ error.$message }}
+                </span>
+              </div>
             </label>
 
-            <input class="btn" type="submit" value="Send message" />
+            <input class="btn" :disabled="!(!v$.messageData.$error && v$.messageData.$dirty)" @click="sendMessage" type="submit" value="Send message" />
           </form>
         </section>
       </div>
@@ -270,6 +234,7 @@ import {
   email,
   maxLength,
   minLength,
+  numeric,
   sameAs,
   helpers,
 } from "@vuelidate/validators";
@@ -387,6 +352,12 @@ export default {
         message: "",
         vote: "",
       },
+      messageData: {
+        name: "",
+        email: "",
+        message: "",
+        phone: "",
+      },
     };
   },
   mounted() {
@@ -424,9 +395,48 @@ export default {
           maxLength: maxLength(255),
         },
       },
+      messageData: {
+        name: {
+          required,
+          maxLength: maxLength(30),
+        },
+        email: {
+          required,
+          email,
+          maxLength: maxLength(30),
+        },
+        message: {
+          required,
+          minLength: minLength(8),
+          maxLength: maxLength(255),
+        },
+        phone: {
+          required,
+          numeric,
+          maxLength: maxLength(30),
+        },
+      },
     };
   },
   methods: {
+    sendMessage(){
+        let data = {
+        profile_id: this.profile_id,
+        name: this.messageData.name,
+        email: this.messageData.email,
+        phone: this.messageData.phone,
+        message: this.messageData.message,
+      };
+      axios.post("/api/sendmessage", data).then((res) => {
+        console.log(res);  
+      });
+      this.messageData = {
+        name: "",
+        email: "",
+        message: "",
+        phone: "",
+      };
+    },
     sendReview() {
       let data = {
         profile_id: this.profile_id,
@@ -479,6 +489,7 @@ export default {
   color: #00234b;
   font-size: 20px;
 }
+
 .backdrop {
   background-color: rgba(0, 0, 0, 0.8);
   position: fixed;
@@ -577,7 +588,7 @@ export default {
   vertical-align: middle;
 }
 
-.ul-info > li > a {
+.ul-info>li>a {
   font-size: 1.3rem;
   font-weight: 400;
   color: #00234b;
@@ -688,7 +699,7 @@ export default {
   width: 100%;
 }
 
-.review > p {
+.review>p {
   margin-bottom: 5px;
 }
 
