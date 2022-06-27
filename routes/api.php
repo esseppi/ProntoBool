@@ -50,7 +50,7 @@ Route::get('/profile/{id}', [ProfessionistApiController::class, 'getProfileInfo'
 Route::get('/user/{id}', [ProfessionistApiController::class, 'getUserInfo']);
 Route::get('/reviews/{id}', [ProfessionistApiController::class, 'getUserReviews']);
 Route::get('/messages/{id}', [ProfessionistApiController::class, 'getUserMessages']);
-Route::middleware('auth:sanctum')->get('/mydashboardata', [ProfessionistApiController::class, 'myDashboard']);
+Route::get('/dashinfo/{id}', [ProfessionistApiController::class, 'getDashInfo']);
 
 // FRONTENTD LENDING PAGE 
 Route::get('/landingPage', [GuestApiController::class, 'landingPage']);

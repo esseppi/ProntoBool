@@ -69,4 +69,16 @@ class ProfessionistApiController extends Controller
             'response' => $leads
         ]);
     }
+
+    public function getDashInfo($id)
+    {
+
+        $users = Profile::with('professions', 'reviews')->join('users', 'profiles.id', '=', 'users.id')
+            ->get();
+        $user = $users->find($id);
+
+        return response()->json([
+            'data' => $user
+        ]);
+    }
 }
