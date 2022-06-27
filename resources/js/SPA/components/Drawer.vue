@@ -44,7 +44,7 @@ export default {
         },
         {
           title: "Dashboard",
-          name: "/mydashboard",
+          name: "/mydashboard/" + this.user.id,
           icon: "mdi-account",
         },
         {
@@ -69,6 +69,5 @@ export default {
       this.profile = res.data.response;
     });
   },
-  methods: {},
 };
 </script>

@@ -25,9 +25,6 @@
             <v-col :order="colOrder1">
               <v-sheet class="text-h2 d-flex flex-col">
                 {{ slide.name }}
-                <v-avatar
-                  ><v-img>{{ slide.pic }}</v-img></v-avatar
-                >
               </v-sheet>
             </v-col>
             <v-col :order="colOrder2">

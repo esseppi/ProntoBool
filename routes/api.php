@@ -42,7 +42,6 @@ Route::middleware('auth:sanctum')->get('/messages/{id}', [ProfessionistApiContro
 
 
 
-
 // FRONTENDAPI CALLS
 
 Route::get('/getBundles', [ProfessionistApiController::class, 'getBundle']);
@@ -50,8 +49,7 @@ Route::get('/profile/{id}', [ProfessionistApiController::class, 'getProfileInfo'
 Route::get('/user/{id}', [ProfessionistApiController::class, 'getUserInfo']);
 Route::get('/reviews/{id}', [ProfessionistApiController::class, 'getUserReviews']);
 Route::get('/messages/{id}', [ProfessionistApiController::class, 'getUserMessages']);
-
-
+Route::middleware('auth:sanctum')->get('/mydashboardata', [ProfessionistApiController::class, 'myDashboard']);
 
 // FRONTENTD LENDING PAGE 
 Route::get('/landingPage', [GuestApiController::class, 'landingPage']);

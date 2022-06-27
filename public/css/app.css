@@ -1093,14 +1093,14 @@ select {
 .border-b {
   border-bottom-width: 1px;
 }
-.border-r-0 {
-  border-right-width: 0px;
-}
 .border-b-2 {
   border-bottom-width: 2px;
 }
 .border-l-4 {
   border-left-width: 4px;
+}
+.border-r-0 {
+  border-right-width: 0px;
 }
 .border-t-0 {
   border-top-width: 0px;

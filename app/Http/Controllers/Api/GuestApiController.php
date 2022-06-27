@@ -75,8 +75,8 @@ class GuestApiController extends Controller
             // 'data2' => $checkIfHasProfile,
             'data' => $users
         ]);
-
-        return response()->json([]);
+        //era in più
+        //return response()->json([]);
     }
 
 
@@ -170,10 +170,10 @@ class GuestApiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+    //public function create()
+    //{
+    //
+    //}
 
     /**
      * Store a newly created resource in storage.
@@ -181,10 +181,10 @@ class GuestApiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    //public function store(Request $request)
+    //{
+    //
+    //}
 
     /**
      * Display the specified resource.
@@ -192,10 +192,10 @@ class GuestApiController extends Controller
      * @param  \App\Models\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function show(Profile $profile)
-    {
-        //
-    }
+    //public function show(Profile $profile)
+    //{
+    //
+    //}
 
     /**
      * Show the form for editing the specified resource.
@@ -203,10 +203,10 @@ class GuestApiController extends Controller
      * @param  \App\Models\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function edit(Profile $profile)
-    {
-        //
-    }
+    //public function edit(Profile $profile)
+    //{
+    //
+    //}
 
     /**
      * Update the specified resource in storage.
@@ -215,10 +215,10 @@ class GuestApiController extends Controller
      * @param  \App\Models\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Profile $profile)
-    {
-        //
-    }
+    //public function update(Request $request, Profile $profile)
+    //{
+    //
+    //}
 
     /**
      * Remove the specified resource from storage.
@@ -226,8 +226,8 @@ class GuestApiController extends Controller
      * @param  \App\Models\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Profile $profile)
-    {
-        //
-    }
+    //public function destroy(Profile $profile)
+    //{
+    //
+    //}
 }
