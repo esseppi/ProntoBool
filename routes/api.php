@@ -51,11 +51,8 @@ Route::get('/profile/{id}', [ProfessionistApiController::class, 'getProfileInfo'
 Route::get('/user/{id}', [ProfessionistApiController::class, 'getUserInfo']);
 Route::get('/reviews/{id}', [ProfessionistApiController::class, 'getUserReviews']);
 Route::get('/messages/{id}', [ProfessionistApiController::class, 'getUserMessages']);
-<<<<<<< HEAD
 
-=======
 Route::get('/dashinfo/{id}', [ProfessionistApiController::class, 'getDashInfo']);
->>>>>>> 39ed2513582cd4e5a62cbf70ef44be8aeb405c73
 
 // FRONTENTD LENDING PAGE 
 Route::get('/landingPage', [GuestApiController::class, 'landingPage']);

@@ -1,7 +1,4 @@
 <template>
-<<<<<<< HEAD
-
-=======
   <div class="py-10">
     <v-container>
       <v-row>
@@ -75,20 +72,11 @@
       </v-row>
     </v-container>
   </div>
->>>>>>> 39ed2513582cd4e5a62cbf70ef44be8aeb405c73
 </template>
 
 <script>
 export default {
   name: "mydashboard",
-<<<<<<< HEAD
-};
-</script>
-
-<style scoped>
-
-</style>
-=======
   data() {
     return {
       show: false,
@@ -115,4 +103,3 @@ export default {
 
 <style>
 </style>
->>>>>>> 39ed2513582cd4e5a62cbf70ef44be8aeb405c73
