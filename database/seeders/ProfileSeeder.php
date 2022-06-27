@@ -51,7 +51,7 @@ class ProfileSeeder extends Seeder
                 'curriculum' => $faker->url(),
                 'description' => $faker->text(),
                 'address' => $city[rand(0, 3)],
-                'phone' => $faker->phoneNumber(),
+                'phone' => $faker->numberBetween(1000000000, 9999999999),
                 'views' => $faker->numberBetween(0, 1000),
             ]);
 

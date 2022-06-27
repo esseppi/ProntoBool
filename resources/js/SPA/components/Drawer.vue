@@ -62,7 +62,7 @@ export default {
         {
           title: "Reviews",
           name: "/myreviews",
-          icon: "mdi-account-star-star",
+          icon: "mdi-account-star",
         },
         {
           title: "Sponsorships",

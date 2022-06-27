@@ -55,4 +55,22 @@ class ProfessionistApiController extends Controller
                 'response' => $leads
             ]);
     }
+
+    public function updateProfile($id){
+        $profile = Profile::find($id);
+        $profile->update(request()->all());
+        return response()->json([
+            'status' => true,
+            'response' => $profile
+        ]);
+    }
+
+    public function updateUser($id){
+        $user = User::find($id);
+        $user->update(request()->all());
+        return response()->json([
+            'status' => true,
+            'response' => $user
+        ]);
+    }
 }
