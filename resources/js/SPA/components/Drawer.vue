@@ -34,7 +34,9 @@ export default {
   name: "Drawer",
   data() {
     return {
-      profile: null,
+      profile: {
+        pic: null,
+      },
       drawer: true,
       items: [
         {
@@ -45,12 +47,22 @@ export default {
         {
           title: "Dashboard",
           name: "/mydashboard",
-          icon: "mdi-account",
+          icon: "mdi-finance",
         },
         {
-          title: "Login",
-          name: "/loginSpa",
-          icon: "mdi-lock",
+          title: "Edit profile",
+          name: "/edit",
+          icon: "mdi-account-edit",
+        },
+        {
+          title: "Messages",
+          name: "/mymessages",
+          icon: "mdi-message",
+        },
+        {
+          title: "Reviews",
+          name: "/myreviews",
+          icon: "mdi-account-star-star",
         },
         {
           title: "Sponsorships",
