@@ -7,7 +7,7 @@
           <div class="vote">{{ views }}</div>
         </div>
         <div class="">
-            <h4>Messages</h4>
+          <h4>Messages</h4>
           <div class="vote">{{ profileMessages.length }}</div>
         </div>
       </div>
@@ -34,7 +34,7 @@ export default {
   name: "Messages",
   data() {
     return {
-      views: 100,
+      views: 0,
       profileMessages: [
         {
           name: "Eileen Merrington",
@@ -201,12 +201,28 @@ export default {
       vote: null,
     };
   },
+  created() {
+    if (localStorage.getItem("auth")) {
+      axios.get("/api/user").then((res) => {
+        this.user = res.data;
+        axios.get(`api/messages/${this.user.id}`).then((res) => {
+          this.profileMessages = res.data.response.reverse();
+          console.log(this.profileMessages);
+        });
+        axios.get(`api/profile/${this.user.id}`).then((res) => {
+          this.views = res.data.response.views;
+          console.log(this.views);
+        });
+      });
+    }
+  }
 };
 </script>
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Anek+Latin:wght@200;300;500&display=swap");
+
 .inner {
   width: 90%;
   max-width: 1300px;
@@ -219,198 +235,199 @@ export default {
   font-family: "Anek Latin", sans-serif;
 }
 
-h2{
+h2 {
   font-size: 1.8rem;
   font-weight: bold;
   margin-bottom: 20px;
 }
 
-h3{
+h3 {
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 20px;
 }
 
-h4{
+h4 {
   font-size: 1.5rem;
   color: #00234B;
 }
 
-.reviews-info{
+.reviews-info {
   margin-bottom: 20px;
 }
 
 
 
-input[type="text"], textarea{
+input[type="text"],
+textarea {
   width: 100%;
-  border:  1px solid #E1E1E4;
+  border: 1px solid #E1E1E4;
   background-color: white;
   margin-top: 5px;
 }
 
-.message-box textarea{ 
+.message-box textarea {
   height: 100px;
   resize: none;
 }
 
-.btn{
+.btn {
   width: 100%;
   padding-top: 10px;
   padding-bottom: 10px;
   font-size: 1.3rem;
-  color:#00234B;
-  background-color: #FDE721 ;
+  color: #00234B;
+  background-color: #FDE721;
 }
 
-.btn.outlined{
+.btn.outlined {
   background-color: transparent;
   border: 2px solid #00234B;
 }
 
-.btn:hover{
+.btn:hover {
   color: white;
-  background-color:#00234B;
+  background-color: #00234B;
 }
 
-.btn.outlined:hover{
-    border: 2px solid #00234B;
+.btn.outlined:hover {
+  border: 2px solid #00234B;
 }
 
-.ul-info{
-    padding: 0;
-    list-style: none;
-    display: flex;
-    gap: 25px;
-    margin-top: 25px;
-    border-top: #E1E1E4 solid 1px;
-    border-bottom: #E1E1E4 solid 1px;
-    height: 70px;
-    line-height: 70px;
+.ul-info {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  gap: 25px;
+  margin-top: 25px;
+  border-top: #E1E1E4 solid 1px;
+  border-bottom: #E1E1E4 solid 1px;
+  height: 70px;
+  line-height: 70px;
 }
 
-.ul-info li{
-    height: 100%;
-    border-bottom: 3px solid transparent;
-    vertical-align: middle;
+.ul-info li {
+  height: 100%;
+  border-bottom: 3px solid transparent;
+  vertical-align: middle;
 }
 
-.ul-info > li > a{
-    font-size: 1.3rem;
-    font-weight: 400;
-    color: #00234B;
+.ul-info>li>a {
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #00234B;
 }
 
-.ul-info li:hover{
-    border-bottom: 3px solid #00234B;
+.ul-info li:hover {
+  border-bottom: 3px solid #00234B;
 }
 
-.map-flex{
-    display: flex;
-    gap: 25px;
+.map-flex {
+  display: flex;
+  gap: 25px;
 }
 
-.reviews-top-container{
-    display: flex;
-    width: 100%;
+.reviews-top-container {
+  display: flex;
+  width: 100%;
 }
 
-.reviews-top-container div{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 50%;
-    padding: 0 30px;
+.reviews-top-container div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  padding: 0 30px;
 }
 
-.review-name{
+.review-name {
   font-weight: bold;
   font-size: 1.3rem;
 }
 
-.reviews-top-container div:first-child{
-    border-right: 1px solid #E1E1E4;
+.reviews-top-container div:first-child {
+  border-right: 1px solid #E1E1E4;
 }
 
-.vote{
-    font-size: 5rem;
-    margin-top: -30px;
+.vote {
+  font-size: 5rem;
+  margin-top: -30px;
 }
 
-.banner{
-    width: 100%;
-    padding: 10px 20px;
-    background-color: #F3F3F4;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
+.banner {
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #F3F3F4;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
 }
 
-.banner p{
-    margin: 0;
+.banner p {
+  margin: 0;
 }
 
-.icon-container{
-padding: 15px 15px;
-display: flex;    
+.icon-container {
+  padding: 15px 15px;
+  display: flex;
 }
 
-.icon{
-    color: #00234B;
-    justify-content: center;
-    align-items: center;
+.icon {
+  color: #00234B;
+  justify-content: center;
+  align-items: center;
 }
 
-.reviews-bottom-container{
-    border-top: 1px solid #E1E1E4;
-    display: flex;
-    flex-direction: column;
-    gap: 35px;
-    padding-top: 20px;
+.reviews-bottom-container {
+  border-top: 1px solid #E1E1E4;
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  padding-top: 20px;
 }
 
-.review{
-      width: 100%;
+.review {
+  width: 100%;
   background: #fafafa;
   padding: 30px;
   border: 1px solid #e1e1e4;
 }
 
-.review > p{
-    margin-bottom: 5px;
+.review>p {
+  margin-bottom: 5px;
 }
 
-.reviews-info{
-    font-size: .9rem;
-    color: #a1a1a1;
+.reviews-info {
+  font-size: .9rem;
+  color: #a1a1a1;
 }
 
-.star ul li{
-    display: inline-block;
+.star ul li {
+  display: inline-block;
 
 }
 
 .star ul {
-    padding: 0;
-    margin-bottom: 5px;
+  padding: 0;
+  margin-bottom: 5px;
 }
 
-.star-color{
+.star-color {
   color: #FF6372;
 }
 
-@media screen and (max-width: 600px){
+@media screen and (max-width: 600px) {
 
-	.vote{
-		margin-top: -10px;
-		font-size: 3.5rem;
-	}
+  .vote {
+    margin-top: -10px;
+    font-size: 3.5rem;
+  }
 
-	h4{
-		text-align: center;
-		font-size: 1rem;
-	}
+  h4 {
+    text-align: center;
+    font-size: 1rem;
+  }
 
 }
 </style>

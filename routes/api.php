@@ -29,6 +29,7 @@ Route::get('/unique', [GuestApiController::class, 'isUnique']);
 Route::get('orders/generate', [OrderController::class, 'generate']);
 
 Route::post('sendreview', [GuestApiController::class, 'sendReview']);
+Route::post('sendmessage', [GuestApiController::class, 'sendMessage']);
 Route::post('orders/makepayment', [OrderController::class, 'makePayment'])->name('pay');
 Route::post('login', [AuthenticatedSessionController::class, 'store']);
 Route::post('register', [RegisteredUserController::class, 'store']);
