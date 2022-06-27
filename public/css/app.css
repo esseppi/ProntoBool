@@ -1090,9 +1090,12 @@ select {
 .border-t-0 {
   border-top-width: 0px;
 }
+<<<<<<< HEAD
+=======
 .border-l {
   border-left-width: 1px;
 }
+>>>>>>> 9163ad0daf07de4f69565d00e72b60bcdb702fb5
 .border-b-2 {
   border-bottom-width: 2px;
 }
@@ -1101,6 +1104,15 @@ select {
 }
 .border-r-0 {
   border-right-width: 0px;
+<<<<<<< HEAD
+}
+.border-t-0 {
+  border-top-width: 0px;
+}
+.border-l {
+  border-left-width: 1px;
+=======
+>>>>>>> 9163ad0daf07de4f69565d00e72b60bcdb702fb5
 }
 .border-solid {
   border-style: solid;

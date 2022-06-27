@@ -46,7 +46,7 @@ export default {
         },
         {
           title: "Dashboard",
-          name: "/mydashboard",
+          name: "/mydashboard/" + this.user.id,
           icon: "mdi-finance",
         },
         {
@@ -81,6 +81,5 @@ export default {
       this.profile = res.data.response;
     });
   },
-  methods: {},
 };
 </script>

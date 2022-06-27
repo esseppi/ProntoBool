@@ -31,9 +31,12 @@ const router = new Router({
             component: Home,
         },
         {
-            path: "/mydashboard",
+            path: "/mydashboard/:id",
             name: "dashboard",
             component: Dashboard,
+            meta: {
+                requiresAuth: true,
+            },
         },
         {
             path: "/myreviews",
@@ -51,13 +54,11 @@ const router = new Router({
                 requiresAuth: true,
             },
         },
-
         {
             path: "/doc/:id",
             name: "doc",
             component: DoctorDetails,
         },
-
         {
             path: "/auth",
             name: "auth",
@@ -74,7 +75,6 @@ const router = new Router({
                 requiresGuest: true,
             },
         },
-
         {
             path: "/login-spa",
             name: "login",
@@ -118,21 +118,10 @@ const router = new Router({
             component: ResultPage,
         },
         {
-            // /search/screens -> /search?q=screens
             path: "/*",
             redirect: (to) => {
-                // the function receives the target route as the argument
-                // we return a redirect path/location here.
                 return { path: "/" };
             },
-            // },        {
-            //     // /search/screens -> /search?q=screens
-            //     path: "/search/:searchText",
-            //     redirect: (to) => {
-            //         // the function receives the target route as the argument
-            //         // we return a redirect path/location here.
-            //         return { path: "/search", query: { q: to.params.searchText } };
-            //     },
         },
     ],
 });

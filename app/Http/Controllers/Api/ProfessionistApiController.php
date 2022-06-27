@@ -13,6 +13,16 @@ use App\Models\Professionist\Sponsorship;
 
 class ProfessionistApiController extends Controller
 {
+    public function myDashboard()
+    {
+        $availableBundles = Sponsorship::all();
+        return response()->json([
+            'status'    => true,
+            'response'  => [
+                'data' => $availableBundles,
+            ]
+        ]);
+    }
     public function getBundle()
     {
         $availableBundles = Sponsorship::all();
@@ -24,7 +34,8 @@ class ProfessionistApiController extends Controller
         ]);
     }
 
-    public function getProfileInfo($id){
+    public function getProfileInfo($id)
+    {
         $profile = Profile::find($id);
         return response()->json([
             'status' => true,
@@ -32,7 +43,8 @@ class ProfessionistApiController extends Controller
         ]);
     }
 
-    public function getUserInfo($id){
+    public function getUserInfo($id)
+    {
         $user = User::find($id);
         return response()->json([
             'status' => true,
@@ -40,7 +52,8 @@ class ProfessionistApiController extends Controller
         ]);
     }
 
-    public function getUserReviews($id){
+    public function getUserReviews($id)
+    {
         $reviews = Review::where('profile_id', $id)->get();
         return response()->json([
             'status' => true,
@@ -48,12 +61,25 @@ class ProfessionistApiController extends Controller
         ]);
     }
 
-    public function getUserMessages($id){
-            $leads = Lead::where('profile_id', $id)->get();
-            return response()->json([
-                'status' => true,
-                'response' => $leads
-            ]);
+    public function getUserMessages($id)
+    {
+        $leads = Lead::where('profile_id', $id)->get();
+        return response()->json([
+            'status' => true,
+            'response' => $leads
+        ]);
+    }
+
+    public function getDashInfo($id)
+    {
+
+        $users = Profile::with('professions', 'reviews')->join('users', 'profiles.id', '=', 'users.id')
+            ->get();
+        $user = $users->find($id);
+
+        return response()->json([
+            'data' => $user
+        ]);
     }
 
     public function updateProfile($id){

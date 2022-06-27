@@ -3,7 +3,7 @@
     <Drawer :user="user" v-if="user" />
     <HeaderApp :bool="bool" />
     <v-main>
-      <router-view></router-view>
+      <router-view :user="user"></router-view>
     </v-main>
     <FooterApp />
   </v-app>
