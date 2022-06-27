@@ -1,5 +1,5 @@
 <template>
-  <v-main>
+  <div>
     <div class="inner">
       <div class="reviews-top-container">
         <div>
@@ -66,7 +66,7 @@
         </button>
       </div>
     </div>
-  </v-main>
+  </div>
 </template>
 
 <script>

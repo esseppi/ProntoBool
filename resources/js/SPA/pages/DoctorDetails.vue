@@ -64,7 +64,7 @@
     </div>
 
     <!-- STAR PAGE PROFILE -->
-    <v-main>
+    <div>
       <div class="inner">
         <div class="profile-data">
           <!-- PROFILE -->
@@ -223,7 +223,7 @@
           </form>
         </section>
       </div>
-    </v-main>
+    </div>
   </div>
 </template>
 

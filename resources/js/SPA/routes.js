@@ -7,6 +7,7 @@ import Dashboard from "./pages/professionist/MyDashboard.vue";
 import CustomerLead from "./pages/CustomerLead.vue";
 import Auth from "./pages/auth/auth.vue";
 import Home from "./pages/Home.vue";
+import EditProfile from "./pages/professionist/EditProfile.vue";
 import Cart from "./pages/checkout/cart.vue";
 import Bundles from "./pages/professionist/Bundles.vue";
 import Router from "vue-router";
@@ -99,6 +100,14 @@ const router = new Router({
             path: "/bundles",
             name: "bundles",
             component: Bundles,
+            meta: {
+                requiresAuth: true,
+            },
+        },
+        {
+            path: "/edit",
+            name: "edit",
+            component: EditProfile,
             meta: {
                 requiresAuth: true,
             },
