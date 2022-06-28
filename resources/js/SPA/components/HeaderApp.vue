@@ -59,7 +59,7 @@ export default {
     },
     login() {
       localStorage.removeItem("auth");
-      window.location = "/auth";
+      window.location = "/login-spa";
     },
   },
   created() {},

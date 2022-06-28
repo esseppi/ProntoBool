@@ -50,6 +50,7 @@
                     <span v-if="error"> {{ error }}</span>
                 </div>
 			</div>
+      <p>Non hai un account? <a @click.prevent="toSignup">Registrati ora</a>.</p>
 		</div>
   </v-main>
 </template>
@@ -110,6 +111,9 @@ export default {
 			.catch((error) => {
 				this.error = "Credenziali errate.";
 			});
+    },
+    toSignup(){
+      this.$router.push({ path: "/signup" });
     }
   }
 };
