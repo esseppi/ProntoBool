@@ -122,10 +122,11 @@ class ProfessionistApiController extends Controller
 
                 $request->validate($this->getValidators());
                 
-                $cv_url = Storage::put('cv', $formData['curriculum']);
-                $pic_url = Storage::put('pic', $formData['profilepic']);
-                $formData['curriculum'] = $cv_url;
-                $formData['pic'] = $pic_url;
+                $cv_url = Storage::put('public/cv', $formData['curriculum']);
+                $pic_url = Storage::put('public/pic', $formData['profilepic']);
+                
+                $formData['curriculum'] = str_replace("public/","",$cv_url);
+                $formData['pic'] = str_replace("public/","",$pic_url);
                 $profession = $formData['professions'];
         
                 // ATTACCA LA PROFESSIONE AL PROFILO

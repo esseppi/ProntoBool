@@ -71,7 +71,8 @@
           <section>
             <div class="prof-flex">
               <div class="profile-image">
-                <img :src="profileData.pic" :alt="userData.name" />
+                <img v-if="profileData.pic.includes('http')" :src="profileData.pic" :alt="userData.name" />
+                <img v-else :src="'/storage/'+profileData.pic" :alt="userData.name" />
               </div>
               <div class="data-flex">
                 <div class="profile-info">
