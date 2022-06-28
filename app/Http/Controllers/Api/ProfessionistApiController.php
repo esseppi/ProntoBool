@@ -12,9 +12,11 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Professionist\Profile;
 use App\Models\Professionist\Sponsorship;
 use Illuminate\Support\Facades\Storage;
+
 class ProfessionistApiController extends Controller
 {
-    private function getValidators(){
+    private function getValidators()
+    {
         $arr = [
             'phone' => 'required|min:5|max:20',
             'address' => 'required',
@@ -121,18 +123,11 @@ class ProfessionistApiController extends Controller
     {
         // $leads = $leads = Lead::where('profile_id', $id)->get();
 
-
-
         $leads = Lead::selectRaw('year(created_at) as year, monthname(created_at) as month, COUNT(id)')
             ->groupBy('year', 'month')
             ->where('profile_id', $id)
             ->orderByRaw('min(created_at) desc')
             ->get();
-
-        // SELECT COUNT(id), DATE_FORMAT(created_at, '%Y')
-        // FROM leads
-        // WHERE `profile_id` = 1
-        // GROUP BY  DATE_FORMAT(created_at, '%Y');
 
 
         return response()->json([
@@ -157,26 +152,26 @@ class ProfessionistApiController extends Controller
 
     public function newProfile(Request $request)
     {
-                // CREAZIONE NUOVO PROFILO
-                $formData = $request->all() + [
-                    'id' => Auth::user()->id,
-                    'user_id' => Auth::user()->id,
-                ];
+        // CREAZIONE NUOVO PROFILO
+        $formData = $request->all() + [
+            'id' => Auth::user()->id,
+            'user_id' => Auth::user()->id,
+        ];
 
-                $request->validate($this->getValidators());
-                
-                $cv_url = Storage::put('public/cv', $formData['curriculum']);
-                $pic_url = Storage::put('public/pic', $formData['profilepic']);
-                
-                $formData['curriculum'] = str_replace("public/","",$cv_url);
-                $formData['pic'] = str_replace("public/","",$pic_url);
-                $profession = $formData['professions'];
-        
-                // ATTACCA LA PROFESSIONE AL PROFILO
-        
-                Profile::create($formData);
-                $profile = Profile::find(Auth::user()->id);
-                $profile->professions()->attach($profession);
-                return view('dashboard');
+        $request->validate($this->getValidators());
+
+        $cv_url = Storage::put('public/cv', $formData['curriculum']);
+        $pic_url = Storage::put('public/pic', $formData['profilepic']);
+
+        $formData['curriculum'] = str_replace("public/", "", $cv_url);
+        $formData['pic'] = str_replace("public/", "", $pic_url);
+        $profession = $formData['professions'];
+
+        // ATTACCA LA PROFESSIONE AL PROFILO
+
+        Profile::create($formData);
+        $profile = Profile::find(Auth::user()->id);
+        $profile->professions()->attach($profession);
+        return view('dashboard');
     }
 }

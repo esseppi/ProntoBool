@@ -148,7 +148,12 @@
               <v-spacer></v-spacer>
 
               <template v-if="$vuetify.breakpoint.mdAndUp">
-                <v-select
+                <!-- <select v-model="sortBy">
+                  <option v-for="(item, i) in items" :key="i" :value="{ item }">
+                    {{ item }}
+                  </option>
+                </select> -->
+                <select
                   v-model="sortBy"
                   flat
                   hide-details
@@ -156,7 +161,7 @@
                   :items="keys"
                   prepend-inner-icon="mdi-magnify"
                   label="Sort by"
-                ></v-select>
+                ></select>
                 <v-spacer></v-spacer>
                 <v-btn-toggle v-model="sortDesc" mandatory>
                   <v-btn large depressed color="blue" :value="false">
@@ -192,11 +197,7 @@
                       ></v-progress-linear>
                     </template>
 
-                    <v-img
-                      height="250"
-                      src="https://cdn.vuetifyjs.com/images/john.jpg"
-                    >
-                    </v-img>
+                    <v-img height="250" :src="item.image"> </v-img>
 
                     <v-card-title>{{ item.name }}</v-card-title>
 
