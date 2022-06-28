@@ -54,12 +54,12 @@ export default {
     logout() {
       axios.post("/api/logout").then(() => {
         localStorage.removeItem("auth");
-        window.location = "/auth";
+        window.location = "/login-spa";
       });
     },
     login() {
       localStorage.removeItem("auth");
-      window.location = "/auth";
+      window.location = "/login-spa";
     },
   },
   created() {},

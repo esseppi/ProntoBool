@@ -108,6 +108,7 @@ class ProfileController extends Controller
         
         $cv_url = Storage::put('cv', $formData['curriculum']);
         $pic_url = Storage::put('pic', $formData['profilepic']);
+        dd($cv_url);
         $formData['curriculum'] = $cv_url;
         $formData['pic'] = $pic_url;
         $profession = $formData['professions'];
