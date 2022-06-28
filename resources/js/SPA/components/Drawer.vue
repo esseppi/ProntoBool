@@ -16,6 +16,15 @@
     <v-divider></v-divider>
 
     <v-list dense>
+        <v-list-item :key="profile" :to="'/doc/'+profile.id" link>
+        <v-list-item-icon>
+          <v-icon>mdi-account</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title>My Profile</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
       <v-list-item v-for="item in items" :key="item.title" :to="item.name" link>
         <v-list-item-icon>
           <v-icon>{{ item.icon }}</v-icon>
