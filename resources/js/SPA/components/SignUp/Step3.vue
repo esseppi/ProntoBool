@@ -96,7 +96,7 @@ export default {
       }
     },
     professionDel(id){
-      this.inputData.professions = this.professionsObjs.filter(item => item.id !== id);
+      this.professionsObjs = this.professionsObjs.filter(item => item.id !== id);
     },
     getIds(){
       this.professionsObjs.map(item => this.inputData.professions.push(item.id));

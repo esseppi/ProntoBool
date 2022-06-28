@@ -108,10 +108,6 @@
           <section>
             <div class="prof-flex">
               <div class="profile-image">
-<<<<<<< HEAD
-                <img v-if="profileData.pic.includes('http')" :src="profileData.pic" :alt="userData.name" />
-                <img v-else :src="'/storage/' + profileData.pic" :alt="userData.name" />
-=======
                 <img
                   v-if="profileData.pic.includes('http')"
                   :src="profileData.pic"
@@ -122,7 +118,6 @@
                   :src="'/storage/' + profileData.pic"
                   :alt="userData.name"
                 />
->>>>>>> 48991de4670de46b2916291fc7145360bf6e5239
               </div>
               <div class="data-flex">
                 <div class="profile-info">
