@@ -20,26 +20,6 @@ class ProfileSeeder extends Seeder
         $city = ['Reggio', 'Roma', 'Asti', 'Milano'];
         $page = file_get_contents("https://fakeface.rest/face/json");
         $decoded = json_decode($page, true); // decode the json record
-        // Profile::create([
-        //     'id' => 1,
-        //     'pic' => $decoded['image_url'],
-        //     'user_id' => 1,
-        //     'curriculum' => $faker->url(),
-        //     'description' => $faker->text(),
-        //     'address' => $city[rand(1, 1)],
-        //     'phone' => $faker->phoneNumber(),
-        //     'views' => $faker->numberBetween(0, 1000),
-        // ]);
-        // Profile::create([
-        //     'id' => 2,
-        //     'pic' => $decoded['image_url'],
-        //     'user_id' => 2,
-        //     'curriculum' => $faker->url(),
-        //     'description' => $faker->text(),
-        //     'address' => $city[rand(0, 3)],
-        //     'phone' => $faker->phoneNumber(),
-        //     'views' => $faker->numberBetween(0, 1000),
-        // ]);
 
         for ($i = 1; $i < 5; $i++) {
             $page = file_get_contents("https://fakeface.rest/face/json");

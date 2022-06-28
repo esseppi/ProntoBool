@@ -30,6 +30,8 @@
         "@vuelidate/core": "^2.0.0-alpha.41",
         "@vuelidate/validators": "^2.0.0-alpha.29",
         "chart.js": "^3.8.0",
+        "chartjs-adapter-luxon": "^1.1.0",
+        "luxon": "^2.4.0",
         "vue-braintree": "^2.1.0",
         "vue-chartjs": "^4.1.1",
         "vue-router": "^3.5.4",
