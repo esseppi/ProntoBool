@@ -55,7 +55,7 @@
         >
         <option value=""> Select a city
         </option>
-        <option v-for="item in locations" value="item.address" v:key="item.address"> {{ item.address}}
+        <option v-for="item in locations" :value="item.address" v:key="item.address"> {{ item.address}}
         </option>
         </select>
         <div class="error-message">

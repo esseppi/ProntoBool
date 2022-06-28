@@ -26,7 +26,7 @@
         </div>
         
         <div class="professions-box">
-          <span v-for="item of inputData.professions" class="prof" :key="item.id">
+          <span v-for="item of professionsObjs" class="prof" :key="item.id">
             {{ item.name }}
             <div @click="professionDel(item.id)" class="del">x</div>
           </span>
@@ -41,7 +41,7 @@
         </button>
       </div>
       <div class="input-elements">
-        <button class="btn" @click="$emit('nextStep', inputData)">
+        <button class="btn" @click="getIds">
           <!-- :disabled="!(!v$.$error && v$.$dirty)" -->
 
           Submit
@@ -78,6 +78,7 @@ export default {
     return {
       professions : [],
       selectedProfession: "",
+      professionsObjs: [],
       inputData: {
         curriculum: null,
         professions: [],
@@ -89,13 +90,17 @@ export default {
       this.inputData.curriculum = e.target.files[0];
     },
     addProfession(){
-      if(this.inputData.professions.length < 3){
-        this.inputData.professions.push(this.selectedProfession);
+      if(this.professionsObjs.length < 3){
+        this.professionsObjs.push(this.selectedProfession);
         this.professions = this.professions.filter(item => item.id !== this.selectedProfession.id);
       }
     },
     professionDel(id){
-      this.inputData.professions = this.inputData.professions.filter(item => item.id !== id);
+      this.inputData.professions = this.professionsObjs.filter(item => item.id !== id);
+    },
+    getIds(){
+      this.professionsObjs.map(item => this.inputData.professions.push(item.id));
+      this.$emit('nextStep', this.inputData)
     }
   },
   mounted(){
@@ -103,15 +108,6 @@ export default {
       console.log(res.data)
       this.professions = res.data.data;
     });
-  },
-  validations() {
-    return {
-      inputData: {
-        professions: {
-          required,
-        },
-      },
-    };
   }
 }
 

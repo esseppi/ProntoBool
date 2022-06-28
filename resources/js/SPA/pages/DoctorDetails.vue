@@ -72,7 +72,7 @@
             <div class="prof-flex">
               <div class="profile-image">
                 <img v-if="profileData.pic.includes('http')" :src="profileData.pic" :alt="userData.name" />
-                <img v-else :src="'/storage/'+profileData.pic" :alt="userData.name" />
+                <img v-else :src="'/storage/' + profileData.pic" :alt="userData.name" />
               </div>
               <div class="data-flex">
                 <div class="profile-info">
@@ -87,7 +87,6 @@
             <ul class="ul-info">
               <li><a href="#">About</a></li>
               <li><a href="#">Curriculum</a></li>
-              <li><a href="#">Services</a></li>
               <li><a href="#">Reviews</a></li>
             </ul>
           </section>
@@ -102,7 +101,9 @@
           <section class="curriculum">
             <!--questa classe non è usata in questo css -->
             <h2>Curriculum Vitae</h2>
-            <div class="card"></div>
+            <a :href="'/storage/' + profileData.curriculum">
+              <div class="card"></div>
+            </a>
           </section>
 
           <!-- REVIEWS -->
@@ -220,7 +221,8 @@
               </div>
             </label>
 
-            <input class="btn" :disabled="!(!v$.messageData.$error && v$.messageData.$dirty)" @click="sendMessage" type="submit" value="Send message" />
+            <input class="btn" :disabled="!(!v$.messageData.$error && v$.messageData.$dirty)" @click="sendMessage"
+              type="submit" value="Send message" />
           </form>
         </section>
       </div>
@@ -239,6 +241,7 @@ import {
   sameAs,
   helpers,
 } from "@vuelidate/validators";
+import axios from "axios";
 
 export default {
   name: "Home",
@@ -373,6 +376,12 @@ export default {
         console.log(this.profileReviews);
         this.getAvg();
       });
+      axios.get('api/getprofileprofessions/' + this.profile_id).then((res) => {
+        console.log(res);
+        this.profileData.professions = res.data.data.map((item) => {
+          return item.name;
+        });
+      });
     });
   },
   validations() {
@@ -420,8 +429,8 @@ export default {
     };
   },
   methods: {
-    sendMessage(){
-        let data = {
+    sendMessage() {
+      let data = {
         profile_id: this.profile_id,
         name: this.messageData.name,
         email: this.messageData.email,
@@ -429,7 +438,7 @@ export default {
         message: this.messageData.message,
       };
       axios.post("/api/sendmessage", data).then((res) => {
-        console.log(res);  
+        console.log(res);
       });
       this.messageData = {
         name: "",
@@ -611,6 +620,10 @@ export default {
   border-radius: 0.4em;
   transition: border 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   border: #e1e1e4 0.2em solid;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.6) 100%), url("https://static.vecteezy.com/system/resources/previews/001/991/612/large_2x/download-pdf-document-isolated-icon-for-graphic-and-web-design-free-vector.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .card:hover {

@@ -193,6 +193,13 @@ class GuestApiController extends Controller
         ]);
     }
 
+    public function getProfileProfessions($id){
+        $data = Profile::find($id)->professions()->get();
+        return response()->json([
+            'data' => $data
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

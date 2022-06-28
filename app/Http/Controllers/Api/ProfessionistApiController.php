@@ -165,13 +165,15 @@ class ProfessionistApiController extends Controller
 
         $formData['curriculum'] = str_replace("public/", "", $cv_url);
         $formData['pic'] = str_replace("public/", "", $pic_url);
-        $profession = $formData['professions'];
+        $professions = explode(',', $formData['professions']);
 
         // ATTACCA LA PROFESSIONE AL PROFILO
 
         Profile::create($formData);
-        $profile = Profile::find(Auth::user()->id);
-        $profile->professions()->attach($profession);
+        foreach($professions as $prof){
+            $profile = Profile::find(Auth::user()->id);
+            $profile->professions()->attach($prof);
+        }
         return view('dashboard');
     }
 }
