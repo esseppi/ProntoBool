@@ -63,7 +63,7 @@
         :disabled="v$.profileInfo.$invalid"
         @click="editProfile"
       >
-        Next step
+        Edit profile
       </button>
     </div>
   </div>

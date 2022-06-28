@@ -1,8 +1,8 @@
 <template>
   <v-navigation-drawer v-model="drawer" :mini-variant.sync="mini" permanent app>
     <v-list-item class="px-2">
-      <v-list-item-avatar>
-                <v-img v-if="loaded && profile.pic.includes('http')" :src="profile.pic" />
+      <v-list-item-avatar v-if="profile">
+                <v-img v-if="profile.pic.includes('http')" :src="profile.pic" />
                 <v-img v-else :src="'/storage/'+profile.pic" />
       </v-list-item-avatar>
 
@@ -35,9 +35,8 @@ export default {
   name: "Drawer",
   data() {
     return {
-      loaded: false,
       profile: {
-        pic: null,
+      pic: null,
       },
       drawer: true,
       items: [
@@ -78,10 +77,10 @@ export default {
   props: {
     user: Object,
   },
-  created() {
-    axios.get("/api/profile/" + this.user.id).then((res) => {
-      console.log(res.data);
-      this.loaded = true;
+  mounted() {
+    axios.get(`/api/profile/${this.user.id}`).then((res) => {
+      console.log(res.data.response);
+      this.profile = res.data.response;
     });
   },
 };
