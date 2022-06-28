@@ -1,9 +1,7 @@
 <template>
   <v-card class="overflow-hidden">
     <!-- NUOVA HEADER APP QUI -->
-
     <Carousel />
-
     <!-- PAGINA RISULTATI -->
     <v-card tile>
       <v-data-iterator
@@ -19,6 +17,7 @@
         <!-- TOOLBAR-->
         <template v-slot:header class="py-5">
           <v-toolbar dark color="blue lighten-3">
+            <v-spacer></v-spacer>
             <v-text-field
               type="text"
               v-model="search"
@@ -74,11 +73,7 @@
                     ></v-progress-linear>
                   </template>
 
-                  <v-img
-                    height="250"
-                    src="https://cdn.vuetifyjs.com/images/john.jpg"
-                  >
-                  </v-img>
+                  <v-img height="250" :src="item.image"> </v-img>
 
                   <v-card-title>{{ item.name }}</v-card-title>
 

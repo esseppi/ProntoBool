@@ -137,6 +137,7 @@
           <!-- TOOLBAR-->
           <template v-slot:header class="py-5">
             <v-toolbar dark color="blue lighten-3">
+              <v-spacer></v-spacer>
               <v-text-field
                 type="text"
                 v-model="search"
@@ -146,14 +147,8 @@
                 label="Search"
               ></v-text-field>
               <v-spacer></v-spacer>
-
               <template v-if="$vuetify.breakpoint.mdAndUp">
-                <!-- <select v-model="sortBy">
-                  <option v-for="(item, i) in items" :key="i" :value="{ item }">
-                    {{ item }}
-                  </option>
-                </select> -->
-                <select
+                <v-select
                   v-model="sortBy"
                   flat
                   hide-details
@@ -161,7 +156,7 @@
                   :items="keys"
                   prepend-inner-icon="mdi-magnify"
                   label="Sort by"
-                ></select>
+                ></v-select>
                 <v-spacer></v-spacer>
                 <v-btn-toggle v-model="sortDesc" mandatory>
                   <v-btn large depressed color="blue" :value="false">
@@ -204,7 +199,7 @@
                     <v-card-text>
                       <v-row align="center" class="mx-0">
                         <v-rating
-                          :value="item.review_avg"
+                          :value="item.review"
                           color="amber"
                           dense
                           half-increments
@@ -213,7 +208,7 @@
                         ></v-rating>
 
                         <div class="grey--text ms-4">
-                          {{ item.review_avg }} ({{ item.count_review }})
+                          {{ item.review }} ({{ item.count_review }})
                         </div>
                       </v-row>
 
@@ -352,7 +347,7 @@ export default {
       page: 1,
       itemsPerPage: 20,
       sortBy: "name",
-      keys: ["name", "city", "review_avg", "profession", "views"],
+      keys: ["name", "city", "review", "profession", "views"],
       items: [],
 
       // CARD
@@ -412,7 +407,7 @@ export default {
     getProfInfo() {
       axios.get("/api/getProfInfo").then((res) => {
         res.data.data.forEach((element) => {
-          let avg = [0];
+          let avg = [];
           const average = (array) =>
             Number((array.reduce((a, b) => a + b) / array.length).toFixed(2));
           let profession = [];
@@ -432,7 +427,7 @@ export default {
             name: element.name,
             city: element.address,
             image: element.pic,
-            review_avg: average(avg),
+            review: average(avg),
             count_review: avg.length,
             description: element.description,
             profession: profession,
@@ -462,12 +457,17 @@ export default {
           items.forEach((element) => {
             this.professions.push(element.name);
           });
-          // secondResponse.data["profNames"].forEach((element) => {
-          //   this.professions = element["name"];
-          // });
         })
       )
       .catch((error) => console.log(error));
   },
 };
 </script>
+<style>
+.v-select__selections input {
+  max-width: 0;
+}
+[type="text"] {
+  background-color: transparent;
+}
+</style>

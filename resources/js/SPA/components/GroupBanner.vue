@@ -1,7 +1,7 @@
 <template>
   <v-carousel cycle height="300" hide-delimiters show-arrows-on-hover>
     <template v-slot:prev="{ on, attrs }">
-      <v-btn color="success" v-bind="attrs" v-on="on"
+      <v-btn color="warning" v-bind="attrs" v-on="on"
         ><v-icon>mdi-skip-previous-circle</v-icon></v-btn
       >
     </template>
@@ -33,23 +33,13 @@
                   {{ card.name }}
                 </v-card-title>
 
-                <v-sheet>
-                  <p
-                    class="
-                      d-flex
-                      justify-center
-                      align-middle
-                      text-h5
-                      font-weight-bold
-                      text-center
-                      word-wrap
-                      brake-word
-                      overflow-wrap
-                      text-gray-800x
-                    "
-                  >
-                    {{ card.title }}
-                  </p>
+                <v-sheet
+                  color="transparent"
+                  class="text-h2 d-flex flex-col justify-center align-middle"
+                >
+                  <v-btn class="mb-5" v-for="item in card.title" :key="item">
+                    {{ item }}
+                  </v-btn>
                 </v-sheet>
                 <v-spacer></v-spacer>
               </v-sheet>

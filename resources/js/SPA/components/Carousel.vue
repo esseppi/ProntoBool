@@ -36,7 +36,19 @@
               <v-sheet class="text-h2">{{ slide.city }} </v-sheet>
             </v-col>
             <v-col :order="colOrder3">
-              <v-sheet class="text-h2">{{ slide.profession }}</v-sheet>
+              <v-sheet
+                height="300"
+                color="transparent"
+                class="text-h2 d-flex flex-col justify-center align-middle"
+              >
+                <v-btn
+                  class="mb-5"
+                  v-for="item in slide.profession"
+                  :key="item"
+                >
+                  {{ item }}
+                </v-btn>
+              </v-sheet>
             </v-col>
           </v-row>
         </v-sheet>
@@ -125,6 +137,7 @@ export default {
           });
           this.slides.push({
             name: element.name,
+            image: element.image,
             city: element.address,
             pic: element.pic,
             profession: profession,

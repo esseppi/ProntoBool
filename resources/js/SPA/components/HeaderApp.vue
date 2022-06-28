@@ -21,7 +21,9 @@
         <v-btn icon>
           <v-icon @click="searchPage()">mdi-magnify</v-icon>
         </v-btn>
-        <button v-if="bool" @click.prevent="logout">Logout</button>
+        <button v-if="bool" @click.prevent="logout">
+          <v-icon>mdi-logout</v-icon>
+        </button>
         <div v-else>
           <button @click.prevent="login">Sei un professionista?</button>
         </div>
