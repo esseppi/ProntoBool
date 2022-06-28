@@ -1,5 +1,24 @@
 <template>
   <div class="py-10">
+    <v-bottom-navigation color="teal" grow>
+      <v-btn>
+        <span>Edit Profile</span>
+
+        <v-icon>mdi-account-edit</v-icon>
+      </v-btn>
+
+      <v-btn>
+        <span>Show Profile</span>
+
+        <v-icon>mdi-eye</v-icon>
+      </v-btn>
+
+      <v-btn>
+        <span>Show Messages</span>
+
+        <v-icon>mdi-message</v-icon>
+      </v-btn>
+    </v-bottom-navigation>
     <v-container>
       <v-row>
         <v-col>
@@ -8,18 +27,18 @@
 
             <v-card-title> {{ this.user.name }} </v-card-title>
 
-            <v-card-action>
+            <v-card-actions>
               <v-chip-group center-active class="align-self-end" show-arrows>
                 <v-chip
                   center-active
                   v-for="item in this.profile.professions"
-                  :key="item"
+                  :key="item.id"
                   class="warning accent-4 white--text"
                 >
                   {{ item.name }}
                 </v-chip>
               </v-chip-group>
-            </v-card-action>
+            </v-card-actions>
 
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -43,6 +62,9 @@
             </v-expand-transition>
           </v-card>
         </v-col>
+      </v-row>
+
+      <v-row>
         <v-col>
           <v-card>
             <v-card-title>General infos</v-card-title>
@@ -54,19 +76,20 @@
               <v-btn>
                 <v-icon>mdi-android-messages</v-icon>
               </v-btn>
-
               <v-btn>
                 <v-icon>mdi-draw</v-icon>
               </v-btn>
-
               <v-btn>
                 <v-icon>mdi-eye</v-icon>
               </v-btn>
-
               <v-btn>
                 <v-icon>mdi-cash</v-icon>
               </v-btn>
             </v-btn-toggle>
+            <v-card v-if="toggle_exclusive == 0"> <BarChart /></v-card>
+            <v-card v-if="toggle_exclusive == 1"> <BarChart /> </v-card>
+            <v-card v-if="toggle_exclusive == 2"> <BarChart /></v-card>
+            <v-card v-if="toggle_exclusive == 3"> <BarChart /> </v-card>
           </v-card>
         </v-col>
       </v-row>
@@ -75,6 +98,8 @@
 </template>
 
 <script>
+import BarChart from "../../components/BarChart.vue";
+
 export default {
   name: "mydashboard",
   data() {
@@ -82,9 +107,11 @@ export default {
       show: false,
       user: [],
       profile: [],
-      toggle_exclusive: 2,
+      toggle_exclusive: 0,
     };
   },
+
+  components: { BarChart },
 
   created() {
     axios.get("/api/user").then((res) => {
@@ -94,7 +121,6 @@ export default {
       }
       axios.get("/api/dashinfo/" + this.user.id).then((res) => {
         this.profile = res.data.data;
-        console.log(this.profile);
       });
     });
   },

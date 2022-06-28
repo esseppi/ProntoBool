@@ -73,8 +73,6 @@
   </v-card>
 </template>
 <script>
-import { identifier } from "@babel/types";
-
 export default {
   data() {
     return {
@@ -120,7 +118,6 @@ export default {
     axios.get("/api/promotedUser").then((res) => {
       res.data.data.forEach((element) => {
         this.loading = true;
-
         let profession = [];
         if (element.professions) {
           element.professions.forEach((elemento) => {
