@@ -1,9 +1,7 @@
 <template>
   <v-card class="overflow-hidden">
     <!-- NUOVA HEADER APP QUI -->
-
     <Carousel />
-
     <!-- PAGINA RISULTATI -->
     <v-card tile>
       <v-data-iterator
@@ -19,18 +17,55 @@
         <!-- TOOLBAR-->
         <template v-slot:header class="py-5">
           <v-toolbar dark color="blue lighten-3">
-            <v-text-field
-              type="text"
+            <v-spacer></v-spacer>
+            <v-autocomplete
+              v-if="sortBy == 'Profession'"
+              v-bind="attrs"
+              v-on="on"
+              :items="profession"
+              :loading="loadingProf"
+              :search-input.sync="searchProf"
               v-model="search"
               flat
               hide-details
               prepend-inner-icon="mdi-magnify"
               label="Search"
-            ></v-text-field>
+              solo-inverted
+            />
+            <v-autocomplete
+              v-else-if="sortBy == 'Name'"
+              v-bind="attrs"
+              v-on="on"
+              :items="names"
+              :loading="loadingProf"
+              :search-input.sync="searchNames"
+              v-model="search"
+              flat
+              hide-details
+              prepend-inner-icon="mdi-magnify"
+              label="Search"
+              solo-inverted
+            />
+            <v-autocomplete
+              v-else-if="sortBy == 'City'"
+              v-bind="attrs"
+              v-on="on"
+              :items="cities"
+              :loading="loadingProf"
+              :search-input.sync="searchCities"
+              v-model="search"
+              flat
+              hide-details
+              prepend-inner-icon="mdi-magnify"
+              label="Search"
+              solo-inverted
+            />
+
             <v-spacer></v-spacer>
 
             <template v-if="$vuetify.breakpoint.mdAndUp">
               <v-select
+                min-widht="0"
                 v-model="sortBy"
                 flat
                 hide-details
@@ -38,13 +73,15 @@
                 :items="keys"
                 prepend-inner-icon="mdi-magnify"
                 label="Sort by"
+                solo-inverted
               ></v-select>
               <v-spacer></v-spacer>
+              <v-spacer></v-spacer>
               <v-btn-toggle v-model="sortDesc" mandatory>
-                <v-btn large depressed color="blue" :value="false">
+                <v-btn large depressed color="warning" :value="false">
                   <v-icon>mdi-arrow-up</v-icon>
                 </v-btn>
-                <v-btn large depressed color="blue" :value="true">
+                <v-btn large depressed color="warning" :value="true">
                   <v-icon>mdi-arrow-down</v-icon>
                 </v-btn>
               </v-btn-toggle>
@@ -74,18 +111,14 @@
                     ></v-progress-linear>
                   </template>
 
-                  <v-img
-                    height="250"
-                    src="https://cdn.vuetifyjs.com/images/john.jpg"
-                  >
-                  </v-img>
+                  <v-img height="250" :src="item.image"> </v-img>
 
                   <v-card-title>{{ item.name }}</v-card-title>
 
                   <v-card-text>
                     <v-row align="center" class="mx-0">
                       <v-rating
-                        :value="item.review_avg"
+                        :value="item.review"
                         color="amber"
                         dense
                         half-increments
@@ -94,7 +127,7 @@
                       ></v-rating>
 
                       <div class="grey--text ms-4">
-                        {{ item.review_avg }} ({{ item.count_review }})
+                        {{ item.review }} ({{ item.count_review }})
                       </div>
                     </v-row>
 
@@ -116,7 +149,7 @@
                         center-active
                         v-for="item in item.profession"
                         :key="item"
-                        class="deep-purple accent-4 white--text"
+                        class="warning darken-1 white--text"
                       >
                         {{ item }}
                       </v-chip>
@@ -125,20 +158,16 @@
                   </v-card-actions>
                   <v-card-actions class="d-flex justify-center">
                     <v-chip-group center-active>
-                      <v-chip center-active>
-                        <v-icon color="deep-purple lighten-2" text>
-                          mdi-eye
-                        </v-icon>
+                      <v-chip :to="`/doc/` + item.id" center-active link>
+                        <v-icon color="blue" text> mdi-eye </v-icon>
                       </v-chip>
                       <v-chip>
-                        <v-icon color="deep-purple lighten-2" text>
+                        <v-icon color="blue" text>
                           mdi-message-arrow-right-outline
                         </v-icon>
                       </v-chip>
                       <v-chip>
-                        <v-icon color="deep-purple lighten-2" text>
-                          mdi-shape
-                        </v-icon>
+                        <v-icon color="blue" text> mdi-shape </v-icon>
                       </v-chip>
                     </v-chip-group>
                   </v-card-actions>
@@ -220,8 +249,11 @@ export default {
       page: 1,
       itemsPerPage: 20,
       sortBy: "name",
-      keys: ["name", "city", "review_avg", "profession", "views"],
+      keys: ["Name", "City", "Review", "Profession", "Views"],
       items: [],
+      profession: [],
+      names: [],
+      cities: [],
 
       // CARD
       loadingCard: false,
@@ -255,13 +287,21 @@ export default {
         if (element.professions) {
           element.professions.forEach((elemento) => {
             profession.push(elemento.name);
+            this.profession.push(elemento.name);
           });
         }
+        if (element.address) {
+          this.cities.push(element.address);
+        }
+        if (element.name) {
+          this.names.push(element.name);
+        }
         this.items.push({
+          id: element.id,
           name: element.name,
           city: element.address,
           image: element.pic,
-          review_avg: average(avg),
+          review: average(avg),
           description: element.description,
           count_review: avg.length,
           profession: profession,

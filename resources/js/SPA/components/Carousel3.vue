@@ -1,12 +1,10 @@
 <template>
   <v-card elevation="24" max-width="100%" class="mx-auto" :loading="loading">
-    <v-system-bar dark height="10"> </v-system-bar>
-
     <v-carousel
       :interval="interval"
       progress-color="blue"
       hide-delimiters
-      show-arrows-on-hover
+      :show-arrows="false"
       :continuous="true"
       :cycle="cycle"
       height="300"
@@ -22,7 +20,7 @@
         >
       </template>
       <v-carousel-item height="300" v-for="(slide, i) in slides" :key="i">
-        <v-sheet color="warning" height="310" tile>
+        <v-sheet color="#D7E4F3" height="310" tile>
           <v-row class="fill-height" align="center" justify="center">
             <v-col :order="colOrder1">
               <div class="d-flex justify-center">
@@ -54,51 +52,24 @@
         </v-sheet>
       </v-carousel-item>
     </v-carousel>
-    <v-bottom-navigation height="70" v-model="valueBottom" dark shift>
-      <v-btn x-large>
-        <span>Facebook</span>
-
-        <v-icon x-large>mdi-facebook</v-icon>
-      </v-btn>
-
-      <v-btn x-large>
-        <span>Instagram</span>
-
-        <v-icon x-large>mdi-instagram</v-icon>
-      </v-btn>
-
-      <v-btn x-large>
-        <span>Linkedin</span>
-
-        <v-icon x-large>mdi-linkedin</v-icon>
-      </v-btn>
-
-      <v-btn x-large>
-        <span>Slack</span>
-
-        <v-icon x-large>mdi-slack</v-icon>
-      </v-btn>
-      <!-- <v-list-item-action>
-        <v-switch v-model="cycle" label="Cycle Slides" inset></v-switch>
-      </v-list-item-action> -->
-    </v-bottom-navigation>
   </v-card>
 </template>
 <script>
+import { identifier } from "@babel/types";
+import NoWorkResult from "postcss/lib/no-work-result";
+
 export default {
   data() {
     return {
-      loading: true,
+      loading: false,
+      advUser: [],
       interval: 3300,
       colOrder1: 1,
       colOrder2: 2,
       colOrder3: 3,
-
       slides: [],
       valueBottom: 1,
-
       socials: ["mdi-instagram", "mdi-facebook"],
-
       cycle: true,
     };
   },
@@ -106,6 +77,11 @@ export default {
     this.colOrder();
   },
   methods: {
+    // randColor() {
+    //   let color = ["warning", "#D6E4F4"];
+    //   let res = rand(color);
+    //   return ;
+    // },
     colOrder() {
       let rand = Math.floor(Math.random() * 3 + 1);
       if (rand == 3) {
@@ -127,23 +103,39 @@ export default {
     },
   },
   created() {
+    const d = new Date();
+    const average = (array) =>
+      Number((array.reduce((a, b) => a + b) / array.length).toFixed(2));
+    let date = d.toISOString();
     axios.get("/api/promotedUser").then((res) => {
-      res.data.data.forEach((element) => {
-        this.loading = true;
+      let bundleGroup = [];
+
+      res.data.data.forEach((el) => {
         let profession = [];
-        if (element.professions) {
-          element.professions.forEach((elemento) => {
+        let avg = [0];
+
+        if (el.reviews) {
+          el.reviews.forEach((elemento) => {
+            avg.push(elemento.vote);
+          });
+        } else {
+          avg.push([0, 0]);
+        }
+        if (el.professions) {
+          el.professions.forEach((elemento) => {
             profession.push(elemento.name);
           });
-          this.slides.push({
-            name: element.name,
-            image: element.image,
-            city: element.address,
-            pic: element.pic,
-            profession: profession,
-          });
-        }
+        } else profession = null;
+        this.slides.push({
+          name: el.name,
+          review_avg: average(avg),
+          count_review: avg.length,
+          city: el.address,
+          pic: el.pic,
+          profession: profession,
+        });
       });
+      this.loading = false;
     });
   },
 };

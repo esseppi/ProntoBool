@@ -20,18 +20,33 @@
         >
       </template>
       <v-carousel-item height="300" v-for="(slide, i) in slides" :key="i">
-        <v-sheet color="#D7E4F3" height="310" tile>
+        <v-sheet color="warning" height="310" tile>
           <v-row class="fill-height" align="center" justify="center">
             <v-col :order="colOrder1">
-              <v-sheet class="text-h2 d-flex flex-col">
-                {{ slide.name }}
-              </v-sheet>
+              <div class="d-flex justify-center">
+                <v-avatar class="mb-5" color="grey" size="164">
+                  <v-img :src="slide.pic"></v-img>
+                </v-avatar>
+              </div>
+              <v-sheet class="text-h2">{{ slide.name }}</v-sheet>
             </v-col>
             <v-col :order="colOrder2">
               <v-sheet class="text-h2">{{ slide.city }} </v-sheet>
             </v-col>
             <v-col :order="colOrder3">
-              <v-sheet class="text-h2">{{ slide.profession }}</v-sheet>
+              <v-sheet
+                height="300"
+                color="transparent"
+                class="text-h2 d-flex flex-col justify-center align-middle"
+              >
+                <v-btn
+                  class="mb-5"
+                  v-for="item in slide.profession"
+                  :key="item"
+                >
+                  {{ item }}
+                </v-btn>
+              </v-sheet>
             </v-col>
           </v-row>
         </v-sheet>
@@ -62,6 +77,11 @@ export default {
     this.colOrder();
   },
   methods: {
+    // randColor() {
+    //   let color = ["warning", "#D6E4F4"];
+    //   let res = rand(color);
+    //   return ;
+    // },
     colOrder() {
       let rand = Math.floor(Math.random() * 3 + 1);
       if (rand == 3) {

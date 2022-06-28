@@ -16,7 +16,7 @@ use App\Models\Professionist\Sponsorship;
 
 class GuestApiController extends Controller
 {
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -28,12 +28,12 @@ class GuestApiController extends Controller
         $formData = $request->all();
         $res = [];
         // NO FILTRO
-        if ($formData['city'] == 'ovunque') {
+        if ($formData['city'] == 'Ovunque') {
             array_push($res, Profile::with('professions', 'reviews')->join('users', 'profiles.id', '=', 'users.id')
                 ->get());
         }
         // FILTRO CITTA
-        else if ($formData['city'] != 'ovunque') {
+        else if ($formData['city'] != 'Ovunque') {
             array_push($res, Profile::with('professions', 'reviews')->where('address', $formData['city'])->join('users', 'profiles.id', '=', 'users.id')
                 ->get());
         }

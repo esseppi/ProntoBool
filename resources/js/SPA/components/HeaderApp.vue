@@ -10,8 +10,6 @@
   >
     <v-container fluid>
       <v-row align="center">
-        <!-- <v-app-bar-nav-icon v-if="!bool"></v-app-bar-nav-icon> -->
-
         <v-toolbar-title>
           <v-btn @click="refresh" dark>ProntoBool</v-btn>
         </v-toolbar-title>
@@ -21,7 +19,9 @@
         <v-btn icon>
           <v-icon @click="searchPage()">mdi-magnify</v-icon>
         </v-btn>
-        <button v-if="bool" @click.prevent="logout">Logout</button>
+        <button v-if="bool" @click.prevent="logout">
+          <v-icon>mdi-logout</v-icon>
+        </button>
         <div v-else>
           <button @click.prevent="login">Sei un professionista?</button>
         </div>
@@ -49,7 +49,7 @@ export default {
       window.location = "/";
     },
     searchPage() {
-      this.$router.push({ path: "/results/ovunque" });
+      this.$router.push({ path: "/results/Ovunque" });
     },
     logout() {
       axios.post("/api/logout").then(() => {
