@@ -17,12 +17,17 @@ class ReviewSeeder extends Seeder
     public function run(Faker $faker)
     {
         for ($i = 0; $i < 800; $i++) {
+            $int = $faker->dateTimeBetween('-1 year', '-1 week');
+            $string = date_format($int, "Y-m-d H:i:s");
             Review::create([
+
                 'profile_id' => Profile::inRandomOrder()->first()->id,
                 'name' => $faker->name(),
                 'email' => $faker->email(),
                 'message' => $faker->text(),
                 'vote' => $faker->numberBetween(1, 5),
+                'vote' => $faker->numberBetween(1, 5),
+                'created_at' => $string
             ]);
         }
     }

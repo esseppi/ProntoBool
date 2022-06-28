@@ -15,6 +15,7 @@ class Review extends Model
         'email',
         'message',
         'vote',
+        'created_at'
     ];
 
     public function profile()

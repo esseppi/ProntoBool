@@ -38,8 +38,6 @@ class GuestApiController extends Controller
                 ->get());
         }
 
-
-
         return response()->json([
             'data' => $res
         ]);

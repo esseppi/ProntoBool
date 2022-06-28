@@ -137,9 +137,12 @@ class ProfessionistApiController extends Controller
 
     public function getDashReviews($id)
     {
-        $leads = Lead::where('profile_id', $id)->get();
+        $users = Review::where('profile_id', $id)
+            ->selectRaw('monthname(created_at) as month, COUNT(id)')
+            ->groupBy('month')
+            ->get();
         return response()->json([
-            $leads
+            $users
         ]);
     }
     public function getDashViews($id)

@@ -2,8 +2,8 @@
   <v-navigation-drawer v-model="drawer" :mini-variant.sync="mini" permanent app>
     <v-list-item class="px-2">
       <v-list-item-avatar v-if="loaded">
-                <v-img v-if="profile.pic.includes('http')" :src="profile.pic" />
-                <v-img v-else :src="'/storage/'+profile.pic" />
+        <v-img v-if="profile.pic.includes('http')" :src="profile.pic" />
+        <v-img v-else :src="'/storage/' + profile.pic" />
       </v-list-item-avatar>
 
       <v-list-item-title>{{ user.name }}</v-list-item-title>
@@ -16,7 +16,7 @@
     <v-divider></v-divider>
 
     <v-list dense>
-        <v-list-item key="my-profile" :to="'/doc/'+profile.id" link>
+      <v-list-item key="my-profile" :to="'/doc/' + profile.id" link>
         <v-list-item-icon>
           <v-icon>mdi-account</v-icon>
         </v-list-item-icon>
@@ -46,7 +46,7 @@ export default {
     return {
       loaded: false,
       profile: {
-      pic: null,
+        pic: null,
       },
       drawer: true,
       items: [
@@ -89,7 +89,6 @@ export default {
   },
   mounted() {
     axios.get(`/api/profile/${this.user.id}`).then((res) => {
-      console.log(res.data.response);
       this.profile = res.data.response;
       this.loaded = true;
     });

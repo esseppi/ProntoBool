@@ -308,7 +308,6 @@ export default {
           views: element.views,
         });
       });
-      console.log(res.data.data[0]);
     });
   },
   computed: {
