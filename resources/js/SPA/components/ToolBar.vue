@@ -16,13 +16,12 @@
                 :items="professions"
                 :loading="loadingProf"
                 :search-input.sync="searchProf"
-                multiple
                 cache-items
                 class="mx-4"
                 flat
                 hide-no-data
                 hide-details
-                label="What state are you from?"
+                label="Select a profession"
                 solo-inverted
               />
             </template>
@@ -47,7 +46,6 @@
                 v-bind="attrs"
                 v-on="on"
                 prepend-icon="mdi-city"
-                multiple
                 v-model="form.city"
                 :items="cities"
                 :loading="loadingCity"
@@ -57,7 +55,7 @@
                 flat
                 hide-no-data
                 hide-details
-                label="What state are you from?"
+                label="Available city to get the service"
                 solo-inverted
               />
             </template>
@@ -68,7 +66,7 @@
     </v-col>
     <v-col cols="12" md="1">
       <v-card
-        @click="openPage"
+        @click="searchPage()"
         class="yellow d-flex flex-col justify-center align-center"
         height="100%"
       >
@@ -99,219 +97,6 @@
         </v-card-text>
       </v-card>
     </v-dialog>
-    <!-- RESPONSE -->
-    <v-dialog
-      v-model="responsePage"
-      fullscreen
-      hide-overlay
-      transition="dialog-bottom-transition"
-    >
-      <!-- NUOVA HEADER APP QUI -->
-      <div>
-        <v-app-bar color="blue" dark>
-          <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
-          <v-toolbar-title>
-            <v-btn @click="responsePage = false"> Prontobool </v-btn>
-          </v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-btn icon dark @click="responsePage = false">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </v-app-bar>
-        <Carousel />
-      </div>
-
-      <!-- PAGINA RISULTATI -->
-      <v-card tile>
-        <v-data-iterator
-          loading
-          loading-text="Loading Professionist Data"
-          :items="items"
-          :items-per-page.sync="itemsPerPage"
-          :page.sync="page"
-          :search="search"
-          :sort-by="sortBy.toLowerCase()"
-          :sort-desc="sortDesc"
-          hide-default-footer
-        >
-          <!-- TOOLBAR-->
-          <template v-slot:header class="py-5">
-            <v-toolbar dark color="blue lighten-3">
-              <v-spacer></v-spacer>
-              <v-text-field
-                type="text"
-                v-model="search"
-                flat
-                hide-details
-                prepend-inner-icon="mdi-magnify"
-                label="Search"
-              ></v-text-field>
-              <v-spacer></v-spacer>
-              <template v-if="$vuetify.breakpoint.mdAndUp">
-                <v-select
-                  v-model="sortBy"
-                  flat
-                  hide-details
-                  chips
-                  :items="keys"
-                  prepend-inner-icon="mdi-magnify"
-                  label="Sort by"
-                ></v-select>
-                <v-spacer></v-spacer>
-                <v-btn-toggle v-model="sortDesc" mandatory>
-                  <v-btn large depressed color="blue" :value="false">
-                    <v-icon>mdi-arrow-up</v-icon>
-                  </v-btn>
-                  <v-btn large depressed color="blue" :value="true">
-                    <v-icon>mdi-arrow-down</v-icon>
-                  </v-btn>
-                </v-btn-toggle>
-              </template>
-            </v-toolbar>
-          </template>
-          <!-- CARD -->
-          <template height="100%" v-slot:default="props">
-            <v-container>
-              <v-row>
-                <!-- STAMPA COLONNA CARTA -->
-                <v-col
-                  v-for="item in props.items"
-                  :key="item.name"
-                  cols="12"
-                  sm="6"
-                  md="4"
-                  lg="3"
-                >
-                  <!-- CARTA -->
-                  <v-card :loading="loadingCard" class="mx-auto" height="100%">
-                    <template slot="progress">
-                      <v-progress-linear
-                        color="deep-purple"
-                        height="10"
-                        indeterminate
-                      ></v-progress-linear>
-                    </template>
-
-                    <v-img height="250" :src="item.image"> </v-img>
-
-                    <v-card-title>{{ item.name }}</v-card-title>
-
-                    <v-card-text>
-                      <v-row align="center" class="mx-0">
-                        <v-rating
-                          :value="item.review"
-                          color="amber"
-                          dense
-                          half-increments
-                          readonly
-                          size="14"
-                        ></v-rating>
-
-                        <div class="grey--text ms-4">
-                          {{ item.review }} ({{ item.count_review }})
-                        </div>
-                      </v-row>
-
-                      <div class="my-4 text-subtitle-1">
-                        <v-icon>mdi-city</v-icon> • {{ item.city }}
-                      </div>
-
-                      <v-sheet class="overflow-y-auto" height="100">
-                        {{ item.description }}
-                      </v-sheet>
-                    </v-card-text>
-
-                    <v-divider class="mx-4"></v-divider>
-
-                    <!-- BOTTOM -->
-                    <v-card-actions class="d-flex justify-center">
-                      <v-chip-group show-arrows>
-                        <v-chip
-                          center-active
-                          v-for="item in item.profession"
-                          :key="item"
-                          class="warning accent-4 white--text"
-                        >
-                          {{ item }}
-                        </v-chip>
-                      </v-chip-group>
-                      <v-spacer></v-spacer>
-                    </v-card-actions>
-                    <v-card-actions class="d-flex justify-center">
-                      <v-chip-group center-active>
-                        <v-chip center-active>
-                          <v-icon dark color="blue" text> mdi-eye </v-icon>
-                        </v-chip>
-                        <v-chip>
-                          <v-icon color="blue" text>
-                            mdi-message-arrow-right-outline
-                          </v-icon>
-                        </v-chip>
-                        <v-chip>
-                          <v-icon color="blue" text> mdi-shape </v-icon>
-                        </v-chip>
-                      </v-chip-group>
-                    </v-card-actions>
-                  </v-card>
-                </v-col>
-              </v-row>
-            </v-container>
-          </template>
-
-          <template v-slot:footer>
-            <v-row class="mt-2" align="center" justify="center">
-              <span class="grey--text">Items per page</span>
-              <v-menu offset-y>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    dark
-                    text
-                    color="primary"
-                    class="ml-2"
-                    v-bind="attrs"
-                    v-on="on"
-                  >
-                    {{ itemsPerPage }}
-                    <v-icon>mdi-chevron-down</v-icon>
-                  </v-btn>
-                </template>
-                <v-list>
-                  <v-list-item
-                    v-for="(number, index) in itemsPerPageArray"
-                    :key="index"
-                    @click="updateItemsPerPage(number)"
-                  >
-                    <v-list-item-title>{{ number }}</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
-              <v-spacer></v-spacer>
-              <span class="mr-4 grey--text">
-                Page {{ page }} of {{ numberOfPages }}
-              </span>
-              <v-btn
-                fab
-                dark
-                color="blue darken-3"
-                class="mr-1"
-                @click="formerPage"
-              >
-                <v-icon>mdi-chevron-left</v-icon>
-              </v-btn>
-              <v-btn
-                fab
-                dark
-                color="blue darken-3"
-                class="ml-1"
-                @click="nextPage"
-              >
-                <v-icon>mdi-chevron-right</v-icon>
-              </v-btn>
-            </v-row>
-          </template>
-        </v-data-iterator>
-      </v-card>
-    </v-dialog>
   </v-row>
 </template>
 <script>
@@ -339,16 +124,6 @@ export default {
       // RESPONSE
       dialog: false,
       responsePage: false,
-      // RESULT DATA TABLE
-      itemsPerPageArray: [12, 24, 36],
-      search: "",
-      // filter: {},
-      sortDesc: false,
-      page: 1,
-      itemsPerPage: 20,
-      sortBy: "name",
-      keys: ["name", "city", "review", "profession", "views"],
-      items: [],
 
       // CARD
       loadingCard: false,
@@ -385,6 +160,9 @@ export default {
     },
   },
   methods: {
+    searchPage() {
+      this.$router.push({ path: "results/" + this.form.city });
+    },
     openPage() {
       this.dialog = true;
       this.getProfInfo();

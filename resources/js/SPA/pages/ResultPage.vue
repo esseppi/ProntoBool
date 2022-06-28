@@ -18,7 +18,23 @@
         <template v-slot:header class="py-5">
           <v-toolbar dark color="blue lighten-3">
             <v-spacer></v-spacer>
+            <v-autocomplete
+              v-if="sortBy == 'profession'"
+              v-bind="attrs"
+              v-on="on"
+              :items="profession"
+              :loading="loadingProf"
+              :search-input.sync="searchProf"
+              v-model="search"
+              flat
+              hide-details
+              prepend-inner-icon="mdi-magnify"
+              label="Search"
+              solo-inverted
+            />
+
             <v-text-field
+              v-else
               type="text"
               v-model="search"
               flat
@@ -40,10 +56,10 @@
               ></v-select>
               <v-spacer></v-spacer>
               <v-btn-toggle v-model="sortDesc" mandatory>
-                <v-btn large depressed color="blue" :value="false">
+                <v-btn large depressed color="warning" :value="false">
                   <v-icon>mdi-arrow-up</v-icon>
                 </v-btn>
-                <v-btn large depressed color="blue" :value="true">
+                <v-btn large depressed color="warning" :value="true">
                   <v-icon>mdi-arrow-down</v-icon>
                 </v-btn>
               </v-btn-toggle>
@@ -208,6 +224,7 @@ export default {
         city: "",
       },
       // RESULT DATA TABLE
+      profession: [],
       itemsPerPageArray: [12, 24, 36],
       search: "",
       // filter: {},
@@ -250,6 +267,7 @@ export default {
         if (element.professions) {
           element.professions.forEach((elemento) => {
             profession.push(elemento.name);
+            this.profession.push(elemento.name);
           });
         }
         this.items.push({
