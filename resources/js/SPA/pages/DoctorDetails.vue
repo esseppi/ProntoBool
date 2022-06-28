@@ -511,6 +511,7 @@ export default {
 
 .inner {
   width: 90%;
+  padding: 40px 0 40px 0;
   margin: 0 auto;
   display: flex;
   gap: 70px;

@@ -41,7 +41,7 @@
 			<div class="input-group">
 				<button
 					class="btn"
-					:disabled="!(!v$.$error && v$.$dirty)"
+					:disabled="!(!v$.$error)"
 					@click="tryLogin"
 				>
 					Login
