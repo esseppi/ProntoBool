@@ -52,7 +52,8 @@ Route::get('/profile/{id}', [ProfessionistApiController::class, 'getProfileInfo'
 Route::get('/user/{id}', [ProfessionistApiController::class, 'getUserInfo']);
 Route::get('/reviews/{id}', [ProfessionistApiController::class, 'getUserReviews']);
 Route::get('/messages/{id}', [ProfessionistApiController::class, 'getUserMessages']);
-
+Route::get('/getlocations', [GuestApiController::class, 'getLocations']);
+Route::get('/getprofessions', [GuestApiController::class, 'getProfessions']);
 Route::get('/dashinfo/{id}', [ProfessionistApiController::class, 'getDashInfo']);
 Route::get('/dashleads/{id}', [ProfessionistApiController::class, 'getDashLeads']);
 Route::get('/dashreviews/{id}', [ProfessionistApiController::class, 'getDashReviews']);

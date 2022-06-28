@@ -44,7 +44,7 @@ export default {
   setup: () => ({ v$: useVuelidate() }),
   data() {
     return {
-      currentStep: 1,
+      currentStep: 3,
       inputData: {},
     };
   },
@@ -74,7 +74,7 @@ export default {
 
         formData.append('id', res.data.response.user.id);
         formData.append('user_id', res.data.response.user.id);
-        formData.append('professions', "1")
+        formData.append('professions', res.data.response.professions)
         formData.append('address', this.inputData.address)
 
 

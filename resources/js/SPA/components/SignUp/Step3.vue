@@ -10,6 +10,29 @@
           </span>
         </div> -->
       </div>
+      <div class="input-elements">
+        <div class="professions-selector">
+        <label for="curriculum">Professions (Max 3)</label>
+        <div>
+          <select v-model="selectedProfession"
+          @blur=""
+          name="professione"
+          >
+          <option value="">Select a profession</option>
+          <option v-for="item in professions" :value="item" v:key="item.id"> {{ item.name}}
+          </option>
+        </select>
+        <button @click="addProfession" class="btn outlined">+</button>
+        </div>
+        
+        <div class="professions-box">
+          <span v-for="item of inputData.professions" class="prof" :key="item.id">
+            {{ item.name }}
+            <div @click="professionDel(item.id)" class="del">x</div>
+          </span>
+        </div>
+        </div>
+      </div>
     </div>
     <div class="input-group">
       <div class="input-elements">
@@ -19,7 +42,7 @@
       </div>
       <div class="input-elements">
         <button class="btn" @click="$emit('nextStep', inputData)">
-          <!-- :disabled="!(!v$.$error && v$.$dirty)" --->
+          <!-- :disabled="!(!v$.$error && v$.$dirty)" -->
 
           Submit
         </button>
@@ -53,8 +76,11 @@ export default {
   setup: () => ({ v$: useVuelidate() }),
   data() {
     return {
+      professions : [],
+      selectedProfession: "",
       inputData: {
-        curriculum: null
+        curriculum: null,
+        professions: [],
       },
     };
   },
@@ -62,19 +88,40 @@ export default {
     onFileChange(e) {
       this.inputData.curriculum = e.target.files[0];
     },
+    addProfession(){
+      if(this.inputData.professions.length < 3){
+        this.inputData.professions.push(this.selectedProfession);
+        this.professions = this.professions.filter(item => item.id !== this.selectedProfession.id);
+      }
+    },
+    professionDel(id){
+      this.inputData.professions = this.inputData.professions.filter(item => item.id !== id);
+    }
   },
+  mounted(){
+    axios.get("/api/getprofessions").then(res => {
+      console.log(res.data)
+      this.professions = res.data.data;
+    });
+  },
+  validations() {
+    return {
+      inputData: {
+        professions: {
+          required,
+        },
+      },
+    };
+  }
 }
-  // validations() {
-  //   return {
-  //     inputData: {
-  //       cv: {
-  //         required,
-  //       },
-  //     },
-  //   };
+
 </script>
 
 <style scoped>
+
+.professions-box{
+  height: 100px;
+}
 .error-message {
   height: 2rem;
   color: #ff6372;
@@ -97,9 +144,34 @@ export default {
 
 .btn.outlined {
   background-color: transparent;
-  border: 2px solid #00234b;
+  color: #00234b;
+  border: 1px solid #00234b;
+  padding: 0;
+
+  margin-left: 4px;
+  width: 45px;
+  height: 40px;
 }
 
+.prof{
+  padding: 15px;
+  display: inline-block;
+  padding-right: 27px;
+  background-color: #00234b;
+  color: white;
+  margin-right: 5px;
+  border-radius: 2rem;
+  font-size: 0.7rem;
+  position: relative
+}
+.prof .del{
+  position: absolute;
+  right: 13px;
+  top: 50%;
+  font-weight: 600;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
 .btn:hover {
   color: white;
   background-color: #00234b;
@@ -132,10 +204,23 @@ input[type="text"],
 textarea,
 input[type="password"],
 input[type="tel"],
-input[type="email"] {
+input[type="email"],
+select{
   border: 1px solid #e1e1e4;
   background-color: white;
   margin-top: 5px;
+  width: 100%;
+}
+
+.professions-selector{
+  display: flex;
+  flex-direction: column;
+}
+
+.professions-selector > div{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   width: 100%;
 }
 

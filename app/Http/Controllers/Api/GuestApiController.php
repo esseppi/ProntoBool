@@ -174,6 +174,23 @@ class GuestApiController extends Controller
         ]);
     }
 
+    public function getLocations(Request $request){
+        $data = DB::table('profiles')->select('address')
+                      ->groupBy('address')->get();
+
+        return response()->json([
+            'data' => $data
+        ]);
+    }
+
+    public function getProfessions(Request $request){
+        $data = Profession::all();
+
+        return response()->json([
+            'data' => $data
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
