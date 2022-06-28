@@ -2,7 +2,7 @@
   <v-card color="#D7E4F3" elevation="24" width="100%">
     <v-container>
       <v-card-text>
-        <div>Word of the Day</div>
+        <div>Our plan</div>
         <p class="text-h4 text--primary">enlargement·of·the·service</p>
         <p>wait for your city</p>
         <div class="text--primary">

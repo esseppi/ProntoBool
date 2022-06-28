@@ -59,7 +59,7 @@
                 solo-inverted
               />
             </template>
-            <span>Seleziona fino a 5 città contemporaneamente</span>
+            <span>Filtra i risultati per luogo</span>
           </v-tooltip>
         </v-card-text>
       </v-card>
@@ -108,7 +108,7 @@ export default {
     return {
       form: {
         // profession: [],
-        city: [],
+        city: ["Ovunque"],
       },
       // FIRST AUTOCOMPLETE DATA
       professions: ["Qualsiasi"],

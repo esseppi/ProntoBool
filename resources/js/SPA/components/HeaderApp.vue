@@ -10,8 +10,6 @@
   >
     <v-container fluid>
       <v-row align="center">
-        <!-- <v-app-bar-nav-icon v-if="!bool"></v-app-bar-nav-icon> -->
-
         <v-toolbar-title>
           <v-btn @click="refresh" dark>ProntoBool</v-btn>
         </v-toolbar-title>
@@ -51,7 +49,7 @@ export default {
       window.location = "/";
     },
     searchPage() {
-      this.$router.push({ path: "/results/ovunque" });
+      this.$router.push({ path: "/results/Ovunque" });
     },
     logout() {
       axios.post("/api/logout").then(() => {
