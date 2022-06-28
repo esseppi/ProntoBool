@@ -46,13 +46,18 @@
         </div>
       </div>
       <div class="input-elements">
-        <label for="address">Address</label>
-        <input
+        <label for="address">City</label>
+        <select
           v-model="inputData.address"
           @blur="v$.inputData.address.$touch()"
           name="address"
           type="text"
-        />
+        >
+        <option value=""> Select a city
+        </option>
+        <option v-for="item in locations" value="item.address" v:key="item.address"> {{ item.address}}
+        </option>
+        </select>
         <div class="error-message">
           <span v-for="error of v$.inputData.address.$errors" :key="error.$uid">
             {{ error.$message }}
@@ -125,6 +130,7 @@ export default {
   setup: () => ({ v$: useVuelidate() }),
   data() {
     return {
+      locations: null,
       inputData: {
         name: "",
         surname: "",
@@ -157,7 +163,6 @@ export default {
         },
         address: {
           required,
-          minLength: minLength(5),
           maxLength: maxLength(30),
         },
         password: {
@@ -170,6 +175,12 @@ export default {
         },
       },
     };
+  },
+  mounted(){
+    axios.get("/api/getlocations").then(res => {
+      console.log(res.data)
+      this.locations = res.data.data;
+    });
   },
   methods: {
     isUnique(value) {
@@ -241,7 +252,8 @@ input[type="text"],
 textarea,
 input[type="password"],
 input[type="tel"],
-input[type="email"] {
+input[type="email"],
+select{
   border: 1px solid #e1e1e4;
   background-color: white;
   margin-top: 5px;
