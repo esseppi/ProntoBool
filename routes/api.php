@@ -55,6 +55,7 @@ Route::get('/messages/{id}', [ProfessionistApiController::class, 'getUserMessage
 
 Route::get('/dashinfo/{id}', [ProfessionistApiController::class, 'getDashInfo']);
 Route::get('/dashleads/{id}', [ProfessionistApiController::class, 'getDashLeads']);
+Route::get('/dashreviews/{id}', [ProfessionistApiController::class, 'getDashReviews']);
 
 // FRONTENTD LENDING PAGE 
 Route::get('/landingPage', [GuestApiController::class, 'landingPage']);

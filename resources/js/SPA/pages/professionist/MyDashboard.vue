@@ -62,6 +62,7 @@
             </v-expand-transition>
           </v-card>
         </v-col>
+        <v-col> </v-col>
       </v-row>
 
       <v-row>
@@ -69,27 +70,8 @@
           <v-card>
             <v-card-title>General infos</v-card-title>
             <v-system-bar color="warning" height="10"> </v-system-bar>
-            <v-btn-toggle
-              class="d-flex justify-center"
-              v-model="toggle_exclusive"
-            >
-              <v-btn>
-                <v-icon>mdi-android-messages</v-icon>
-              </v-btn>
-              <v-btn>
-                <v-icon>mdi-draw</v-icon>
-              </v-btn>
-              <v-btn>
-                <v-icon>mdi-eye</v-icon>
-              </v-btn>
-              <v-btn>
-                <v-icon>mdi-cash</v-icon>
-              </v-btn>
-            </v-btn-toggle>
-            <v-card v-if="toggle_exclusive == 0"> <BarChart /></v-card>
-            <v-card v-if="toggle_exclusive == 1"> <BarChart /> </v-card>
-            <v-card v-if="toggle_exclusive == 2"> <BarChart /></v-card>
-            <v-card v-if="toggle_exclusive == 3"> <BarChart /> </v-card>
+
+            <v-card> <BarChart /></v-card>
           </v-card>
         </v-col>
       </v-row>
@@ -107,11 +89,12 @@ export default {
       show: false,
       user: [],
       profile: [],
-      toggle_exclusive: 0,
     };
   },
 
-  components: { BarChart },
+  components: {
+    BarChart,
+  },
 
   created() {
     axios.get("/api/user").then((res) => {

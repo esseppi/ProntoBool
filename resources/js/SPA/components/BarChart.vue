@@ -1,15 +1,29 @@
 <template>
-  <Bar
-    :chart-options="chartOptions"
-    :chart-data="chartData"
-    :chart-id="chartId"
-    :dataset-id-key="datasetIdKey"
-    :plugins="plugins"
-    :css-classes="cssClasses"
-    :styles="styles"
-    :width="width"
-    :height="150"
-  />
+  <div>
+    <v-btn-toggle
+      class="d-flex justify-center"
+      :onchange="changeChart()"
+      v-model="toggle_exclusive"
+    >
+      <v-btn>
+        <v-icon>mdi-android-messages</v-icon>
+      </v-btn>
+      <v-btn>
+        <v-icon>mdi-draw</v-icon>
+      </v-btn>
+    </v-btn-toggle>
+    <Bar
+      :chart-options="chartOptions"
+      :chart-data="chartData"
+      :chart-id="chartId"
+      :dataset-id-key="datasetIdKey"
+      :plugins="plugins"
+      :css-classes="cssClasses"
+      :styles="styles"
+      :width="width"
+      :height="150"
+    />
+  </div>
 </template>
 
 <script>
@@ -69,6 +83,8 @@ export default {
   },
   data() {
     return {
+      urlData: ["api/dashleads/", "api/dashreviews/"],
+      toggle_exclusive: 0,
       chartData: {
         availableYears: [],
         labels: [
@@ -92,20 +108,46 @@ export default {
       },
     };
   },
+  methods: {
+    changeChart() {
+      console.log(this.toggle_exclusive);
+      axios
+        .get(this.urlData[this.toggle_exclusive] + this.$route.params.id)
+        .then((res) => {
+          console.log(res.data[0]);
+          this.chartData.datasets[0].data = [
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          ];
+          res.data[0].forEach((element) => {
+            this.chartData.datasets[0].data.splice(
+              this.chartData.labels.indexOf(element["month"]),
+              1,
+              element["COUNT(id)"]
+            );
+            if (this.chartData.availableYears.includes(element["year"])) {
+              this.chartData.availableYears.push(element["year"]);
+            }
+            this.chartData;
+          });
+        });
+    },
+  },
   created() {
-    axios.get("api/dashleads/" + this.$route.params.id).then((res) => {
-      res.data[0].forEach((element) => {
-        this.chartData.datasets[0].data.splice(
-          this.chartData.labels.indexOf(element["month"]),
-          1,
-          element["COUNT(id)"]
-        );
-        if (!this.chartData.availableYears.includes(element["year"])) {
-          this.chartData.availableYears.push(element["year"]);
-        }
-        console.log(this.chartData.availableYears);
+    axios
+      .get(this.urlData[this.toggle_exclusive] + this.$route.params.id)
+      .then((res) => {
+        res.data[0].forEach((element) => {
+          this.chartData.datasets[0].data.splice(
+            this.chartData.labels.indexOf(element["month"]),
+            1,
+            element["COUNT(id)"]
+          );
+          if (this.chartData.availableYears.includes(element["year"])) {
+            this.chartData.availableYears.push(element["year"]);
+          }
+          this.chartData;
+        });
       });
-    });
   },
 };
 </script>
